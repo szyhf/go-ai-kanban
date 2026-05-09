@@ -86,6 +86,31 @@ func (r *AttachmentRepo) Delete(id domain.UUID) error {
 	return nil
 }
 
+// FindOrphanedFiles returns attachments not linked to any workspace.
+func (r *AttachmentRepo) FindOrphanedFiles() ([]domain.Attachment, error) {
+	rows, err := r.db.Query(`
+		SELECT a.id, a.file_path, a.original_name, a.mime_type,
+		       a.size_bytes, a.hash, a.created_at, a.updated_at
+		FROM attachments a
+		LEFT JOIN workspace_attachments wa ON wa.attachment_id = a.id
+		WHERE wa.id IS NULL
+	`)
+	if err != nil {
+		return nil, fmt.Errorf("find orphaned files: %w", err)
+	}
+	defer rows.Close()
+
+	var attachments []domain.Attachment
+	for rows.Next() {
+		var a domain.Attachment
+		if err := scanAttachment(rows, &a); err != nil {
+			return nil, fmt.Errorf("scan attachment: %w", err)
+		}
+		attachments = append(attachments, a)
+	}
+	return attachments, rows.Err()
+}
+
 // --- WorkspaceAttachmentRepo ---
 
 // WorkspaceAttachmentRepo provides data access for the workspace-attachment junction.
