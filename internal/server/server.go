@@ -8,70 +8,121 @@ import (
 	"os"
 	"strings"
 
+	"github.com/go-chi/chi/v5"
+	chimw "github.com/go-chi/chi/v5/middleware"
+
 	"github.com/xuzhiping7/ai-kanban/internal/config"
 	"github.com/xuzhiping7/ai-kanban/internal/database"
 	"github.com/xuzhiping7/ai-kanban/internal/server/middleware"
 )
 
-// NewHandler builds the root HTTP handler with all routes and middleware.
-func NewHandler(cfg *config.Config, db *database.DB, logger *slog.Logger) (http.Handler, error) {
-	mux := http.NewServeMux()
+// NewRouter builds the root HTTP handler with all routes and middleware.
+// Route structure matches the Rust version's axum router exactly.
+func NewRouter(cfg *config.Config, db *database.DB, logger *slog.Logger) http.Handler {
+	r := chi.NewRouter()
 
-	// Health check.
-	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"success":true,"data":null}`))
+	// Global middleware (outermost first).
+	r.Use(chimw.RealIP)
+	r.Use(middleware.RequestID)
+	r.Use(middleware.Logger(logger))
+	r.Use(middleware.Recovery(logger))
+	r.Use(middleware.CORS(cfg.Server.AllowedOrigins))
+	r.Use(chimw.Compress(5))
+
+	// Frontend SPA serving (root level).
+	r.Get("/", serveFrontendRoot(cfg))
+	r.Get("/*", serveFrontend(cfg))
+
+	// API routes.
+	r.Route("/api", func(r chi.Router) {
+		// API-level middleware.
+		r.Use(middleware.ValidateOrigin(logger, middleware.OriginValidationConfig{
+			AllowedOrigins: cfg.Server.AllowedOrigins,
+		}))
+		r.Use(middleware.LogServerErrors(logger))
+
+		// Health check.
+		r.Get("/health", healthCheck)
+
+		// System info.
+		r.Get("/info", infoHandler(cfg))
+
+		// Phase 2+ routes will be added here as stubs:
+		// r.Mount("/workspaces", workspaceRouter(cfg, db))
+		// r.Mount("/execution-processes", executionProcessRouter(cfg, db))
+		// r.Mount("/tags", tagRouter(cfg, db))
+		// r.Mount("/sessions", sessionRouter(cfg, db))
+		// r.Mount("/repos", repoRouter(cfg, db))
+		// r.Mount("/auth", authRouter(cfg, db))
+		// r.Mount("/scratch", scratchRouter(cfg, db))
+		// r.Mount("/attachments", attachmentRouter(cfg, db))
+		// r.Get("/events", sseHandler(cfg, db))
+		// r.Get("/search", searchHandler(cfg, db))
+		// r.Get("/releases", releasesHandler(cfg))
+		// r.Mount("/preview", previewRouter(cfg))
+		// r.Get("/terminal/ws", terminalWSHandler(cfg, db))
+		// r.Post("/approvals/{id}/respond", approvalRespondHandler(cfg, db))
+		// r.Get("/approvals/stream/ws", approvalStreamWSHandler(cfg, db))
+		// r.Mount("/remote", remoteRouter(cfg, db))
+		// r.Post("/webrtc/offer", webrtcOfferHandler(cfg, db))
+		// r.Post("/webrtc/candidate", webrtcCandidateHandler(cfg, db))
 	})
 
-	// TODO: Register API routes here.
+	return r
+}
 
-	// Frontend SPA serving (must be last).
-	if distDir := cfg.Frontend.DistDir; distDir != "" {
-		spa := spaHandler{distDir: distDir}
-		mux.Handle("/", spa)
+// healthCheck returns a simple health response.
+func healthCheck(w http.ResponseWriter, _ *http.Request) {
+	Success(w, map[string]string{"status": "ok"})
+}
+
+// infoHandler returns system information.
+func infoHandler(cfg *config.Config) http.HandlerFunc {
+	return func(w http.ResponseWriter, _ *http.Request) {
+		Success(w, map[string]interface{}{
+			"mode":     cfg.Server.Mode,
+			"dbDriver": cfg.Database.Driver,
+		})
 	}
-
-	// Apply middleware chain.
-	var handler http.Handler = mux
-	handler = middleware.RequestID(handler)
-	handler = middleware.Logger(logger)(handler)
-	handler = middleware.Recovery(logger)(handler)
-	handler = middleware.CORS(cfg.Server.AllowedOrigins)(handler)
-
-	return handler, nil
 }
 
-// spaHandler serves a Single Page Application from a directory.
-type spaHandler struct {
-	distDir string
-	fileServer http.Handler
+// serveFrontendRoot serves index.html for the root path.
+func serveFrontendRoot(cfg *config.Config) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		serveSPAFile(cfg, w, r, "index.html")
+	}
 }
 
-func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// Lazy-init file server.
-	if h.fileServer == nil {
-		if _, err := os.Stat(h.distDir); os.IsNotExist(err) {
-			http.NotFound(w, r)
+// serveFrontend serves static files with SPA fallback.
+func serveFrontend(cfg *config.Config) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		path := strings.TrimPrefix(r.URL.Path, "/")
+		if path == "" {
+			path = "index.html"
+		}
+
+		// Try exact file match.
+		filePath := cfg.Frontend.DistDir + "/" + path
+		if info, err := os.Stat(filePath); err == nil && !info.IsDir() {
+			http.ServeFile(w, r, filePath)
 			return
 		}
-		h.fileServer = http.FileServer(http.Dir(h.distDir))
+
+		// Fallback to index.html for SPA routing.
+		serveSPAFile(cfg, w, r, "index.html")
 	}
-
-	path := r.URL.Path
-
-	// Try serving the exact file.
-	filePath := h.distDir + path
-	if info, err := os.Stat(filePath); err == nil && !info.IsDir() {
-		h.fileServer.ServeHTTP(w, r)
-		return
-	}
-
-	// Fallback to index.html for SPA routing.
-	r.URL.Path = "/"
-	h.fileServer.ServeHTTP(w, r)
 }
 
-// EmbedFrontend embeds pre-built frontend assets.
+func serveSPAFile(cfg *config.Config, w http.ResponseWriter, r *http.Request, name string) {
+	filePath := cfg.Frontend.DistDir + "/" + name
+	if _, err := os.Stat(filePath); err != nil {
+		http.Error(w, "frontend not built", http.StatusServiceUnavailable)
+		return
+	}
+	http.ServeFile(w, r, filePath)
+}
+
+// EmbedFrontend serves pre-built frontend assets from an embedded FS.
 func EmbedFrontend(embeddedFS embed.FS) http.Handler {
 	sub, err := fs.Sub(embeddedFS, "dist")
 	if err != nil {
@@ -88,7 +139,7 @@ func EmbedFrontend(embeddedFS embed.FS) http.Handler {
 
 		// Try exact file.
 		path := strings.TrimPrefix(r.URL.Path, "/")
-		if f, err := embeddedFS.Open("dist/" + path); err == nil {
+		if f, err := sub.Open(path); err == nil {
 			f.Close()
 			fileServer.ServeHTTP(w, r)
 			return

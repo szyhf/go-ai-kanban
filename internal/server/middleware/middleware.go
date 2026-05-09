@@ -3,9 +3,11 @@ package middleware
 import (
 	"log/slog"
 	"net/http"
+	"slices"
 	"strings"
 	"time"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
 
@@ -67,7 +69,7 @@ func CORS(allowedOrigins []string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			origin := r.Header.Get("Origin")
-			if isAllowedOrigin(origin, allowedOrigins) {
+			if slices.Contains(allowedOrigins, "*") || slices.Contains(allowedOrigins, origin) {
 				w.Header().Set("Access-Control-Allow-Origin", origin)
 			} else if origins != "" {
 				w.Header().Set("Access-Control-Allow-Origin", origins)
@@ -88,13 +90,28 @@ func CORS(allowedOrigins []string) func(http.Handler) http.Handler {
 	}
 }
 
-func isAllowedOrigin(origin string, allowed []string) bool {
-	for _, a := range allowed {
-		if a == "*" || a == origin {
-			return true
-		}
+// LogServerErrors logs 5xx responses. Matches Rust's log_server_errors middleware.
+func LogServerErrors(logger *slog.Logger) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			wrapped := &responseWriter{ResponseWriter: w, statusCode: http.StatusOK}
+			next.ServeHTTP(wrapped, r)
+
+			if wrapped.statusCode >= 500 {
+				// Try to get the chi route pattern for better logging.
+				routePattern := "-"
+				if ctx := chi.RouteContext(r.Context()); ctx != nil {
+					routePattern = ctx.RoutePattern()
+				}
+				logger.Error("server error",
+					"method", r.Method,
+					"uri", r.URL.RequestURI(),
+					"route", routePattern,
+					"status", wrapped.statusCode,
+				)
+			}
+		})
 	}
-	return false
 }
 
 type responseWriter struct {

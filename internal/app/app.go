@@ -51,10 +51,7 @@ func (a *App) Run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	handler, err := server.NewHandler(a.Config, a.DB, a.Logger)
-	if err != nil {
-		return fmt.Errorf("build handler: %w", err)
-	}
+	handler := server.NewRouter(a.Config, a.DB, a.Logger)
 
 	srv := &http.Server{
 		Addr:    a.Config.Address(),
