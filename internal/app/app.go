@@ -14,7 +14,11 @@ import (
 
 	"github.com/xuzhiping7/ai-kanban/internal/config"
 	"github.com/xuzhiping7/ai-kanban/internal/database"
+	"github.com/xuzhiping7/ai-kanban/internal/git"
+	"github.com/xuzhiping7/ai-kanban/internal/handler"
+	"github.com/xuzhiping7/ai-kanban/internal/repository"
 	"github.com/xuzhiping7/ai-kanban/internal/server"
+	"github.com/xuzhiping7/ai-kanban/internal/service"
 )
 
 // App is the top-level application container.
@@ -51,11 +55,41 @@ func (a *App) Run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	handler := server.NewRouter(a.Config, a.DB, a.Logger)
+	r := server.NewRouter(a.Config, a.DB, a.Logger)
+
+	// Wire up all services, repos, and handlers.
+	gitSvc := git.NewService()
+	msgStore := service.NewMsgStore()
+	eventSvc := service.NewEventService(msgStore, a.DB.DB)
+
+	repoRepo := repository.NewGitRepoRepo(a.DB.DB)
+	tagRepo := repository.NewTagRepo(a.DB.DB)
+	scratchRepo := repository.NewScratchRepo(a.DB.DB)
+	sessionRepo := repository.NewSessionRepo(a.DB.DB)
+	wsRepo := repository.NewWorkspaceRepo(a.DB.DB)
+	wsRepoRepo := repository.NewWorkspaceRepoRepo(a.DB.DB)
+	execRepo := repository.NewExecutionProcessRepo(a.DB.DB)
+	execStateRepo := repository.NewExecutionProcessRepoStateRepo(a.DB.DB)
+	attachRepo := repository.NewAttachmentRepo(a.DB.DB)
+	wsAttachRepo := repository.NewWorkspaceAttachmentRepo(a.DB.DB)
+
+	repoSvc := service.NewRepoService(repoRepo, gitSvc)
+	filesystemSvc := service.NewFilesystemService(gitSvc)
+	fileSvc := service.NewFileService("", attachRepo, wsAttachRepo)
+	queueSvc := service.NewQueuedMessageService()
+
+	h := handler.NewHandler(
+		repoSvc, gitSvc, filesystemSvc, fileSvc, eventSvc, msgStore, queueSvc,
+		repoRepo, tagRepo, scratchRepo, sessionRepo, wsRepo, wsRepoRepo,
+		execRepo, execStateRepo, attachRepo, wsAttachRepo,
+	)
+
+	// Register handler routes under /api.
+	r.Route("/api", h.RegisterRoutes)
 
 	srv := &http.Server{
 		Addr:    a.Config.Address(),
-		Handler: handler,
+		Handler: r,
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},

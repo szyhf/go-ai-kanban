@@ -18,7 +18,8 @@ import (
 
 // NewRouter builds the root HTTP handler with all routes and middleware.
 // Route structure matches the Rust version's axum router exactly.
-func NewRouter(cfg *config.Config, db *database.DB, logger *slog.Logger) http.Handler {
+// The returned chi.Router can be used to mount additional route groups.
+func NewRouter(cfg *config.Config, db *database.DB, logger *slog.Logger) *chi.Mux {
 	r := chi.NewRouter()
 
 	// Global middleware (outermost first).
@@ -46,26 +47,6 @@ func NewRouter(cfg *config.Config, db *database.DB, logger *slog.Logger) http.Ha
 
 		// System info.
 		r.Get("/info", infoHandler(cfg))
-
-		// Phase 2+ routes will be added here as stubs:
-		// r.Mount("/workspaces", workspaceRouter(cfg, db))
-		// r.Mount("/execution-processes", executionProcessRouter(cfg, db))
-		// r.Mount("/tags", tagRouter(cfg, db))
-		// r.Mount("/sessions", sessionRouter(cfg, db))
-		// r.Mount("/repos", repoRouter(cfg, db))
-		// r.Mount("/auth", authRouter(cfg, db))
-		// r.Mount("/scratch", scratchRouter(cfg, db))
-		// r.Mount("/attachments", attachmentRouter(cfg, db))
-		// r.Get("/events", sseHandler(cfg, db))
-		// r.Get("/search", searchHandler(cfg, db))
-		// r.Get("/releases", releasesHandler(cfg))
-		// r.Mount("/preview", previewRouter(cfg))
-		// r.Get("/terminal/ws", terminalWSHandler(cfg, db))
-		// r.Post("/approvals/{id}/respond", approvalRespondHandler(cfg, db))
-		// r.Get("/approvals/stream/ws", approvalStreamWSHandler(cfg, db))
-		// r.Mount("/remote", remoteRouter(cfg, db))
-		// r.Post("/webrtc/offer", webrtcOfferHandler(cfg, db))
-		// r.Post("/webrtc/candidate", webrtcCandidateHandler(cfg, db))
 	})
 
 	return r

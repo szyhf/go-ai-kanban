@@ -1,80 +1,53 @@
 package server
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/xuzhiping7/ai-kanban/internal/httputil"
 )
 
-// ApiResponse is the standard JSON response envelope matching the Rust version.
-// All API responses use this two-layer wrapper: {success, data, error_data, message}.
-type ApiResponse struct {
-	Success   bool        `json:"success"`
-	Data      interface{} `json:"data,omitempty"`
-	ErrorData interface{} `json:"error_data,omitempty"`
-	Message   string      `json:"message,omitempty"`
-}
+// Re-export response helpers from httputil for backward compatibility.
+// New code should import httputil directly.
+
+// ApiResponse is the standard JSON response envelope.
+type ApiResponse = httputil.ApiResponse
 
 // Success sends a successful JSON response.
 func Success(w http.ResponseWriter, data interface{}) {
-	writeJSON(w, http.StatusOK, ApiResponse{
-		Success: true,
-		Data:    data,
-	})
+	httputil.Success(w, data)
 }
 
 // SuccessMessage sends a successful JSON response with a message.
 func SuccessMessage(w http.ResponseWriter, message string) {
-	writeJSON(w, http.StatusOK, ApiResponse{
-		Success: true,
-		Message: message,
-	})
+	httputil.SuccessMessage(w, message)
 }
 
 // Created sends a 201 Created response with data.
 func Created(w http.ResponseWriter, data interface{}) {
-	writeJSON(w, http.StatusCreated, ApiResponse{
-		Success: true,
-		Data:    data,
-	})
+	httputil.Created(w, data)
 }
 
 // Error sends an error response with the given status code and message.
 func Error(w http.ResponseWriter, code int, message string) {
-	writeJSON(w, code, ApiResponse{
-		Success: false,
-		Message: message,
-	})
+	httputil.Error(w, code, message)
 }
 
 // ErrorWithData sends an error response with additional error data.
 func ErrorWithData(w http.ResponseWriter, code int, message string, errData interface{}) {
-	writeJSON(w, code, ApiResponse{
-		Success:   false,
-		Message:   message,
-		ErrorData: errData,
-	})
+	httputil.ErrorWithData(w, code, message, errData)
 }
 
 // NotFound sends a 404 response.
 func NotFound(w http.ResponseWriter, message string) {
-	if message == "" {
-		message = "not found"
-	}
-	Error(w, http.StatusNotFound, message)
+	httputil.NotFound(w, message)
 }
 
 // BadRequest sends a 400 response.
 func BadRequest(w http.ResponseWriter, message string) {
-	Error(w, http.StatusBadRequest, message)
+	httputil.BadRequest(w, message)
 }
 
 // InternalError sends a 500 response.
 func InternalError(w http.ResponseWriter, message string) {
-	Error(w, http.StatusInternalServerError, message)
-}
-
-func writeJSON(w http.ResponseWriter, code int, v interface{}) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(code)
-	json.NewEncoder(w).Encode(v)
+	httputil.InternalError(w, message)
 }
