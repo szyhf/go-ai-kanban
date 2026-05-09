@@ -149,30 +149,83 @@ func (db *DB) isMigrationApplied(name string) (bool, error) {
 }
 
 func (db *DB) applyMigration(name, content string) error {
-	tx, err := db.Begin()
-	if err != nil {
-		return fmt.Errorf("begin tx: %w", err)
-	}
-	defer tx.Rollback()
+	// Use raw SQL transaction management instead of Go's sql.Tx.
+	// Several migrations use multi-transaction patterns:
+	//   COMMIT; PRAGMA foreign_keys=OFF; BEGIN TRANSACTION; ...
+	// Go's sql.Tx cannot handle these patterns, so we manage transactions
+	// at the SQL level, tracking state with inTx.
+	inTx := false
 
-	// Split by semicolons and execute each statement.
+	// Start an initial implicit transaction (matching sqlx behavior).
+	// Migrations that begin with "COMMIT;" will end this transaction.
+	if _, err := db.Exec("BEGIN TRANSACTION"); err != nil {
+		return fmt.Errorf("begin: %w", err)
+	}
+	inTx = true
+
 	statements := splitSQL(content)
 	for _, stmt := range statements {
 		stmt = strings.TrimSpace(stmt)
 		if stmt == "" {
 			continue
 		}
-		if _, err := tx.Exec(stmt); err != nil {
-			return fmt.Errorf("exec statement: %w\nstatement: %s", err, truncate(stmt, 200))
+		upper := strings.ToUpper(stmt)
+
+		var err error
+		switch {
+		case upper == "COMMIT" || strings.HasPrefix(upper, "COMMIT "):
+			if inTx {
+				_, err = db.Exec("COMMIT")
+				if err == nil {
+					inTx = false
+				}
+			}
+
+		case upper == "BEGIN" || strings.HasPrefix(upper, "BEGIN "):
+			if !inTx {
+				_, err = db.Exec("BEGIN TRANSACTION")
+				if err == nil {
+					inTx = true
+				}
+			}
+
+		case strings.HasPrefix(upper, "PRAGMA"):
+			// PRAGMAs run as-is in the current transaction state.
+			// foreign_keys pragmas: always after COMMIT, so inTx=false.
+			// foreign_key_check: always inside BEGIN..COMMIT, so inTx=true.
+			_, err = db.Exec(stmt)
+
+		default:
+			if !inTx {
+				if _, e := db.Exec("BEGIN TRANSACTION"); e != nil {
+					return fmt.Errorf("begin: %w", e)
+				}
+				inTx = true
+			}
+			_, err = db.Exec(stmt)
+		}
+
+		if err != nil {
+			if inTx {
+				db.Exec("ROLLBACK")
+			}
+			return fmt.Errorf("exec: %w\nstatement: %s", err, truncate(stmt, 200))
 		}
 	}
 
-	_, err = tx.Exec("INSERT INTO _migrations (name) VALUES (?)", name)
-	if err != nil {
+	// Commit any remaining open transaction.
+	if inTx {
+		if _, err := db.Exec("COMMIT"); err != nil {
+			return fmt.Errorf("final commit: %w", err)
+		}
+	}
+
+	// Record migration as applied.
+	if _, err := db.Exec("INSERT INTO _migrations (name) VALUES (?)", name); err != nil {
 		return fmt.Errorf("record migration: %w", err)
 	}
 
-	return tx.Commit()
+	return nil
 }
 
 // Close closes the database connection.
@@ -181,11 +234,13 @@ func (db *DB) Close() error {
 }
 
 // splitSQL splits SQL content into individual statements,
-// handling multi-line statements and comments.
+// handling multi-line statements, comments, and BEGIN...END compound blocks
+// (used in CREATE TRIGGER/FUNCTION).
 func splitSQL(content string) []string {
 	var statements []string
 	var current strings.Builder
 	inString := false
+	compoundDepth := 0 // Track BEGIN...END nesting in triggers/functions
 
 	lines := strings.Split(content, "\n")
 	for _, line := range lines {
@@ -196,6 +251,48 @@ func splitSQL(content string) []string {
 			continue
 		}
 
+		upper := strings.ToUpper(trimmed)
+		words := strings.Fields(upper)
+
+		// Detect standalone BEGIN while building a statement (trigger/function compound block).
+		// "BEGIN TRANSACTION" is NOT a compound start — it's transaction control.
+		if compoundDepth == 0 && current.Len() > 0 && len(words) == 1 && words[0] == "BEGIN" {
+			compoundDepth++
+			for _, ch := range line {
+				current.WriteRune(ch)
+			}
+			current.WriteRune('\n')
+			continue
+		}
+
+		// Inside a compound block: accumulate without splitting on semicolons.
+		if compoundDepth > 0 {
+			for _, ch := range line {
+				current.WriteRune(ch)
+			}
+			current.WriteRune('\n')
+
+			// Check for END (closing the compound block).
+			if len(words) > 0 {
+				first := strings.TrimSuffix(words[0], ";")
+				if first == "END" {
+					compoundDepth--
+					if compoundDepth == 0 && strings.Contains(trimmed, ";") {
+						// Extract the complete trigger/function statement.
+						stmt := strings.TrimSpace(current.String())
+						stmt = strings.TrimSuffix(stmt, ";")
+						stmt = strings.TrimSpace(stmt)
+						if stmt != "" {
+							statements = append(statements, stmt)
+						}
+						current.Reset()
+					}
+				}
+			}
+			continue
+		}
+
+		// Normal line: split on semicolons.
 		for _, ch := range line {
 			if ch == '\'' {
 				inString = !inString
@@ -213,7 +310,6 @@ func splitSQL(content string) []string {
 		current.WriteRune('\n')
 	}
 
-	// Add remaining content.
 	if remaining := strings.TrimSpace(current.String()); remaining != "" {
 		statements = append(statements, remaining)
 	}
