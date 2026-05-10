@@ -9,12 +9,20 @@ yarn-error.log*
 lerna-debug.log*
 
 # Build artifacts
-**/target/
 dist/
 build/
 *.tgz
 *.tar.gz
 remote-frontend/dist/
+
+# Go build cache
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
 
 # IDE and editor files
 .vscode/
