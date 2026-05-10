@@ -61,6 +61,7 @@ func setupTestHandler(t *testing.T) (*Handler, *chi.Mux) {
 		repoSvc, gitSvc, filesystemSvc, fileSvc, eventSvc, msgStore, queueSvc,
 		repoRepo, tagRepo, scratchRepo, sessionRepo, wsRepo, wsRepoRepo,
 		execRepo, execStateRepo, attachRepo, wsAttachRepo,
+		nil, nil, // containerSvc, ptySvc — not needed in tests
 	)
 
 	r := chi.NewRouter()

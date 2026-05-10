@@ -5,7 +5,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
+	"github.com/xuzhiping7/ai-kanban/internal/executor"
 	"github.com/xuzhiping7/ai-kanban/internal/git"
+	"github.com/xuzhiping7/ai-kanban/internal/pty"
 	"github.com/xuzhiping7/ai-kanban/internal/repository"
 	"github.com/xuzhiping7/ai-kanban/internal/service"
 )
@@ -30,6 +32,11 @@ type Handler struct {
 	execStateRepo *repository.ExecutionProcessRepoStateRepo
 	attachRepo *repository.AttachmentRepo
 	wsAttachRepo *repository.WorkspaceAttachmentRepo
+
+	// New services for execution and terminal.
+	containerSvc *executor.ContainerService
+	ptySvc       *pty.Service
+	ptyHandler   *ptyHandler
 }
 
 // NewHandler creates a Handler with all dependencies injected.
@@ -51,8 +58,10 @@ func NewHandler(
 	execStateRepo *repository.ExecutionProcessRepoStateRepo,
 	attachRepo *repository.AttachmentRepo,
 	wsAttachRepo *repository.WorkspaceAttachmentRepo,
+	containerSvc *executor.ContainerService,
+	ptySvc *pty.Service,
 ) *Handler {
-	return &Handler{
+	h := &Handler{
 		repoSvc:    repoSvc,
 		gitSvc:     gitSvc,
 		filesystem: filesystem,
@@ -70,7 +79,13 @@ func NewHandler(
 		execStateRepo: execStateRepo,
 		attachRepo: attachRepo,
 		wsAttachRepo: wsAttachRepo,
+		containerSvc: containerSvc,
+		ptySvc:       ptySvc,
 	}
+	if ptySvc != nil {
+		h.ptyHandler = newPTYHandler(ptySvc)
+	}
+	return h
 }
 
 // RegisterRoutes registers all handler routes on the chi router.
@@ -85,6 +100,10 @@ func (h *Handler) RegisterRoutes(r chi.Router) {
 	r.Route("/execution-processes", h.registerExecutionRoutes)
 	r.Get("/events", h.handleSSE)
 	r.Get("/search", h.handleSearch)
+	// WebSocket terminal endpoint.
+	if h.ptyHandler != nil {
+		r.Get("/terminal/ws", h.ptyHandler.handleTerminal)
+	}
 }
 
 // setupMultipartUpload is a helper that limits multipart form size.

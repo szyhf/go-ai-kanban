@@ -14,8 +14,10 @@ import (
 
 	"github.com/xuzhiping7/ai-kanban/internal/config"
 	"github.com/xuzhiping7/ai-kanban/internal/database"
+	"github.com/xuzhiping7/ai-kanban/internal/executor"
 	"github.com/xuzhiping7/ai-kanban/internal/git"
 	"github.com/xuzhiping7/ai-kanban/internal/handler"
+	"github.com/xuzhiping7/ai-kanban/internal/pty"
 	"github.com/xuzhiping7/ai-kanban/internal/repository"
 	"github.com/xuzhiping7/ai-kanban/internal/server"
 	"github.com/xuzhiping7/ai-kanban/internal/service"
@@ -72,16 +74,28 @@ func (a *App) Run() error {
 	execStateRepo := repository.NewExecutionProcessRepoStateRepo(a.DB.DB)
 	attachRepo := repository.NewAttachmentRepo(a.DB.DB)
 	wsAttachRepo := repository.NewWorkspaceAttachmentRepo(a.DB.DB)
+	turnRepo := repository.NewCodingAgentTurnRepo(a.DB.DB)
 
 	repoSvc := service.NewRepoService(repoRepo, gitSvc)
 	filesystemSvc := service.NewFilesystemService(gitSvc)
 	fileSvc := service.NewFileService("", attachRepo, wsAttachRepo)
 	queueSvc := service.NewQueuedMessageService()
 
+	// Execution infrastructure.
+	processStore := executor.NewProcessStore()
+	containerSvc := executor.NewContainerService(
+		execRepo, execStateRepo, turnRepo, wsRepoRepo,
+		gitSvc, processStore, queueSvc,
+	)
+
+	// PTY terminal service.
+	ptySvc := pty.NewService()
+
 	h := handler.NewHandler(
 		repoSvc, gitSvc, filesystemSvc, fileSvc, eventSvc, msgStore, queueSvc,
 		repoRepo, tagRepo, scratchRepo, sessionRepo, wsRepo, wsRepoRepo,
 		execRepo, execStateRepo, attachRepo, wsAttachRepo,
+		containerSvc, ptySvc,
 	)
 
 	// Register handler routes under /api.
@@ -104,6 +118,10 @@ func (a *App) Run() error {
 
 	<-ctx.Done()
 	a.Logger.Info("shutting down...")
+
+	// Clean up execution processes and PTY sessions.
+	processStore.KillAll()
+	ptySvc.CloseAll()
 
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
