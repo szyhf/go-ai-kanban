@@ -142,7 +142,7 @@ Each developer needs their own GitHub OAuth app so they can sign in from their p
 3. Click **Register application**
 4. Copy the **Client ID** shown on the next page
 5. Click **Generate a new client secret** and copy it immediately (it won't be shown again)
-6. Add both values to `crates/remote/.env.remote`:
+6. Add both values to your `.env` file:
    ```bash
    # Replace with your own values
    GITHUB_OAUTH_CLIENT_ID=your_client_id
