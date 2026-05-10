@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Tag represents a reusable tag/template for tasks.
-// Matches Rust crates/db/src/models/tag.rs.
 type Tag struct {
 	ID        UUID      `json:"id"`
 	TagName   string    `json:"tag_name"`

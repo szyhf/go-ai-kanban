@@ -62,7 +62,7 @@ function stripPrefixes(p?: string): string {
 // macOS alias handling; no-ops on other OSes
 function normalizeMacPrivateAliases(p: string): string {
   if (!p) return p;
-  // Very light normalization mimicking path.rs logic
+  // Very light normalization for macOS /private symlinks
   if (p === '/private/var') return '/var';
   if (p.startsWith('/private/var/'))
     return '/var/' + p.slice('/private/var/'.length);
@@ -106,7 +106,7 @@ function relativizePath(p: string, workspaceRoot?: string): string {
 
   if (!workspaceRoot) return normalized;
 
-  // Simple prefix strip; robust handling is on backend (path.rs).
+  // Simple prefix strip; robust handling is on the backend.
   // This keeps the UI stable even when run inside macOS /private/var containers.
   const wr = normalizeMacPrivateAliases(workspaceRoot.replace(/\/+$/, ''));
   if (

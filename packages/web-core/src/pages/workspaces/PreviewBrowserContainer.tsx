@@ -37,8 +37,8 @@ const noop = () => {};
 
 /**
  * Hostnames that are considered loopback/local.
- * Kept in sync with `LOOPBACK_HOSTS` in usePreviewUrl.ts and
- * `is_loopback_redirect_host` in the Rust preview-proxy crate.
+ * Kept in sync with `LOOPBACK_HOSTS` in usePreviewUrl.ts and the
+ * corresponding backend loopback-host check.
  */
 const LOOPBACK_HOSTS = new Set([
   'localhost',
@@ -342,7 +342,7 @@ export function PreviewBrowserContainer({
   );
 
   // ─── Navigation Bridge ────────────────────────────────────────────────────
-  // The Rust proxy injects devtools_script.js into every iframe response.
+  // The preview proxy injects devtools_script.js into every iframe response.
   // That script reports navigation events (URL changes, page ready) via postMessage.
   // PreviewDevToolsBridge wraps the postMessage protocol for type-safe communication.
   //

@@ -278,20 +278,18 @@ packages/web-core/src/features/kanban-agent/
 
 #### 5.2.1 Agent 服务
 
-在 `crates/services/` 下新增 `kanban-agent` 模块：
+在 `internal/service/` 下新增 `kanban-agent` 包：
 
 ```
-crates/services/kanban-agent/
-├── mod.rs
-├── agent.rs              # Agent 核心逻辑
-├── intents.rs            # 意图识别
-├── actions.rs            # 操作执行
-├── context.rs            # 上下文收集与传递
-├── suggestions.rs        # 主动建议生成
+internal/service/kanban-agent/
+├── agent.go              # Agent 核心逻辑
+├── intents.go            # 意图识别
+├── actions.go            # 操作执行
+├── context.go            # 上下文收集与传递
+├── suggestions.go        # 主动建议生成
 └── prompts/
-    ├── mod.rs
-    ├── system.rs         # 系统提示词
-    └── templates.rs      # 各类操作的提示词模板
+    ├── system.go         # 系统提示词
+    └── templates.go      # 各类操作的提示词模板
 ```
 
 #### 5.2.2 API 端点
@@ -577,5 +575,5 @@ crates/services/kanban-agent/
 - 看板容器实现：`packages/web-core/src/features/kanban/ui/KanbanContainer.tsx`
 - 看板页面布局：`packages/web-core/src/pages/kanban/ProjectKanban.tsx`
 - 路由定义：`packages/local-web/src/routes/_app.projects.$projectId.tsx`
-- 后端服务架构：`crates/services/`
+- 后端服务架构：`internal/service/`
 - UI 组件库：`packages/ui/src/components/`

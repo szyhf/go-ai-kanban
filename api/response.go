@@ -6,7 +6,7 @@ import (
 )
 
 // Response is the standard API response envelope.
-// Must match the Rust project's ApiResponse<T> format exactly.
+// Format: {success, data, error_data, message}.
 type Response struct {
 	Success   bool            `json:"success"`
 	Data      json.RawMessage `json:"data,omitempty"`

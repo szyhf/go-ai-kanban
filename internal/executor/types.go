@@ -15,7 +15,6 @@ type ExitResult struct {
 }
 
 // SpawnedProcess wraps an OS process with control channels.
-// It is the Go equivalent of Rust's SpawnedChild.
 type SpawnedProcess struct {
 	// Cmd is the underlying OS process handle.
 	Cmd *exec.Cmd

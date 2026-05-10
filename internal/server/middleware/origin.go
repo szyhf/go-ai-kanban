@@ -14,7 +14,7 @@ type OriginValidationConfig struct {
 }
 
 // ValidateOrigin validates the Origin header against the Host header.
-// This matches the Rust implementation's custom origin validation (not traditional CORS).
+// This is a custom origin validation (not traditional CORS).
 //
 // Rules:
 //   - Requests without an Origin header are allowed (server-side, curl, etc.)

@@ -1,43 +1,43 @@
 ---
-title: "Troubleshooting"
-description: "Common issues and solutions when using Vibe Kanban"
+title: "故障排除"
+description: "使用 Vibe Kanban 时的常见问题与解决方案"
 ---
 
-## Agent Reports Empty Codebase
+## 编码代理报告代码库为空
 
-If your coding agent reports that the codebase is empty when you create a new task, you may have Git's sparse-checkout feature enabled in your repository.
+如果在创建新任务时，你的编码代理报告代码库为空，可能是因为你的仓库启用了 Git 的 sparse-checkout（稀疏检出）功能。
 
-**Solution:**
+**解决方案：**
 
-Run the following command in the root directory of your repository:
+在仓库的根目录下运行以下命令：
 
 ```bash
 git sparse-checkout disable
 ```
 
-After disabling sparse-checkout, create a new task and try again.
+禁用 sparse-checkout 后，重新创建任务并重试。
 
-## Enabling Debug Logs
+## 启用调试日志
 
-If you need more detailed logs to help debug an issue, you can enable debug-level logging by setting the `VK_LOG_LEVEL` environment variable.
+如果你需要更详细的日志来帮助排查问题，可以通过设置 `VK_LOG_LEVEL` 环境变量来启用 debug 级别的日志。
 
-**Usage:**
+**使用方法：**
 
 ```bash
 VK_LOG_LEVEL=debug npx vibe-kanban
 ```
 
-This will provide verbose logging output that can help identify the root cause of issues.
+这将提供详细的日志输出，帮助你定位问题的根本原因。
 
-## DANGER: Wiping Your Database 
+## 危险操作：清除数据库
 
-If you encounter irrecoverable errors and need to completely wipe your Vibe Kanban database, you can delete the application data directory for your operating system. 
+如果你遇到无法恢复的错误，需要彻底清除 Vibe Kanban 数据库，可以根据你的操作系统删除应用程序数据目录。
 
 <Warning>
-This action is irreversible and will result in the loss of ALL your tasks and settings. Make sure to back up any important information before proceeding.
+此操作不可逆，将导致所有任务和设置的丢失。请在操作前务必备份重要信息。
 </Warning>
 
-**Delete the following directory based on your OS:**
+**根据你的操作系统删除以下目录：**
 
 <Tabs>
 <Tab title="macOS">
@@ -57,8 +57,8 @@ This action is irreversible and will result in the loss of ALL your tasks and se
 %APPDATA%\bloop\vibe-kanban\
 ```
 
-Typically: `C:\Users\<username>\AppData\Roaming\bloop\vibe-kanban\`
+通常位于：`C:\Users\<username>\AppData\Roaming\bloop\vibe-kanban\`
 </Tab>
 </Tabs>
 
-After deleting the application data directory, restart Vibe Kanban to reset with an empty database and default settings.
+删除应用程序数据目录后，重新启动 Vibe Kanban，将以空数据库和默认设置重新初始化。

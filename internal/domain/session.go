@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Session represents an executor session within a workspace.
-// Matches Rust crates/db/src/models/session.rs.
 type Session struct {
 	ID              UUID      `json:"id"`
 	WorkspaceID     UUID      `json:"workspace_id"`

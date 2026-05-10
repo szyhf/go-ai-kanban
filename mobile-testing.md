@@ -1,114 +1,114 @@
-# Testing on Mobile Devices
+# 移动设备测试指南
 
-This guide explains how to access the remote-web frontend from a phone (iPhone/Android) for UI testing. It uses [Tailscale](https://tailscale.com) for stable networking and HTTPS certificates, and [Caddy](https://caddyserver.com) as a reverse proxy — no custom IPs, no random URLs, works on any network.
+本指南介绍如何从手机（iPhone/Android）访问 remote-web 前端进行 UI 测试。使用 [Tailscale](https://tailscale.com) 实现稳定的网络连接和 HTTPS 证书，使用 [Caddy](https://caddyserver.com) 作为反向代理 —— 无需自定义 IP，无需随机 URL，在任何网络环境下均可使用。
 
-**Time to set up**: ~15 minutes (one-time). After that, it's two commands in two terminals.
+**首次搭建时间**：约 15 分钟（一次性操作）。之后只需在两个终端中各执行一条命令即可。
 
 ---
 
-## Prerequisites
+## 前提条件
 
-### 1. Install Tailscale on your Mac
+### 1. 在 Mac 上安装 Tailscale
 
-Download the standalone app from https://tailscale.com/download/mac (recommended). Alternatively, install from the [Mac App Store](https://apps.apple.com/app/tailscale/id1470499037).
+从 https://tailscale.com/download/mac 下载独立应用（推荐）。也可以从 [Mac App Store](https://apps.apple.com/app/tailscale/id1470499037) 安装。
 
-After installing:
+安装后：
 
-1. Open the Tailscale app
-2. Click the Tailscale icon in your menu bar (top-right of screen)
-3. Click **Log in** — this opens a browser window to sign in
-4. Once signed in, the icon turns active — you're connected
+1. 打开 Tailscale 应用
+2. 点击屏幕右上角菜单栏中的 Tailscale 图标
+3. 点击 **Log in** —— 这会打开浏览器窗口进行登录
+4. 登录成功后，图标变为活跃状态 —— 你已连接
 
-> If you already have Tailscale installed, skip this step.
+> 如果你已经安装了 Tailscale，可以跳过此步骤。
 
-### 2. Install Tailscale on your phone
+### 2. 在手机上安装 Tailscale
 
-- **iPhone**: [App Store — Tailscale](https://apps.apple.com/app/tailscale/id1470499037)
-- **Android**: [Play Store — Tailscale](https://play.google.com/store/apps/details?id=com.tailscale.ipn)
+- **iPhone**：[App Store — Tailscale](https://apps.apple.com/app/tailscale/id1470499037)
+- **Android**：[Play Store — Tailscale](https://play.google.com/store/apps/details?id=com.tailscale.ipn)
 
-Sign in with the **same account** you used on your Mac.
+使用与 Mac 上 **相同的账号** 登录。
 
-### 3. Install Caddy on your Mac
+### 3. 在 Mac 上安装 Caddy
 
 ```bash
 brew install caddy
 ```
 
-### 4. Verify both devices are connected
+### 4. 验证两台设备均已连接
 
-Click the Tailscale icon in your Mac menu bar — you should see your Mac listed as connected. You can also verify from the terminal:
+点击 Mac 菜单栏中的 Tailscale 图标 —— 你应该能看到你的 Mac 显示为已连接。也可以在终端中验证：
 
 ```bash
 tailscale status
 ```
 
-Both your Mac and phone should appear:
+你的 Mac 和手机都应该出现在列表中：
 
 ```
 100.x.x.x   johns-macbook     user@   macOS   -
 100.x.x.x   iphone-john      user@   iOS     -
 ```
 
-> If your phone shows "offline", open the Tailscale app on your phone and make sure the toggle is ON.
+> 如果手机显示"offline"，请在手机上打开 Tailscale 应用，确保开关已打开。
 
-### 5. Enable MagicDNS and HTTPS Certificates
+### 5. 启用 MagicDNS 和 HTTPS 证书
 
-1. Open https://login.tailscale.com/admin/dns
-2. Scroll to the **Nameservers** section — make sure **MagicDNS** is enabled. If you see a "Disable MagicDNS..." button, it's already enabled.
-3. Scroll to the bottom of the page to the **"HTTPS Certificates"** section
-4. Click **"Enable HTTPS"** if it's not already enabled. If you see a "Disable HTTPS..." button, it's already enabled.
+1. 打开 https://login.tailscale.com/admin/dns
+2. 滚动到 **Nameservers** 部分 —— 确保 **MagicDNS** 已启用。如果你看到"Disable MagicDNS..."按钮，说明它已经启用。
+3. 滚动到页面底部，找到 **"HTTPS Certificates"** 部分
+4. 如果尚未启用，点击 **"Enable HTTPS"**。如果你看到"Disable HTTPS..."按钮，说明它已经启用。
 
-> Enabling HTTPS means your machine names and tailnet DNS name will appear on a public certificate ledger. This is how Let's Encrypt works and is normal.
+> 启用 HTTPS 意味着你的机器名称和 tailnet DNS 名称将出现在公开的证书注册表中。这是 Let's Encrypt 的工作方式，属于正常行为。
 
 ---
 
-## One-Time Setup
+## 一次性配置
 
-All commands below auto-detect your Tailscale hostname — no manual copy-pasting needed.
+以下所有命令都会自动检测你的 Tailscale 主机名 —— 无需手动复制粘贴。
 
-### Step 1 — Save your hostname to your shell profile
+### 步骤 1 —— 将主机名保存到 shell 配置文件中
 
-Run the command for your shell:
+根据你使用的 shell 执行对应命令：
 
-**zsh** (default on macOS):
+**zsh**（macOS 默认）：
 ```bash
 echo "export TS_HOSTNAME=$(tailscale status --json | python3 -c "import sys,json; print(json.load(sys.stdin)['Self']['DNSName'].rstrip('.'))")" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-**bash**:
+**bash**：
 ```bash
 echo "export TS_HOSTNAME=$(tailscale status --json | python3 -c "import sys,json; print(json.load(sys.stdin)['Self']['DNSName'].rstrip('.'))")" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-**fish**:
+**fish**：
 ```bash
 set -Ux TS_HOSTNAME (tailscale status --json | python3 -c "import sys,json; print(json.load(sys.stdin)['Self']['DNSName'].rstrip('.'))") 
 ```
 
-Verify it worked:
+验证是否生效：
 ```bash
 echo "Your hostname: $TS_HOSTNAME"
 ```
 
-Verify it resolves:
+验证 DNS 解析是否正常：
 
 ```bash
 ping -c 1 $TS_HOSTNAME
 ```
 
-### Step 2 — Generate HTTPS certificates
+### 步骤 2 —— 生成 HTTPS 证书
 
 ```bash
 tailscale cert $TS_HOSTNAME
 ```
 
-This creates `$TS_HOSTNAME.crt` and `$TS_HOSTNAME.key` in the current directory. These are real Let's Encrypt certificates — trusted by all browsers and devices, no extra installation needed on your phone.
+这会在当前目录创建 `$TS_HOSTNAME.crt` 和 `$TS_HOSTNAME.key` 文件。这些是真正的 Let's Encrypt 证书 —— 受所有浏览器和设备信任，无需在手机上额外安装。
 
-> Certs expire after 90 days. Re-run `tailscale cert $TS_HOSTNAME` to renew.
+> 证书有效期为 90 天。到期后重新运行 `tailscale cert $TS_HOSTNAME` 即可续期。
 
-### Step 3 — Create the Caddyfile
+### 步骤 3 —— 创建 Caddyfile
 
 ```bash
 cat > Caddyfile << EOF
@@ -124,66 +124,66 @@ ${TS_HOSTNAME}:8443 {
 EOF
 ```
 
-**What this does:**
-- `https://$TS_HOSTNAME:3001` → proxies to the remote server on localhost:3000
-- `https://$TS_HOSTNAME:8443` → proxies to the relay server on localhost:8082
+**功能说明：**
+- `https://$TS_HOSTNAME:3001` → 代理到 localhost:3000 上的 remote server
+- `https://$TS_HOSTNAME:8443` → 代理到 localhost:8082 上的 relay server
 
-> We use separate ports (3001 for the app, 8443 for the relay) to avoid conflicts with other services on your Tailscale hostname.
+> 我们使用不同的端口（3001 用于应用，8443 用于 relay），以避免与你 Tailscale 主机名上的其他服务产生冲突。
 
-### Step 4 — Create a GitHub OAuth app
+### 步骤 4 —— 创建 GitHub OAuth 应用
 
-Each developer needs their own GitHub OAuth app so they can sign in from their phone. The app only needs `read:user` and `user:email` scopes — no special permissions required.
+每位开发者需要创建自己的 GitHub OAuth 应用，以便从手机登录。该应用只需要 `read:user` 和 `user:email` 权限范围 —— 不需要特殊权限。
 
-1. Go to https://github.com/settings/applications/new
-2. Fill in the form:
-   - **Application name**: anything (e.g. `vibe-kanban-mobile-yourname`)
-   - **Homepage URL**: run `echo "https://$TS_HOSTNAME:3001"` and paste the output
-   - **Authorization callback URL**: run `echo "https://$TS_HOSTNAME:3001/v1/oauth/github/callback"` and paste the output
-3. Click **Register application**
-4. Copy the **Client ID** shown on the next page
-5. Click **Generate a new client secret** and copy it immediately (it won't be shown again)
-6. Add both values to your `.env` file:
+1. 访问 https://github.com/settings/applications/new
+2. 填写表单：
+   - **Application name**：任意名称（例如 `vibe-kanban-mobile-yourname`）
+   - **Homepage URL**：运行 `echo "https://$TS_HOSTNAME:3001"` 并粘贴输出结果
+   - **Authorization callback URL**：运行 `echo "https://$TS_HOSTNAME:3001/v1/oauth/github/callback"` 并粘贴输出结果
+3. 点击 **Register application**
+4. 复制下一页面显示的 **Client ID**
+5. 点击 **Generate a new client secret** 并立即复制（此密钥不会再次显示）
+6. 将这两个值添加到你的 `.env` 文件中：
    ```bash
-   # Replace with your own values
+   # 替换为你自己的值
    GITHUB_OAUTH_CLIENT_ID=your_client_id
    GITHUB_OAUTH_CLIENT_SECRET=your_client_secret
    ```
 
-> `.env.remote` is already in `.gitignore` — your credentials stay local. If the file already has these variables from the shared dev setup, replace them with your own.
+> `.env.remote` 已在 `.gitignore` 中 —— 你的凭据仅保存在本地。如果该文件已有共享开发环境配置中的这些变量，请替换为你自己的值。
 
-## Running
+## 运行
 
-There are two modes: **Docker mode** (simple, no hot reload) and **Dev mode** (Vite hot reload for frontend changes). Pick whichever fits your workflow.
+有两种模式：**Docker 模式**（简单，无热重载）和 **开发模式**（Vite 热重载，适合前端修改）。根据你的工作流程选择合适的模式。
 
 ---
 
-### Option A — Docker Mode (Simple)
+### 选项 A —— Docker 模式（简单）
 
-The frontend is built inside Docker. No hot reload — you need to restart Docker to see frontend changes. Good for testing backend changes or doing final QA on your phone.
+前端在 Docker 内构建。没有热重载 —— 需要重启 Docker 才能看到前端的变更。适合测试后端变更或在手机上进行最终 QA。
 
-**Two terminals:**
+**需要两个终端：**
 
 ```bash
-# Terminal 1 — Docker stack
+# 终端 1 —— Docker 容器栈
 VITE_RELAY_API_BASE_URL=https://$TS_HOSTNAME:8443 \
 PUBLIC_BASE_URL=https://$TS_HOSTNAME:3001 \
 pnpm remote:dev
 
-# Terminal 2 — Caddy
+# 终端 2 —— Caddy
 caddy run --config Caddyfile
 ```
 
-> The first time you run with these env vars, Docker rebuilds the frontend with the Tailscale URLs baked in. This takes a few minutes. Subsequent runs with the same URLs are cached.
+> 首次使用这些环境变量运行时，Docker 会使用 Tailscale URL 重新构建前端。这需要几分钟时间。后续使用相同 URL 运行时会使用缓存。
 
 ---
 
-### Option B — Dev Mode (Vite Hot Reload)
+### 选项 B —— 开发模式（Vite 热重载）
 
-The frontend runs outside Docker via Vite, so you get instant hot reload when editing React components. Caddy routes API requests to Docker and everything else to Vite.
+前端通过 Vite 在 Docker 外运行，因此编辑 React 组件时可以即时热重载。Caddy 将 API 请求路由到 Docker，其他请求路由到 Vite。
 
-**Step 1 — Generate `Caddyfile.dev`:**
+**步骤 1 —— 生成 `Caddyfile.dev`：**
 
-This file can't use shell variables directly, so generate it once (re-run if your hostname changes):
+此文件不能直接使用 shell 变量，因此需要生成一次（如果主机名变更，需要重新运行）：
 
 ```bash
 cat > Caddyfile.dev << EOF
@@ -212,101 +212,101 @@ ${TS_HOSTNAME}:8443 {
 EOF
 ```
 
-**What this routes:**
-- `/api/*`, `/v1/*`, `/shape/*` → Docker remote server (`:3000`)
-- Everything else → Vite dev server (`:3002`) with hot reload
-- `:8443` → Relay server (`:8082`)
+**路由规则：**
+- `/api/*`、`/v1/*`、`/shape/*` → Docker remote server (`:3000`)
+- 其他所有请求 → Vite 开发服务器 (`:3002`)，支持热重载
+- `:8443` → Relay 服务器 (`:8082`)
 
-**Step 2 — Run four terminals:**
+**步骤 2 —— 需要四个终端：**
 
 ```bash
-# Terminal 1 — Docker backends (no frontend build needed)
+# 终端 1 —— Docker 后端（无需构建前端）
 PUBLIC_BASE_URL=https://$TS_HOSTNAME:3001 \
 pnpm remote:dev
 
-# Terminal 2 — Vite dev server (hot reload)
+# 终端 2 —— Vite 开发服务器（热重载）
 VITE_RELAY_API_BASE_URL=https://$TS_HOSTNAME:8443 \
 pnpm --filter @vibe/remote-web dev
 
-# Terminal 3 — Caddy (dev config)
+# 终端 3 —— Caddy（开发配置）
 caddy run --config Caddyfile.dev
 
-# Terminal 4 (optional) — Local desktop client
+# 终端 4（可选） —— 本地桌面客户端
 VK_SHARED_API_BASE=https://$TS_HOSTNAME:3001 \
 VK_SHARED_RELAY_API_BASE=https://$TS_HOSTNAME:8443 \
 pnpm run dev
 ```
 
-> Vite binds to `localhost:3002`. The `Caddyfile.dev` uses `localhost` (not `127.0.0.1`) to match — this avoids IPv6/IPv4 mismatch issues on macOS.
+> Vite 绑定到 `localhost:3002`。`Caddyfile.dev` 使用 `localhost`（而非 `127.0.0.1`）来匹配 —— 这可以避免 macOS 上的 IPv6/IPv4 不匹配问题。
 
 ---
 
-### Accessing from your phone
+### 从手机访问
 
-1. Open the Tailscale app and make sure it's connected (toggle ON)
-2. Open Safari (or Chrome) and go to: `https://<your-hostname>:3001` (run `echo "https://$TS_HOSTNAME:3001"` if you forgot it)
-3. Sign in with GitHub
-4. You're in
+1. 打开 Tailscale 应用，确保已连接（开关为 ON）
+2. 打开 Safari（或 Chrome），访问：`https://<your-hostname>:3001`（如果忘记了，运行 `echo "https://$TS_HOSTNAME:3001"`）
+3. 使用 GitHub 登录
+4. 开始使用
 
-To go back to regular localhost development, just run `pnpm remote:dev` without env vars — no cleanup needed.
+要回到普通的 localhost 开发模式，只需不带环境变量运行 `pnpm remote:dev` 即可 —— 无需清理。
 
 ---
 
-## Quick Reference
+## 快速参考
 
-**Docker mode (2 terminals):**
+**Docker 模式（2 个终端）：**
 ```bash
-# Terminal 1
+# 终端 1
 VITE_RELAY_API_BASE_URL=https://$TS_HOSTNAME:8443 \
 PUBLIC_BASE_URL=https://$TS_HOSTNAME:3001 \
 pnpm remote:dev
 
-# Terminal 2
+# 终端 2
 caddy run --config Caddyfile
 
-# On phone
+# 在手机上访问
 echo "https://$TS_HOSTNAME:3001"
 ```
 
-**Dev mode (4 terminals):**
+**开发模式（4 个终端）：**
 ```bash
-# Terminal 1 — Docker backends
+# 终端 1 —— Docker 后端
 PUBLIC_BASE_URL=https://$TS_HOSTNAME:3001 \
 pnpm remote:dev
 
-# Terminal 2 — Vite
+# 终端 2 —— Vite
 VITE_RELAY_API_BASE_URL=https://$TS_HOSTNAME:8443 \
 pnpm --filter @vibe/remote-web dev
 
-# Terminal 3 — Caddy
+# 终端 3 —— Caddy
 caddy run --config Caddyfile.dev
 
-# Terminal 4 (optional) — Desktop client
+# 终端 4（可选） —— 桌面客户端
 VK_SHARED_API_BASE=https://$TS_HOSTNAME:3001 \
 VK_SHARED_RELAY_API_BASE=https://$TS_HOSTNAME:8443 \
 pnpm run dev
 
-# On phone
+# 在手机上访问
 echo "https://$TS_HOSTNAME:3001"
 ```
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-| Problem | Solution |
+| 问题 | 解决方案 |
 |---|---|
-| `$TS_HOSTNAME` is empty | Re-run: `source ~/.zshrc` or restart your terminal |
-| Phone can't reach the URL | Open Tailscale app on phone → make sure toggle is ON. Run `tailscale status` on Mac to verify both devices are connected |
-| Phone shows certificate warning | Re-run `tailscale cert $TS_HOSTNAME` — certs may have expired (90-day lifetime) |
-| `tailscale cert` fails with "does not support getting TLS certs" | Enable HTTPS certificates in Tailscale admin: https://login.tailscale.com/admin/dns → scroll to "HTTPS Certificates" at the bottom → click "Enable HTTPS" |
-| `tailscale cert` fails with "invalid domain" | Make sure `$TS_HOSTNAME` includes the tailnet name (e.g. `johns-macbook.tail99xyz.ts.net`). Re-run Step 1 |
-| OAuth redirect fails on phone | Run `echo "https://$TS_HOSTNAME:3001/v1/oauth/github/callback"` and verify it matches what's in GitHub settings |
-| First build is very slow | Normal — Docker rebuilds the frontend with the new `VITE_RELAY_API_BASE_URL`. Subsequent builds are cached |
-| Relay features (terminal, logs) don't work on phone | Check that `VITE_RELAY_API_BASE_URL` in the command matches your Caddy relay block (`https://$TS_HOSTNAME:8443`) |
-| Caddy asks for password | Normal on first run — it installs a local CA certificate. Enter your macOS password |
-| `caddy run` fails with "address already in use" | Another Caddy instance is running. Kill it: `pkill caddy`, then retry |
-| `ping $TS_HOSTNAME` doesn't resolve | Enable MagicDNS in Tailscale admin: https://login.tailscale.com/admin/dns |
-| Dev mode: Vite page loads but API calls fail | Make sure Docker is running (`pnpm remote:dev`) and you're using `Caddyfile.dev` (not `Caddyfile`) |
-| Dev mode: hot reload doesn't work on phone | Vite HMR uses WebSocket — verify Caddy is proxying to `localhost:3002` (not `127.0.0.1:3002`). Regenerate `Caddyfile.dev` if needed |
-| Dev mode: blank page or 502 on phone | Vite dev server may not be running. Check Terminal 2 is up with `pnpm --filter @vibe/remote-web dev` |
+| `$TS_HOSTNAME` 为空 | 重新运行：`source ~/.zshrc` 或重启终端 |
+| 手机无法访问 URL | 在手机上打开 Tailscale 应用 → 确保开关为 ON。在 Mac 上运行 `tailscale status` 验证两台设备均已连接 |
+| 手机显示证书警告 | 重新运行 `tailscale cert $TS_HOSTNAME` —— 证书可能已过期（有效期 90 天） |
+| `tailscale cert` 报错"does not support getting TLS certs" | 在 Tailscale 管理后台启用 HTTPS 证书：https://login.tailscale.com/admin/dns → 滚动到底部"HTTPS Certificates" → 点击"Enable HTTPS" |
+| `tailscale cert` 报错"invalid domain" | 确保 `$TS_HOSTNAME` 包含 tailnet 名称（例如 `johns-macbook.tail99xyz.ts.net`）。重新执行步骤 1 |
+| 手机上 OAuth 重定向失败 | 运行 `echo "https://$TS_HOSTNAME:3001/v1/oauth/github/callback"` 并验证与 GitHub 设置中的回调 URL 一致 |
+| 首次构建非常慢 | 正常现象 —— Docker 使用新的 `VITE_RELAY_API_BASE_URL` 重新构建前端。后续构建会使用缓存 |
+| Relay 功能（终端、日志）在手机上不工作 | 检查命令中的 `VITE_RELAY_API_BASE_URL` 是否与 Caddy relay 配置块匹配（`https://$TS_HOSTNAME:8443`） |
+| Caddy 要求输入密码 | 首次运行时正常 —— 它在安装本地 CA 证书。输入你的 macOS 密码即可 |
+| `caddy run` 报错"address already in use" | 有另一个 Caddy 实例正在运行。终止它：`pkill caddy`，然后重试 |
+| `ping $TS_HOSTNAME` 无法解析 | 在 Tailscale 管理后台启用 MagicDNS：https://login.tailscale.com/admin/dns |
+| 开发模式：Vite 页面加载成功但 API 调用失败 | 确保 Docker 正在运行（`pnpm remote:dev`），并且你使用的是 `Caddyfile.dev`（而非 `Caddyfile`） |
+| 开发模式：手机上热重载不工作 | Vite HMR 使用 WebSocket —— 验证 Caddy 代理到的是 `localhost:3002`（而非 `127.0.0.1:3002`）。如有需要，重新生成 `Caddyfile.dev` |
+| 开发模式：手机上空白页或 502 错误 | Vite 开发服务器可能未运行。检查终端 2 中的 `pnpm --filter @vibe/remote-web dev` 是否正常运行 |

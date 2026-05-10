@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Task represents a kanban task within a project.
-// Matches Rust crates/db/src/models/task.rs.
 type Task struct {
 	ID                 UUID       `json:"id"`
 	ProjectID          UUID       `json:"project_id"`

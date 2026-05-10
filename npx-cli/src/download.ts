@@ -207,7 +207,7 @@ export async function ensureDesktopBundle(
   tauriPlatform: string,
   onProgress?: ProgressCallback
 ): Promise<DesktopBundleInfo> {
-  // In local dev mode, use Tauri bundle from npx-cli/dist/tauri/<platform>/
+  // In local dev mode, use desktop bundle from npx-cli/dist/tauri/<platform>/
   if (LOCAL_DEV_MODE) {
     const localDir = path.join(LOCAL_DIST_DIR, 'tauri', tauriPlatform);
     if (fs.existsSync(localDir)) {
@@ -223,7 +223,7 @@ export async function ensureDesktopBundle(
     }
     throw new Error(
       `Local desktop bundle not found: ${localDir}\n` +
-        `Run './local-build.sh --desktop' first to build the Tauri app.`
+        `Run './local-build.sh --desktop' first to build the desktop app.`
     );
   }
 

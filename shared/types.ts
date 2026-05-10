@@ -1,6 +1,6 @@
 // TypeScript types for the ai-kanban API.
 //
-// Originally generated from Rust types. Now manually maintained alongside the Go backend.
+// Manually maintained alongside the Go backend.
 // When adding or changing API types, update this file to match the Go struct JSON tags.
 
 // If you are an AI, and you absolutely have to edit this file, please confirm with the user first.

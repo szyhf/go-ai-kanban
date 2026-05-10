@@ -90,7 +90,7 @@ func CORS(allowedOrigins []string) func(http.Handler) http.Handler {
 	}
 }
 
-// LogServerErrors logs 5xx responses. Matches Rust's log_server_errors middleware.
+// LogServerErrors logs 5xx responses.
 func LogServerErrors(logger *slog.Logger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

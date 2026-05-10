@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Workspace represents a working branch/context for a task.
-// Matches Rust crates/db/src/models/workspace.rs.
 type Workspace struct {
 	ID              UUID       `json:"id"`
 	TaskID          *UUID      `json:"task_id"`
@@ -19,7 +18,6 @@ type Workspace struct {
 }
 
 // WorkspaceWithStatus embeds Workspace and adds runtime status.
-// Matches Rust's WorkspaceWithStatus with #[serde(flatten)] on workspace.
 type WorkspaceWithStatus struct {
 	Workspace
 	IsRunning bool `json:"is_running"`

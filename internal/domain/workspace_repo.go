@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // WorkspaceRepo is a junction between workspace and repo with a target branch.
-// Matches Rust crates/db/src/models/workspace_repo.rs.
 type WorkspaceRepo struct {
 	ID           UUID      `json:"id"`
 	WorkspaceID  UUID      `json:"workspace_id"`

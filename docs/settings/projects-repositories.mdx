@@ -90,8 +90,8 @@ pip install -r requirements.txt
 # Multiple commands
 npm install && npm run build:deps
 
-# Rust project
-cargo fetch
+# Go project
+go mod download
 ```
 
 <Info>
@@ -125,8 +125,6 @@ Commands that run **when a workspace closes**. Use this to clean up resources an
 |---------------|---------|
 | JavaScript/TypeScript (Prettier) | `npx prettier --write .` |
 | JavaScript/TypeScript (ESLint) | `npx eslint --fix .` |
-| Rust (cargo fmt) | `cargo fmt` |
-| Rust (Clippy) | `cargo clippy --fix --allow-dirty` |
 | Python (Black) | `black .` |
 | Python (Ruff) | `ruff check --fix .` |
 | Go | `go fmt ./...` |
@@ -140,8 +138,8 @@ docker compose down && rm -rf tmp/
 # Format code after agent changes
 npx prettier --write . && npx eslint --fix .
 
-# Rust formatting and linting
-cargo fmt && cargo clippy --fix --allow-dirty
+# Go formatting and linting
+gofmt -w . && go vet ./...
 
 # Use || true to ignore failures
 pkill -f "node server.js" || true

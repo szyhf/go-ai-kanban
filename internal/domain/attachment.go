@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Attachment represents a stored file (originally "image", renamed to "attachment").
-// Matches Rust crates/db/src/models/file.rs File struct.
 type Attachment struct {
 	ID           UUID      `json:"id"`
 	FilePath     string    `json:"file_path"`

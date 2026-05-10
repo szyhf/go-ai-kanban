@@ -26,7 +26,7 @@ Once you've created a project, you can access the project settings by clicking t
 
 ### Setup Scripts
 
-Setup scripts will be run before the coding agent is executed. This is useful for installing dependencies, for example you might run `npm install` or `cargo build`. This will save you time as your agent won't need to figure out that these commands haven't already been run.
+Setup scripts will be run before the coding agent is executed. This is useful for installing dependencies, for example you might run `npm install` or `go mod download`. This will save you time as your agent won't need to figure out that these commands haven't already been run.
 
 <Note>
 Each time a coding agent is executed it runs in a [git worktree](https://git-scm.com/docs/git-worktree) which is unlikely to contain your dependencies, configs, .env etc.

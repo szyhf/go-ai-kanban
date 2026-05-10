@@ -1,61 +1,61 @@
-# Contributing & Change Control
+# 贡献与变更管理
 
-## Change Control Policy
+## 变更管理策略
 
-All changes to production code are governed by formal change control procedures. These procedures ensure that modifications are reviewed, approved, and deployed in a controlled manner.
+所有对生产代码的变更均遵循正式的变更管理流程。这些流程确保所有修改都经过审查、批准，并以受控的方式进行部署。
 
-## Code Review Requirements
+## 代码审查要求
 
-A maintainer must review pull requests before they are merged into any production branch. No code changes shall be merged without explicit approval from a qualified reviewer.
+合并到任何生产分支之前，必须有维护者对 Pull Request 进行审查。任何代码变更未经合格审查者的明确批准，不得合并。
 
-## Pull Request Process
+## Pull Request 流程
 
-1. Create a feature or fix branch from the base branch.
-2. Make changes and open a pull request.
-3. Obtain the required review and approval from a maintainer.
-4. All required CI checks must pass before merging.
-5. Merge only after approval has been granted and CI checks have passed.
+1. 从基础分支创建功能分支或修复分支。
+2. 进行修改并提交 Pull Request。
+3. 获得维护者必要的审查和批准。
+4. 所有必需的 CI 检查必须在合并前通过。
+5. 仅在获得批准且 CI 检查通过后方可合并。
 
-## Separation of Duties
+## 职责分离
 
-Development, testing, and deployment of changes shall not be performed by a single individual without approval and oversight. All significant changes require independent review to ensure correctness, security, and alignment with project standards.
+变更的开发、测试和部署不得由单一人员在未经批准和监督的情况下独立完成。所有重要变更均需经过独立审查，以确保正确性、安全性以及与项目标准的一致性。
 
-## Coding Practices
+## 编码实践
 
-Contributors are expected to follow the project's coding standards throughout the development cycle. These standards cover code quality, style consistency, and security.
+贡献者应在整个开发周期中遵循项目的编码规范。这些规范涵盖代码质量、风格一致性和安全性。
 
-### Style & Formatting
+### 风格与格式
 
-- **Go**: Code must be formatted with `gofmt`. Use `camelCase` for functions, `PascalCase` for exported types. Group imports by stdlib/external/internal.
-- **TypeScript/React**: Code must pass ESLint and Prettier (2 spaces, single quotes, 80-column width). Use `PascalCase` for components, `camelCase` for variables and functions, and `kebab-case` for file names.
-- Run `pnpm run format` before submitting a pull request.
-- Run `pnpm run lint` to verify there are no linting errors.
+- **Go**: 代码必须使用 `gofmt` 格式化。函数使用 `camelCase` 命名，导出类型使用 `PascalCase` 命名。导入按标准库/第三方库/内部库分组。
+- **TypeScript/React**: 代码必须通过 ESLint 和 Prettier 检查（2 个空格缩进、单引号、80 列宽度）。组件使用 `PascalCase` 命名，变量和函数使用 `camelCase` 命名，文件名使用 `kebab-case` 命名。
+- 提交 Pull Request 前运行 `pnpm run format`。
+- 运行 `pnpm run lint` 确保没有 lint 错误。
 
-### Code Quality
+### 代码质量
 
-- Keep functions small and focused on a single responsibility.
-- Write clear, self-documenting code. Add comments only where the logic is not self-evident.
-- Do not introduce unnecessary abstractions or over-engineer solutions.
-- Do not manually edit generated files. Keep `shared/types.ts` in sync with Go struct definitions in `internal/domain/`.
+- 保持函数短小，专注于单一职责。
+- 编写清晰、自文档化的代码。仅在逻辑不够直观时添加注释。
+- 不要引入不必要的抽象或过度工程化的解决方案。
+- 不要手动编辑生成的文件。保持 `shared/types.ts` 与 `internal/domain/` 中的 Go 结构体定义同步。
 
-### Testing
+### 测试
 
-- **Go**: Add unit tests alongside code in `_test.go` files. Run `go test -race ./...` to verify.
-- **TypeScript**: Ensure `pnpm run check` and `pnpm run lint` pass. Include lightweight tests (e.g., Vitest) for new runtime logic.
-- All CI checks must pass before a pull request can be merged.
+- **Go**: 在 `_test.go` 文件中添加单元测试。运行 `go test -race ./...` 进行验证。
+- **TypeScript**: 确保 `pnpm run check` 和 `pnpm run lint` 通过。为新的运行时逻辑添加轻量级测试（如 Vitest）。
+- 所有 CI 检查必须在 Pull Request 合并前通过。
 
-### Security
+### 安全
 
-- Never commit secrets, credentials, or API keys. Use `.env` for local configuration.
-- Be mindful of common vulnerabilities (injection, XSS, insecure deserialization) when writing code that handles user input or external data.
-- Report security issues privately to the maintainers rather than opening a public issue.
+- 绝不提交密钥、凭证或 API 密钥。使用 `.env` 进行本地配置。
+- 在编写处理用户输入或外部数据的代码时，注意常见漏洞（注入、XSS、不安全的反序列化）。
+- 发现安全问题请私下联系维护者，而非公开发布 issue。
 
-### Commit Messages
+### 提交信息
 
-- Use clear, descriptive commit messages that explain the _why_ behind a change.
-- Prefix with a conventional type where appropriate (e.g., `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`).
-- Keep the subject line under 72 characters. Use the body for additional context if needed.
+- 使用清晰、具有描述性的提交信息，说明变更的_原因_。
+- 适当使用约定式类型前缀（如 `feat:`、`fix:`、`chore:`、`docs:`、`refactor:`、`test:`）。
+- 主题行保持在 72 个字符以内。如需更多上下文，可在正文中补充说明。
 
-## Scope
+## 适用范围
 
-These procedures apply to all production branches in this repository.
+以上流程适用于本仓库中的所有生产分支。

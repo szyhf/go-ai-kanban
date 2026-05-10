@@ -6,7 +6,6 @@ import (
 )
 
 // ExecutionProcess represents a running or completed execution (script, agent, etc.).
-// Matches Rust crates/db/src/models/execution_process.rs.
 type ExecutionProcess struct {
 	ID             UUID            `json:"id"`
 	SessionID      UUID            `json:"session_id"`
@@ -29,7 +28,6 @@ type CreateExecutionProcess struct {
 }
 
 // ExecutionProcessRepoState tracks before/after commit state for each repo.
-// Matches Rust crates/db/src/models/execution_process_repo_state.rs.
 type ExecutionProcessRepoState struct {
 	ID                  UUID      `json:"id"`
 	ExecutionProcessID  UUID      `json:"execution_process_id"`
@@ -50,7 +48,6 @@ type CreateExecutionProcessRepoState struct {
 }
 
 // CodingAgentTurn represents a single turn in an AI agent conversation.
-// Matches Rust crates/db/src/models/coding_agent_turn.rs.
 type CodingAgentTurn struct {
 	ID                  UUID      `json:"id"`
 	ExecutionProcessID  UUID      `json:"execution_process_id"`

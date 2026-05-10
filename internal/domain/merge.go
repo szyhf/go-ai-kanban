@@ -7,7 +7,6 @@ import (
 )
 
 // PullRequestInfo contains PR metadata for a PR-based merge.
-// Matches Rust crates/db/src/models/merge.rs PullRequestInfo.
 type PullRequestInfo struct {
 	Number          int64      `json:"number"`
 	URL             string     `json:"url"`
@@ -17,7 +16,6 @@ type PullRequestInfo struct {
 }
 
 // DirectMerge represents a direct (non-PR) merge.
-// Matches Rust DirectMerge variant.
 type DirectMerge struct {
 	ID               UUID      `json:"id"`
 	WorkspaceID      UUID      `json:"workspace_id"`
@@ -28,7 +26,6 @@ type DirectMerge struct {
 }
 
 // PrMerge represents a PR-based merge.
-// Matches Rust PrMerge variant.
 type PrMerge struct {
 	ID               UUID            `json:"id"`
 	WorkspaceID      UUID            `json:"workspace_id"`
@@ -39,8 +36,7 @@ type PrMerge struct {
 }
 
 // Merge represents a tagged union of DirectMerge and PrMerge.
-// Matches Rust #[serde(tag = "type", rename_all = "snake_case")].
-// JSON: {"type": "direct", ...} or {"type": "pr", ...}
+// Discriminated by the "type" field (snake_case): {"type": "direct", ...} or {"type": "pr", ...}
 type Merge struct {
 	Type              MergeType `json:"type"`
 	ID                UUID      `json:"id"`
@@ -111,7 +107,6 @@ func (m Merge) AsPr() *PrMerge {
 }
 
 // PullRequest represents a tracked pull request (DB-only, not directly serialized).
-// Matches Rust crates/db/src/models/pull_request.rs.
 // Note: ID is string (hex-encoded), not UUID.
 type PullRequest struct {
 	ID               string      `json:"id"`

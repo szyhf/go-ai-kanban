@@ -180,7 +180,7 @@ func (s *MsgStore) Push(msg LogMsg) {
 		case ch <- msg:
 		default:
 			// Subscriber is too slow; drop the message.
-			// This matches Rust's broadcast behavior (lagged receivers miss messages).
+			// Broadcast behavior: lagged receivers miss messages.
 			_ = id
 		}
 	}

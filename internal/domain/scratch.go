@@ -7,7 +7,6 @@ import (
 )
 
 // Scratch represents a scratchpad entry.
-// Matches Rust crates/db/src/models/scratch.rs.
 // In the DB, scratch_type and payload are separate columns.
 // In the API, they are nested under payload: {type, data}.
 type Scratch struct {
@@ -18,7 +17,6 @@ type Scratch struct {
 }
 
 // ScratchPayload represents the adjacently tagged payload.
-// Matches Rust #[serde(tag = "type", content = "data", rename_all = "SCREAMING_SNAKE_CASE")].
 // JSON: {"type": "DRAFT_TASK", "data": "..."} or {"type": "DRAFT_FOLLOW_UP", "data": {...}}
 type ScratchPayload struct {
 	Type ScratchType     `json:"type"`
@@ -63,7 +61,6 @@ type WorkspacePanelStateData struct {
 }
 
 // WorkspacePrFilterData is the PR filter enum for workspace filters.
-// Matches Rust rename_all = "snake_case".
 type WorkspacePrFilterData string
 
 const (
@@ -73,7 +70,6 @@ const (
 )
 
 // WorkspaceSortByData is the sort-by enum for workspace sorting.
-// Matches Rust rename_all = "snake_case".
 type WorkspaceSortByData string
 
 const (
@@ -82,7 +78,6 @@ const (
 )
 
 // WorkspaceSortOrderData is the sort order enum.
-// Matches Rust rename_all = "snake_case".
 type WorkspaceSortOrderData string
 
 const (

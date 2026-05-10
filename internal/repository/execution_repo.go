@@ -76,7 +76,7 @@ func (r *ExecutionProcessRepo) FindBySessionID(sessionID domain.UUID, includeDro
 	return result, rows.Err()
 }
 
-// Create inserts a new execution process. No transaction is used (intentional, matches Rust).
+// Create inserts a new execution process. No transaction is used (intentional).
 func (r *ExecutionProcessRepo) Create(ep *domain.ExecutionProcess) error {
 	_, err := r.db.Exec(`
 		INSERT INTO execution_processes (id, session_id, run_reason, executor_action, status, exit_code,

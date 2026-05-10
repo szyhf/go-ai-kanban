@@ -7,7 +7,7 @@ import (
 )
 
 // TaskStatus represents the status of a task.
-// Matches Rust serde rename_all = "lowercase".
+// JSON uses lowercase naming.
 type TaskStatus string
 
 const (
@@ -55,7 +55,7 @@ func (s *TaskStatus) UnmarshalJSON(data []byte) error {
 }
 
 // ExecStatus represents the status of an execution process.
-// Matches Rust serde rename_all = "lowercase".
+// JSON uses lowercase naming.
 type ExecStatus string
 
 const (
@@ -102,7 +102,7 @@ func (s *ExecStatus) UnmarshalJSON(data []byte) error {
 }
 
 // RunReason represents why an execution process was started.
-// Matches Rust serde rename_all = "lowercase".
+// JSON uses lowercase naming.
 type RunReason string
 
 const (
@@ -150,7 +150,7 @@ func (r *RunReason) UnmarshalJSON(data []byte) error {
 }
 
 // MergeStatus represents the status of a merge or pull request.
-// Matches Rust serde rename_all = "snake_case".
+// JSON uses snake_case naming.
 type MergeStatus string
 
 const (
@@ -197,7 +197,7 @@ func (s *MergeStatus) UnmarshalJSON(data []byte) error {
 }
 
 // ScratchType represents the type discriminator for scratch payloads.
-// Matches Rust strumDiscriminants rename_all = "SCREAMING_SNAKE_CASE".
+// JSON uses SCREAMING_SNAKE_CASE naming.
 type ScratchType string
 
 const (
@@ -214,7 +214,7 @@ const (
 func (t ScratchType) String() string { return string(t) }
 
 // MergeType represents the type discriminator for Merge variants.
-// Matches Rust serde rename_all = "snake_case".
+// JSON uses snake_case naming.
 type MergeType string
 
 const (

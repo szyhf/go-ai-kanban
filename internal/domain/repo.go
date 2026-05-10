@@ -6,7 +6,6 @@ import (
 )
 
 // Repo represents a git repository tracked by the system.
-// Matches Rust crates/db/src/models/repo.rs.
 type Repo struct {
 	ID                   UUID      `json:"id"`
 	Path                 string    `json:"path"`
@@ -56,7 +55,6 @@ type SearchResult struct {
 }
 
 // RepoWithTargetBranch embeds Repo and adds a target branch.
-// Matches Rust's RepoWithTargetBranch with #[serde(flatten)].
 type RepoWithTargetBranch struct {
 	Repo
 	TargetBranch string `json:"target_branch"`
@@ -71,7 +69,6 @@ type RepoWithCopyFiles struct {
 }
 
 // ExecutorActionField wraps an ExecutorAction stored as JSON in the database.
-// Matches Rust's untagged ExecutorActionField enum.
 type ExecutorActionField struct {
 	Raw json.RawMessage
 }

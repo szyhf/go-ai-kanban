@@ -17,7 +17,6 @@ import (
 )
 
 // NewRouter builds the root HTTP handler with all routes and middleware.
-// Route structure matches the Rust version's axum router exactly.
 // The returned chi.Router can be used to mount additional route groups.
 func NewRouter(cfg *config.Config, db *database.DB, logger *slog.Logger) *chi.Mux {
 	r := chi.NewRouter()

@@ -3,7 +3,6 @@ package domain
 import "time"
 
 // Project represents a kanban project.
-// Matches Rust crates/db/src/models/project.rs.
 type Project struct {
 	ID                   UUID      `json:"id"`
 	Name                 string    `json:"name"`

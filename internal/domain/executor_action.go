@@ -12,9 +12,9 @@ const (
 	ActionReview              ExecutorActionType = "ReviewRequest"
 )
 
-// executorActionWrapper matches the Rust ExecutorAction JSON format:
+// executorActionWrapper handles the ExecutorAction JSON format:
 //   {"typ": {...}, "next_action": null}
-// The Rust struct uses field name `typ` (not `type`) and wraps the enum variant under it.
+// The field name is `typ` (not `type`) and wraps the enum variant under it.
 type executorActionWrapper struct {
 	Typ        json.RawMessage `json:"typ"`
 	NextAction json.RawMessage `json:"next_action,omitempty"`
@@ -50,7 +50,6 @@ type ExecutorAction struct {
 }
 
 // CodingAgentInitialRequest is the payload for a fresh coding agent invocation.
-// Matches Rust crates/executors/src/actions/coding_agent_initial.rs.
 type CodingAgentInitialRequest struct {
 	Prompt         string          `json:"prompt"`
 	ExecutorConfig ExecutorConfig  `json:"executor_config"`
@@ -58,7 +57,6 @@ type CodingAgentInitialRequest struct {
 }
 
 // CodingAgentFollowUpRequest is the payload for resuming a coding agent session.
-// Matches Rust crates/executors/src/actions/coding_agent_follow_up.rs.
 type CodingAgentFollowUpRequest struct {
 	Prompt           string          `json:"prompt"`
 	SessionID        string          `json:"session_id"`
@@ -107,7 +105,6 @@ const (
 )
 
 // ExecutorConfig is the unified executor identity with optional overrides.
-// Matches Rust crates/executors/src/profile.rs ExecutorConfig.
 type ExecutorConfig struct {
 	Executor         BaseCodingAgent   `json:"executor"`
 	Variant          *string           `json:"variant,omitempty"`

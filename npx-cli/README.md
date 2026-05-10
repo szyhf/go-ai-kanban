@@ -1,18 +1,18 @@
 # Vibe Kanban
 
-> A visual project management tool for developers that integrates with git repositories and coding agents like Claude Code and Amp.
+> 一款面向开发者的可视化项目管理工具，集成 git 仓库和 Claude Code、Amp 等编程智能体。
 
-## Quick Start
+## 快速开始
 
-Run vibe kanban instantly without installation:
+无需安装，直接运行：
 
 ```bash
 npx vibe-kanban
 ```
 
-This will launch the application locally and open it in your browser automatically.
+该命令将在本地启动应用并自动在浏览器中打开。
 
-Helpful entrypoints:
+常用入口命令：
 
 ```bash
 npx vibe-kanban --help
@@ -21,162 +21,162 @@ npx vibe-kanban review --help
 npx vibe-kanban mcp --help
 ```
 
-## What is Vibe Kanban?
+## 什么是 Vibe Kanban？
 
-Vibe Kanban is a modern project management tool designed specifically for developers. It helps you organize your coding projects with kanban-style task management while providing powerful integrations with git repositories and AI coding agents.
+Vibe Kanban 是一款专为开发者打造的现代项目管理工具。它通过看板式任务管理帮助您组织编程项目，同时提供与 git 仓库和 AI 编程智能体的深度集成。
 
-### ✨ Key Features
+### ✨ 核心特性
 
-**🗂️ Project Management**
+**🗂️ 项目管理**
 
-- Add git repositories as projects (existing or create new ones)
-- Automatic git integration and repository validation
-- Project search functionality across all files
-- Custom setup and development scripts per project
+- 添加 git 仓库作为项目（支持已有仓库或创建新仓库）
+- 自动 git 集成和仓库验证
+- 跨所有文件的项目搜索功能
+- 每个项目可自定义 setup 和开发脚本
 
-**📋 Task Management**
+**📋 任务管理**
 
-- Create and manage tasks with kanban-style boards
-- Task status tracking (Todo, In Progress, Done)
-- Rich task descriptions and notes
-- Task execution with multiple AI agents
+- 通过看板式面板创建和管理任务
+- 任务状态跟踪（待办、进行中、已完成）
+- 丰富的任务描述和备注
+- 支持多个 AI 智能体执行任务
 
-**🤖 AI Agent Integration**
+**🤖 AI 智能体集成**
 
-- **Claude**: Advanced AI coding assistant
-- **Amp**: Powerful development agent
-- **Echo**: Simple testing/debugging agent
-- Create tasks and immediately start agent execution
-- Follow-up task execution for iterative development
+- **Claude**：高级 AI 编程助手
+- **Amp**：强大的开发智能体
+- **Echo**：简单的测试/调试智能体
+- 创建任务后立即启动智能体执行
+- 支持后续任务执行，实现迭代式开发
 
-**⚡ Development Workflow**
+**⚡ 开发工作流**
 
-- Create isolated git worktrees for each task attempt
-- View diffs of changes made by agents
-- Merge successful changes back to main branch
-- Rebase task branches to stay up-to-date
-- Manual file editing and deletion
-- Integrated development server support
+- 为每次任务尝试创建独立的 git worktree
+- 查看智能体所做更改的 diff
+- 将成功的更改合并回主分支
+- 变基任务分支以保持最新
+- 手动文件编辑和删除
+- 集成开发服务器支持
 
-**🎛️ Developer Tools**
+**🎛️ 开发者工具**
 
-- Browse and validate git repositories from filesystem
-- Open task worktrees in your preferred editor (VS Code, Cursor, Windsurf, IntelliJ, Zed)
-- Real-time execution monitoring and process control
-- Stop running processes individually or all at once
-- Sound notifications for task completion
+- 从文件系统浏览和验证 git 仓库
+- 在您偏好的编辑器中打开任务 worktree（VS Code、Cursor、Windsurf、IntelliJ、Zed）
+- 实时执行监控和进程控制
+- 单独或批量停止正在运行的进程
+- 任务完成声音通知
 
-## How It Works
+## 工作原理
 
-1. **Add Projects**: Import existing git repositories or create new ones
-2. **Create Tasks**: Define what needs to be built or fixed
-3. **Execute with AI**: Let coding agents work on your tasks in isolated environments
-4. **Review Changes**: See exactly what was modified using git diffs
-5. **Merge Results**: Incorporate successful changes into your main codebase
+1. **添加项目**：导入已有的 git 仓库或创建新仓库
+2. **创建任务**：定义需要构建或修复的内容
+3. **AI 执行**：让编程智能体在隔离环境中处理您的任务
+4. **审查更改**：通过 git diff 查看具体修改了什么
+5. **合并结果**：将成功的更改合并到主代码库中
 
-## Core Functionality
+## 核心功能
 
-Vibe Kanban provides a complete project management experience with these key capabilities:
+Vibe Kanban 提供完整的项目管理体验，包含以下核心能力：
 
-**Project Repository Management**
+**项目仓库管理**
 
-- Full CRUD operations for managing coding projects
-- Automatic git repository detection and validation
-- Initialize new repositories or import existing ones
-- Project-wide file search functionality
+- 管理编程项目的完整增删改查操作
+- 自动 git 仓库检测和验证
+- 初始化新仓库或导入已有仓库
+- 项目级文件搜索功能
 
-**Task Lifecycle Management**
+**任务生命周期管理**
 
-- Create, update, and delete tasks with rich descriptions
-- Track task progress through customizable status workflows
-- One-click task creation with immediate AI agent execution
-- Task attempt tracking with detailed execution history
+- 创建、更新和删除带有丰富描述的任务
+- 通过可自定义的状态工作流跟踪任务进度
+- 一键创建任务并立即启动 AI 智能体执行
+- 任务尝试跟踪，附带详细的执行历史
 
-**AI Agent Execution Environment**
+**AI 智能体执行环境**
 
-- Isolated git worktrees for safe code experimentation
-- Real-time execution monitoring and activity logging
-- Process management with ability to stop individual or all processes
-- Support for follow-up executions to iterate on solutions
+- 独立的 git worktree，用于安全的代码实验
+- 实时执行监控和活动日志
+- 进程管理，可停止单个或全部进程
+- 支持后续执行以迭代优化解决方案
 
-**Code Change Management**
+**代码变更管理**
 
-- View detailed diffs of all changes made during task execution
-- Branch status monitoring to track divergence from main
-- One-click merging of successful changes back to main branch
-- Automatic rebasing to keep task branches up-to-date
-- Manual file deletion and cleanup capabilities
+- 查看任务执行期间所有更改的详细 diff
+- 分支状态监控，跟踪与主分支的差异
+- 一键将成功的更改合并回主分支
+- 自动变基以保持任务分支最新
+- 手动文件删除和清理功能
 
-**Development Integration**
+**开发集成**
 
-- Open task worktrees directly in your preferred code editor
-- Start and manage development servers for testing changes
-- Browse local filesystem to add new projects
-- Health monitoring for service availability
+- 直接在您偏好的代码编辑器中打开任务 worktree
+- 启动和管理开发服务器以测试更改
+- 浏览本地文件系统以添加新项目
+- 服务可用性健康监控
 
-## Configuration
+## 配置
 
-Vibe Kanban supports customization through its configuration system:
+Vibe Kanban 支持通过配置系统进行自定义：
 
-- **Editor Integration**: Choose your preferred code editor
-- **Sound Notifications**: Customize completion sounds
-- **Project Defaults**: Set default setup and development scripts
+- **编辑器集成**：选择您偏好的代码编辑器
+- **声音通知**：自定义完成提示音
+- **项目默认设置**：设置默认的 setup 和开发脚本
 
-## Technical Architecture
+## 技术架构
 
-- **Backend**: Go with Chi web framework
-- **Frontend**: React with TypeScript
-- **Database**: SQLite for local data storage
-- **Git Integration**: Native git operations for repository management
-- **Process Management**: Go goroutine-based execution monitoring
+- **后端**：Go + Chi Web 框架
+- **前端**：React + TypeScript
+- **数据库**：SQLite 本地数据存储
+- **Git 集成**：原生 git 操作进行仓库管理
+- **进程管理**：基于 Go goroutine 的执行监控
 
-## Requirements
+## 系统要求
 
-- Node.js (for npx execution)
-- Git (for repository operations)
-- Your preferred code editor (optional, for opening task worktrees)
+- Node.js（用于 npx 执行）
+- Git（用于仓库操作）
+- 您偏好的代码编辑器（可选，用于打开任务 worktree）
 
-## Supported Platforms
+## 支持平台
 
 - Linux x64
 - Windows x64
-- macOS x64 (Intel)
-- macOS ARM64 (Apple Silicon)
+- macOS x64（Intel）
+- macOS ARM64（Apple Silicon）
 
-## Use Cases
+## 使用场景
 
-**🔧 Bug Fixes**
+**🔧 Bug 修复**
 
-- Create a task describing the bug
-- Let an AI agent analyze and fix the issue
-- Review the proposed changes
-- Merge if satisfied, or provide follow-up instructions
+- 创建描述 bug 的任务
+- 让 AI 智能体分析并修复问题
+- 审查建议的更改
+- 如果满意则合并，或提供后续指令
 
-**✨ Feature Development**
+**✨ 功能开发**
 
-- Break down features into manageable tasks
-- Use agents for initial implementation
-- Iterate with follow-up executions
-- Test using integrated development servers
+- 将功能拆分为可管理的任务
+- 使用智能体进行初始实现
+- 通过后续执行进行迭代
+- 使用集成开发服务器进行测试
 
-**🚀 Project Setup**
+**🚀 项目初始化**
 
-- Bootstrap new projects with AI assistance
-- Set up development environments
-- Configure build and deployment scripts
+- 在 AI 辅助下引导新项目
+- 搭建开发环境
+- 配置构建和部署脚本
 
-**📚 Code Documentation**
+**📚 代码文档**
 
-- Generate documentation for existing code
-- Create README files and API documentation
-- Maintain up-to-date project information
+- 为已有代码生成文档
+- 创建 README 文件和 API 文档
+- 保持项目信息的及时更新
 
 ---
 
-**Ready to supercharge your development workflow?**
+**准备好提升您的开发工作流了吗？**
 
 ```bash
 npx vibe-kanban
 ```
 
-_Start managing your projects with the power of AI coding agents today!_
+_立即开始使用 AI 编程智能体的力量管理您的项目！_

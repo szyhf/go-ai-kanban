@@ -6,5 +6,5 @@
 //   - git CLI (os/exec) for working-tree mutations (worktree add/remove,
 //     commit, push, rebase, reset) because the CLI refuses to clobber
 //     uncommitted changes, correctly handles sparse-checkout, and avoids
-//     WSL/Windows repository corruption issues documented by the Rust team.
+//     WSL/Windows repository corruption issues.
 package git

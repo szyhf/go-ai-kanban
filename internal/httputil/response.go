@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// ApiResponse is the standard JSON response envelope matching the Rust version.
+// ApiResponse is the standard JSON response envelope.
 type ApiResponse struct {
 	Success   bool        `json:"success"`
 	Data      interface{} `json:"data,omitempty"`

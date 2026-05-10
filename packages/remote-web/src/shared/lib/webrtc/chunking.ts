@@ -6,7 +6,7 @@
  *   bits 2-1: mode = 0b11 (reliable/ordered)
  *   bit    0: end-of-message (1 = last chunk)
  *
- * Port of crates/relay-webrtc/src/fragment.rs.
+ * Implements the SaltyRTC chunked-dc fragmentation/defragmentation protocol.
  */
 
 const CHUNK_PAYLOAD_SIZE = 60 * 1024;

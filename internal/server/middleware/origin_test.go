@@ -70,7 +70,7 @@ func TestValidateOrigin(t *testing.T) {
 			name:       "https scheme same host",
 			origin:     "https://localhost:3210",
 			host:       "localhost:3210",
-			expectCode: http.StatusOK, // Rust version only compares host+port, not scheme
+			expectCode: http.StatusOK, // only host+port are compared, not scheme
 		},
 		{
 			name:       "port mismatch rejected",

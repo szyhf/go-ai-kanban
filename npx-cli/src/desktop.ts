@@ -4,7 +4,7 @@ import fs from 'fs';
 import os from 'os';
 import type { DesktopBundleInfo } from './download';
 
-type TauriPlatform = string | null;
+type DesktopPlatform = string | null;
 
 interface SentinelMeta {
   type: string;
@@ -20,10 +20,10 @@ const PLATFORM_MAP: Record<string, string> = {
   'windows-arm64': 'windows-aarch64',
 };
 
-// Map NPX-style platform names to Tauri-style platform names
+// Map NPX-style platform names to desktop app platform names
 export function getTauriPlatform(
   npxPlatformDir: string
-): TauriPlatform {
+): DesktopPlatform {
   return PLATFORM_MAP[npxPlatformDir] || null;
 }
 
