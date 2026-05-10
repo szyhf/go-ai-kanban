@@ -58,7 +58,6 @@ export function RemoteAppShell({ children }: RemoteAppShellProps) {
   const isWorkspaceContextRoute = location.pathname.includes("/workspaces");
   const isProjectRoute = /^\/projects\/[^/]+/.test(location.pathname);
 
-
   useCommandBarShortcut(
     () => CommandBarDialog.show(),
     isWorkspaceContextRoute || isProjectRoute,
@@ -175,7 +174,6 @@ export function RemoteAppShell({ children }: RemoteAppShellProps) {
     },
     [navigate],
   );
-
 
   const handleCreateProject = useCallback(async () => {
     if (!activeOrganizationId) {

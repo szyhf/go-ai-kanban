@@ -10,27 +10,12 @@ import {
   DownloadSimpleIcon,
   LinkIcon,
   PlusIcon,
-  KanbanIcon,
   SpinnerIcon,
-  StarIcon,
+  ChatsTeardrop as ChatsTeardropIcon,
   type Icon,
 } from '@phosphor-icons/react';
 import { cn } from '../lib/cn';
-import { AppBarSocialLink } from './AppBarSocialLink';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverClose,
-} from './Popover';
 import { Tooltip } from './Tooltip';
-import { useTranslation } from 'react-i18next';
-
-function formatStarCount(count: number): string {
-  if (count < 1000) return String(count);
-  const k = count / 1000;
-  return k >= 10 ? `${Math.floor(k)}k` : `${k.toFixed(1)}k`;
-}
 
 function getProjectInitials(name: string): string {
   const trimmed = name.trim();
@@ -44,35 +29,32 @@ function getProjectInitials(name: string): string {
 }
 
 interface AppBarProps {
-  projects: AppBarProject[];
+  projects?: AppBarProject[];
   hosts?: AppBarHost[];
   onPairHostClick?: () => void;
   activeHostId?: string | null;
-  onCreateProject: () => void;
+  onCreateProject?: () => void;
   onExportClick?: () => void;
-  onWorkspacesClick: () => void;
+  onWorkspacesClick?: () => void;
   onHostClick?: (hostId: string, status: AppBarHostStatus) => void;
   showWorkspacesButton?: boolean;
-  onProjectClick: (projectId: string) => void;
-  onProjectsDragEnd: (result: DropResult) => void;
+  onProjectClick?: (projectId: string) => void;
+  onProjectsDragEnd?: (result: DropResult) => void;
   isSavingProjectOrder?: boolean;
-  isWorkspacesActive: boolean;
+  isWorkspacesActive?: boolean;
   isExportActive?: boolean;
-  activeProjectId: string | null;
+  activeProjectId?: string | null;
   isSignedIn?: boolean;
   isLoadingProjects?: boolean;
-  onSignIn?: () => void;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
   notificationBell?: ReactNode;
   userPopover?: ReactNode;
-  starCount?: number | null;
-  onlineCount?: number | null;
   appVersion?: string | null;
   updateVersion?: string | null;
   onUpdateClick?: () => void;
-  githubIconPath: string;
-  discordIconPath: string;
+  isAgentPanelOpen?: boolean;
+  onToggleAgentPanel?: () => void;
 }
 
 export interface AppBarProject {
@@ -139,12 +121,6 @@ type AppBarSectionItem =
     }
   | {
       key: string;
-      kind: 'kanban-cta';
-      label: string;
-      onSignIn?: () => void;
-    }
-  | {
-      key: string;
       kind: 'loading';
     }
   | {
@@ -153,8 +129,8 @@ type AppBarSectionItem =
       projects: AppBarProject[];
       activeProjectId: string | null;
       isSavingProjectOrder?: boolean;
-      onProjectClick: (projectId: string) => void;
-      onProjectsDragEnd: (result: DropResult) => void;
+      onProjectClick?: (projectId: string) => void;
+      onProjectsDragEnd?: (result: DropResult) => void;
     };
 
 function getStandardAppBarButtonClassName({
@@ -196,7 +172,7 @@ function getHostButtonClassName({
 }
 
 export function AppBar({
-  projects,
+  projects = [],
   hosts = [],
   onPairHostClick,
   activeHostId = null,
@@ -204,29 +180,25 @@ export function AppBar({
   onExportClick,
   onWorkspacesClick,
   onHostClick,
-  showWorkspacesButton = true,
+  showWorkspacesButton = false,
   onProjectClick,
   onProjectsDragEnd,
   isSavingProjectOrder,
-  isWorkspacesActive,
+  isWorkspacesActive = false,
   isExportActive = false,
-  activeProjectId,
+  activeProjectId = null,
   isSignedIn,
   isLoadingProjects,
-  onSignIn,
   onHoverStart,
   onHoverEnd,
   notificationBell,
   userPopover,
-  starCount,
-  onlineCount,
   appVersion,
   updateVersion,
   onUpdateClick,
-  githubIconPath,
-  discordIconPath,
+  isAgentPanelOpen = false,
+  onToggleAgentPanel,
 }: AppBarProps) {
-  const { t } = useTranslation('common');
   const sections: AppBarSection[] = [];
 
   if (showWorkspacesButton) {
@@ -282,15 +254,6 @@ export function AppBar({
   }
 
   const projectSectionItems: AppBarSectionItem[] = [];
-
-  if (!isSignedIn) {
-    projectSectionItems.push({
-      key: 'kanban-cta',
-      kind: 'kanban-cta',
-      label: t('appBar.kanban.tooltip'),
-      onSignIn,
-    });
-  }
 
   if (isLoadingProjects) {
     projectSectionItems.push({ key: 'projects-loading', kind: 'loading' });
@@ -396,44 +359,6 @@ export function AppBar({
           </Tooltip>
         );
       }
-      case 'kanban-cta':
-        return (
-          <Popover>
-            <Tooltip content={item.label} side="right">
-              <PopoverTrigger asChild>
-                <button
-                  type="button"
-                  className={getStandardAppBarButtonClassName({})}
-                  aria-label={item.label}
-                >
-                  <KanbanIcon className="size-icon-base" weight="bold" />
-                </button>
-              </PopoverTrigger>
-            </Tooltip>
-            <PopoverContent side="right" sideOffset={8}>
-              <p className="text-sm font-medium text-high">
-                {t('appBar.kanban.title')}
-              </p>
-              <p className="text-xs text-low mt-1">
-                {t('appBar.kanban.description')}
-              </p>
-              <div className="mt-base">
-                <PopoverClose asChild>
-                  <button
-                    type="button"
-                    onClick={item.onSignIn}
-                    className={cn(
-                      'px-base py-1 rounded-sm text-xs',
-                      'bg-brand text-on-brand hover:bg-brand-hover cursor-pointer'
-                    )}
-                  >
-                    {t('signIn')}
-                  </button>
-                </PopoverClose>
-              </div>
-            </PopoverContent>
-          </Popover>
-        );
       case 'loading':
         return (
           <div className="flex items-center justify-center w-10 h-10">
@@ -442,7 +367,7 @@ export function AppBar({
         );
       case 'project-list':
         return (
-          <DragDropContext onDragEnd={item.onProjectsDragEnd}>
+          <DragDropContext onDragEnd={item.onProjectsDragEnd ?? (() => {})}>
             <Droppable
               droppableId="app-bar-projects"
               direction="vertical"
@@ -473,7 +398,7 @@ export function AppBar({
                           <Tooltip content={project.name} side="right">
                             <button
                               type="button"
-                              onClick={() => item.onProjectClick(project.id)}
+                              onClick={() => item.onProjectClick?.(project.id)}
                               className={cn(
                                 appBarItemBaseClassName,
                                 'cursor-grab',
@@ -513,11 +438,61 @@ export function AppBar({
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       className={cn(
-        'flex flex-col items-center h-full min-h-0 overflow-y-auto p-base gap-base',
-        'bg-secondary border-r border-border'
+        'flex flex-col h-full min-h-0 bg-secondary border-r border-border',
+        isAgentPanelOpen
+          ? 'w-full'
+          : 'items-center p-base gap-base overflow-y-auto'
       )}
     >
-      {sections.map((section) => (
+      {/* Agent toggle button */}
+      <div
+        className={cn(
+          'flex shrink-0',
+          isAgentPanelOpen
+            ? 'items-center justify-between px-base py-half border-b border-border'
+            : 'flex-col items-center'
+        )}
+      >
+        <Tooltip
+          content={isAgentPanelOpen ? 'Collapse agent' : 'Kanban Agent'}
+          side="right"
+        >
+          <button
+            type="button"
+            onClick={onToggleAgentPanel}
+            className={cn(
+              'flex items-center justify-center rounded-lg transition-colors cursor-pointer',
+              isAgentPanelOpen
+                ? 'text-low hover:text-normal p-1'
+                : 'w-10 h-10 text-muted hover:text-normal hover:bg-brand/10'
+            )}
+            aria-label={
+              isAgentPanelOpen ? 'Collapse agent' : 'Open Kanban Agent'
+            }
+          >
+            <ChatsTeardropIcon
+              className="size-icon-base"
+              weight={isAgentPanelOpen ? 'fill' : 'regular'}
+            />
+          </button>
+        </Tooltip>
+        {isAgentPanelOpen && (
+          <span className="text-sm font-medium text-normal select-none">
+            Kanban Agent
+          </span>
+        )}
+      </div>
+
+      {/* Expanded panel content */}
+      {isAgentPanelOpen && (
+        <div className="flex-1 min-h-0 overflow-y-auto p-base">
+          <p className="text-xs text-low">Agent conversation area</p>
+        </div>
+      )}
+
+      {/* Sections (hidden when panel is open) */}
+      {!isAgentPanelOpen &&
+        sections.map((section) => (
         <div key={section.key} className="flex flex-col items-center gap-1">
           <AppBarSectionLabel>{section.label}</AppBarSectionLabel>
           {section.items.map((item) => (
@@ -533,57 +508,45 @@ export function AppBar({
         </div>
       ))}
 
-      {/* Bottom section: Notifications + User popover + GitHub + Discord */}
-      <div className="mt-auto pt-base flex flex-col items-center gap-4">
-        {notificationBell}
-        {userPopover}
-        <AppBarSocialLink
-          href="https://github.com/BloopAI/vibe-kanban"
-          label="Star on GitHub"
-          iconPath={githubIconPath}
-          badge={
-            starCount != null && (
-              <>
-                <StarIcon size={10} weight="fill" />
-                {formatStarCount(starCount)}
-              </>
+      {/* Bottom section */}
+      {(notificationBell || userPopover || updateVersion || appVersion) && (
+        <div
+          className={cn(
+            'flex flex-col items-center gap-4',
+            isAgentPanelOpen
+              ? 'p-base border-t border-border'
+              : 'mt-auto pt-base'
+          )}
+        >
+          {notificationBell}
+          {userPopover}
+          {updateVersion ? (
+            <Tooltip content={`Update to v${updateVersion}`} side="right">
+              <button
+                type="button"
+                onClick={onUpdateClick}
+                className={cn(
+                  'flex items-center justify-center py-1 rounded-md w-10',
+                  'text-[9px] font-ibm-plex-mono font-medium leading-none',
+                  'bg-brand text-on-brand hover:bg-brand-hover',
+                  'transition-colors cursor-pointer'
+                )}
+              >
+                Update
+              </button>
+            </Tooltip>
+          ) : (
+            appVersion && (
+              <p
+                className="text-[9px] font-ibm-plex-mono text-low leading-none truncate max-w-10 text-center"
+                title={`v${appVersion}`}
+              >
+                v{appVersion}
+              </p>
             )
-          }
-        />
-        <AppBarSocialLink
-          href="https://discord.gg/AC4nwVtJM3"
-          label="Join our Discord"
-          iconPath={discordIconPath}
-          badge={
-            onlineCount != null && (onlineCount > 999 ? '999+' : onlineCount)
-          }
-        />
-        {updateVersion ? (
-          <Tooltip content={`Update to v${updateVersion}`} side="right">
-            <button
-              type="button"
-              onClick={onUpdateClick}
-              className={cn(
-                'flex items-center justify-center py-1 rounded-md w-10',
-                'text-[9px] font-ibm-plex-mono font-medium leading-none',
-                'bg-brand text-on-brand hover:bg-brand-hover',
-                'transition-colors cursor-pointer'
-              )}
-            >
-              Update
-            </button>
-          </Tooltip>
-        ) : (
-          appVersion && (
-            <p
-              className="text-[9px] font-ibm-plex-mono text-low leading-none truncate max-w-10 text-center"
-              title={`v${appVersion}`}
-            >
-              v{appVersion}
-            </p>
-          )
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

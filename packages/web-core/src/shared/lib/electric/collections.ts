@@ -69,7 +69,7 @@ type SyncConfigLike = {
 };
 
 const DEFAULT_GC_TIME_MS = 5 * 60 * 1000;
-const ELECTRIC_READY_TIMEOUT_MS = 3000;
+const ELECTRIC_READY_TIMEOUT_MS = 15000;
 const FALLBACK_REFRESH_INTERVAL_MS = 30 * 1000;
 
 const collectionCache = new Map<string, ReturnType<typeof createCollection>>();
@@ -345,7 +345,7 @@ function createElectricShapeOptions(args: {
   const url = buildUrl(args.shape.url, args.params);
 
   return {
-    url: `${getRemoteApiUrl()}${url}`,
+    url,
     params: args.params,
     headers: {
       Authorization: async () => {

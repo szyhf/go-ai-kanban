@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { DropResult } from '@hello-pangea/dnd';
-import { Outlet, useNavigate, useParams } from '@tanstack/react-router';
-import { siDiscord, siGithub } from 'simple-icons';
+import { Outlet, useNavigate } from '@tanstack/react-router';
 import {
   XIcon,
   PlusIcon,
   LayoutIcon,
   KanbanIcon,
   DownloadSimpleIcon,
+  LinkIcon,
 } from '@phosphor-icons/react';
 import { SyncErrorProvider } from '@/shared/providers/SyncErrorProvider';
 import { useIsMobile } from '@/shared/hooks/useIsMobile';
@@ -16,22 +15,16 @@ import { cn } from '@/shared/lib/utils';
 import { isTauriMac } from '@/shared/lib/platform';
 
 import { NavbarContainer } from './NavbarContainer';
-import { AppBar, type AppBarHostStatus } from '@vibe/ui/components/AppBar';
+import { AppBar } from '@vibe/ui/components/AppBar';
 import { MobileDrawer } from '@vibe/ui/components/MobileDrawer';
-import { AppBarUserPopoverContainer } from './AppBarUserPopoverContainer';
+import { Tooltip } from '@vibe/ui/components/Tooltip';
 import { useUserOrganizations } from '@/shared/hooks/useUserOrganizations';
 import { useOrganizationStore } from '@/shared/stores/useOrganizationStore';
 import { useAuth } from '@/shared/hooks/auth/useAuth';
-import { useDiscordOnlineCount } from '@/shared/hooks/useDiscordOnlineCount';
-import { useGitHubStars } from '@/shared/hooks/useGitHubStars';
-import { useUserSystem } from '@/shared/hooks/useUserSystem';
-import { useAppUpdateStore } from '@/shared/stores/useAppUpdateStore';
 import { useAppNavigation } from '@/shared/hooks/useAppNavigation';
 import { useCurrentAppDestination } from '@/shared/hooks/useCurrentAppDestination';
 import {
-  getDestinationHostId,
   getProjectDestination,
-  isProjectDestination,
   isLocalWorkspacesDestination,
 } from '@/shared/lib/routes/appNavigation';
 import {
@@ -45,16 +38,10 @@ import { useCommandBarShortcut } from '@/shared/hooks/useCommandBarShortcut';
 import { useWorkspaceSidebarPreviewController } from '@/shared/hooks/useWorkspaceSidebarPreviewController';
 import { useShape } from '@/shared/integrations/electric/hooks';
 import { sortProjectsByOrder } from '@/shared/lib/projectOrder';
-import {
-  PROJECT_MUTATION,
-  PROJECTS_SHAPE,
-  type Project as RemoteProject,
-} from 'shared/remote-types';
+import { PROJECT_MUTATION, PROJECTS_SHAPE } from 'shared/remote-types';
 import { AppBarNotificationBellContainer } from '@/pages/workspaces/AppBarNotificationBellContainer';
 import { WorkspacesSidebarContainer } from '@/pages/workspaces/WorkspacesSidebarContainer';
 import { WorkspacesSidebarReopenTag } from '@vibe/ui/components/WorkspacesSidebar';
-import { useRemoteCloudHostsAppBarModel } from '@/shared/hooks/useRemoteCloudHosts';
-
 
 export function SharedAppLayout() {
   const appNavigation = useAppNavigation();
@@ -65,15 +52,9 @@ export function SharedAppLayout() {
     (s) => s.isLeftSidebarVisible
   );
   const { isSignedIn } = useAuth();
-  const { appVersion } = useUserSystem();
-  const updateVersion = useAppUpdateStore((s) => s.updateVersion);
-  const restartForUpdate = useAppUpdateStore((s) => s.restart);
-  const { data: onlineCount } = useDiscordOnlineCount();
-  const { data: starCount } = useGitHubStars();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isAppBarHovered, setIsAppBarHovered] = useState(false);
-  const { hosts: remoteCloudHosts } = useRemoteCloudHostsAppBarModel();
-  const { hostId: routeHostId } = useParams({ strict: false });
+  const [isAgentPanelOpen, setIsAgentPanelOpen] = useState(false);
   const navigate = useNavigate();
 
   // Register CMD+K shortcut globally for all routes under SharedAppLayout
@@ -124,28 +105,18 @@ export function SharedAppLayout() {
     () => ({ organization_id: selectedOrgId || '' }),
     [selectedOrgId]
   );
-  const {
-    data: orgProjects = [],
-    isLoading,
-    updateMany: updateManyProjects,
-  } = useShape(PROJECTS_SHAPE, projectParams, {
-    enabled: isSignedIn && !!selectedOrgId,
-    mutation: PROJECT_MUTATION,
-  });
+  const { data: orgProjects = [], isLoading } = useShape(
+    PROJECTS_SHAPE,
+    projectParams,
+    {
+      enabled: isSignedIn && !!selectedOrgId,
+      mutation: PROJECT_MUTATION,
+    }
+  );
   const sortedProjects = useMemo(
     () => sortProjectsByOrder(orgProjects),
     [orgProjects]
   );
-  const [orderedProjects, setOrderedProjects] =
-    useState<RemoteProject[]>(sortedProjects);
-  const [isSavingProjectOrder, setIsSavingProjectOrder] = useState(false);
-
-  useEffect(() => {
-    if (isSavingProjectOrder) {
-      return;
-    }
-    setOrderedProjects(sortedProjects);
-  }, [isSavingProjectOrder, sortedProjects]);
 
   // Navigate to the first ordered project when org changes
   useEffect(() => {
@@ -166,18 +137,15 @@ export function SharedAppLayout() {
     }
   }, [selectedOrgId, sortedProjects, isLoading, appNavigation]);
 
-  // Navigation state for AppBar active indicators
+  // Navigation state
   const projectDestination = useMemo(
     () => getProjectDestination(currentDestination),
     [currentDestination]
   );
   const isWorkspacesActive = isLocalWorkspacesDestination(currentDestination);
-  const isExportActive = currentDestination?.kind === 'export';
   const isWorkspaceSidebarPreviewEnabled =
     !isMobile && isWorkspacesActive && !isLeftSidebarVisible;
   const activeProjectId = projectDestination?.projectId ?? null;
-  const activeHostId =
-    getDestinationHostId(currentDestination) ?? routeHostId ?? null;
   const sidebarPreview = useWorkspaceSidebarPreviewController({
     enabled: isWorkspaceSidebarPreviewEnabled,
     isAppBarHovered,
@@ -206,44 +174,6 @@ export function SharedAppLayout() {
       appNavigation.goToProject(projectId);
     },
     [appNavigation]
-  );
-
-  const handleProjectsDragEnd = useCallback(
-    async ({ source, destination }: DropResult) => {
-      if (isSavingProjectOrder) {
-        return;
-      }
-      if (!destination || source.index === destination.index) {
-        return;
-      }
-
-      const previousOrder = orderedProjects;
-      const reordered = [...orderedProjects];
-      const [moved] = reordered.splice(source.index, 1);
-
-      if (!moved) {
-        return;
-      }
-
-      reordered.splice(destination.index, 0, moved);
-      setOrderedProjects(reordered);
-      setIsSavingProjectOrder(true);
-
-      try {
-        await updateManyProjects(
-          reordered.map((project, index) => ({
-            id: project.id,
-            changes: { sort_order: index },
-          }))
-        ).persisted;
-      } catch (error) {
-        console.error('Failed to reorder projects:', error);
-        setOrderedProjects(previousOrder);
-      } finally {
-        setIsSavingProjectOrder(false);
-      }
-    },
-    [isSavingProjectOrder, orderedProjects, updateManyProjects]
   );
 
   const handleCreateProject = useCallback(async () => {
@@ -276,23 +206,65 @@ export function SharedAppLayout() {
     });
   }, []);
 
-  const handleHostClick = useCallback(
-    (hostId: string, status: AppBarHostStatus) => {
-      if (status === 'offline') {
-        return;
-      }
-
-      void navigate({
-        to: '/hosts/$hostId/workspaces',
-        params: { hostId },
-      });
-    },
-    [navigate]
-  );
-
   const handlePairHostClick = useCallback(() => {
     openRelaySettings();
   }, [openRelaySettings]);
+
+  // Pre-project slot: Local Workspace / Pair remote / Add project
+  const preProjectSlot = useMemo(() => {
+    const btnClass =
+      'flex items-center justify-center rounded-sm text-low hover:text-normal cursor-pointer';
+    return (
+      <>
+        <Tooltip content="Local workspaces">
+          <button
+            type="button"
+            onClick={handleWorkspacesClick}
+            className={btnClass}
+            aria-label="Local workspaces"
+          >
+            <LayoutIcon className="size-icon-base" weight="regular" />
+          </button>
+        </Tooltip>
+        <Tooltip content="Pair a remote device">
+          <button
+            type="button"
+            onClick={handlePairHostClick}
+            className={btnClass}
+            aria-label="Pair a remote device"
+          >
+            <LinkIcon className="size-icon-base" weight="regular" />
+          </button>
+        </Tooltip>
+        {isSignedIn && (
+          <Tooltip content="Create project">
+            <button
+              type="button"
+              onClick={handleCreateProject}
+              className={btnClass}
+              aria-label="Create project"
+            >
+              <PlusIcon className="size-icon-base" weight="regular" />
+            </button>
+          </Tooltip>
+        )}
+      </>
+    );
+  }, [
+    handleWorkspacesClick,
+    handlePairHostClick,
+    handleCreateProject,
+    isSignedIn,
+  ]);
+
+  const notificationSlot = useMemo(() => {
+    if (!isSignedIn) return undefined;
+    return <AppBarNotificationBellContainer />;
+  }, [isSignedIn]);
+
+  const handleToggleAgentPanel = useCallback(() => {
+    setIsAgentPanelOpen((v) => !v);
+  }, []);
 
   return (
     <SyncErrorProvider>
@@ -302,8 +274,10 @@ export function SharedAppLayout() {
           isMobile
             ? 'flex fixed inset-0 pb-[env(safe-area-inset-bottom)]'
             : cn(
-                'grid grid-cols-[auto_1fr] h-screen',
-                'grid-rows-[auto_1fr]'
+                'grid h-screen grid-rows-[auto_1fr]',
+                isAgentPanelOpen
+                  ? 'grid-cols-[300px_1fr]'
+                  : 'grid-cols-[auto_1fr]'
               )
         )}
       >
@@ -319,45 +293,19 @@ export function SharedAppLayout() {
             <NavbarContainer
               onOrgSelect={setSelectedOrgId}
               onOpenDrawer={() => setIsDrawerOpen(true)}
-            />
-            {/* Desktop AppBar sidebar. */}
-            <AppBar
-              projects={orderedProjects}
-              hosts={remoteCloudHosts}
-              activeHostId={activeHostId}
-              onCreateProject={handleCreateProject}
-              onExportClick={handleExportClick}
-              onWorkspacesClick={handleWorkspacesClick}
-              onHostClick={handleHostClick}
-              onPairHostClick={handlePairHostClick}
-              onProjectClick={handleProjectClick}
-              onProjectsDragEnd={handleProjectsDragEnd}
-              isSavingProjectOrder={isSavingProjectOrder}
-              isWorkspacesActive={isWorkspacesActive}
-              isExportActive={isExportActive}
+              projects={sortedProjects}
               activeProjectId={activeProjectId}
-              isSignedIn={isSignedIn}
-              isLoadingProjects={isLoading}
+              onProjectClick={handleProjectClick}
+              preProjectSlot={preProjectSlot}
+              notificationSlot={notificationSlot}
               onSignIn={handleSignIn}
+            />
+            {/* Desktop AppBar sidebar — kanban agent panel. */}
+            <AppBar
               onHoverStart={() => setIsAppBarHovered(true)}
               onHoverEnd={() => setIsAppBarHovered(false)}
-              notificationBell={
-                isSignedIn ? <AppBarNotificationBellContainer /> : undefined
-              }
-              userPopover={
-                <AppBarUserPopoverContainer
-                  organizations={organizations}
-                  selectedOrgId={selectedOrgId ?? ''}
-                  onOrgSelect={setSelectedOrgId}
-                />
-              }
-              starCount={starCount}
-              onlineCount={onlineCount}
-              appVersion={appVersion}
-              updateVersion={updateVersion}
-              onUpdateClick={restartForUpdate ?? undefined}
-              githubIconPath={siGithub.path}
-              discordIconPath={siDiscord.path}
+              isAgentPanelOpen={isAgentPanelOpen}
+              onToggleAgentPanel={handleToggleAgentPanel}
             />
             {/* Desktop content. */}
             <div className="relative min-h-0 overflow-hidden">
@@ -400,6 +348,9 @@ export function SharedAppLayout() {
               mobileMode={isMobile}
               onOrgSelect={setSelectedOrgId}
               onOpenDrawer={() => setIsDrawerOpen(true)}
+              projects={sortedProjects}
+              activeProjectId={activeProjectId}
+              onProjectClick={handleProjectClick}
             />
             <div className="flex-1 min-h-0 overflow-hidden">
               <Outlet />
@@ -468,7 +419,7 @@ export function SharedAppLayout() {
             {/* Project list */}
             <div className="flex-1 overflow-y-auto p-2">
               {isSignedIn ? (
-                orderedProjects.map((project) => (
+                sortedProjects.map((project) => (
                   <button
                     type="button"
                     key={project.id}

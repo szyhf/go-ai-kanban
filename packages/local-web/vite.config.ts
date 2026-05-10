@@ -135,6 +135,10 @@ export default defineConfig({
         changeOrigin: true,
         ws: true,
       },
+      '/v1': {
+        target: process.env.VITE_VK_SHARED_API_BASE || `http://localhost:8080`,
+        changeOrigin: true,
+      },
     },
     fs: {
       allow: [path.resolve(__dirname, '.'), path.resolve(__dirname, '../..')],
