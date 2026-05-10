@@ -82,7 +82,8 @@ type StartExecutionInput struct {
 }
 
 // StartExecution creates a DB record, spawns the agent process, and begins monitoring.
-func (svc *ContainerService) StartExecution(ctx context.Context, input StartExecutionInput, executor Executor, env *ExecutorEnv) (domain.UUID, error) {
+// If executor is nil, only the DB record is created (no actual process is spawned).
+func (svc *ContainerService) StartExecution(ctx context.Context, input StartExecutionInput, exec Executor, env *ExecutorEnv) (domain.UUID, error) {
 	// Parse the action for routing decisions.
 	action, err := domain.ParseExecutorAction(input.RawAction)
 	if err != nil {
@@ -133,6 +134,12 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 		}
 	}
 
+	// If no executor provided, create record only and mark as completed.
+	if exec == nil {
+		svc.logger.Info("execution started (no executor, record-only)", "process_id", processID)
+		return processID, nil
+	}
+
 	// 3. Determine prompt from action.
 	prompt, err := extractPrompt(input.RawAction)
 	if err != nil {
@@ -147,12 +154,12 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 		if err != nil {
 			return domain.UUID{}, fmt.Errorf("parse follow-up request: %w", err)
 		}
-		proc, err = executor.SpawnFollowUp(ctx, input.WorkingDir, prompt, followUp.SessionID, followUp.ResetToMessageID, env)
+		proc, err = exec.SpawnFollowUp(ctx, input.WorkingDir, prompt, followUp.SessionID, followUp.ResetToMessageID, env)
 		if err != nil {
 			return domain.UUID{}, fmt.Errorf("spawn follow-up: %w", err)
 		}
 	default:
-		proc, err = executor.Spawn(ctx, input.WorkingDir, prompt, env)
+		proc, err = exec.Spawn(ctx, input.WorkingDir, prompt, env)
 		if err != nil {
 			return domain.UUID{}, fmt.Errorf("spawn: %w", err)
 		}
@@ -343,15 +350,17 @@ func (svc *ContainerService) checkQueuedFollowUp(sessionID domain.UUID) {
 
 // extractPrompt extracts the prompt from a raw ExecutorAction JSON payload.
 func extractPrompt(rawAction json.RawMessage) (string, error) {
+	inner := domain.UnwrapActionTyp(rawAction)
+
 	// Try CodingAgentInitialRequest first.
 	var initial domain.CodingAgentInitialRequest
-	if err := json.Unmarshal(rawAction, &initial); err == nil && initial.Prompt != "" {
+	if err := json.Unmarshal(inner, &initial); err == nil && initial.Prompt != "" {
 		return initial.Prompt, nil
 	}
 
 	// Try CodingAgentFollowUpRequest.
 	var followUp domain.CodingAgentFollowUpRequest
-	if err := json.Unmarshal(rawAction, &followUp); err == nil && followUp.Prompt != "" {
+	if err := json.Unmarshal(inner, &followUp); err == nil && followUp.Prompt != "" {
 		return followUp.Prompt, nil
 	}
 
@@ -360,8 +369,9 @@ func extractPrompt(rawAction json.RawMessage) (string, error) {
 
 // parseFollowUpRequest extracts follow-up parameters from raw JSON.
 func parseFollowUpRequest(rawAction json.RawMessage) (*domain.CodingAgentFollowUpRequest, error) {
+	inner := domain.UnwrapActionTyp(rawAction)
 	var req domain.CodingAgentFollowUpRequest
-	if err := json.Unmarshal(rawAction, &req); err != nil {
+	if err := json.Unmarshal(inner, &req); err != nil {
 		return nil, fmt.Errorf("parse follow-up request: %w", err)
 	}
 	return &req, nil

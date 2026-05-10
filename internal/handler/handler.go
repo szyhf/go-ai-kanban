@@ -37,6 +37,7 @@ type Handler struct {
 	containerSvc *executor.ContainerService
 	ptySvc       *pty.Service
 	ptyHandler   *ptyHandler
+	turnRepo     *repository.CodingAgentTurnRepo
 }
 
 // NewHandler creates a Handler with all dependencies injected.
@@ -60,6 +61,7 @@ func NewHandler(
 	wsAttachRepo *repository.WorkspaceAttachmentRepo,
 	containerSvc *executor.ContainerService,
 	ptySvc *pty.Service,
+	turnRepo *repository.CodingAgentTurnRepo,
 ) *Handler {
 	h := &Handler{
 		repoSvc:    repoSvc,
@@ -81,6 +83,7 @@ func NewHandler(
 		wsAttachRepo: wsAttachRepo,
 		containerSvc: containerSvc,
 		ptySvc:       ptySvc,
+		turnRepo:     turnRepo,
 	}
 	if ptySvc != nil {
 		h.ptyHandler = newPTYHandler(ptySvc)
@@ -90,6 +93,7 @@ func NewHandler(
 
 // RegisterRoutes registers all handler routes on the chi router.
 func (h *Handler) RegisterRoutes(r chi.Router) {
+	r.Get("/info", h.handleGetInfo)
 	r.Route("/repos", h.registerRepoRoutes)
 	r.Route("/workspaces", h.registerWorkspaceRoutes)
 	r.Route("/tags", h.registerTagRoutes)
@@ -106,6 +110,7 @@ func (h *Handler) RegisterRoutes(r chi.Router) {
 	}
 	// WebSocket approval stream.
 	r.Get("/approvals/stream/ws", h.handleApprovalStreamWS)
+	r.Post("/approvals/{id}/respond", h.handleApprovalRespond)
 }
 
 // setupMultipartUpload is a helper that limits multipart form size.

@@ -822,6 +822,11 @@ func (s *Service) GetDiffFilePaths(worktreePath string, baseCommit *Commit) (map
 	return paths, nil
 }
 
+// ResetHard resets a worktree to a given ref (branch name or commit SHA).
+func (s *Service) ResetHard(worktreePath, ref string) error {
+	return s.cli.ResetHard(worktreePath, ref)
+}
+
 // --- Private helpers ---
 
 // findBranch looks up a branch by name, trying local first, then remote.

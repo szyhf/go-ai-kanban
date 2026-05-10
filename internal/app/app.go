@@ -95,7 +95,7 @@ func (a *App) Run() error {
 		repoSvc, gitSvc, filesystemSvc, fileSvc, eventSvc, msgStore, queueSvc,
 		repoRepo, tagRepo, scratchRepo, sessionRepo, wsRepo, wsRepoRepo,
 		execRepo, execStateRepo, attachRepo, wsAttachRepo,
-		containerSvc, ptySvc,
+		containerSvc, ptySvc, turnRepo,
 	)
 
 	// Register handler routes under /api.
