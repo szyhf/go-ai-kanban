@@ -43,10 +43,10 @@ type DraftFollowUpData struct {
 
 // PreviewSettingsData is the data for a PREVIEW_SETTINGS scratch.
 type PreviewSettingsData struct {
-	URL             string  `json:"url"`
-	ScreenSize      *string `json:"screen_size"`
-	ResponsiveWidth *int32  `json:"responsive_width"`
-	ResponsiveHeight *int32 `json:"responsive_height"`
+	URL              string  `json:"url"`
+	ScreenSize       *string `json:"screen_size"`
+	ResponsiveWidth  *int32  `json:"responsive_width"`
+	ResponsiveHeight *int32  `json:"responsive_height"`
 }
 
 // WorkspaceNotesData is the data for a WORKSPACE_NOTES scratch.
@@ -56,8 +56,8 @@ type WorkspaceNotesData struct {
 
 // WorkspacePanelStateData represents panel state within UI preferences.
 type WorkspacePanelStateData struct {
-	RightMainPanelMode    *string `json:"right_main_panel_mode,omitempty"`
-	IsLeftMainPanelVisible bool   `json:"is_left_main_panel_visible"`
+	RightMainPanelMode     *string `json:"right_main_panel_mode,omitempty"`
+	IsLeftMainPanelVisible bool    `json:"is_left_main_panel_visible"`
 }
 
 // WorkspacePrFilterData is the PR filter enum for workspace filters.
@@ -93,29 +93,29 @@ type WorkspaceFilterStateData struct {
 
 // WorkspaceSortStateData holds workspace sort state.
 type WorkspaceSortStateData struct {
-	SortBy    WorkspaceSortByData   `json:"sort_by"`
+	SortBy    WorkspaceSortByData    `json:"sort_by"`
 	SortOrder WorkspaceSortOrderData `json:"sort_order"`
 }
 
 // UIPreferencesData is the data for a UI_PREFERENCES scratch.
 type UIPreferencesData struct {
-	RepoActions                      map[string]string                `json:"repo_actions"`
-	Expanded                         map[string]bool                  `json:"expanded"`
-	ContextBarPosition               *string                          `json:"context_bar_position"`
-	PaneSizes                        map[string]json.RawMessage       `json:"pane_sizes"`
-	CollapsedPaths                   map[string][]string              `json:"collapsed_paths"`
-	FileSearchRepoID                 *string                          `json:"file_search_repo_id"`
-	IsLeftSidebarVisible             *bool                            `json:"is_left_sidebar_visible"`
-	IsRightSidebarVisible            *bool                            `json:"is_right_sidebar_visible"`
-	IsTerminalVisible                *bool                            `json:"is_terminal_visible"`
-	WorkspacePanelStates             map[string]WorkspacePanelStateData `json:"workspace_panel_states"`
-	WorkspaceFilters                 WorkspaceFilterStateData         `json:"workspace_filters"`
-	WorkspaceSort                    WorkspaceSortStateData           `json:"workspace_sort"`
-	SelectedOrgID                    *string                          `json:"selected_org_id"`
-	SelectedProjectID                *string                          `json:"selected_project_id"`
-	CreateDraftWorkspaceByDefault    *bool                            `json:"create_draft_workspace_by_default"`
-	KanbanProjectViewSelections      map[string]json.RawMessage       `json:"kanban_project_view_selections"`
-	KanbanProjectViewPreferences     map[string]json.RawMessage       `json:"kanban_project_view_preferences"`
+	RepoActions                   map[string]string                  `json:"repo_actions"`
+	Expanded                      map[string]bool                    `json:"expanded"`
+	ContextBarPosition            *string                            `json:"context_bar_position"`
+	PaneSizes                     map[string]json.RawMessage         `json:"pane_sizes"`
+	CollapsedPaths                map[string][]string                `json:"collapsed_paths"`
+	FileSearchRepoID              *string                            `json:"file_search_repo_id"`
+	IsLeftSidebarVisible          *bool                              `json:"is_left_sidebar_visible"`
+	IsRightSidebarVisible         *bool                              `json:"is_right_sidebar_visible"`
+	IsTerminalVisible             *bool                              `json:"is_terminal_visible"`
+	WorkspacePanelStates          map[string]WorkspacePanelStateData `json:"workspace_panel_states"`
+	WorkspaceFilters              WorkspaceFilterStateData           `json:"workspace_filters"`
+	WorkspaceSort                 WorkspaceSortStateData             `json:"workspace_sort"`
+	SelectedOrgID                 *string                            `json:"selected_org_id"`
+	SelectedProjectID             *string                            `json:"selected_project_id"`
+	CreateDraftWorkspaceByDefault *bool                              `json:"create_draft_workspace_by_default"`
+	KanbanProjectViewSelections   map[string]json.RawMessage         `json:"kanban_project_view_selections"`
+	KanbanProjectViewPreferences  map[string]json.RawMessage         `json:"kanban_project_view_preferences"`
 }
 
 // DraftWorkspaceRepo represents a repo selection in a draft workspace.
@@ -126,26 +126,26 @@ type DraftWorkspaceRepo struct {
 
 // DraftWorkspaceLinkedIssue represents a linked issue in a draft workspace.
 type DraftWorkspaceLinkedIssue struct {
-	IssueID        string `json:"issue_id"`
-	SimpleID       string `json:"simple_id"`
-	Title          string `json:"title"`
+	IssueID         string `json:"issue_id"`
+	SimpleID        string `json:"simple_id"`
+	Title           string `json:"title"`
 	RemoteProjectID string `json:"remote_project_id"`
 }
 
 // DraftWorkspaceAttachment represents an attachment in a draft workspace.
 type DraftWorkspaceAttachment struct {
-	ID           UUID     `json:"id"`
-	FilePath     string   `json:"file_path"`
-	OriginalName string   `json:"original_name"`
-	MimeType     *string  `json:"mime_type"`
-	SizeBytes    int64    `json:"size_bytes"`
+	ID           UUID    `json:"id"`
+	FilePath     string  `json:"file_path"`
+	OriginalName string  `json:"original_name"`
+	MimeType     *string `json:"mime_type"`
+	SizeBytes    int64   `json:"size_bytes"`
 }
 
 // DraftWorkspaceData is the data for a DRAFT_WORKSPACE scratch.
 type DraftWorkspaceData struct {
-	Message        string                    `json:"message"`
-	Repos          []DraftWorkspaceRepo      `json:"repos"`
-	ExecutorConfig json.RawMessage           `json:"executor_config"`
+	Message        string                     `json:"message"`
+	Repos          []DraftWorkspaceRepo       `json:"repos"`
+	ExecutorConfig json.RawMessage            `json:"executor_config"`
 	LinkedIssue    *DraftWorkspaceLinkedIssue `json:"linked_issue"`
 	Attachments    []DraftWorkspaceAttachment `json:"attachments"`
 }

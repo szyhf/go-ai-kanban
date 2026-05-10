@@ -117,7 +117,7 @@ func (h *Handler) handleApprovalStreamWS(w http.ResponseWriter, r *http.Request)
 	// Currently using NoopApprovalService which auto-approves everything.
 	// Send empty snapshot.
 	snapshot := []service.LogMsg{
-		service.NewPatchLogMsg(service.ApprovalsSnapshotPatch(map[string]interface{}{})),
+		service.NewPatchLogMsg(service.ApprovalsSnapshotPatch(map[string]any{})),
 	}
 
 	cfg := wsStreamConfig{

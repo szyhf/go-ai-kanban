@@ -176,11 +176,11 @@ func TestWorkspaceRepo_FindAllWithStatus(t *testing.T) {
 
 	ep := &domain.ExecutionProcess{
 		ID:             domain.NewUUID(),
-		SessionID: session.ID,
-		RunReason: domain.RunReasonCodingAgent,
+		SessionID:      session.ID,
+		RunReason:      domain.RunReasonCodingAgent,
 		ExecutorAction: json.RawMessage(`{}`),
-		Status:    domain.ExecStatusRunning,
-		StartedAt: time.Now(),
+		Status:         domain.ExecStatusRunning,
+		StartedAt:      time.Now(),
 	}
 	if err := execRepo.Create(ep); err != nil {
 		t.Fatalf("create execution process: %v", err)
@@ -205,12 +205,12 @@ func TestWorkspaceRepo_FindAllWithStatus(t *testing.T) {
 	}
 
 	ep2 := &domain.ExecutionProcess{
-		ID:        domain.NewUUID(),
-		SessionID: session2.ID,
-		RunReason: domain.RunReasonCodingAgent,
-		Status:    domain.ExecStatusFailed,
+		ID:             domain.NewUUID(),
+		SessionID:      session2.ID,
+		RunReason:      domain.RunReasonCodingAgent,
+		Status:         domain.ExecStatusFailed,
 		ExecutorAction: json.RawMessage(`{}`),
-		StartedAt: time.Now(),
+		StartedAt:      time.Now(),
 	}
 	if err := execRepo.Create(ep2); err != nil {
 		t.Fatalf("create execution process 2: %v", err)

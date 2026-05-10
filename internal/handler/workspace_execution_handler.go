@@ -32,7 +32,7 @@ func (h *Handler) startDevServer(w http.ResponseWriter, r *http.Request) {
 		for _, proc := range processes {
 			if proc.Status == domain.ExecStatusRunning && proc.RunReason == domain.RunReasonDevServer {
 				if err := h.containerSvc.StopExecution(proc.ID); err != nil {
-					slog.Warn("stop existing dev server", "error", err, "process_id", proc.ID)
+					slog.Warn("停止已有的 dev server", "error", err, "process_id", proc.ID)
 				}
 			}
 		}
@@ -91,7 +91,7 @@ func (h *Handler) startDevServer(w http.ResponseWriter, r *http.Request) {
 		}
 		rawAction, err := domain.BuildExecutorActionJSON(scriptAction)
 		if err != nil {
-			slog.Error("build dev server action", "error", err)
+			slog.Error("构建 dev server action", "error", err)
 			continue
 		}
 
@@ -102,7 +102,7 @@ func (h *Handler) startDevServer(w http.ResponseWriter, r *http.Request) {
 			RunReason: domain.RunReasonDevServer,
 		}, nil, nil)
 		if err != nil {
-			slog.Error("start dev server", "error", err, "repo", rwt.Name)
+			slog.Error("启动 dev server", "error", err, "repo", rwt.Name)
 			continue
 		}
 
@@ -182,7 +182,7 @@ func (h *Handler) runCleanupScript(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonCleanupScript,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start cleanup execution", "error", err)
+		slog.Error("启动 cleanup 执行", "error", err)
 		internalError(w, "failed to run cleanup script: "+err.Error())
 		return
 	}
@@ -262,7 +262,7 @@ func (h *Handler) runArchiveScript(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonArchiveScript,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start archive execution", "error", err)
+		slog.Error("启动 archive 执行", "error", err)
 		internalError(w, "failed to run archive script: "+err.Error())
 		return
 	}

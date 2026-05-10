@@ -87,7 +87,7 @@ func (s *Service) CreateSession(input CreateSessionInput) (*Session, error) {
 	s.sessions[input.ID] = sess
 	s.mu.Unlock()
 
-	s.logger.Info("pty session created", "id", input.ID, "pid", cmd.Process.Pid)
+	s.logger.Info("PTY 会话已创建", "id", input.ID, "pid", cmd.Process.Pid)
 	return sess, nil
 }
 
@@ -112,7 +112,7 @@ func (s *Service) CloseSession(id string) error {
 	}
 
 	sess.Close()
-	s.logger.Info("pty session closed", "id", id)
+	s.logger.Info("PTY 会话已关闭", "id", id)
 	return nil
 }
 

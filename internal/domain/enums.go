@@ -201,13 +201,13 @@ func (s *MergeStatus) UnmarshalJSON(data []byte) error {
 type ScratchType string
 
 const (
-	ScratchTypeDraftTask          ScratchType = "DRAFT_TASK"
-	ScratchTypeDraftFollowUp      ScratchType = "DRAFT_FOLLOW_UP"
-	ScratchTypeDraftWorkspace     ScratchType = "DRAFT_WORKSPACE"
-	ScratchTypeDraftIssue         ScratchType = "DRAFT_ISSUE"
-	ScratchTypePreviewSettings    ScratchType = "PREVIEW_SETTINGS"
-	ScratchTypeWorkspaceNotes     ScratchType = "WORKSPACE_NOTES"
-	ScratchTypeUIPreferences      ScratchType = "UI_PREFERENCES"
+	ScratchTypeDraftTask           ScratchType = "DRAFT_TASK"
+	ScratchTypeDraftFollowUp       ScratchType = "DRAFT_FOLLOW_UP"
+	ScratchTypeDraftWorkspace      ScratchType = "DRAFT_WORKSPACE"
+	ScratchTypeDraftIssue          ScratchType = "DRAFT_ISSUE"
+	ScratchTypePreviewSettings     ScratchType = "PREVIEW_SETTINGS"
+	ScratchTypeWorkspaceNotes      ScratchType = "WORKSPACE_NOTES"
+	ScratchTypeUIPreferences       ScratchType = "UI_PREFERENCES"
 	ScratchTypeProjectRepoDefaults ScratchType = "PROJECT_REPO_DEFAULTS"
 )
 

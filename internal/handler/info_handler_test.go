@@ -19,8 +19,8 @@ func TestHandleGetInfo(t *testing.T) {
 	}
 
 	var resp struct {
-		Success bool             `json:"success"`
-		Data    *UserSystemInfo  `json:"data"`
+		Success bool            `json:"success"`
+		Data    *UserSystemInfo `json:"data"`
 	}
 	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
 		t.Fatalf("decode response: %v", err)
@@ -51,7 +51,7 @@ func TestHandleGetInfo(t *testing.T) {
 	}
 
 	// Login status should be logged out.
-	ls, ok := info.LoginStatus.(map[string]interface{})
+	ls, ok := info.LoginStatus.(map[string]any)
 	if !ok {
 		t.Fatalf("expected login_status to be a map, got %T", info.LoginStatus)
 	}

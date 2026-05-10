@@ -20,7 +20,7 @@ func (h *Handler) registerAuthRoutes(r chi.Router) {
 
 // handleAuthMethods handles GET /api/auth/methods.
 func (h *Handler) handleAuthMethods(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"local_auth_enabled": false,
 		"oauth_providers":    []string{},
 	})
@@ -33,7 +33,7 @@ func (h *Handler) handleAuthHandoffInit(w http.ResponseWriter, r *http.Request) 
 
 // handleAuthStatus handles GET /api/auth/status.
 func (h *Handler) handleAuthStatus(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"authenticated": false,
 	})
 }
@@ -41,7 +41,7 @@ func (h *Handler) handleAuthStatus(w http.ResponseWriter, r *http.Request) {
 // handleAuthLocalLogin handles POST /api/auth/local/login.
 func (h *Handler) handleAuthLocalLogin(w http.ResponseWriter, r *http.Request) {
 	// In local mode, auto-login with a default user.
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"user_id":  "local-user",
 		"email":    "local@localhost",
 		"username": "local",
@@ -56,7 +56,7 @@ func (h *Handler) handleAuthLogout(w http.ResponseWriter, r *http.Request) {
 
 // handleAuthToken handles GET /api/auth/token.
 func (h *Handler) handleAuthToken(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"token": nil,
 	})
 }

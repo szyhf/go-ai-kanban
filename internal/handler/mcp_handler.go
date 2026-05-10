@@ -14,8 +14,8 @@ func (h *Handler) registerMCPRoutes(r chi.Router) {
 
 // handleGetMCPConfig handles GET /api/mcp-config.
 func (h *Handler) handleGetMCPConfig(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
-		"servers": []interface{}{},
+	success(w, map[string]any{
+		"servers": []any{},
 	})
 }
 

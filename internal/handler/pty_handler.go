@@ -31,7 +31,7 @@ func newPTYHandler(ptySvc *pty.Service) *ptyHandler {
 // ptyInputMsg represents an input message from the frontend.
 type ptyInputMsg struct {
 	Type string `json:"type"`
-	Data string `json:"data,omitempty"`  // base64 encoded
+	Data string `json:"data,omitempty"` // base64 encoded
 	Cols uint16 `json:"cols,omitempty"`
 	Rows uint16 `json:"rows,omitempty"`
 }
@@ -44,10 +44,11 @@ type ptyOutputMsg struct {
 
 // handleTerminal handles the WebSocket terminal endpoint.
 // Frontend protocol (JSON text messages):
-//   Input:  {"type":"input","data":"<base64>"}
-//   Resize: {"type":"resize","cols":N,"rows":N}
-//   Output: {"type":"output","data":"<base64>"}
-//   Exit:   {"type":"exit"}
+//
+//	Input:  {"type":"input","data":"<base64>"}
+//	Resize: {"type":"resize","cols":N,"rows":N}
+//	Output: {"type":"output","data":"<base64>"}
+//	Exit:   {"type":"exit"}
 func (h *ptyHandler) handleTerminal(w http.ResponseWriter, r *http.Request) {
 	cols := uint16(80)
 	rows := uint16(24)
@@ -65,7 +66,7 @@ func (h *ptyHandler) handleTerminal(w http.ResponseWriter, r *http.Request) {
 
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		h.logger.Error("websocket upgrade failed", "error", err)
+		h.logger.Error("WebSocket 升级失败", "error", err)
 		return
 	}
 	defer conn.Close()
@@ -80,8 +81,8 @@ func (h *ptyHandler) handleTerminal(w http.ResponseWriter, r *http.Request) {
 		Rows:       rows,
 	})
 	if err != nil {
-		h.logger.Error("failed to create pty session", "error", err)
-	 errMsg, _ := json.Marshal(ptyOutputMsg{Type: "exit"})
+		h.logger.Error("创建 PTY 会话失败", "error", err)
+		errMsg, _ := json.Marshal(ptyOutputMsg{Type: "exit"})
 		_ = conn.WriteMessage(websocket.TextMessage, errMsg)
 		return
 	}

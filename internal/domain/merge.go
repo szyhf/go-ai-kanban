@@ -8,11 +8,11 @@ import (
 
 // PullRequestInfo contains PR metadata for a PR-based merge.
 type PullRequestInfo struct {
-	Number          int64      `json:"number"`
-	URL             string     `json:"url"`
-	Status          MergeStatus `json:"status"`
-	MergedAt        *time.Time `json:"merged_at"`
-	MergeCommitSHA  *string    `json:"merge_commit_sha"`
+	Number         int64       `json:"number"`
+	URL            string      `json:"url"`
+	Status         MergeStatus `json:"status"`
+	MergedAt       *time.Time  `json:"merged_at"`
+	MergeCommitSHA *string     `json:"merge_commit_sha"`
 }
 
 // DirectMerge represents a direct (non-PR) merge.
@@ -38,12 +38,12 @@ type PrMerge struct {
 // Merge represents a tagged union of DirectMerge and PrMerge.
 // Discriminated by the "type" field (snake_case): {"type": "direct", ...} or {"type": "pr", ...}
 type Merge struct {
-	Type              MergeType `json:"type"`
-	ID                UUID      `json:"id"`
-	WorkspaceID       UUID      `json:"workspace_id"`
-	RepoID            UUID      `json:"repo_id"`
-	TargetBranchName  string    `json:"target_branch_name"`
-	CreatedAt         time.Time `json:"created_at"`
+	Type             MergeType `json:"type"`
+	ID               UUID      `json:"id"`
+	WorkspaceID      UUID      `json:"workspace_id"`
+	RepoID           UUID      `json:"repo_id"`
+	TargetBranchName string    `json:"target_branch_name"`
+	CreatedAt        time.Time `json:"created_at"`
 	// Direct merge only
 	MergeCommit *string `json:"merge_commit,omitempty"`
 	// PR merge only

@@ -118,7 +118,7 @@ func (r *MergeRepo) CreatePrMerge(pr *domain.PullRequest) error {
 			synced_at = excluded.synced_at
 	`, pr.ID, nullUUID(pr.WorkspaceID), nullUUID(pr.RepoID),
 		pr.PRURL, pr.PRNumber, pr.PRStatus,
-		pr.TargetBranchName, nullTime(pr.MergedAt), nullString(pr.MergeCommitSHA),
+		pr.TargetBranchName, nullTime(pr.MergedAt), nullValue(pr.MergeCommitSHA),
 		pr.CreatedAt, pr.UpdatedAt, nullTime(pr.SyncedAt))
 	if err != nil {
 		return fmt.Errorf("create pr merge: %w", err)
@@ -132,7 +132,7 @@ func (r *MergeRepo) UpdatePrStatus(prURL string, status domain.MergeStatus, merg
 		UPDATE pull_requests
 		SET pr_status = ?, merged_at = ?, merge_commit_sha = ?, updated_at = datetime('now', 'subsec')
 		WHERE pr_url = ?
-	`, status, nullTime(mergedAt), nullString(mergeCommitSHA), prURL)
+	`, status, nullTime(mergedAt), nullValue(mergeCommitSHA), prURL)
 	if err != nil {
 		return fmt.Errorf("update pr status: %w", err)
 	}

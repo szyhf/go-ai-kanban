@@ -103,7 +103,7 @@ func (r *SessionRepo) Create(s *domain.Session) error {
 	_, err := r.db.Exec(`
 		INSERT INTO sessions (id, workspace_id, name, executor, agent_working_dir)
 		VALUES (?, ?, ?, ?, ?)
-	`, s.ID[:], s.WorkspaceID[:], nullString(s.Name), nullString(s.Executor), nullString(s.AgentWorkingDir))
+	`, s.ID[:], s.WorkspaceID[:], nullValue(s.Name), nullValue(s.Executor), nullValue(s.AgentWorkingDir))
 	if err != nil {
 		return fmt.Errorf("create session: %w", err)
 	}
@@ -116,7 +116,7 @@ func (r *SessionRepo) Update(s *domain.Session) error {
 		UPDATE sessions
 		SET name = ?, executor = ?, agent_working_dir = ?, updated_at = datetime('now', 'subsec')
 		WHERE id = ?
-	`, nullString(s.Name), nullString(s.Executor), nullString(s.AgentWorkingDir), s.ID[:])
+	`, nullValue(s.Name), nullValue(s.Executor), nullValue(s.AgentWorkingDir), s.ID[:])
 	if err != nil {
 		return fmt.Errorf("update session: %w", err)
 	}

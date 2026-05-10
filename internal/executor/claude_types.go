@@ -34,16 +34,16 @@ type ControlRequest struct {
 
 // ControlResponse is sent back to Claude Code in response to a control_request.
 type ControlResponse struct {
-	Type     string               `json:"type"`
-	Accepted bool                 `json:"accepted,omitempty"`
-	Response PermissionResponse   `json:"response,omitempty"`
+	Type     string             `json:"type"`
+	Accepted bool               `json:"accepted,omitempty"`
+	Response PermissionResponse `json:"response,omitempty"`
 }
 
 // PermissionResponse is the response payload for permission requests.
 type PermissionResponse struct {
-	Behavior          string                 `json:"behavior"`
-	UpdatedInput      json.RawMessage        `json:"updatedInput,omitempty"`
-	UpdatedPermissions []PermissionUpdate     `json:"updatedPermissions,omitempty"`
+	Behavior           string             `json:"behavior"`
+	UpdatedInput       json.RawMessage    `json:"updatedInput,omitempty"`
+	UpdatedPermissions []PermissionUpdate `json:"updatedPermissions,omitempty"`
 }
 
 // PermissionUpdate represents a permission grant/deny update.

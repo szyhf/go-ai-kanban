@@ -64,12 +64,12 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 
 // handleWorkspaceAgentSetup handles POST /api/workspaces/{id}/integration/agent/setup.
 func (h *Handler) handleWorkspaceAgentSetup(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{})
+	success(w, map[string]any{})
 }
 
 // handleWorkspaceEditorOpen handles POST /api/workspaces/{id}/integration/editor/open.
 func (h *Handler) handleWorkspaceEditorOpen(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{})
+	success(w, map[string]any{})
 }
 
 // handleWorkspaceEditorPath handles GET /api/workspaces/{id}/integration/editor/path.
@@ -79,7 +79,7 @@ func (h *Handler) handleWorkspaceEditorPath(w http.ResponseWriter, r *http.Reque
 
 // handleWorkspaceGHCLISetup handles POST /api/workspaces/{id}/integration/github/cli/setup.
 func (h *Handler) handleWorkspaceGHCLISetup(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{})
+	success(w, map[string]any{})
 }
 
 // listWorkspaces handles GET /api/workspaces.
@@ -207,7 +207,7 @@ func (h *Handler) startWorkspace(w http.ResponseWriter, r *http.Request) {
 	}
 	if len(wsRepos) > 0 {
 		if err := h.wsRepoRepo.CreateMany(ws.ID, wsRepos); err != nil {
-			slog.Warn("failed to add repos to workspace", "error", err)
+			slog.Warn("添加 repos 到 workspace 失败", "error", err)
 		}
 	}
 
@@ -246,7 +246,7 @@ func (h *Handler) startWorkspace(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonCodingAgent,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start execution", "error", err)
+		slog.Error("启动执行", "error", err)
 		internalError(w, "failed to start execution: "+err.Error())
 		return
 	}
@@ -254,7 +254,7 @@ func (h *Handler) startWorkspace(w http.ResponseWriter, r *http.Request) {
 	// 6. Load the created process for the response.
 	ep, err := h.execRepo.FindByID(processID)
 	if err != nil || ep == nil {
-		slog.Error("find execution process after creation", "error", err, "process_id", processID)
+		slog.Error("创建后查找 execution process", "error", err, "process_id", processID)
 		internalError(w, "execution started but failed to load process")
 		return
 	}
@@ -262,7 +262,7 @@ func (h *Handler) startWorkspace(w http.ResponseWriter, r *http.Request) {
 	// 7. Notify frontend.
 	h.eventSvc.NotifyChange(service.HookTableWorkspaces, service.HookOpInsert, ws.ID)
 
-	created(w, map[string]interface{}{
+	created(w, map[string]any{
 		"workspace":         ws,
 		"execution_process": ep,
 	})
@@ -411,13 +411,13 @@ func (h *Handler) stopWorkspaceExecution(w http.ResponseWriter, r *http.Request)
 	stopped := 0
 	for _, proc := range processes {
 		if err := h.containerSvc.StopExecution(proc.ID); err != nil {
-			slog.Warn("stop execution", "error", err, "process_id", proc.ID)
+			slog.Warn("停止执行", "error", err, "process_id", proc.ID)
 		} else {
 			stopped++
 		}
 	}
 
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"status":  "stopped",
 		"stopped": stopped,
 	})

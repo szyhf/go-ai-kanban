@@ -50,7 +50,7 @@ func (s *EventService) NotifyChange(table HookTable, op HookOp, id domain.UUID) 
 	case HookTableScratch:
 		s.notifyScratchChange(op, id)
 	default:
-		slog.Debug("unknown hook table", "table", table)
+		slog.Debug("未知的 hook 表", "table", table)
 	}
 }
 
@@ -138,13 +138,13 @@ func (s *EventService) notifyWorkspaceChange(op HookOp, id domain.UUID) {
 		FROM workspaces WHERE id = ?
 	`, id[:]).Scan(&wsJSON)
 	if err != nil {
-		slog.Warn("event: load workspace", "id", id, "error", err)
+		slog.Warn("事件: 加载 workspace", "id", id, "error", err)
 		return
 	}
 
-	var value interface{}
+	var value any
 	if err := json.Unmarshal(wsJSON, &value); err != nil {
-		slog.Warn("event: unmarshal workspace", "error", err)
+		slog.Warn("事件: 反序列化 workspace", "error", err)
 		return
 	}
 
@@ -170,13 +170,13 @@ func (s *EventService) notifyExecutionProcessChange(op HookOp, id domain.UUID) {
 		FROM execution_processes WHERE id = ?
 	`, id[:]).Scan(&epJSON)
 	if err != nil {
-		slog.Warn("event: load execution process", "id", id, "error", err)
+		slog.Warn("事件: 加载 execution process", "id", id, "error", err)
 		return
 	}
 
-	var value interface{}
+	var value any
 	if err := json.Unmarshal(epJSON, &value); err != nil {
-		slog.Warn("event: unmarshal execution process", "error", err)
+		slog.Warn("事件: 反序列化 execution process", "error", err)
 		return
 	}
 
@@ -201,13 +201,13 @@ func (s *EventService) notifyScratchChange(op HookOp, id domain.UUID) {
 		FROM scratch WHERE id = ?
 	`, id[:]).Scan(&scratchJSON)
 	if err != nil {
-		slog.Warn("event: load scratch", "id", id, "error", err)
+		slog.Warn("事件: 加载 scratch", "id", id, "error", err)
 		return
 	}
 
-	var value interface{}
+	var value any
 	if err := json.Unmarshal(scratchJSON, &value); err != nil {
-		slog.Warn("event: unmarshal scratch", "error", err)
+		slog.Warn("事件: 反序列化 scratch", "error", err)
 		return
 	}
 

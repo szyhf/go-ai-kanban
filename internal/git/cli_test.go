@@ -239,9 +239,9 @@ func TestCLI_DiffStatus(t *testing.T) {
 
 func TestParseNameStatus(t *testing.T) {
 	tests := []struct {
-		name   string
-		input  string
-		want   []StatusDiffEntry
+		name  string
+		input string
+		want  []StatusDiffEntry
 	}{
 		{
 			"empty",

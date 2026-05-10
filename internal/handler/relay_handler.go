@@ -19,15 +19,15 @@ func (h *Handler) registerRelayRoutes(r chi.Router) {
 
 // handleRelayEnrollmentCode handles POST /api/relay-auth/server/enrollment-code.
 func (h *Handler) handleRelayEnrollmentCode(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"enrollment_code": "",
 	})
 }
 
 // handleRelayListClients handles GET /api/relay-auth/server/clients.
 func (h *Handler) handleRelayListClients(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
-		"clients": []interface{}{},
+	success(w, map[string]any{
+		"clients": []any{},
 	})
 }
 
@@ -39,13 +39,13 @@ func (h *Handler) handleRelayRemoveClient(w http.ResponseWriter, r *http.Request
 
 // handleRelayPairHost handles POST /api/relay-auth/client/pair.
 func (h *Handler) handleRelayPairHost(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{})
+	success(w, map[string]any{})
 }
 
 // handleRelayListHosts handles GET /api/relay-auth/client/hosts.
 func (h *Handler) handleRelayListHosts(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
-		"hosts": []interface{}{},
+	success(w, map[string]any{
+		"hosts": []any{},
 	})
 }
 

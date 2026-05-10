@@ -223,7 +223,7 @@ func (h *Handler) listRepoPRs(w http.ResponseWriter, r *http.Request) {
 
 	prs, err := h.ghCLI.ListOpenPRs(repoSlug)
 	if err != nil {
-		slog.Warn("list PRs failed", "error", err)
+		slog.Warn("列出 PR 失败", "error", err)
 		errorWithData(w, http.StatusInternalServerError, "failed to list PRs", map[string]string{
 			"type": "cli_error",
 		})
@@ -366,9 +366,9 @@ func (h *Handler) openRepoEditor(w http.ResponseWriter, r *http.Request) {
 
 	// For now, return success without actually opening the editor.
 	// A full implementation would use exec.Command to open the editor.
-	slog.Info("open editor requested", "repo_path", repo.Path, "sub_path", req.Path)
+	slog.Info("请求打开编辑器", "repo_path", repo.Path, "sub_path", req.Path)
 
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"opened": true,
 		"path":   repo.Path,
 	})

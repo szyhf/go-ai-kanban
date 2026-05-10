@@ -118,10 +118,10 @@ func (c *CLI) ListWorktrees(repoPath string) ([]WorktreeEntry, error) {
 
 // StatusEntry represents a single entry from `git status --porcelain -z`.
 type StatusEntry struct {
-	Staged     byte   // Column X
-	Unstaged   byte   // Column Y
-	Path       string // File path (UTF-8)
-	OrigPath   string // Original path for renames
+	Staged      byte   // Column X
+	Unstaged    byte   // Column Y
+	Path        string // File path (UTF-8)
+	OrigPath    string // Original path for renames
 	IsUntracked bool
 }
 
@@ -198,14 +198,14 @@ func (c *CLI) HasChanges(worktreePath string) (bool, error) {
 type ChangeType string
 
 const (
-	ChangeAdded      ChangeType = "added"
-	ChangeModified   ChangeType = "modified"
-	ChangeDeleted    ChangeType = "deleted"
-	ChangeRenamed    ChangeType = "renamed"
-	ChangeCopied     ChangeType = "copied"
+	ChangeAdded       ChangeType = "added"
+	ChangeModified    ChangeType = "modified"
+	ChangeDeleted     ChangeType = "deleted"
+	ChangeRenamed     ChangeType = "renamed"
+	ChangeCopied      ChangeType = "copied"
 	ChangeTypeChanged ChangeType = "type_changed"
-	ChangeUnmerged   ChangeType = "unmerged"
-	ChangeUnknown    ChangeType = "unknown"
+	ChangeUnmerged    ChangeType = "unmerged"
+	ChangeUnknown     ChangeType = "unknown"
 )
 
 // StatusDiffEntry represents one entry from a diff status.

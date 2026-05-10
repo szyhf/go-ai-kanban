@@ -11,7 +11,7 @@ import (
 )
 
 // decodeJSON reads and decodes JSON from the request body.
-func decodeJSON(w http.ResponseWriter, r *http.Request, v interface{}) bool {
+func decodeJSON(w http.ResponseWriter, r *http.Request, v any) bool {
 	if err := json.NewDecoder(r.Body).Decode(v); err != nil {
 		badRequest(w, "invalid JSON: "+err.Error())
 		return false
@@ -60,16 +60,16 @@ func internalError(w http.ResponseWriter, msg string) {
 }
 
 // success is a shorthand for 200.
-func success(w http.ResponseWriter, data interface{}) {
+func success(w http.ResponseWriter, data any) {
 	httputil.Success(w, data)
 }
 
 // created is a shorthand for 201.
-func created(w http.ResponseWriter, data interface{}) {
+func created(w http.ResponseWriter, data any) {
 	httputil.Created(w, data)
 }
 
 // errorWithData sends an error response with additional structured error data.
-func errorWithData(w http.ResponseWriter, code int, msg string, errData interface{}) {
+func errorWithData(w http.ResponseWriter, code int, msg string, errData any) {
 	httputil.ErrorWithData(w, code, msg, errData)
 }

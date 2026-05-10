@@ -120,9 +120,9 @@ func TestWorkspaceWithStatusFlatten(t *testing.T) {
 func TestRepoWithTargetBranchFlatten(t *testing.T) {
 	r := RepoWithTargetBranch{
 		Repo: Repo{
-			ID:       NewUUID(),
-			Path:     "/path/to/repo",
-			Name:     "myrepo",
+			ID:          NewUUID(),
+			Path:        "/path/to/repo",
+			Name:        "myrepo",
 			DisplayName: "My Repo",
 		},
 		TargetBranch: "main",

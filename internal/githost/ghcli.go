@@ -23,25 +23,25 @@ func (g *GhCLI) IsInstalled() bool {
 
 // PRDetail represents a pull request.
 type PRDetail struct {
-	Number        int     `json:"number"`
-	URL           string  `json:"url"`
-	Status        string  `json:"status"` // "open", "merged", "closed", "unknown"
-	MergedAt      *string `json:"merged_at"`
+	Number         int     `json:"number"`
+	URL            string  `json:"url"`
+	Status         string  `json:"status"` // "open", "merged", "closed", "unknown"
+	MergedAt       *string `json:"merged_at"`
 	MergeCommitSHA *string `json:"merge_commit_sha"`
-	Title         string  `json:"title"`
-	BaseBranch    string  `json:"base_branch"`
-	HeadBranch    string  `json:"head_branch"`
+	Title          string  `json:"title"`
+	BaseBranch     string  `json:"base_branch"`
+	HeadBranch     string  `json:"head_branch"`
 }
 
 // PRComment represents a PR comment.
 type PRComment struct {
-	CommentType        string  `json:"comment_type"` // "general" or "review"
-	ID                 string  `json:"id"`
-	Author             string  `json:"author"`
-	AuthorAssociation  *string `json:"author_association"`
-	Body               string  `json:"body"`
-	CreatedAt          string  `json:"created_at"`
-	URL                *string `json:"url"`
+	CommentType       string  `json:"comment_type"` // "general" or "review"
+	ID                string  `json:"id"`
+	Author            string  `json:"author"`
+	AuthorAssociation *string `json:"author_association"`
+	Body              string  `json:"body"`
+	CreatedAt         string  `json:"created_at"`
+	URL               *string `json:"url"`
 	// Review comment fields
 	Path     *string `json:"path,omitempty"`
 	Line     *int    `json:"line,omitempty"`
@@ -58,12 +58,12 @@ type RepoInfo struct {
 
 // CreatePROptions are the options for creating a PR.
 type CreatePROptions struct {
-	Repo     string // owner/repo
-	Head     string // head branch
-	Base     string // base branch
-	Title    string
-	Body     string
-	Draft    bool
+	Repo  string // owner/repo
+	Head  string // head branch
+	Base  string // base branch
+	Title string
+	Body  string
+	Draft bool
 }
 
 // CreatePR creates a pull request and returns the PR URL.
@@ -113,14 +113,14 @@ func (g *GhCLI) ListPRsForBranch(repo, branch string) ([]PRDetail, error) {
 	}
 
 	var raw []struct {
-		Number       int     `json:"number"`
-		URL          string  `json:"url"`
-		State        string  `json:"state"`
-		MergedAt     *string `json:"mergedAt"`
-		MergeCommit  *string `json:"mergeCommit"`
-		Title        string  `json:"title"`
-		BaseRefName  string  `json:"baseRefName"`
-		HeadRefName  string  `json:"headRefName"`
+		Number      int     `json:"number"`
+		URL         string  `json:"url"`
+		State       string  `json:"state"`
+		MergedAt    *string `json:"mergedAt"`
+		MergeCommit *string `json:"mergeCommit"`
+		Title       string  `json:"title"`
+		BaseRefName string  `json:"baseRefName"`
+		HeadRefName string  `json:"headRefName"`
 	}
 	if err := json.Unmarshal([]byte(out), &raw); err != nil {
 		return nil, fmt.Errorf("parse pr list: %w", err)
@@ -276,8 +276,8 @@ func (g *GhCLI) GetPRComments(repo string, prNumber int) ([]PRComment, error) {
 	}
 
 	var reviewComments []struct {
-		ID     int    `json:"id"`
-		User   struct {
+		ID   int `json:"id"`
+		User struct {
 			Login string `json:"login"`
 		} `json:"user"`
 		Body      string `json:"body"`

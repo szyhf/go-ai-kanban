@@ -19,7 +19,7 @@ func NewWorkspaceRepo(db *sql.DB) *WorkspaceRepo {
 }
 
 // scanWorkspace scans a full workspace row from the current row position.
-func scanWorkspace(sc interface{ Scan(...interface{}) error }) (domain.Workspace, error) {
+func scanWorkspace(sc Row) (domain.Workspace, error) {
 	var w domain.Workspace
 	var taskID []byte
 	if err := sc.Scan(
@@ -88,7 +88,7 @@ func (r *WorkspaceRepo) FindAllWithStatus(archived *bool, limit *int) ([]domain.
 		FROM workspaces w
 	`
 
-	var args []interface{}
+	var args []any
 	if archived != nil {
 		query += ` WHERE w.archived = ?`
 		args = append(args, *archived)
@@ -177,9 +177,9 @@ func (r *WorkspaceRepo) Create(w *domain.Workspace) error {
 		                        archived, pinned, name, worktree_deleted)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 	`,
-		w.ID[:], nullUUID(w.TaskID), nullString(w.ContainerRef), w.Branch,
+		w.ID[:], nullUUID(w.TaskID), nullValue(w.ContainerRef), w.Branch,
 		nullTime(w.SetupCompletedAt),
-		w.Archived, w.Pinned, nullString(w.Name), w.WorktreeDeleted,
+		w.Archived, w.Pinned, nullValue(w.Name), w.WorktreeDeleted,
 	)
 	if err != nil {
 		return fmt.Errorf("create workspace: %w", err)
@@ -196,9 +196,9 @@ func (r *WorkspaceRepo) Update(w *domain.Workspace) error {
 		    archived = ?, pinned = ?, name = ?, worktree_deleted = ?
 		WHERE id = ?
 	`,
-		nullUUID(w.TaskID), nullString(w.ContainerRef), w.Branch,
+		nullUUID(w.TaskID), nullValue(w.ContainerRef), w.Branch,
 		nullTime(w.SetupCompletedAt),
-		w.Archived, w.Pinned, nullString(w.Name), w.WorktreeDeleted,
+		w.Archived, w.Pinned, nullValue(w.Name), w.WorktreeDeleted,
 		w.ID[:],
 	)
 	if err != nil {

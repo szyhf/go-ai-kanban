@@ -87,7 +87,7 @@ func (r *TaskRepo) Create(t *domain.Task) error {
 		                   parent_workspace_id, created_at, updated_at)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 	`,
-		t.ID[:], t.ProjectID[:], t.Title, nullString(t.Description),
+		t.ID[:], t.ProjectID[:], t.Title, nullValue(t.Description),
 		t.Status, nullUUID(t.ParentWorkspaceID),
 		t.CreatedAt, t.UpdatedAt,
 	)
@@ -105,7 +105,7 @@ func (r *TaskRepo) Update(t *domain.Task) error {
 		    parent_workspace_id = ?, updated_at = datetime('now', 'subsec')
 		WHERE id = ?
 	`,
-		t.Title, nullString(t.Description), t.Status,
+		t.Title, nullValue(t.Description), t.Status,
 		nullUUID(t.ParentWorkspaceID), t.ID[:],
 	)
 	if err != nil {

@@ -82,7 +82,7 @@ func (r *ExecutionProcessRepo) Create(ep *domain.ExecutionProcess) error {
 		INSERT INTO execution_processes (id, session_id, run_reason, executor_action, status, exit_code,
 		                                 dropped, started_at, completed_at)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-	`, ep.ID[:], ep.SessionID[:], ep.RunReason, ep.ExecutorAction, ep.Status, nullInt64(ep.ExitCode),
+	`, ep.ID[:], ep.SessionID[:], ep.RunReason, ep.ExecutorAction, ep.Status, nullValue(ep.ExitCode),
 		ep.Dropped, ep.StartedAt, nullTime(ep.CompletedAt))
 	if err != nil {
 		return fmt.Errorf("create execution process: %w", err)
@@ -96,7 +96,7 @@ func (r *ExecutionProcessRepo) UpdateStatus(id domain.UUID, status domain.ExecSt
 		UPDATE execution_processes
 		SET status = ?, exit_code = ?, updated_at = datetime('now', 'subsec')
 		WHERE id = ?
-	`, status, nullInt64(exitCode), id[:])
+	`, status, nullValue(exitCode), id[:])
 	if err != nil {
 		return fmt.Errorf("update execution process status: %w", err)
 	}
@@ -124,7 +124,7 @@ func (r *ExecutionProcessRepo) FindLatestForWorkspaces(workspaceIDs []domain.UUI
 	}
 
 	placeholders := make([]string, len(workspaceIDs))
-	args := make([]interface{}, len(workspaceIDs))
+	args := make([]any, len(workspaceIDs))
 	for i, wid := range workspaceIDs {
 		placeholders[i] = "?"
 		args[i] = wid[:]
@@ -161,7 +161,7 @@ func (r *ExecutionProcessRepo) FindLatestForWorkspaces(workspaceIDs []domain.UUI
 }
 
 // scanExecutionProcess scans a full execution process row from a query result.
-func scanExecutionProcess(row interface{ Scan(...interface{}) error }, ep *domain.ExecutionProcess) error {
+func scanExecutionProcess(row Row, ep *domain.ExecutionProcess) error {
 	var executorAction []byte
 	err := row.Scan(
 		&ep.ID, &ep.SessionID, &ep.RunReason, &executorAction, &ep.Status, &ep.ExitCode,
@@ -193,7 +193,7 @@ func (r *ExecutionProcessRepoStateRepo) Create(state *domain.ExecutionProcessRep
 		                                           before_head_commit, after_head_commit, merge_commit)
 		VALUES (?, ?, ?, ?, ?, ?)
 	`, state.ID[:], state.ExecutionProcessID[:], state.RepoID[:],
-		nullString(state.BeforeHeadCommit), nullString(state.AfterHeadCommit), nullString(state.MergeCommit))
+		nullValue(state.BeforeHeadCommit), nullValue(state.AfterHeadCommit), nullValue(state.MergeCommit))
 	if err != nil {
 		return fmt.Errorf("create execution process repo state: %w", err)
 	}
@@ -286,8 +286,8 @@ func (r *CodingAgentTurnRepo) Create(turn *domain.CodingAgentTurn) error {
 		                                prompt, summary, seen)
 		VALUES (?, ?, ?, ?, ?, ?, ?)
 	`, turn.ID[:], turn.ExecutionProcessID[:],
-		nullString(turn.AgentSessionID), nullString(turn.AgentMessageID),
-		nullString(turn.Prompt), nullString(turn.Summary),
+		nullValue(turn.AgentSessionID), nullValue(turn.AgentMessageID),
+		nullValue(turn.Prompt), nullValue(turn.Summary),
 		turn.Seen)
 	if err != nil {
 		return fmt.Errorf("create coding agent turn: %w", err)
@@ -301,7 +301,7 @@ func (r *CodingAgentTurnRepo) UpdateSummaryAndSeen(id domain.UUID, summary *stri
 		UPDATE coding_agent_turns
 		SET summary = ?, seen = ?, updated_at = datetime('now', 'subsec')
 		WHERE id = ?
-	`, nullString(summary), seen, id[:])
+	`, nullValue(summary), seen, id[:])
 	if err != nil {
 		return fmt.Errorf("update coding agent turn summary and seen: %w", err)
 	}

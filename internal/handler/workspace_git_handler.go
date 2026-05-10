@@ -163,7 +163,7 @@ func (h *Handler) createPR(w http.ResponseWriter, r *http.Request) {
 
 	// Push current branch first.
 	if err := h.gitSvc.PushToRemote(target.Path, ws.Branch, false); err != nil {
-		slog.Warn("push before PR create failed", "error", err)
+		slog.Warn("创建 PR 前推送失败", "error", err)
 	}
 
 	// Determine repo owner/name from remote URL.
@@ -258,7 +258,7 @@ func (h *Handler) attachPR(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(prs) == 0 {
-		success(w, map[string]interface{}{
+		success(w, map[string]any{
 			"pr_attached": false,
 			"pr_url":      nil,
 			"pr_number":   nil,
@@ -268,7 +268,7 @@ func (h *Handler) attachPR(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pr := prs[0]
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"pr_attached": true,
 		"pr_url":      pr.URL,
 		"pr_number":   pr.Number,
@@ -323,17 +323,17 @@ func (h *Handler) getPRComments(w http.ResponseWriter, r *http.Request) {
 
 	prs, err := h.ghCLI.ListPRsForBranch(repoName, ws.Branch)
 	if err != nil || len(prs) == 0 {
-		success(w, map[string]interface{}{"comments": []interface{}{}})
+		success(w, map[string]any{"comments": []any{}})
 		return
 	}
 
 	comments, err := h.ghCLI.GetPRComments(repoName, prs[0].Number)
 	if err != nil {
-		slog.Warn("failed to get PR comments", "error", err)
-		success(w, map[string]interface{}{"comments": []interface{}{}})
+		slog.Warn("获取 PR 评论失败", "error", err)
+		success(w, map[string]any{"comments": []any{}})
 		return
 	}
-	success(w, map[string]interface{}{"comments": comments})
+	success(w, map[string]any{"comments": comments})
 }
 
 // createWorkspaceFromPR handles POST /api/workspaces/from-pr.

@@ -14,7 +14,7 @@ func (h *Handler) registerProfileRoutes(r chi.Router) {
 
 // handleGetProfile handles GET /api/profiles.
 func (h *Handler) handleGetProfile(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"content": "",
 		"path":    "",
 	})
@@ -22,7 +22,7 @@ func (h *Handler) handleGetProfile(w http.ResponseWriter, r *http.Request) {
 
 // handleSaveProfile handles PUT /api/profiles.
 func (h *Handler) handleSaveProfile(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"content": "",
 		"path":    "",
 	})

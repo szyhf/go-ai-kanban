@@ -231,7 +231,7 @@ func (h *Handler) handleFollowUp(w http.ResponseWriter, r *http.Request) {
 			performReset = *req.PerformGitReset
 		}
 		if err := h.resetSessionToProcess(r.Context(), session, retryID, performReset); err != nil {
-			slog.Error("reset session to process", "error", err, "session_id", sessionID, "process_id", retryID)
+			slog.Error("重置 session 到 process", "error", err, "session_id", sessionID, "process_id", retryID)
 			internalError(w, "failed to reset session: "+err.Error())
 			return
 		}
@@ -242,7 +242,7 @@ func (h *Handler) handleFollowUp(w http.ResponseWriter, r *http.Request) {
 
 	resumeInfo, err := h.turnRepo.FindLatestResumeInfo(sessionID)
 	if err != nil {
-		slog.Error("find latest resume info", "error", err)
+		slog.Error("查找最新恢复信息", "error", err)
 		internalError(w, "failed to determine session state")
 		return
 	}
@@ -297,7 +297,7 @@ func (h *Handler) handleFollowUp(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonCodingAgent,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start execution", "error", err)
+		slog.Error("启动执行", "error", err)
 		internalError(w, "failed to start execution: "+err.Error())
 		return
 	}
@@ -305,7 +305,7 @@ func (h *Handler) handleFollowUp(w http.ResponseWriter, r *http.Request) {
 	// Load the created process for the response.
 	ep, err := h.execRepo.FindByID(processID)
 	if err != nil || ep == nil {
-		slog.Error("find execution process after creation", "error", err, "process_id", processID)
+		slog.Error("创建后查找 execution process", "error", err, "process_id", processID)
 		internalError(w, "execution started but failed to load process")
 		return
 	}
@@ -351,7 +351,7 @@ func (h *Handler) handleReset(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.resetSessionToProcess(r.Context(), session, processID, performReset); err != nil {
-		slog.Error("reset session", "error", err)
+		slog.Error("重置 session", "error", err)
 		internalError(w, "failed to reset session: "+err.Error())
 		return
 	}
@@ -369,7 +369,7 @@ func (h *Handler) resetSessionToProcess(_ context.Context, session *domain.Sessi
 	for _, proc := range processes {
 		if proc.Status == domain.ExecStatusRunning {
 			if err := h.containerSvc.StopExecution(proc.ID); err != nil {
-				slog.Warn("stop running execution during reset", "error", err, "process_id", proc.ID)
+				slog.Warn("重置时停止运行中的执行", "error", err, "process_id", proc.ID)
 			}
 		}
 	}
@@ -378,7 +378,7 @@ func (h *Handler) resetSessionToProcess(_ context.Context, session *domain.Sessi
 	if performGitReset {
 		wsRepos, err := h.wsRepoRepo.FindByWorkspaceIDWithRepos(session.WorkspaceID)
 		if err != nil {
-			slog.Warn("find workspace repos for reset", "error", err)
+			slog.Warn("查找 workspace repos 用于重置", "error", err)
 		} else {
 			for _, wr := range wsRepos {
 				if wr.TargetBranch != "" {
@@ -480,7 +480,7 @@ func (h *Handler) startReview(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonCodingAgent,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start review execution", "error", err)
+		slog.Error("启动 review 执行", "error", err)
 		internalError(w, "failed to start review: "+err.Error())
 		return
 	}
@@ -563,7 +563,7 @@ func (h *Handler) runSetupScript(w http.ResponseWriter, r *http.Request) {
 		RunReason: domain.RunReasonSetupScript,
 	}, nil, nil)
 	if err != nil {
-		slog.Error("start setup execution", "error", err)
+		slog.Error("启动 setup 执行", "error", err)
 		internalError(w, "failed to run setup script: "+err.Error())
 		return
 	}

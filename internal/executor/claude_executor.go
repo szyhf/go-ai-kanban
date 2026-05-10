@@ -145,7 +145,7 @@ func (e *ClaudeCodeExecutor) spawnInternal(ctx context.Context, dir string, prom
 		return nil, fmt.Errorf("start process: %w", err)
 	}
 
-	e.logger.Info("claude code process started", "pid", cmd.Process.Pid, "dir", dir)
+	e.logger.Info("claude code 进程已启动", "pid", cmd.Process.Pid, "dir", dir)
 
 	// Set up cancellation context.
 	cancelCtx, cancel := context.WithCancel(ctx)
@@ -171,13 +171,13 @@ func (e *ClaudeCodeExecutor) spawnInternal(ctx context.Context, dir string, prom
 	}()
 
 	return &SpawnedProcess{
-		Cmd:       cmd,
-		Stdin:     io.WriteCloser(stdinPipe),
+		Cmd:        cmd,
+		Stdin:      io.WriteCloser(stdinPipe),
 		StdoutPipe: stdoutPipe,
 		StderrPipe: stderrPipe,
-		Cancel:    cancel,
-		Done:      done,
-		RawLines:  rawLines,
+		Cancel:     cancel,
+		Done:       done,
+		RawLines:   rawLines,
 	}, nil
 }
 

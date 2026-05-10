@@ -53,11 +53,11 @@ func TestValidateOrigin(t *testing.T) {
 			expectCode: http.StatusForbidden,
 		},
 		{
-			name:       "extra allowed origin",
-			origin:     "http://example.com",
-			host:       "localhost:3210",
+			name:         "extra allowed origin",
+			origin:       "http://example.com",
+			host:         "localhost:3210",
 			extraOrigins: []string{"http://example.com"},
-			expectCode: http.StatusOK,
+			expectCode:   http.StatusOK,
 		},
 		{
 			name:       "relay bypasses validation",
@@ -133,9 +133,9 @@ func TestSameOrigin(t *testing.T) {
 
 func TestSplitHostPort(t *testing.T) {
 	tests := []struct {
-		input     string
-		wantHost  string
-		wantPort  string
+		input    string
+		wantHost string
+		wantPort string
 	}{
 		{"localhost:3000", "localhost", "3000"},
 		{"http://localhost:3000", "localhost", "3000"},

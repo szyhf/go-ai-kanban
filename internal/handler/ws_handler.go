@@ -47,7 +47,7 @@ type wsStreamConfig struct {
 func handleWSStream(w http.ResponseWriter, r *http.Request, cfg wsStreamConfig) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		slog.Error("ws upgrade failed", "error", err)
+		slog.Error("WebSocket 升级失败", "error", err)
 		return
 	}
 	defer conn.Close()
@@ -88,7 +88,7 @@ func handleWSStream(w http.ResponseWriter, r *http.Request, cfg wsStreamConfig) 
 		for msg := range ch {
 			data, err := cfg.Convert(msg)
 			if err != nil {
-				slog.Debug("ws convert error", "error", err)
+				slog.Debug("WebSocket 消息转换错误", "error", err)
 				continue
 			}
 			if data == nil {

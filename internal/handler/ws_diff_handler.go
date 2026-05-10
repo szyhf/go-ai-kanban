@@ -28,7 +28,7 @@ func (h *Handler) handleDiffStreamWS(w http.ResponseWriter, r *http.Request) {
 
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		slog.Error("ws upgrade failed", "error", err)
+		slog.Error("WebSocket 升级失败", "error", err)
 		return
 	}
 	defer conn.Close()
@@ -36,7 +36,7 @@ func (h *Handler) handleDiffStreamWS(w http.ResponseWriter, r *http.Request) {
 	// Load workspace repos.
 	wsRepos, err := h.wsRepoRepo.FindByWorkspaceIDWithRepos(id)
 	if err != nil {
-		slog.Error("load workspace repos", "error", err)
+		slog.Error("加载 workspace repos", "error", err)
 		return
 	}
 
@@ -126,11 +126,11 @@ func (h *Handler) handleDiffStreamWS(w http.ResponseWriter, r *http.Request) {
 
 // computeWorkspaceDiffs computes diffs for all repos in a workspace.
 func (h *Handler) computeWorkspaceDiffs(ws *domain.Workspace, wsRepos []domain.RepoWithTargetBranch, statsOnly bool) []service.LogMsg {
-	var allDiffs []interface{}
+	var allDiffs []any
 	for _, wr := range wsRepos {
 		diffs, err := h.gitSvc.GetDiffs(wr.Path, nil, nil, wr.ID.String())
 		if err != nil {
-			slog.Debug("compute diff", "repo", wr.Path, "error", err)
+			slog.Debug("计算 diff", "repo", wr.Path, "error", err)
 			continue
 		}
 		if statsOnly {
@@ -146,7 +146,7 @@ func (h *Handler) computeWorkspaceDiffs(ws *domain.Workspace, wsRepos []domain.R
 	}
 
 	if allDiffs == nil {
-		allDiffs = []interface{}{}
+		allDiffs = []any{}
 	}
 
 	return []service.LogMsg{

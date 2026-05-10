@@ -257,7 +257,7 @@ func TestSplitSQL(t *testing.T) {
 			expected: []string{"PRAGMA foreign_keys = OFF", "PRAGMA journal_mode=WAL"},
 		},
 		{
-			name: "multi-transaction pattern",
+			name:  "multi-transaction pattern",
 			input: "ALTER TABLE t ADD COLUMN c TEXT;\nCOMMIT;\nPRAGMA foreign_keys = OFF;\nBEGIN TRANSACTION;\nSELECT 1;",
 			expected: []string{
 				"ALTER TABLE t ADD COLUMN c TEXT",
@@ -268,14 +268,14 @@ func TestSplitSQL(t *testing.T) {
 			},
 		},
 		{
-			name: "CREATE TRIGGER with BEGIN...END",
+			name:  "CREATE TRIGGER with BEGIN...END",
 			input: "CREATE TRIGGER trg\nAFTER UPDATE ON t\nFOR EACH ROW\nBEGIN\n    UPDATE t SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;\nEND;",
 			expected: []string{
 				"CREATE TRIGGER trg\nAFTER UPDATE ON t\nFOR EACH ROW\nBEGIN\n    UPDATE t SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;\nEND",
 			},
 		},
 		{
-			name: "trigger mixed with normal statements",
+			name:  "trigger mixed with normal statements",
 			input: "CREATE TABLE t (id INTEGER, updated_at TEXT);\nCREATE TRIGGER trg\nAFTER UPDATE ON t\nFOR EACH ROW\nBEGIN\n    UPDATE t SET updated_at = CURRENT_TIMESTAMP WHERE id = OLD.id;\nEND;\nINSERT INTO t VALUES (1, '2025-01-01');",
 			expected: []string{
 				"CREATE TABLE t (id INTEGER, updated_at TEXT)",

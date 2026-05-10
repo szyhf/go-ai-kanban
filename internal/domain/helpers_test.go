@@ -33,9 +33,9 @@ func TestUUIDJSONRoundTrip(t *testing.T) {
 
 func TestUUIDInStruct(t *testing.T) {
 	type testStruct struct {
-		ID   UUID    `json:"id"`
-		Name string  `json:"name"`
-		Opt  *UUID   `json:"opt"`
+		ID   UUID   `json:"id"`
+		Name string `json:"name"`
+		Opt  *UUID  `json:"opt"`
 	}
 
 	id := NewUUID()

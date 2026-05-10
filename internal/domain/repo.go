@@ -7,20 +7,20 @@ import (
 
 // Repo represents a git repository tracked by the system.
 type Repo struct {
-	ID                   UUID      `json:"id"`
-	Path                 string    `json:"path"`
-	Name                 string    `json:"name"`
-	DisplayName          string    `json:"display_name"`
-	SetupScript          *string   `json:"setup_script"`
-	CleanupScript        *string   `json:"cleanup_script"`
-	ArchiveScript        *string   `json:"archive_script"`
-	CopyFiles            *string   `json:"copy_files"`
-	ParallelSetupScript  bool      `json:"parallel_setup_script"`
-	DevServerScript      *string   `json:"dev_server_script"`
-	DefaultTargetBranch  *string   `json:"default_target_branch"`
-	DefaultWorkingDir    *string   `json:"default_working_dir"`
-	CreatedAt            time.Time `json:"created_at"`
-	UpdatedAt            time.Time `json:"updated_at"`
+	ID                  UUID      `json:"id"`
+	Path                string    `json:"path"`
+	Name                string    `json:"name"`
+	DisplayName         string    `json:"display_name"`
+	SetupScript         *string   `json:"setup_script"`
+	CleanupScript       *string   `json:"cleanup_script"`
+	ArchiveScript       *string   `json:"archive_script"`
+	CopyFiles           *string   `json:"copy_files"`
+	ParallelSetupScript bool      `json:"parallel_setup_script"`
+	DevServerScript     *string   `json:"dev_server_script"`
+	DefaultTargetBranch *string   `json:"default_target_branch"`
+	DefaultWorkingDir   *string   `json:"default_working_dir"`
+	CreatedAt           time.Time `json:"created_at"`
+	UpdatedAt           time.Time `json:"updated_at"`
 }
 
 // UpdateRepo is the request DTO for updating a repo.
@@ -41,9 +41,9 @@ type UpdateRepo struct {
 type SearchMatchType string
 
 const (
-	SearchMatchFileName       SearchMatchType = "FileName"
-	SearchMatchDirectoryName  SearchMatchType = "DirectoryName"
-	SearchMatchFullPath       SearchMatchType = "FullPath"
+	SearchMatchFileName      SearchMatchType = "FileName"
+	SearchMatchDirectoryName SearchMatchType = "DirectoryName"
+	SearchMatchFullPath      SearchMatchType = "FullPath"
 )
 
 // SearchResult represents a file/directory search result.

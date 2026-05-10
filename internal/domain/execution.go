@@ -29,14 +29,14 @@ type CreateExecutionProcess struct {
 
 // ExecutionProcessRepoState tracks before/after commit state for each repo.
 type ExecutionProcessRepoState struct {
-	ID                  UUID      `json:"id"`
-	ExecutionProcessID  UUID      `json:"execution_process_id"`
-	RepoID              UUID      `json:"repo_id"`
-	BeforeHeadCommit    *string   `json:"before_head_commit"`
-	AfterHeadCommit     *string   `json:"after_head_commit"`
-	MergeCommit         *string   `json:"merge_commit"`
-	CreatedAt           time.Time `json:"created_at"`
-	UpdatedAt           time.Time `json:"updated_at"`
+	ID                 UUID      `json:"id"`
+	ExecutionProcessID UUID      `json:"execution_process_id"`
+	RepoID             UUID      `json:"repo_id"`
+	BeforeHeadCommit   *string   `json:"before_head_commit"`
+	AfterHeadCommit    *string   `json:"after_head_commit"`
+	MergeCommit        *string   `json:"merge_commit"`
+	CreatedAt          time.Time `json:"created_at"`
+	UpdatedAt          time.Time `json:"updated_at"`
 }
 
 // CreateExecutionProcessRepoState is the internal DTO for creating repo state.
@@ -49,15 +49,15 @@ type CreateExecutionProcessRepoState struct {
 
 // CodingAgentTurn represents a single turn in an AI agent conversation.
 type CodingAgentTurn struct {
-	ID                  UUID      `json:"id"`
-	ExecutionProcessID  UUID      `json:"execution_process_id"`
-	AgentSessionID      *string   `json:"agent_session_id"`
-	AgentMessageID      *string   `json:"agent_message_id"`
-	Prompt              *string   `json:"prompt"`
-	Summary             *string   `json:"summary"`
-	Seen                bool      `json:"seen"`
-	CreatedAt           time.Time `json:"created_at"`
-	UpdatedAt           time.Time `json:"updated_at"`
+	ID                 UUID      `json:"id"`
+	ExecutionProcessID UUID      `json:"execution_process_id"`
+	AgentSessionID     *string   `json:"agent_session_id"`
+	AgentMessageID     *string   `json:"agent_message_id"`
+	Prompt             *string   `json:"prompt"`
+	Summary            *string   `json:"summary"`
+	Seen               bool      `json:"seen"`
+	CreatedAt          time.Time `json:"created_at"`
+	UpdatedAt          time.Time `json:"updated_at"`
 }
 
 // CreateCodingAgentTurn is the request DTO for creating a turn.
@@ -83,9 +83,9 @@ type ExecutionProcessLogs struct {
 // ExecutionContext groups execution process with its context.
 type ExecutionContext struct {
 	ExecutionProcess ExecutionProcess
-	Session         Session
-	Workspace       Workspace
-	Repos           []Repo
+	Session          Session
+	Workspace        Workspace
+	Repos            []Repo
 }
 
 // LatestProcessInfo holds the latest execution process info for a workspace.
@@ -99,11 +99,11 @@ type LatestProcessInfo struct {
 
 // MissingBeforeContext tracks processes that need before-context snapshots.
 type MissingBeforeContext struct {
-	ID               UUID
-	SessionID        UUID
-	WorkspaceID      UUID
-	RepoID           UUID
+	ID                  UUID
+	SessionID           UUID
+	WorkspaceID         UUID
+	RepoID              UUID
 	PrevAfterHeadCommit *string
-	TargetBranch     string
-	RepoPath         *string
+	TargetBranch        string
+	RepoPath            *string
 }

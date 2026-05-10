@@ -13,7 +13,7 @@ import (
 type ApiResponse = httputil.ApiResponse
 
 // Success sends a successful JSON response.
-func Success(w http.ResponseWriter, data interface{}) {
+func Success(w http.ResponseWriter, data any) {
 	httputil.Success(w, data)
 }
 
@@ -23,7 +23,7 @@ func SuccessMessage(w http.ResponseWriter, message string) {
 }
 
 // Created sends a 201 Created response with data.
-func Created(w http.ResponseWriter, data interface{}) {
+func Created(w http.ResponseWriter, data any) {
 	httputil.Created(w, data)
 }
 
@@ -33,7 +33,7 @@ func Error(w http.ResponseWriter, code int, message string) {
 }
 
 // ErrorWithData sends an error response with additional error data.
-func ErrorWithData(w http.ResponseWriter, code int, message string, errData interface{}) {
+func ErrorWithData(w http.ResponseWriter, code int, message string, errData any) {
 	httputil.ErrorWithData(w, code, message, errData)
 }
 

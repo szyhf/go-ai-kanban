@@ -74,9 +74,7 @@ func (r *WorkspaceRepoRepo) FindByWorkspaceIDWithRepos(workspaceID domain.UUID) 
 }
 
 // scanRepoWithTargetBranch scans a Repo row plus target_branch.
-func scanRepoWithTargetBranch(row interface {
-	Scan(dest ...interface{}) error
-}, rwt *domain.RepoWithTargetBranch) error {
+func scanRepoWithTargetBranch(row Row, rwt *domain.RepoWithTargetBranch) error {
 	var setupScript, cleanupScript, archiveScript, copyFiles, devServerScript, defaultTargetBranch, defaultWorkingDir []byte
 	var parallelSetupScript int
 	err := row.Scan(

@@ -31,9 +31,9 @@ func (h *Handler) registerExecutionRoutes(r chi.Router) {
 
 // createExecutionRequest is the request body for creating an execution process.
 type createExecutionRequest struct {
-	SessionID      string                 `json:"session_id"`
-	ExecutorAction map[string]interface{} `json:"executor_action"`
-	RunReason      string                 `json:"run_reason"`
+	SessionID      string         `json:"session_id"`
+	ExecutorAction map[string]any `json:"executor_action"`
+	RunReason      string         `json:"run_reason"`
 }
 
 // createExecutionProcess handles POST /api/execution-processes.
@@ -191,7 +191,7 @@ func parseUUIDFromString(w http.ResponseWriter, s string) (domain.UUID, bool) {
 }
 
 // marshalRawAction marshals a map back to JSON bytes.
-func marshalRawAction(v map[string]interface{}) ([]byte, error) {
+func marshalRawAction(v map[string]any) ([]byte, error) {
 	if v == nil {
 		return nil, errInvalidAction
 	}

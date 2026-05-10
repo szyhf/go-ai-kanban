@@ -8,8 +8,13 @@ import (
 	"github.com/xuzhiping7/ai-kanban/internal/domain"
 )
 
+// Row is an interface for database rows that can be scanned (database/sql.Row or .Rows).
+type Row interface {
+	Scan(dest ...any) error
+}
+
 // scanUUID scans a nullable UUID BLOB column.
-func scanUUID(row interface{ Scan(...interface{}) error }, dest *domain.UUID) error {
+func scanUUID(row Row, dest *domain.UUID) error {
 	var b []byte
 	if err := row.Scan(&b); err != nil {
 		if err == sql.ErrNoRows {
@@ -28,7 +33,7 @@ func scanUUID(row interface{ Scan(...interface{}) error }, dest *domain.UUID) er
 }
 
 // scanNullableUUID scans a nullable UUID BLOB column into *domain.UUID.
-func scanNullableUUID(row interface{ Scan(...interface{}) error }, dest **domain.UUID) error {
+func scanNullableUUID(row Row, dest **domain.UUID) error {
 	var b []byte
 	if err := row.Scan(&b); err != nil {
 		return fmt.Errorf("scan nullable UUID: %w", err)
@@ -47,7 +52,7 @@ func scanNullableUUID(row interface{ Scan(...interface{}) error }, dest **domain
 }
 
 // scanNullableString scans a nullable string column.
-func scanNullableString(row interface{ Scan(...interface{}) error }, dest **string) error {
+func scanNullableString(row Row, dest **string) error {
 	var s sql.NullString
 	if err := row.Scan(&s); err != nil {
 		return fmt.Errorf("scan nullable string: %w", err)
@@ -61,7 +66,7 @@ func scanNullableString(row interface{ Scan(...interface{}) error }, dest **stri
 }
 
 // scanNullableInt64 scans a nullable int64 column.
-func scanNullableInt64(row interface{ Scan(...interface{}) error }, dest **int64) error {
+func scanNullableInt64(row Row, dest **int64) error {
 	var n sql.NullInt64
 	if err := row.Scan(&n); err != nil {
 		return fmt.Errorf("scan nullable int64: %w", err)
@@ -75,7 +80,7 @@ func scanNullableInt64(row interface{ Scan(...interface{}) error }, dest **int64
 }
 
 // scanNullableTime scans a nullable datetime column.
-func scanNullableTime(row interface{ Scan(...interface{}) error }, dest **time.Time) error {
+func scanNullableTime(row Row, dest **time.Time) error {
 	var t sql.NullTime
 	if err := row.Scan(&t); err != nil {
 		return fmt.Errorf("scan nullable time: %w", err)
@@ -88,32 +93,27 @@ func scanNullableTime(row interface{ Scan(...interface{}) error }, dest **time.T
 	return nil
 }
 
+// nullValue returns a driver.Value for a nullable pointer of any type.
+// For simple pointer dereference, the generic form avoids boxing overhead.
+func nullValue[T any](v *T) any {
+	if v == nil {
+		return nil
+	}
+	return *v
+}
+
 // nullUUID returns a driver.Value for a nullable UUID pointer.
-func nullUUID(u *domain.UUID) interface{} {
+// It converts the UUID to a byte slice for SQLite BLOB storage.
+func nullUUID(u *domain.UUID) any {
 	if u == nil {
 		return nil
 	}
 	return u[:]
 }
 
-// nullString returns a driver.Value for a nullable string pointer.
-func nullString(s *string) interface{} {
-	if s == nil {
-		return nil
-	}
-	return *s
-}
-
-// nullInt64 returns a driver.Value for a nullable int64 pointer.
-func nullInt64(n *int64) interface{} {
-	if n == nil {
-		return nil
-	}
-	return *n
-}
-
 // nullTime returns a driver.Value for a nullable time pointer.
-func nullTime(t *time.Time) interface{} {
+// It formats the time as RFC3339Nano for SQLite TEXT storage.
+func nullTime(t *time.Time) any {
 	if t == nil {
 		return nil
 	}
@@ -128,12 +128,12 @@ var sqliteTimeFormats = []string{
 	"2006-01-02T15:04:05Z",                // ISO with Z no fraction
 	"2006-01-02 15:04:05.999999999-07:00", // space + Go timezone offset
 	"2006-01-02 15:04:05.999999999Z07:00",
-	"2006-01-02 15:04:05.999999999",       // SQLite datetime('now','subsec')
-	"2006-01-02 15:04:05-07:00",           // space + timezone offset no frac
+	"2006-01-02 15:04:05.999999999", // SQLite datetime('now','subsec')
+	"2006-01-02 15:04:05-07:00",     // space + timezone offset no frac
 	"2006-01-02 15:04:05Z07:00",
-	"2006-01-02 15:04:05",                 // SQLite datetime('now')
-	"2006-01-02T15:04:05.999999999",       // ISO without Z
-	"2006-01-02T15:04:05",                 // ISO without Z no fraction
+	"2006-01-02 15:04:05",           // SQLite datetime('now')
+	"2006-01-02T15:04:05.999999999", // ISO without Z
+	"2006-01-02T15:04:05",           // ISO without Z no fraction
 }
 
 // parseDBTime parses a time string from SQLite into time.Time.
@@ -151,7 +151,7 @@ func parseDBTime(s string) (time.Time, error) {
 // Usage: rows.Scan(..., timeScanner{&p.CreatedAt}, timeScanner{&p.UpdatedAt})
 type timeScanner struct{ ptr *time.Time }
 
-func (ts timeScanner) Scan(val interface{}) error {
+func (ts timeScanner) Scan(val any) error {
 	if val == nil {
 		return nil
 	}
@@ -175,7 +175,7 @@ func (ts timeScanner) Scan(val interface{}) error {
 // Usage: rows.Scan(..., nullTimeScanner{&p.SomeNullableTime})
 type nullTimeScanner struct{ ptr **time.Time }
 
-func (nts nullTimeScanner) Scan(val interface{}) error {
+func (nts nullTimeScanner) Scan(val any) error {
 	if val == nil {
 		*nts.ptr = nil
 		return nil

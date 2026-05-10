@@ -33,84 +33,84 @@ func buildUserSystemInfo() *UserSystemInfo {
 
 	executors := map[string]*ExecutorProfile{
 		string(domain.AgentClaudeCode): {
-			Executor:        string(domain.AgentClaudeCode),
-			Command:         "claude",
-			DisplayName:     "Claude Code",
-			Available:       true,
-			SupportsResume:  true,
-			SupportsReview:  true,
-			SupportsSetup:   false,
-			Capabilities:    []string{"SESSION_FORK"},
+			Executor:       string(domain.AgentClaudeCode),
+			Command:        "claude",
+			DisplayName:    "Claude Code",
+			Available:      true,
+			SupportsResume: true,
+			SupportsReview: true,
+			SupportsSetup:  false,
+			Capabilities:   []string{"SESSION_FORK"},
 		},
 	}
 
 	return &UserSystemInfo{
-		Version:             Version,
-		Config:              defaultConfig,
-		MachineID:           generateMachineID(),
-		LoginStatus:         LoginStatusLoggedOut,
-		RemoteAuthDegraded:  nil,
-		Environment:         detectEnvironment(),
-		Capabilities:        map[string][]string{string(domain.AgentClaudeCode): {"SESSION_FORK"}},
-		SharedAPIBase:       nil,
-		PreviewProxyPort:    nil,
-		Executors:           executors,
+		Version:            Version,
+		Config:             defaultConfig,
+		MachineID:          generateMachineID(),
+		LoginStatus:        LoginStatusLoggedOut,
+		RemoteAuthDegraded: nil,
+		Environment:        detectEnvironment(),
+		Capabilities:       map[string][]string{string(domain.AgentClaudeCode): {"SESSION_FORK"}},
+		SharedAPIBase:      nil,
+		PreviewProxyPort:   nil,
+		Executors:          executors,
 	}
 }
 
 // UserSystemInfo matches the frontend TypeScript UserSystemInfo type.
 type UserSystemInfo struct {
-	Version            string                        `json:"version"`
-	Config             *Config                       `json:"config"`
-	MachineID          string                        `json:"machine_id"`
-	LoginStatus        LoginStatus                   `json:"login_status"`
-	RemoteAuthDegraded *string                       `json:"remote_auth_degraded"`
-	Environment        *Environment                  `json:"environment"`
-	Capabilities       map[string][]string           `json:"capabilities"`
-	SharedAPIBase      *string                       `json:"shared_api_base"`
-	PreviewProxyPort   *int                          `json:"preview_proxy_port"`
-	Executors          map[string]*ExecutorProfile   `json:"executors"`
+	Version            string                      `json:"version"`
+	Config             *Config                     `json:"config"`
+	MachineID          string                      `json:"machine_id"`
+	LoginStatus        LoginStatus                 `json:"login_status"`
+	RemoteAuthDegraded *string                     `json:"remote_auth_degraded"`
+	Environment        *Environment                `json:"environment"`
+	Capabilities       map[string][]string         `json:"capabilities"`
+	SharedAPIBase      *string                     `json:"shared_api_base"`
+	PreviewProxyPort   *int                        `json:"preview_proxy_port"`
+	Executors          map[string]*ExecutorProfile `json:"executors"`
 }
 
 // LoginStatus represents the user's login state.
 // Serialized as either {"status":"loggedout"} or {"status":"loggedin","profile":{...}}.
-type LoginStatus interface{}
+type LoginStatus any
 
 var LoginStatusLoggedOut LoginStatus = map[string]string{"status": "loggedout"}
 
 // Environment holds OS/platform information.
 type Environment struct {
-	OSType          string `json:"os_type"`
-	OSVersion       string `json:"os_version"`
-	OSArchitecture  string `json:"os_architecture"`
-	Bitness         string `json:"bitness"`
+	OSType         string `json:"os_type"`
+	OSVersion      string `json:"os_version"`
+	OSArchitecture string `json:"os_architecture"`
+	Bitness        string `json:"bitness"`
 }
 
 // Config matches the frontend TypeScript Config type (v8).
 type Config struct {
-	ConfigVersion              string                `json:"config_version"`
-	Theme                      string                `json:"theme"`
-	ExecutorProfile            *ExecutorProfileID    `json:"executor_profile"`
-	DisclaimerAcknowledged     bool                  `json:"disclaimer_acknowledged"`
-	OnboardingAcknowledged     bool                  `json:"onboarding_acknowledged"`
+	ConfigVersion                string              `json:"config_version"`
+	Theme                        string              `json:"theme"`
+	ExecutorProfile              *ExecutorProfileID  `json:"executor_profile"`
+	DisclaimerAcknowledged       bool                `json:"disclaimer_acknowledged"`
+	OnboardingAcknowledged       bool                `json:"onboarding_acknowledged"`
 	RemoteOnboardingAcknowledged bool                `json:"remote_onboarding_acknowledged"`
-	Notifications              *NotificationConfig   `json:"notifications"`
-	Editor                     *EditorConfig         `json:"editor"`
-	GitHub                     *GitHubConfig         `json:"github"`
-	AnalyticsEnabled           bool                  `json:"analytics_enabled"`
-	WorkspaceDir               *string               `json:"workspace_dir"`
-	LastAppVersion             *string               `json:"last_app_version"`
-	ShowReleaseNotes           bool                  `json:"show_release_notes"`
-	Language                   string                `json:"language"`
-	GitBranchPrefix            string                `json:"git_branch_prefix"`
-	Showcases                  *ShowcaseState        `json:"showcases"`
-	PRAutoDescriptionEnabled   bool                  `json:"pr_auto_description_enabled"`
-	PRAutoDescriptionPrompt    *string               `json:"pr_auto_description_prompt"`
-	CommitReminderEnabled      bool                  `json:"commit_reminder_enabled"`
-	CommitReminderPrompt       *string               `json:"commit_reminder_prompt"`
-	SendMessageShortcut        string                `json:"send_message_shortcut"`
-	RelayEnabled               bool                  `json:"relay_enabled"`
-	HostNickname               *string               `json:"host_nickname"`
+	Notifications                *NotificationConfig `json:"notifications"`
+	Editor                       *EditorConfig       `json:"editor"`
+	GitHub                       *GitHubConfig       `json:"github"`
+	AnalyticsEnabled             bool                `json:"analytics_enabled"`
+	WorkspaceDir                 *string             `json:"workspace_dir"`
+	LastAppVersion               *string             `json:"last_app_version"`
+	ShowReleaseNotes             bool                `json:"show_release_notes"`
+	Language                     string              `json:"language"`
+	GitBranchPrefix              string              `json:"git_branch_prefix"`
+	Showcases                    *ShowcaseState      `json:"showcases"`
+	PRAutoDescriptionEnabled     bool                `json:"pr_auto_description_enabled"`
+	PRAutoDescriptionPrompt      *string             `json:"pr_auto_description_prompt"`
+	CommitReminderEnabled        bool                `json:"commit_reminder_enabled"`
+	CommitReminderPrompt         *string             `json:"commit_reminder_prompt"`
+	SendMessageShortcut          string              `json:"send_message_shortcut"`
+	RelayEnabled                 bool                `json:"relay_enabled"`
+	HostNickname                 *string             `json:"host_nickname"`
 }
 
 // ExecutorProfileID identifies the selected executor and optional variant.
@@ -128,19 +128,19 @@ type NotificationConfig struct {
 
 // EditorConfig configures the user's code editor.
 type EditorConfig struct {
-	EditorType          string  `json:"editor_type"`
-	CustomCommand       *string `json:"custom_command"`
-	RemoteSSHHost       *string `json:"remote_ssh_host"`
-	RemoteSSHUser       *string `json:"remote_ssh_user"`
-	AutoInstallExtension bool   `json:"auto_install_extension"`
+	EditorType           string  `json:"editor_type"`
+	CustomCommand        *string `json:"custom_command"`
+	RemoteSSHHost        *string `json:"remote_ssh_host"`
+	RemoteSSHUser        *string `json:"remote_ssh_user"`
+	AutoInstallExtension bool    `json:"auto_install_extension"`
 }
 
 // GitHubConfig holds GitHub authentication state.
 type GitHubConfig struct {
-	PAT          *string `json:"pat"`
-	OAuthToken   *string `json:"oauth_token"`
-	Username     *string `json:"username"`
-	PrimaryEmail *string `json:"primary_email"`
+	PAT           *string `json:"pat"`
+	OAuthToken    *string `json:"oauth_token"`
+	Username      *string `json:"username"`
+	PrimaryEmail  *string `json:"primary_email"`
 	DefaultPRBase *string `json:"default_pr_base"`
 }
 
@@ -164,11 +164,11 @@ type ExecutorProfile struct {
 // buildDefaultConfig returns a sensible default Config for local mode.
 func buildDefaultConfig() *Config {
 	return &Config{
-		ConfigVersion:              "v8",
-		Theme:                      "System",
-		ExecutorProfile:            &ExecutorProfileID{Executor: string(domain.AgentClaudeCode)},
-		DisclaimerAcknowledged:     false,
-		OnboardingAcknowledged:     false,
+		ConfigVersion:                "v8",
+		Theme:                        "System",
+		ExecutorProfile:              &ExecutorProfileID{Executor: string(domain.AgentClaudeCode)},
+		DisclaimerAcknowledged:       false,
+		OnboardingAcknowledged:       false,
 		RemoteOnboardingAcknowledged: false,
 		Notifications: &NotificationConfig{
 			SoundEnabled: true,
@@ -176,18 +176,18 @@ func buildDefaultConfig() *Config {
 			SoundFile:    "ABSTRACT_SOUND1",
 		},
 		Editor: &EditorConfig{
-			EditorType:          "VS_CODE",
+			EditorType:           "VS_CODE",
 			AutoInstallExtension: true,
 		},
 		GitHub:                   &GitHubConfig{},
 		AnalyticsEnabled:         false,
 		Language:                 "BROWSER",
-		GitBranchPrefix:         "vk",
-		Showcases:               &ShowcaseState{SeenFeatures: []string{}},
+		GitBranchPrefix:          "vk",
+		Showcases:                &ShowcaseState{SeenFeatures: []string{}},
 		PRAutoDescriptionEnabled: true,
-		CommitReminderEnabled:   true,
-		SendMessageShortcut:     "ModifierEnter",
-		RelayEnabled:            true,
+		CommitReminderEnabled:    true,
+		SendMessageShortcut:      "ModifierEnter",
+		RelayEnabled:             true,
 	}
 }
 
@@ -257,7 +257,7 @@ func (h *Handler) handleSaveConfig(w http.ResponseWriter, r *http.Request) {
 	// Persist to file.
 	configPath, err := getConfigFilePath()
 	if err != nil {
-		slog.Warn("could not determine config file path", "error", err)
+		slog.Warn("无法确定配置文件路径", "error", err)
 		// Still return success — config is ephemeral in local mode.
 		success(w, &cfg)
 		return
@@ -270,13 +270,13 @@ func (h *Handler) handleSaveConfig(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := os.MkdirAll(filepath.Dir(configPath), 0755); err != nil {
-		slog.Warn("could not create config directory", "error", err)
+		slog.Warn("无法创建配置目录", "error", err)
 		success(w, &cfg)
 		return
 	}
 
 	if err := os.WriteFile(configPath, data, 0644); err != nil {
-		slog.Warn("could not write config file", "error", err)
+		slog.Warn("无法写入配置文件", "error", err)
 		success(w, &cfg)
 		return
 	}

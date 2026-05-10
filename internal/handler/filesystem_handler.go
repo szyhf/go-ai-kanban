@@ -36,7 +36,7 @@ func (h *Handler) listGitRepos(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	var entries interface{}
+	var entries any
 	var err error
 
 	if path != "" {

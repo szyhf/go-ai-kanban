@@ -134,7 +134,7 @@ func (s *FileService) DeleteFile(id domain.UUID) error {
 		p := filepath.Join(dir, attachment.FilePath)
 		if _, err := os.Stat(p); err == nil {
 			if err := os.Remove(p); err != nil {
-				slog.Warn("failed to delete attachment file", "path", p, "error", err)
+				slog.Warn("删除附件文件失败", "path", p, "error", err)
 			}
 		}
 	}
@@ -146,14 +146,14 @@ func (s *FileService) DeleteFile(id domain.UUID) error {
 func (s *FileService) DeleteOrphanedFiles() (int, int) {
 	orphans, err := s.attachRepo.FindOrphanedFiles()
 	if err != nil {
-		slog.Error("find orphaned files", "error", err)
+		slog.Error("查找孤立文件", "error", err)
 		return 0, 0
 	}
 
 	deleted, failed := 0, 0
 	for _, a := range orphans {
 		if err := s.DeleteFile(a.ID); err != nil {
-			slog.Warn("delete orphaned file", "id", a.ID, "error", err)
+			slog.Warn("删除孤立文件", "id", a.ID, "error", err)
 			failed++
 		} else {
 			deleted++
@@ -180,7 +180,7 @@ func (s *FileService) CopyFilesToWorktree(worktreePath, agentWorkingDir string, 
 	for _, id := range fileIDs {
 		a, err := s.attachRepo.FindByID(id)
 		if err != nil {
-			slog.Warn("find attachment for copy", "id", id, "error", err)
+			slog.Warn("查找附件用于复制", "id", id, "error", err)
 			continue
 		}
 		if a != nil {
@@ -213,14 +213,14 @@ func (s *FileService) CopyFilesToWorktree(worktreePath, agentWorkingDir string, 
 	// Write .gitignore.
 	gitignore := filepath.Join(vibeDir, ".gitignore")
 	if err := os.WriteFile(gitignore, []byte("*\n"), 0o644); err != nil {
-		slog.Warn("write .gitignore", "error", err)
+		slog.Warn("写入 .gitignore", "error", err)
 	}
 
 	// Copy files.
 	for _, a := range attachments {
 		srcPath := s.resolveCachedPath(a.FilePath)
 		if srcPath == "" {
-			slog.Warn("attachment file not found on disk", "file_path", a.FilePath)
+			slog.Warn("磁盘上未找到附件文件", "file_path", a.FilePath)
 			continue
 		}
 
@@ -231,20 +231,20 @@ func (s *FileService) CopyFilesToWorktree(worktreePath, agentWorkingDir string, 
 
 		srcFile, err := os.Open(srcPath)
 		if err != nil {
-			slog.Warn("open source file", "path", srcPath, "error", err)
+			slog.Warn("打开源文件", "path", srcPath, "error", err)
 			continue
 		}
 		dstFile, err := os.Create(dst)
 		if err != nil {
 			srcFile.Close()
-			slog.Warn("create dest file", "path", dst, "error", err)
+			slog.Warn("创建目标文件", "path", dst, "error", err)
 			continue
 		}
 		_, err = io.Copy(dstFile, srcFile)
 		srcFile.Close()
 		dstFile.Close()
 		if err != nil {
-			slog.Warn("copy file", "src", srcPath, "dst", dst, "error", err)
+			slog.Warn("复制文件", "src", srcPath, "dst", dst, "error", err)
 		}
 	}
 
@@ -284,7 +284,7 @@ func (s *FileService) resolveCachedPath(filePath string) string {
 	// Legacy cache.
 	p = filepath.Join(s.legacyCacheDir, filePath)
 	if _, err := os.Stat(p); err == nil {
-		slog.Debug("resolved from legacy cache", "file_path", filePath)
+		slog.Debug("从旧缓存解析", "file_path", filePath)
 		return p
 	}
 	return ""

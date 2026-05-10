@@ -23,16 +23,16 @@ type Handler struct {
 	msgStore   *service.MsgStore
 	queueSvc   *service.QueuedMessageService
 
-	repoRepo   *repository.GitRepoRepo
-	tagRepo    *repository.TagRepo
-	scratchRepo *repository.ScratchRepo
-	sessionRepo *repository.SessionRepo
-	wsRepo     *repository.WorkspaceRepo
-	wsRepoRepo *repository.WorkspaceRepoRepo
-	execRepo   *repository.ExecutionProcessRepo
+	repoRepo      *repository.GitRepoRepo
+	tagRepo       *repository.TagRepo
+	scratchRepo   *repository.ScratchRepo
+	sessionRepo   *repository.SessionRepo
+	wsRepo        *repository.WorkspaceRepo
+	wsRepoRepo    *repository.WorkspaceRepoRepo
+	execRepo      *repository.ExecutionProcessRepo
 	execStateRepo *repository.ExecutionProcessRepoStateRepo
-	attachRepo *repository.AttachmentRepo
-	wsAttachRepo *repository.WorkspaceAttachmentRepo
+	attachRepo    *repository.AttachmentRepo
+	wsAttachRepo  *repository.WorkspaceAttachmentRepo
 
 	// New services for execution and terminal.
 	containerSvc *executor.ContainerService
@@ -66,27 +66,27 @@ func NewHandler(
 	turnRepo *repository.CodingAgentTurnRepo,
 ) *Handler {
 	h := &Handler{
-		repoSvc:    repoSvc,
-		gitSvc:     gitSvc,
-		filesystem: filesystem,
-		fileSvc:    fileSvc,
-		eventSvc:   eventSvc,
-		msgStore:   msgStore,
-		queueSvc:   queueSvc,
-		repoRepo:   repoRepo,
-		tagRepo:    tagRepo,
-		scratchRepo: scratchRepo,
-		sessionRepo: sessionRepo,
-		wsRepo:     wsRepo,
-		wsRepoRepo: wsRepoRepo,
-		execRepo:   execRepo,
+		repoSvc:       repoSvc,
+		gitSvc:        gitSvc,
+		filesystem:    filesystem,
+		fileSvc:       fileSvc,
+		eventSvc:      eventSvc,
+		msgStore:      msgStore,
+		queueSvc:      queueSvc,
+		repoRepo:      repoRepo,
+		tagRepo:       tagRepo,
+		scratchRepo:   scratchRepo,
+		sessionRepo:   sessionRepo,
+		wsRepo:        wsRepo,
+		wsRepoRepo:    wsRepoRepo,
+		execRepo:      execRepo,
 		execStateRepo: execStateRepo,
-		attachRepo: attachRepo,
-		wsAttachRepo: wsAttachRepo,
-		containerSvc: containerSvc,
-		ptySvc:       ptySvc,
-		turnRepo:     turnRepo,
-		ghCLI:        githost.NewGhCLI(),
+		attachRepo:    attachRepo,
+		wsAttachRepo:  wsAttachRepo,
+		containerSvc:  containerSvc,
+		ptySvc:        ptySvc,
+		turnRepo:      turnRepo,
+		ghCLI:         githost.NewGhCLI(),
 	}
 	if ptySvc != nil {
 		h.ptyHandler = newPTYHandler(ptySvc)

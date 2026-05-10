@@ -40,14 +40,14 @@ type WorkspaceRepoRepos interface {
 
 // ContainerService orchestrates execution processes: spawn, monitor, commit, and chain.
 type ContainerService struct {
-	execProcRepo   ExecutionProcessRepos
-	repoStateRepo  ExecutionRepoStateRepos
-	turnRepo       CodingAgentTurnRepos
-	wsRepoRepo     WorkspaceRepoRepos
-	gitSvc         *git.Service
-	processStore   *ProcessStore
-	queueSvc       *service.QueuedMessageService
-	logger         *slog.Logger
+	execProcRepo  ExecutionProcessRepos
+	repoStateRepo ExecutionRepoStateRepos
+	turnRepo      CodingAgentTurnRepos
+	wsRepoRepo    WorkspaceRepoRepos
+	gitSvc        *git.Service
+	processStore  *ProcessStore
+	queueSvc      *service.QueuedMessageService
+	logger        *slog.Logger
 }
 
 // NewContainerService creates a new ContainerService.
@@ -111,7 +111,7 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 	// 2. Capture before_head_commit for each repo.
 	wsRepos, err := svc.wsRepoRepo.FindByWorkspaceIDWithRepos(input.Workspace.ID)
 	if err != nil {
-		svc.logger.Warn("failed to find workspace repos for before-commit snapshot", "error", err)
+		svc.logger.Warn("查找 workspace repos 用于提交前快照失败", "error", err)
 	}
 	for _, wr := range wsRepos {
 		beforeCommit := svc.gitSvc.GetHeadCommit(wr.Path)
@@ -130,13 +130,13 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 			UpdatedAt:          now,
 		}
 		if err := svc.repoStateRepo.Create(state); err != nil {
-			svc.logger.Warn("failed to create repo state", "repo_id", wr.ID, "error", err)
+			svc.logger.Warn("创建 repo state 失败", "repo_id", wr.ID, "error", err)
 		}
 	}
 
 	// If no executor provided, create record only and mark as completed.
 	if exec == nil {
-		svc.logger.Info("execution started (no executor, record-only)", "process_id", processID)
+		svc.logger.Info("执行已开始（无 executor，仅记录）", "process_id", processID)
 		return processID, nil
 	}
 
@@ -182,7 +182,7 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 	// 8. Start exit monitor goroutine.
 	go svc.monitorExit(processID, input, msgStore, proc)
 
-	svc.logger.Info("execution started",
+	svc.logger.Info("执行已开始",
 		"process_id", processID,
 		"session_id", input.Session.ID,
 		"workspace_id", input.Workspace.ID,
@@ -201,7 +201,7 @@ func (svc *ContainerService) StopExecution(processID domain.UUID) error {
 
 	// Send interrupt first for graceful shutdown.
 	if err := InterruptProcessGroup(entry.Cmd); err != nil {
-		svc.logger.Warn("interrupt failed, killing", "process_id", processID, "error", err)
+		svc.logger.Warn("中断失败，正在终止", "process_id", processID, "error", err)
 		if err := KillProcessGroup(entry.Cmd); err != nil {
 			return fmt.Errorf("kill process group: %w", err)
 		}
@@ -215,7 +215,7 @@ func (svc *ContainerService) StopExecution(processID domain.UUID) error {
 	// Update DB status.
 	exitCode := int64(137) // SIGKILL exit code convention
 	if err := svc.execProcRepo.UpdateStatus(processID, domain.ExecStatusKilled, &exitCode); err != nil {
-		svc.logger.Error("failed to update killed status", "process_id", processID, "error", err)
+		svc.logger.Error("更新终止状态失败", "process_id", processID, "error", err)
 	}
 
 	// Push finished signal to msg store.
@@ -224,7 +224,7 @@ func (svc *ContainerService) StopExecution(processID domain.UUID) error {
 	// Clean up process store.
 	svc.processStore.Remove(processID)
 
-	svc.logger.Info("execution stopped", "process_id", processID)
+	svc.logger.Info("执行已停止", "process_id", processID)
 	return nil
 }
 
@@ -241,7 +241,7 @@ func (svc *ContainerService) GetMsgStore(processID domain.UUID) *service.MsgStor
 func (svc *ContainerService) monitorExit(processID domain.UUID, input StartExecutionInput, msgStore *service.MsgStore, proc *SpawnedProcess) {
 	result := <-proc.Done
 
-	svc.logger.Info("execution exited",
+	svc.logger.Info("执行已退出",
 		"process_id", processID,
 		"exit_code", result.Code,
 	)
@@ -251,7 +251,7 @@ func (svc *ContainerService) monitorExit(processID domain.UUID, input StartExecu
 	exitCode := int64(result.Code)
 
 	if err := svc.execProcRepo.UpdateStatus(processID, status, &exitCode); err != nil {
-		svc.logger.Error("failed to update exit status", "process_id", processID, "error", err)
+		svc.logger.Error("更新退出状态失败", "process_id", processID, "error", err)
 	}
 
 	// Push finished signal.
@@ -288,7 +288,7 @@ func (svc *ContainerService) trackLogs(proc *SpawnedProcess, msgStore *service.M
 			}
 			if err != nil {
 				if err != io.EOF {
-					svc.logger.Debug("stderr read ended", "error", err)
+					svc.logger.Debug("stderr 读取结束", "error", err)
 				}
 				return
 			}
@@ -300,7 +300,7 @@ func (svc *ContainerService) trackLogs(proc *SpawnedProcess, msgStore *service.M
 func (svc *ContainerService) autoCommitChanges(processID domain.UUID, input StartExecutionInput) {
 	wsRepos, err := svc.wsRepoRepo.FindByWorkspaceIDWithRepos(input.Workspace.ID)
 	if err != nil {
-		svc.logger.Warn("failed to find workspace repos for auto-commit", "error", err)
+		svc.logger.Warn("查找 workspace repos 用于自动提交失败", "error", err)
 		return
 	}
 
@@ -308,24 +308,24 @@ func (svc *ContainerService) autoCommitChanges(processID domain.UUID, input Star
 		commitMsg := fmt.Sprintf("Auto-commit from execution %s", processID)
 		didCommit, err := svc.gitSvc.Commit(wr.Path, commitMsg)
 		if err != nil {
-			svc.logger.Warn("auto-commit failed", "repo", wr.Name, "error", err)
+			svc.logger.Warn("自动提交失败", "repo", wr.Name, "error", err)
 			continue
 		}
 		if didCommit {
-			svc.logger.Info("auto-committed changes", "repo", wr.Name, "process_id", processID)
+			svc.logger.Info("变更已自动提交", "repo", wr.Name, "process_id", processID)
 
 			// Update after_head_commit.
 			head := svc.gitSvc.GetHeadCommit(wr.Path)
 			if head != nil {
 				states, err := svc.repoStateRepo.FindByExecutionProcessID(processID)
 				if err != nil {
-					svc.logger.Warn("failed to find repo states", "error", err)
+					svc.logger.Warn("查找 repo states 失败", "error", err)
 					continue
 				}
 				for _, state := range states {
 					if state.RepoID == wr.ID {
 						if err := svc.repoStateRepo.UpdateAfterHeadCommit(state.ID, head.Hash); err != nil {
-							svc.logger.Warn("failed to update after_head_commit", "error", err)
+							svc.logger.Warn("更新 after_head_commit 失败", "error", err)
 						}
 						break
 					}
@@ -339,7 +339,7 @@ func (svc *ContainerService) autoCommitChanges(processID domain.UUID, input Star
 func (svc *ContainerService) checkQueuedFollowUp(sessionID domain.UUID) {
 	queued := svc.queueSvc.TakeQueued(sessionID)
 	if queued != nil {
-		svc.logger.Info("queued follow-up found for session",
+		svc.logger.Info("发现排队的 follow-up 任务",
 			"session_id", sessionID,
 			"queued_at", queued.QueuedAt,
 		)

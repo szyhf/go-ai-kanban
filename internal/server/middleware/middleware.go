@@ -32,7 +32,7 @@ func Logger(logger *slog.Logger) func(http.Handler) http.Handler {
 
 			next.ServeHTTP(wrapped, r)
 
-			logger.Info("request",
+			logger.Info("HTTP 请求",
 				"method", r.Method,
 				"path", r.URL.Path,
 				"status", wrapped.statusCode,
@@ -49,7 +49,7 @@ func Recovery(logger *slog.Logger) func(http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			defer func() {
 				if err := recover(); err != nil {
-					logger.Error("panic recovered",
+					logger.Error("panic 已恢复",
 						"error", err,
 						"path", r.URL.Path,
 						"method", r.Method,
@@ -103,7 +103,7 @@ func LogServerErrors(logger *slog.Logger) func(http.Handler) http.Handler {
 				if ctx := chi.RouteContext(r.Context()); ctx != nil {
 					routePattern = ctx.RoutePattern()
 				}
-				logger.Error("server error",
+				logger.Error("服务器错误",
 					"method", r.Method,
 					"uri", r.URL.RequestURI(),
 					"route", routePattern,

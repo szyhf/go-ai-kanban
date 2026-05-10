@@ -18,9 +18,7 @@ func NewAttachmentRepo(db *sql.DB) *AttachmentRepo {
 }
 
 // scanAttachment scans a single attachment row into a domain.Attachment.
-func scanAttachment(row interface {
-	Scan(...interface{}) error
-}, a *domain.Attachment) error {
+func scanAttachment(row Row, a *domain.Attachment) error {
 	return row.Scan(
 		&a.ID, &a.FilePath, &a.OriginalName, &a.MimeType,
 		&a.SizeBytes, &a.Hash, timeScanner{&a.CreatedAt}, timeScanner{&a.UpdatedAt},
@@ -69,7 +67,7 @@ func (r *AttachmentRepo) Create(a *domain.Attachment) error {
 	_, err := r.db.Exec(`
 		INSERT INTO attachments (id, file_path, original_name, mime_type, size_bytes, hash)
 		VALUES (?, ?, ?, ?, ?, ?)
-	`, a.ID[:], a.FilePath, a.OriginalName, nullString(a.MimeType),
+	`, a.ID[:], a.FilePath, a.OriginalName, nullValue(a.MimeType),
 		a.SizeBytes, a.Hash)
 	if err != nil {
 		return fmt.Errorf("create attachment: %w", err)

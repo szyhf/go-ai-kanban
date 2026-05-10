@@ -14,25 +14,25 @@ func main() {
 
 	cfg, err := config.Load()
 	if err != nil {
-		slog.Error("failed to load config", "error", err)
+		slog.Error("加载配置失败", "error", err)
 		os.Exit(1)
 	}
 
 	application, err := app.New(cfg)
 	if err != nil {
-		slog.Error("failed to initialize app", "error", err)
+		slog.Error("初始化应用失败", "error", err)
 		os.Exit(1)
 	}
 	defer application.Close()
 
-	slog.Info("vibe-kanban starting",
+	slog.Info("vibe-kanban 启动中",
 		"addr", cfg.Address(),
 		"mode", cfg.Server.Mode,
 		"db_driver", cfg.Database.Driver,
 	)
 
 	if err := application.Run(); err != nil {
-		slog.Error("application error", "error", err)
+		slog.Error("应用运行错误", "error", err)
 		os.Exit(1)
 	}
 }

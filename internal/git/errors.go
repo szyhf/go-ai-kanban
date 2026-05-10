@@ -23,11 +23,11 @@ func (e *OpError) Unwrap() error { return e.Err }
 
 // Sentinel errors.
 var (
-	ErrInvalidRepo     = fmt.Errorf("invalid repository")
-	ErrBranchNotFound  = fmt.Errorf("branch not found")
-	ErrMergeConflicts  = fmt.Errorf("merge conflicts detected")
+	ErrInvalidRepo      = fmt.Errorf("invalid repository")
+	ErrBranchNotFound   = fmt.Errorf("branch not found")
+	ErrMergeConflicts   = fmt.Errorf("merge conflicts detected")
 	ErrBranchesDiverged = fmt.Errorf("branches have diverged")
-	ErrWorktreeDirty   = fmt.Errorf("worktree has uncommitted changes")
+	ErrWorktreeDirty    = fmt.Errorf("worktree has uncommitted changes")
 	ErrRebaseInProgress = fmt.Errorf("rebase already in progress")
 )
 

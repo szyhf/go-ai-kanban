@@ -8,9 +8,9 @@ import (
 
 // PatchOperation represents a JSON Patch operation (RFC 6902).
 type PatchOperation struct {
-	Op    string      `json:"op"`
-	Path  string      `json:"path"`
-	Value interface{} `json:"value,omitempty"`
+	Op    string `json:"op"`
+	Path  string `json:"path"`
+	Value any    `json:"value,omitempty"`
 }
 
 // LogMsg represents a message in the log message store.

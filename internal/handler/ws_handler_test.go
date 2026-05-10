@@ -63,7 +63,7 @@ func TestLogMsgToWSMessage(t *testing.T) {
 			}
 			if string(data) != tt.want {
 				// Compare as JSON for field order independence.
-				var gotParsed, wantParsed interface{}
+				var gotParsed, wantParsed any
 				json.Unmarshal(data, &gotParsed)
 				json.Unmarshal([]byte(tt.want), &wantParsed)
 				gotJ, _ := json.Marshal(gotParsed)
@@ -96,7 +96,7 @@ func TestLogMsgToLogEntryWSMessage(t *testing.T) {
 		},
 		{
 			name: "patch skipped",
-			msg: service.NewPatchLogMsg(service.PatchOperation{Op: "add", Path: "/x"}),
+			msg:  service.NewPatchLogMsg(service.PatchOperation{Op: "add", Path: "/x"}),
 			skip: true,
 		},
 		{
@@ -119,7 +119,7 @@ func TestLogMsgToLogEntryWSMessage(t *testing.T) {
 				return
 			}
 			// Compare as JSON.
-			var gotParsed, wantParsed interface{}
+			var gotParsed, wantParsed any
 			json.Unmarshal(data, &gotParsed)
 			json.Unmarshal([]byte(tt.want), &wantParsed)
 			gotJ, _ := json.Marshal(gotParsed)
@@ -168,7 +168,7 @@ func TestHandleWSStream_PatchStream(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read snapshot: %v", err)
 	}
-	var snapshot map[string]interface{}
+	var snapshot map[string]any
 	json.Unmarshal(msg, &snapshot)
 	if _, ok := snapshot["JsonPatch"]; !ok {
 		t.Errorf("expected JsonPatch in snapshot, got %s", msg)
@@ -193,7 +193,7 @@ func TestHandleWSStream_PatchStream(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read patch: %v", err)
 	}
-	var patchMsg map[string]interface{}
+	var patchMsg map[string]any
 	json.Unmarshal(msg, &patchMsg)
 	if _, ok := patchMsg["JsonPatch"]; !ok {
 		t.Errorf("expected JsonPatch, got %s", msg)
@@ -236,14 +236,14 @@ func TestHandleWSStream_LogStream(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read initial: %v", err)
 	}
-	var initial map[string]interface{}
+	var initial map[string]any
 	json.Unmarshal(msg, &initial)
-	patches, ok := initial["JsonPatch"].([]interface{})
+	patches, ok := initial["JsonPatch"].([]any)
 	if !ok || len(patches) != 1 {
 		t.Fatalf("expected JsonPatch array, got %s", msg)
 	}
-	entry := patches[0].(map[string]interface{})
-	value := entry["value"].(map[string]interface{})
+	entry := patches[0].(map[string]any)
+	value := entry["value"].(map[string]any)
 	if value["type"] != "STDOUT" {
 		t.Errorf("expected STDOUT, got %v", value["type"])
 	}
@@ -265,7 +265,7 @@ func TestWorkspaceStreamWS(t *testing.T) {
 	_, router := setupTestHandler(t)
 
 	// Create a workspace first.
-	wsBody := map[string]interface{}{
+	wsBody := map[string]any{
 		"branch": "ws-stream-test",
 		"name":   "stream-test-ws",
 	}
@@ -290,7 +290,7 @@ func TestWorkspaceStreamWS(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read snapshot: %v", err)
 	}
-	var snapshot map[string]interface{}
+	var snapshot map[string]any
 	json.Unmarshal(msg, &snapshot)
 	if _, ok := snapshot["JsonPatch"]; !ok {
 		t.Errorf("expected JsonPatch snapshot, got %s", msg)
@@ -313,7 +313,7 @@ func TestScratchStreamWS(t *testing.T) {
 
 	// Create scratch first.
 	scratchID := "00000000-0000-0000-0000-000000000099"
-	body := map[string]interface{}{
+	body := map[string]any{
 		"type": "WORKSPACE_NOTES",
 		"data": map[string]string{"content": "test notes"},
 	}
@@ -339,7 +339,7 @@ func TestScratchStreamWS(t *testing.T) {
 		t.Fatalf("read: %v", err)
 	}
 	// First message is either snapshot or Ready.
-	var parsed map[string]interface{}
+	var parsed map[string]any
 	json.Unmarshal(msg, &parsed)
 	if _, ok := parsed["JsonPatch"]; !ok && string(msg) != `{"Ready":true}` {
 		t.Errorf("expected JsonPatch or Ready, got %s", msg)
@@ -367,7 +367,7 @@ func TestApprovalStreamWS(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read snapshot: %v", err)
 	}
-	var snapshot map[string]interface{}
+	var snapshot map[string]any
 	json.Unmarshal(msg, &snapshot)
 	if _, ok := snapshot["JsonPatch"]; !ok {
 		t.Errorf("expected JsonPatch, got %s", msg)

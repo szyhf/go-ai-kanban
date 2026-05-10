@@ -33,8 +33,10 @@ type App struct {
 // New creates a new App instance, initializing all dependencies.
 func New(cfg *config.Config) (*App, error) {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
-		Level: slog.LevelInfo,
+		Level:     slog.LevelInfo,
+		AddSource: true,
 	}))
+	slog.SetDefault(logger)
 
 	db, err := database.Open(cfg.Database.Driver, cfg.Database.DSN)
 	if err != nil {
@@ -110,14 +112,14 @@ func (a *App) Run() error {
 	}
 
 	go func() {
-		a.Logger.Info("server starting", "addr", srv.Addr)
+		a.Logger.Info("服务器启动中", "addr", srv.Addr)
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			a.Logger.Error("server error", "error", err)
+			a.Logger.Error("服务器错误", "error", err)
 		}
 	}()
 
 	<-ctx.Done()
-	a.Logger.Info("shutting down...")
+	a.Logger.Info("正在关闭...")
 
 	// Clean up execution processes and PTY sessions.
 	processStore.KillAll()

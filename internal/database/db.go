@@ -118,11 +118,11 @@ func (db *DB) Migrate() error {
 			return fmt.Errorf("read migration %s: %w", f.Name(), err)
 		}
 
-		slog.Info("applying migration", "file", f.Name())
+		slog.Info("正在应用迁移", "file", f.Name())
 		if err := db.applyMigration(f.Name(), string(content)); err != nil {
 			return fmt.Errorf("apply migration %s: %w", f.Name(), err)
 		}
-		slog.Info("migration applied", "file", f.Name())
+		slog.Info("迁移已应用", "file", f.Name())
 	}
 
 	return nil

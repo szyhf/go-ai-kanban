@@ -6,10 +6,10 @@ import "strings"
 type DiffChangeKind string
 
 const (
-	DiffChangeAdded     DiffChangeKind = "added"
-	DiffChangeModified  DiffChangeKind = "modified"
-	DiffChangeDeleted   DiffChangeKind = "deleted"
-	DiffChangeRenamed   DiffChangeKind = "renamed"
+	DiffChangeAdded    DiffChangeKind = "added"
+	DiffChangeModified DiffChangeKind = "modified"
+	DiffChangeDeleted  DiffChangeKind = "deleted"
+	DiffChangeRenamed  DiffChangeKind = "renamed"
 )
 
 // Diff represents a single file diff.

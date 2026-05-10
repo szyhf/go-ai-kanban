@@ -210,7 +210,7 @@ func (s *FilesystemService) listGitReposInner(paths []string, maxDepth int) ([]D
 					if info, err := d.Info(); err == nil {
 						if mtime := info.ModTime().Unix(); mtime != 0 {
 							elapsed := time.Since(info.ModTime()).Seconds()
-						secs := int64(elapsed)
+							secs := int64(elapsed)
 							modTime = &secs
 						}
 					}
@@ -251,19 +251,19 @@ func (s *FilesystemService) listGitReposInner(paths []string, maxDepth int) ([]D
 // getDirectoriesToSkip returns a set of directory names to skip during repo scanning.
 func getDirectoriesToSkip() map[string]bool {
 	skip := map[string]bool{
-		"node_modules":  true,
-		"target":        true,
-		"build":         true,
-		"dist":          true,
-		".next":         true,
-		".nuxt":         true,
-		".cache":        true,
-		".npm":          true,
-		".yarn":         true,
-		".pnpm-store":   true,
-		"Library":       true,
-		"AppData":       true,
-		"Applications":  true,
+		"node_modules": true,
+		"target":       true,
+		"build":        true,
+		"dist":         true,
+		".next":        true,
+		".nuxt":        true,
+		".cache":       true,
+		".npm":         true,
+		".yarn":        true,
+		".pnpm-store":  true,
+		"Library":      true,
+		"AppData":      true,
+		"Applications": true,
 	}
 
 	// Add known system directories.

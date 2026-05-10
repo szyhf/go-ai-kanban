@@ -13,7 +13,9 @@ const (
 )
 
 // executorActionWrapper handles the ExecutorAction JSON format:
-//   {"typ": {...}, "next_action": null}
+//
+//	{"typ": {...}, "next_action": null}
+//
 // The field name is `typ` (not `type`) and wraps the enum variant under it.
 type executorActionWrapper struct {
 	Typ        json.RawMessage `json:"typ"`
@@ -38,37 +40,37 @@ func ParseExecutorAction(raw json.RawMessage) (*ExecutorAction, error) {
 	}
 
 	return &ExecutorAction{
-		Type: ExecutorActionType(tag.Type),
+		Type:   ExecutorActionType(tag.Type),
 		RawTyp: wrapper.Typ,
 	}, nil
 }
 
 // ExecutorAction represents a parsed executor action with its type discriminant.
 type ExecutorAction struct {
-	Type    ExecutorActionType
-	RawTyp  json.RawMessage
+	Type   ExecutorActionType
+	RawTyp json.RawMessage
 }
 
 // CodingAgentInitialRequest is the payload for a fresh coding agent invocation.
 type CodingAgentInitialRequest struct {
-	Prompt         string          `json:"prompt"`
-	ExecutorConfig ExecutorConfig  `json:"executor_config"`
-	WorkingDir     *string         `json:"working_dir,omitempty"`
+	Prompt         string         `json:"prompt"`
+	ExecutorConfig ExecutorConfig `json:"executor_config"`
+	WorkingDir     *string        `json:"working_dir,omitempty"`
 }
 
 // CodingAgentFollowUpRequest is the payload for resuming a coding agent session.
 type CodingAgentFollowUpRequest struct {
-	Prompt           string          `json:"prompt"`
-	SessionID        string          `json:"session_id"`
-	ResetToMessageID *string         `json:"reset_to_message_id,omitempty"`
-	ExecutorConfig   ExecutorConfig  `json:"executor_config"`
-	WorkingDir       *string         `json:"working_dir,omitempty"`
+	Prompt           string         `json:"prompt"`
+	SessionID        string         `json:"session_id"`
+	ResetToMessageID *string        `json:"reset_to_message_id,omitempty"`
+	ExecutorConfig   ExecutorConfig `json:"executor_config"`
+	WorkingDir       *string        `json:"working_dir,omitempty"`
 }
 
 // ScriptRequest is the payload for running a script action.
 type ScriptRequest struct {
-	Script     string         `json:"script"`
-	WorkingDir *string        `json:"working_dir,omitempty"`
+	Script     string  `json:"script"`
+	WorkingDir *string `json:"working_dir,omitempty"`
 }
 
 // ReviewRequest is the payload for a code review action.
@@ -151,8 +153,9 @@ func UnwrapActionTyp(raw json.RawMessage) json.RawMessage {
 }
 
 // BuildExecutorActionJSON builds the ExecutorAction JSON in the correct format:
-//   {"typ": {...action_type_object...}, "next_action": null}
-func BuildExecutorActionJSON(actionTypeObj interface{}) (json.RawMessage, error) {
+//
+//	{"typ": {...action_type_object...}, "next_action": null}
+func BuildExecutorActionJSON(actionTypeObj any) (json.RawMessage, error) {
 	typBytes, err := json.Marshal(actionTypeObj)
 	if err != nil {
 		return nil, err

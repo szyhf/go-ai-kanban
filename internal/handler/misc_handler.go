@@ -22,7 +22,7 @@ func (h *Handler) handleEditorCheckAvailability(w http.ResponseWriter, r *http.R
 	editorType := getQuery(r, "editor_type")
 	_ = editorType
 
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"available": false,
 		"path":      nil,
 	})
@@ -30,8 +30,8 @@ func (h *Handler) handleEditorCheckAvailability(w http.ResponseWriter, r *http.R
 
 // handleRemoteProjects handles GET /api/remote/projects.
 func (h *Handler) handleRemoteProjects(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]interface{}{
-		"projects": []interface{}{},
+	success(w, map[string]any{
+		"projects": []any{},
 	})
 }
 

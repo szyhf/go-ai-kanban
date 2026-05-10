@@ -82,7 +82,7 @@ func (r *ProjectRepo) Create(p *domain.Project) error {
 	_, err := r.db.Exec(`
 		INSERT INTO projects (id, name, default_agent_working_dir, remote_project_id)
 		VALUES (?, ?, ?, ?)
-	`, p.ID[:], p.Name, nullString(p.DefaultAgentWorkingDir), nullUUID(p.RemoteProjectID))
+	`, p.ID[:], p.Name, nullValue(p.DefaultAgentWorkingDir), nullUUID(p.RemoteProjectID))
 	if err != nil {
 		return fmt.Errorf("create project: %w", err)
 	}
@@ -95,7 +95,7 @@ func (r *ProjectRepo) Update(p *domain.Project) error {
 		UPDATE projects
 		SET name = ?, default_agent_working_dir = ?, remote_project_id = ?, updated_at = datetime('now', 'subsec')
 		WHERE id = ?
-	`, p.Name, nullString(p.DefaultAgentWorkingDir), nullUUID(p.RemoteProjectID), p.ID[:])
+	`, p.Name, nullValue(p.DefaultAgentWorkingDir), nullUUID(p.RemoteProjectID), p.ID[:])
 	if err != nil {
 		return fmt.Errorf("update project: %w", err)
 	}

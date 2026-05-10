@@ -19,9 +19,7 @@ func NewGitRepoRepo(db *sql.DB) *GitRepoRepo {
 }
 
 // scanRepo scans a full Repo row from the current row position.
-func scanRepo(row interface {
-	Scan(dest ...interface{}) error
-}, r *domain.Repo) error {
+func scanRepo(row Row, r *domain.Repo) error {
 	var setupScript, cleanupScript, archiveScript, copyFiles, devServerScript, defaultTargetBranch, defaultWorkingDir []byte
 	var parallelSetupScript int
 	err := row.Scan(
@@ -143,27 +141,27 @@ func (r *GitRepoRepo) FindOrCreate(path, name, displayName string) (*domain.Repo
 // nil field = don't update, pointer to nil = set NULL, pointer to value = set value.
 func (r *GitRepoRepo) Update(id domain.UUID, update domain.UpdateRepo) error {
 	var setClauses []string
-	var args []interface{}
+	var args []any
 
 	if update.DisplayName != nil {
 		setClauses = append(setClauses, "display_name = ?")
-		args = append(args, nullString(*update.DisplayName))
+		args = append(args, nullValue(*update.DisplayName))
 	}
 	if update.SetupScript != nil {
 		setClauses = append(setClauses, "setup_script = ?")
-		args = append(args, nullString(*update.SetupScript))
+		args = append(args, nullValue(*update.SetupScript))
 	}
 	if update.CleanupScript != nil {
 		setClauses = append(setClauses, "cleanup_script = ?")
-		args = append(args, nullString(*update.CleanupScript))
+		args = append(args, nullValue(*update.CleanupScript))
 	}
 	if update.ArchiveScript != nil {
 		setClauses = append(setClauses, "archive_script = ?")
-		args = append(args, nullString(*update.ArchiveScript))
+		args = append(args, nullValue(*update.ArchiveScript))
 	}
 	if update.CopyFiles != nil {
 		setClauses = append(setClauses, "copy_files = ?")
-		args = append(args, nullString(*update.CopyFiles))
+		args = append(args, nullValue(*update.CopyFiles))
 	}
 	if update.ParallelSetupScript != nil {
 		setClauses = append(setClauses, "parallel_setup_script = ?")
@@ -176,15 +174,15 @@ func (r *GitRepoRepo) Update(id domain.UUID, update domain.UpdateRepo) error {
 	}
 	if update.DevServerScript != nil {
 		setClauses = append(setClauses, "dev_server_script = ?")
-		args = append(args, nullString(*update.DevServerScript))
+		args = append(args, nullValue(*update.DevServerScript))
 	}
 	if update.DefaultTargetBranch != nil {
 		setClauses = append(setClauses, "default_target_branch = ?")
-		args = append(args, nullString(*update.DefaultTargetBranch))
+		args = append(args, nullValue(*update.DefaultTargetBranch))
 	}
 	if update.DefaultWorkingDir != nil {
 		setClauses = append(setClauses, "default_working_dir = ?")
-		args = append(args, nullString(*update.DefaultWorkingDir))
+		args = append(args, nullValue(*update.DefaultWorkingDir))
 	}
 
 	if len(setClauses) == 0 {

@@ -19,7 +19,7 @@ func (h *Handler) handleAgentPresetOptions(w http.ResponseWriter, r *http.Reques
 	_ = executor
 
 	// Return default Claude Code executor config.
-	success(w, map[string]interface{}{
+	success(w, map[string]any{
 		"executor": "CLAUDE_CODE",
 		"variant":  nil,
 	})
@@ -29,7 +29,7 @@ func (h *Handler) handleAgentPresetOptions(w http.ResponseWriter, r *http.Reques
 func (h *Handler) handleAgentDiscoveredOptionsWS(w http.ResponseWriter, r *http.Request) {
 	// For now, just handle as a regular HTTP response.
 	// WebSocket upgrade is optional for this endpoint.
-	success(w, map[string]interface{}{})
+	success(w, map[string]any{})
 }
 
 // handleAgentCheckAvailability handles GET /api/agents/check-availability.
@@ -37,9 +37,9 @@ func (h *Handler) handleAgentCheckAvailability(w http.ResponseWriter, r *http.Re
 	executor := getQuery(r, "executor")
 	_ = executor
 
-	success(w, map[string]interface{}{
-		"available":   true,
-		"version":     nil,
+	success(w, map[string]any{
+		"available":    true,
+		"version":      nil,
 		"install_hint": nil,
 	})
 }

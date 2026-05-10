@@ -71,20 +71,20 @@ func setupTestHandler(t *testing.T) (*Handler, *chi.Mux) {
 }
 
 // decodeResponse decodes the standard API response envelope.
-func decodeResponse(t *testing.T, body io.Reader) (ApiResponse, map[string]interface{}) {
+func decodeResponse(t *testing.T, body io.Reader) (ApiResponse, map[string]any) {
 	t.Helper()
 	var raw struct {
-		Success bool                   `json:"success"`
-		Data    json.RawMessage        `json:"data"`
-		Message string                 `json:"message"`
-		Error   string                 `json:"error_data,omitempty"`
+		Success bool            `json:"success"`
+		Data    json.RawMessage `json:"data"`
+		Message string          `json:"message"`
+		Error   string          `json:"error_data,omitempty"`
 	}
 	if err := json.NewDecoder(body).Decode(&raw); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
 
 	resp := ApiResponse{Success: raw.Success, Message: raw.Message}
-	var data map[string]interface{}
+	var data map[string]any
 	if raw.Data != nil {
 		json.Unmarshal(raw.Data, &data)
 	}
@@ -92,7 +92,7 @@ func decodeResponse(t *testing.T, body io.Reader) (ApiResponse, map[string]inter
 }
 
 // decodeResponseSlice decodes the data field as a slice.
-func decodeResponseSlice(t *testing.T, body io.Reader) (bool, []interface{}) {
+func decodeResponseSlice(t *testing.T, body io.Reader) (bool, []any) {
 	t.Helper()
 	var raw struct {
 		Success bool            `json:"success"`
@@ -101,7 +101,7 @@ func decodeResponseSlice(t *testing.T, body io.Reader) (bool, []interface{}) {
 	if err := json.NewDecoder(body).Decode(&raw); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	var data []interface{}
+	var data []any
 	if raw.Data != nil {
 		json.Unmarshal(raw.Data, &data)
 	}
@@ -109,7 +109,7 @@ func decodeResponseSlice(t *testing.T, body io.Reader) (bool, []interface{}) {
 }
 
 // doRequest performs a test HTTP request.
-func doRequest(t *testing.T, router *chi.Mux, method, path string, body interface{}) *httptest.ResponseRecorder {
+func doRequest(t *testing.T, router *chi.Mux, method, path string, body any) *httptest.ResponseRecorder {
 	t.Helper()
 	var req *http.Request
 	if body != nil {
@@ -129,9 +129,9 @@ func doRequest(t *testing.T, router *chi.Mux, method, path string, body interfac
 
 // ApiResponse mirrors the httputil.ApiResponse for test assertions.
 type ApiResponse struct {
-	Success bool        `json:"success"`
-	Data    interface{} `json:"data,omitempty"`
-	Message string      `json:"message,omitempty"`
+	Success bool   `json:"success"`
+	Data    any    `json:"data,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 func TestHandler_RegisterRoutes(t *testing.T) {
@@ -147,7 +147,7 @@ func TestHandler_RegisterRoutes(t *testing.T) {
 		{http.MethodGet, "/api/sessions", http.StatusBadRequest}, // requires workspace_id
 		{http.MethodGet, "/api/scratch", http.StatusOK},
 		{http.MethodGet, "/api/filesystem/directory", http.StatusOK}, // falls back to home
-		{http.MethodGet, "/api/search", http.StatusBadRequest},                       // requires q
+		{http.MethodGet, "/api/search", http.StatusBadRequest},       // requires q
 	}
 
 	for _, tt := range tests {
@@ -177,7 +177,7 @@ func TestRepoHandler_ListRepos(t *testing.T) {
 		t.Error("expected success=true")
 	}
 	if data == nil {
-		data = []interface{}{}
+		data = []any{}
 	}
 	if len(data) != 0 {
 		t.Errorf("expected empty list, got %d items", len(data))
@@ -202,8 +202,8 @@ func TestRepoHandler_RegisterAndGet(t *testing.T) {
 	}
 
 	var createResp struct {
-		Success bool                   `json:"success"`
-		Data    map[string]interface{} `json:"data"`
+		Success bool           `json:"success"`
+		Data    map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&createResp)
 	if !createResp.Success {
@@ -242,7 +242,7 @@ func TestRepoHandler_DeleteRepo(t *testing.T) {
 	body := map[string]string{"path": repoDir, "display_name": "delete-me"}
 	rec := doRequest(t, router, http.MethodPost, "/api/repos", body)
 	var createResp struct {
-		Data map[string]interface{} `json:"data"`
+		Data map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&createResp)
 	id, _ := createResp.Data["id"].(string)
@@ -273,7 +273,7 @@ func TestTagHandler_CRUD(t *testing.T) {
 	}
 
 	var createResp struct {
-		Data map[string]interface{} `json:"data"`
+		Data map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&createResp)
 	id, _ := createResp.Data["id"].(string)
@@ -317,7 +317,7 @@ func TestScratchHandler_ListAndUpsert(t *testing.T) {
 
 	// Generate a scratch ID.
 	scratchID := "00000000-0000-0000-0000-000000000001"
-	body := map[string]interface{}{
+	body := map[string]any{
 		"type": "WORKSPACE_NOTES",
 		"data": map[string]string{"content": "hello"},
 	}
@@ -339,7 +339,7 @@ func TestWorkspaceHandler_ListAndCreate(t *testing.T) {
 	}
 
 	// Create workspace.
-	body := map[string]interface{}{
+	body := map[string]any{
 		"branch": "feature-test",
 		"name":   "test-workspace",
 	}
@@ -374,7 +374,7 @@ func TestAttachmentHandler_UploadAndDownload(t *testing.T) {
 	}
 
 	var uploadResp struct {
-		Data map[string]interface{} `json:"data"`
+		Data map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&uploadResp)
 	id, _ := uploadResp.Data["id"].(string)
@@ -441,19 +441,19 @@ func TestSessionHandler_CreateAndGet(t *testing.T) {
 	_, router := setupTestHandler(t)
 
 	// Create a workspace first.
-	wsBody := map[string]interface{}{
+	wsBody := map[string]any{
 		"branch": "session-test",
 		"name":   "ws-for-session",
 	}
 	rec := doRequest(t, router, http.MethodPost, "/api/workspaces", wsBody)
 	var wsResp struct {
-		Data map[string]interface{} `json:"data"`
+		Data map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&wsResp)
 	wsID, _ := wsResp.Data["id"].(string)
 
 	// Create session.
-	body := map[string]interface{}{
+	body := map[string]any{
 		"workspace_id": wsID,
 		"name":         "test-session",
 	}
@@ -463,7 +463,7 @@ func TestSessionHandler_CreateAndGet(t *testing.T) {
 	}
 
 	var sessResp struct {
-		Data map[string]interface{} `json:"data"`
+		Data map[string]any `json:"data"`
 	}
 	json.NewDecoder(rec.Body).Decode(&sessResp)
 	sessID, _ := sessResp.Data["id"].(string)

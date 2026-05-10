@@ -59,7 +59,7 @@ func healthCheck(w http.ResponseWriter, _ *http.Request) {
 // infoHandler returns system information.
 func infoHandler(cfg *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, _ *http.Request) {
-		Success(w, map[string]interface{}{
+		Success(w, map[string]any{
 			"mode":     cfg.Server.Mode,
 			"dbDriver": cfg.Database.Driver,
 		})

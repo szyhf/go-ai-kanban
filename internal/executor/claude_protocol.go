@@ -53,7 +53,7 @@ func (p *ProtocolPeer) readLoop(stdout io.Reader, handler *ClaudeAgentClient, ca
 		var msg CLIMessage
 		if err := json.Unmarshal([]byte(line), &msg); err != nil {
 			// Not JSON — likely stderr bleed-through or non-structured output.
-			p.logger.Debug("non-JSON stdout line", "line", truncate(line, 200))
+			p.logger.Debug("非 JSON stdout 行", "line", truncate(line, 200))
 			continue
 		}
 
@@ -61,7 +61,7 @@ func (p *ProtocolPeer) readLoop(stdout io.Reader, handler *ClaudeAgentClient, ca
 		case "control_request":
 			p.handleControlRequest(msg, handler)
 		case "result":
-			p.logger.Info("claude code result received")
+			p.logger.Info("claude code 执行结果已接收")
 			select {
 			case done <- ExitResult{Code: 0}:
 			default:
@@ -69,12 +69,12 @@ func (p *ProtocolPeer) readLoop(stdout io.Reader, handler *ClaudeAgentClient, ca
 			return
 		default:
 			// System, assistant, user, etc. — log and continue.
-			p.logger.Debug("claude message", "type", msg.Type)
+			p.logger.Debug("claude 消息", "type", msg.Type)
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		p.logger.Error("stdout scanner error", "error", err)
+		p.logger.Error("stdout 扫描错误", "error", err)
 	}
 }
 
@@ -82,7 +82,7 @@ func (p *ProtocolPeer) readLoop(stdout io.Reader, handler *ClaudeAgentClient, ca
 func (p *ProtocolPeer) handleControlRequest(msg CLIMessage, handler *ClaudeAgentClient) {
 	var req ControlRequest
 	if err := json.Unmarshal(msg.Request, &req); err != nil {
-		p.logger.Error("failed to parse control request", "error", err)
+		p.logger.Error("解析 control request 失败", "error", err)
 		return
 	}
 
@@ -92,7 +92,7 @@ func (p *ProtocolPeer) handleControlRequest(msg CLIMessage, handler *ClaudeAgent
 	case "can_use_tool":
 		result, err := handler.OnCanUseTool(req.ToolName, req.Input, req.ToolUseID)
 		if err != nil {
-			p.logger.Error("can_use_tool handler error", "error", err)
+			p.logger.Error("can_use_tool 处理器错误", "error", err)
 			return
 		}
 		resp := ControlResponse{
@@ -112,7 +112,7 @@ func (p *ProtocolPeer) handleControlRequest(msg CLIMessage, handler *ClaudeAgent
 	case "hook_callback":
 		p.handleHookCallback(msg.RequestID, req, handler)
 	default:
-		p.logger.Warn("unknown control request subtype", "subtype", req.Subtype)
+		p.logger.Warn("未知的 control request 子类型", "subtype", req.Subtype)
 	}
 }
 
@@ -130,7 +130,7 @@ func (p *ProtocolPeer) handleHookCallback(requestID string, req ControlRequest, 
 		// Forward to handler.
 		result, err := handler.OnHookCallback(req.ToolName, req.Input)
 		if err != nil {
-			p.logger.Error("hook callback error", "error", err)
+			p.logger.Error("hook 回调错误", "error", err)
 			return
 		}
 		resp := ControlResponse{
@@ -192,10 +192,10 @@ func (p *ProtocolPeer) Interrupt() error {
 func (p *ProtocolPeer) sendControlResponse(requestID string, resp ControlResponse) {
 	resp.Type = "control_response"
 	wrapper := struct {
-		Type       string           `json:"type"`
-		RequestID  string           `json:"request_id"`
-		Accepted   bool             `json:"accepted"`
-		Response   PermissionResponse `json:"response,omitempty"`
+		Type      string             `json:"type"`
+		RequestID string             `json:"request_id"`
+		Accepted  bool               `json:"accepted"`
+		Response  PermissionResponse `json:"response,omitempty"`
 	}{
 		Type:      "control_response",
 		RequestID: requestID,
@@ -203,12 +203,12 @@ func (p *ProtocolPeer) sendControlResponse(requestID string, resp ControlRespons
 		Response:  resp.Response,
 	}
 	if err := p.sendJSON(wrapper); err != nil {
-		p.logger.Error("failed to send control response", "error", err)
+		p.logger.Error("发送 control response 失败", "error", err)
 	}
 }
 
 // sendJSON writes a JSON message to stdin, protected by a mutex.
-func (p *ProtocolPeer) sendJSON(v interface{}) error {
+func (p *ProtocolPeer) sendJSON(v any) error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 	data, err := json.Marshal(v)

@@ -86,12 +86,12 @@ func TestRecoveryNoPanic(t *testing.T) {
 
 func TestCORS(t *testing.T) {
 	tests := []struct {
-		name           string
-		allowed        []string
-		origin         string
-		method         string
-		expectOrigin   string
-		expectStatus   int
+		name         string
+		allowed      []string
+		origin       string
+		method       string
+		expectOrigin string
+		expectStatus int
 	}{
 		{
 			name:         "matching origin",

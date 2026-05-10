@@ -42,7 +42,7 @@ func (s *ProcessStore) Add(id domain.UUID, entry *ProcessEntry) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.entries[id] = entry
-	s.logger.Debug("process registered", "id", id)
+	s.logger.Debug("进程已注册", "id", id)
 }
 
 // Get retrieves a process entry by ID. Returns nil if not found.
@@ -68,7 +68,7 @@ func (s *ProcessStore) KillAll() {
 
 	for id, entry := range s.entries {
 		if err := KillProcessGroup(entry.Cmd); err != nil {
-			s.logger.Warn("failed to kill process group", "id", id, "error", err)
+			s.logger.Warn("杀死进程组失败", "id", id, "error", err)
 		}
 		if entry.Cancel != nil {
 			entry.Cancel()

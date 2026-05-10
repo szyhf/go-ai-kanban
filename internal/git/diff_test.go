@@ -4,11 +4,11 @@ import "testing"
 
 func TestComputeLineChangeCounts(t *testing.T) {
 	tests := []struct {
-		name     string
-		old      string
-		new      string
-		add      int
-		del      int
+		name string
+		old  string
+		new  string
+		add  int
+		del  int
 	}{
 		{"identical", "a\nb\nc\n", "a\nb\nc\n", 0, 0},
 		{"empty_to_content", "", "a\nb\n", 2, 0},

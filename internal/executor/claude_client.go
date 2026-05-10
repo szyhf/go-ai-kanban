@@ -27,7 +27,7 @@ func NewClaudeAgentClient(approvals ApprovalService, autoApprove bool) *ClaudeAg
 func (c *ClaudeAgentClient) OnCanUseTool(toolName string, input json.RawMessage, toolUseID *string) (ApprovalResult, error) {
 	// Auto-approve if configured.
 	if c.autoApprove || c.approvals == nil {
-		c.logger.Debug("auto-approving tool", "tool", toolName)
+		c.logger.Debug("自动批准工具", "tool", toolName)
 		return ApprovalResult{Behavior: "allow"}, nil
 	}
 
@@ -51,13 +51,13 @@ func (c *ClaudeAgentClient) OnHookCallback(callbackID string, input json.RawMess
 	switch callbackID {
 	case CallbackStopGitCheck:
 		// Check for uncommitted changes — always allow for now.
-		c.logger.Debug("stop git check callback, allowing")
+		c.logger.Debug("停止 git 检查回调，允许操作")
 		return ApprovalResult{Behavior: "allow"}, nil
 	case CallbackAutoApprove:
 		// Auto-approve callback — always allow.
 		return ApprovalResult{Behavior: "allow"}, nil
 	default:
-		c.logger.Warn("unknown hook callback", "callback_id", callbackID)
+		c.logger.Warn("未知的 hook 回调", "callback_id", callbackID)
 		return ApprovalResult{Behavior: "allow"}, nil
 	}
 }

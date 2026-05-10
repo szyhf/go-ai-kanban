@@ -12,7 +12,7 @@ func TestIsValidBranchPrefix(t *testing.T) {
 		{"bugfix", true},
 		{"hotfix", true},
 		{"release", true},
-		{"feat/123", false},  // contains slash
+		{"feat/123", false},       // contains slash
 		{"feature branch", false}, // contains space
 		{"test~", false},
 		{"test^", false},
