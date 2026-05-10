@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"os/exec"
 	"regexp"
 	"strings"
 	"time"
@@ -53,6 +54,8 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 			r.Post("/attach", h.attachPR)
 			r.Get("/comments", h.getPRComments)
 		})
+		r.Post("/links", h.linkWorkspaceToIssue)
+		r.Delete("/links", h.unlinkWorkspaceFromIssue)
 		r.Route("/integration", func(r chi.Router) {
 			r.Post("/agent/setup", h.handleWorkspaceAgentSetup)
 			r.Post("/editor/open", h.handleWorkspaceEditorOpen)
@@ -69,17 +72,134 @@ func (h *Handler) handleWorkspaceAgentSetup(w http.ResponseWriter, r *http.Reque
 
 // handleWorkspaceEditorOpen handles POST /api/workspaces/{id}/integration/editor/open.
 func (h *Handler) handleWorkspaceEditorOpen(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]any{})
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	var req struct {
+		EditorType string `json:"editor_type"`
+	}
+	if !decodeJSON(w, r, &req) {
+		return
+	}
+
+	ws, err := h.wsRepo.FindByID(id)
+	if err != nil || ws == nil {
+		notFound(w, "workspace not found")
+		return
+	}
+
+	// Get workspace repo path.
+	repos, _ := h.wsRepoRepo.FindByWorkspaceIDWithRepos(id)
+	workspacePath := ""
+	if len(repos) > 0 {
+		workspacePath = repos[0].Path
+	}
+
+	if workspacePath == "" {
+		badRequest(w, "no repo path found for workspace")
+		return
+	}
+
+	command := "code"
+	switch strings.ToUpper(req.EditorType) {
+	case "CURSOR":
+		command = "cursor"
+	case "WINDSURF":
+		command = "windsurf"
+	case "ZED":
+		command = "zed"
+	case "NEOVIM":
+		command = "nvim"
+	}
+
+	cmd := exec.Command(command, workspacePath)
+	if err := cmd.Start(); err != nil {
+		errorWithData(w, http.StatusInternalServerError, "failed to open editor", map[string]string{"error": err.Error()})
+		return
+	}
+
+	success(w, map[string]any{"status": "opened"})
 }
 
 // handleWorkspaceEditorPath handles GET /api/workspaces/{id}/integration/editor/path.
 func (h *Handler) handleWorkspaceEditorPath(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]string{"workspace_path": ""})
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	repos, err := h.wsRepoRepo.FindByWorkspaceIDWithRepos(id)
+	if err != nil || len(repos) == 0 {
+		success(w, map[string]string{"workspace_path": ""})
+		return
+	}
+
+	success(w, map[string]string{"workspace_path": repos[0].Path})
 }
 
 // handleWorkspaceGHCLISetup handles POST /api/workspaces/{id}/integration/github/cli/setup.
 func (h *Handler) handleWorkspaceGHCLISetup(w http.ResponseWriter, r *http.Request) {
 	success(w, map[string]any{})
+}
+
+// linkWorkspaceToIssue handles POST /api/workspaces/{id}/links.
+func (h *Handler) linkWorkspaceToIssue(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	var req struct {
+		ProjectID string `json:"project_id"`
+		IssueID   string `json:"issue_id"`
+	}
+	if !decodeJSON(w, r, &req) {
+		return
+	}
+
+	ws, err := h.wsRepo.FindByID(id)
+	if err != nil || ws == nil {
+		notFound(w, "workspace not found")
+		return
+	}
+
+	issueUUID, err := domain.ParseUUID(req.IssueID)
+	if err != nil {
+		badRequest(w, "invalid issue_id")
+		return
+	}
+	ws.TaskID = &issueUUID
+
+	if err := h.wsRepo.Update(ws); err != nil {
+		internalError(w, "failed to link workspace: "+err.Error())
+		return
+	}
+
+	success(w, map[string]any{"linked": true})
+}
+
+// unlinkWorkspaceFromIssue handles DELETE /api/workspaces/{id}/links.
+func (h *Handler) unlinkWorkspaceFromIssue(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	ws, err := h.wsRepo.FindByID(id)
+	if err != nil || ws == nil {
+		notFound(w, "workspace not found")
+		return
+	}
+
+	ws.TaskID = nil
+	if err := h.wsRepo.Update(ws); err != nil {
+		internalError(w, "failed to unlink workspace: "+err.Error())
+		return
+	}
+
+	success(w, map[string]any{"unlinked": true})
 }
 
 // listWorkspaces handles GET /api/workspaces.
@@ -684,12 +804,17 @@ func (h *Handler) renameBranch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req struct {
-		NewName string `json:"new_name"`
+		NewName       string `json:"new_name"`
+		NewBranchName string `json:"new_branch_name"`
 	}
 	if !decodeJSON(w, r, &req) {
 		return
 	}
-	if req.NewName == "" {
+	newName := req.NewName
+	if newName == "" {
+		newName = req.NewBranchName
+	}
+	if newName == "" {
 		badRequest(w, "new_name is required")
 		return
 	}
@@ -702,10 +827,10 @@ func (h *Handler) renameBranch(w http.ResponseWriter, r *http.Request) {
 
 	repos, _ := h.wsRepoRepo.FindByWorkspaceIDWithRepos(id)
 	for _, rwt := range repos {
-		_ = h.gitSvc.RenameLocalBranch(rwt.Path, ws.Branch, req.NewName)
+		_ = h.gitSvc.RenameLocalBranch(rwt.Path, ws.Branch, newName)
 	}
 
-	ws.Branch = req.NewName
+	ws.Branch = newName
 	_ = h.wsRepo.Update(ws)
 
 	h.eventSvc.NotifyChange(service.HookTableWorkspaces, service.HookOpUpdate, id)

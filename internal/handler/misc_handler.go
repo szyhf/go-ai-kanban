@@ -2,6 +2,8 @@ package handler
 
 import (
 	"net/http"
+	"os/exec"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -20,12 +22,32 @@ func (h *Handler) registerMiscRoutes(r chi.Router) {
 // handleEditorCheckAvailability handles GET /api/editors/check-availability.
 func (h *Handler) handleEditorCheckAvailability(w http.ResponseWriter, r *http.Request) {
 	editorType := getQuery(r, "editor_type")
-	_ = editorType
 
-	success(w, map[string]any{
+	type editorInfo struct {
+		Command string
+	}
+
+	editors := map[string]editorInfo{
+		"VS_CODE":  {Command: "code"},
+		"CURSOR":   {Command: "cursor"},
+		"WINDSURF": {Command: "windsurf"},
+		"ZED":      {Command: "zed"},
+		"NEOVIM":   {Command: "nvim"},
+	}
+
+	result := map[string]any{
 		"available": false,
 		"path":      nil,
-	})
+	}
+
+	if info, ok := editors[strings.ToUpper(editorType)]; ok {
+		if path, err := exec.LookPath(info.Command); err == nil {
+			result["available"] = true
+			result["path"] = path
+		}
+	}
+
+	success(w, result)
 }
 
 // handleRemoteProjects handles GET /api/remote/projects.

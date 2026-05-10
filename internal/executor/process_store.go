@@ -10,6 +10,16 @@ import (
 	"github.com/xuzhiping7/ai-kanban/internal/service"
 )
 
+// ApprovalDecision represents a user's decision on a pending approval.
+type ApprovalDecision struct {
+	// Approved indicates whether the request was approved.
+	Approved bool
+	// Behavior is the approval behavior (e.g. "allow", "deny").
+	Behavior string
+	// Reason is an optional denial reason.
+	Reason string
+}
+
 // ProcessEntry holds the runtime state of an active execution process.
 type ProcessEntry struct {
 	// Cmd is the underlying OS process handle.
@@ -20,6 +30,9 @@ type ProcessEntry struct {
 	MsgStore *service.MsgStore
 	// Done receives the exit result when the process completes.
 	Done <-chan ExitResult
+	// ApprovalCh receives approval decisions from the API handler.
+	// The executor process consumes from this channel when waiting for user input.
+	ApprovalCh chan ApprovalDecision
 }
 
 // ProcessStore is a thread-safe registry of active execution processes.

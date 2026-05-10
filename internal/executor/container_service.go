@@ -170,10 +170,11 @@ func (svc *ContainerService) StartExecution(ctx context.Context, input StartExec
 
 	// 6. Register in process store.
 	svc.processStore.Add(processID, &ProcessEntry{
-		Cmd:      proc.Cmd,
-		Cancel:   proc.Cancel,
-		MsgStore: msgStore,
-		Done:     proc.Done,
+		Cmd:        proc.Cmd,
+		Cancel:     proc.Cancel,
+		MsgStore:   msgStore,
+		Done:       proc.Done,
+		ApprovalCh: make(chan ApprovalDecision, 1),
 	})
 
 	// 7. Start log tracking goroutine.
@@ -235,6 +236,29 @@ func (svc *ContainerService) GetMsgStore(processID domain.UUID) *service.MsgStor
 		return nil
 	}
 	return entry.MsgStore
+}
+
+// SendApprovalDecision sends an approval decision to a running process.
+// Returns true if the decision was delivered, false if no running process was found.
+func (svc *ContainerService) SendApprovalDecision(processID domain.UUID, decision ApprovalDecision) bool {
+	entry := svc.processStore.Get(processID)
+	if entry == nil || entry.ApprovalCh == nil {
+		return false
+	}
+	select {
+	case entry.ApprovalCh <- decision:
+		svc.logger.Info("审批决策已发送到进程",
+			"process_id", processID,
+			"approved", decision.Approved,
+			"behavior", decision.Behavior,
+		)
+		return true
+	default:
+		svc.logger.Warn("审批通道已满，丢弃决策",
+			"process_id", processID,
+		)
+		return false
+	}
 }
 
 // monitorExit waits for the process to complete and performs cleanup.

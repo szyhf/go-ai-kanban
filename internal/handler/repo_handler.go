@@ -3,6 +3,8 @@ package handler
 import (
 	"log/slog"
 	"net/http"
+	"os/exec"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 
@@ -360,13 +362,28 @@ func (h *Handler) openRepoEditor(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req struct {
-		Path *string `json:"path"`
+		EditorType string `json:"editor_type"`
 	}
-	_ = decodeJSON(w, r, &req)
+	decodeJSON(w, r, &req)
 
-	// For now, return success without actually opening the editor.
-	// A full implementation would use exec.Command to open the editor.
-	slog.Info("请求打开编辑器", "repo_path", repo.Path, "sub_path", req.Path)
+	command := "code"
+	switch strings.ToUpper(req.EditorType) {
+	case "CURSOR":
+		command = "cursor"
+	case "WINDSURF":
+		command = "windsurf"
+	case "ZED":
+		command = "zed"
+	case "NEOVIM":
+		command = "nvim"
+	}
+
+	cmd := exec.Command(command, repo.Path)
+	if err := cmd.Start(); err != nil {
+		slog.Warn("failed to open editor", "command", command, "error", err)
+		errorWithData(w, http.StatusInternalServerError, "failed to open editor", map[string]string{"error": err.Error()})
+		return
+	}
 
 	success(w, map[string]any{
 		"opened": true,
