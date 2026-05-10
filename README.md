@@ -36,15 +36,9 @@ Vibe Kanban 为此而生。使用看板 Issue 来规划工作，可以私有使�
 
 ### 前置条件
 
-- [Rust](https://rustup.rs/)（最新 stable 版）
+- [Go](https://go.dev/dl/)（>= 1.24）
 - [Node.js](https://nodejs.org/)（>=20）
 - [pnpm](https://pnpm.io/)（>=8）
-
-额外开发工具：
-```bash
-cargo install cargo-watch
-cargo install sqlx-cli
-```
 
 安装依赖：
 ```bash

@@ -26,7 +26,7 @@ Contributors are expected to follow the project's coding standards throughout th
 
 ### Style & Formatting
 
-- **Rust**: Code must be formatted with `rustfmt` (config in `rustfmt.toml`). Use `snake_case` for modules and functions, `PascalCase` for types. Group imports by crate.
+- **Go**: Code must be formatted with `gofmt`. Use `camelCase` for functions, `PascalCase` for exported types. Group imports by stdlib/external/internal.
 - **TypeScript/React**: Code must pass ESLint and Prettier (2 spaces, single quotes, 80-column width). Use `PascalCase` for components, `camelCase` for variables and functions, and `kebab-case` for file names.
 - Run `pnpm run format` before submitting a pull request.
 - Run `pnpm run lint` to verify there are no linting errors.
@@ -36,11 +36,11 @@ Contributors are expected to follow the project's coding standards throughout th
 - Keep functions small and focused on a single responsibility.
 - Write clear, self-documenting code. Add comments only where the logic is not self-evident.
 - Do not introduce unnecessary abstractions or over-engineer solutions.
-- Do not manually edit generated files (e.g., `shared/types.ts`). Modify the source and regenerate.
+- Do not manually edit generated files. Keep `shared/types.ts` in sync with Go struct definitions in `internal/domain/`.
 
 ### Testing
 
-- **Rust**: Add unit tests alongside code using `#[cfg(test)]`. Run `cargo test --workspace` to verify.
+- **Go**: Add unit tests alongside code in `_test.go` files. Run `go test -race ./...` to verify.
 - **TypeScript**: Ensure `pnpm run check` and `pnpm run lint` pass. Include lightweight tests (e.g., Vitest) for new runtime logic.
 - All CI checks must pass before a pull request can be merged.
 

@@ -124,11 +124,11 @@ Vibe Kanban supports customization through its configuration system:
 
 ## Technical Architecture
 
-- **Backend**: Rust with Axum web framework
+- **Backend**: Go with Chi web framework
 - **Frontend**: React with TypeScript
 - **Database**: SQLite for local data storage
 - **Git Integration**: Native git operations for repository management
-- **Process Management**: Tokio-based async execution monitoring
+- **Process Management**: Go goroutine-based execution monitoring
 
 ## Requirements
 
