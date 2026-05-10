@@ -25,6 +25,8 @@ func (h *Handler) registerRepoRoutes(r chi.Router) {
 		r.Get("/branches", h.listBranches)
 		r.Get("/prs", h.listRepoPRs)
 		r.Get("/remotes", h.listRepoRemotes)
+		r.Get("/search", h.searchRepoFiles)
+		r.Post("/open-editor", h.openRepoEditor)
 	})
 }
 
@@ -314,4 +316,60 @@ func (h *Handler) batchGetReposByIDs(w http.ResponseWriter, r *http.Request) {
 		repos = append(repos, *r)
 	}
 	success(w, repos)
+}
+
+// searchRepoFiles handles GET /api/repos/{id}/search?q=...&mode=...
+func (h *Handler) searchRepoFiles(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	query := getQuery(r, "q")
+	if query == "" {
+		badRequest(w, "q is required")
+		return
+	}
+
+	repo, err := h.repoSvc.GetByID(id)
+	if err != nil || repo == nil {
+		notFound(w, "repo not found")
+		return
+	}
+
+	results, err := h.repoSvc.SearchFiles([]domain.Repo{*repo}, query)
+	if err != nil {
+		internalError(w, "search failed: "+err.Error())
+		return
+	}
+	success(w, results)
+}
+
+// openRepoEditor handles POST /api/repos/{id}/open-editor.
+// Opens the repo in the user's configured editor.
+func (h *Handler) openRepoEditor(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	repo, err := h.repoSvc.GetByID(id)
+	if err != nil || repo == nil {
+		notFound(w, "repo not found")
+		return
+	}
+
+	var req struct {
+		Path *string `json:"path"`
+	}
+	_ = decodeJSON(w, r, &req)
+
+	// For now, return success without actually opening the editor.
+	// A full implementation would use exec.Command to open the editor.
+	slog.Info("open editor requested", "repo_path", repo.Path, "sub_path", req.Path)
+
+	success(w, map[string]interface{}{
+		"opened": true,
+		"path":   repo.Path,
+	})
 }

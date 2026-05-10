@@ -30,6 +30,10 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 		r.Delete("/", h.deleteWorkspace)
 		r.Get("/messages/first", h.getFirstMessage)
 		r.Post("/execution/stop", h.stopWorkspaceExecution)
+		r.Post("/execution/dev-server/start", h.startDevServer)
+		r.Post("/execution/cleanup", h.runCleanupScript)
+		r.Post("/execution/archive", h.runArchiveScript)
+		r.Post("/attachments/upload", h.uploadWorkspaceAttachment)
 		r.Route("/git", func(r chi.Router) {
 			r.Get("/status", h.gitStatus)
 			r.Get("/diff/ws", h.handleDiffStreamWS)

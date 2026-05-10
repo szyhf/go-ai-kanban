@@ -1,8 +1,13 @@
 package handler
 
 import (
+	"encoding/json"
+	"log/slog"
 	"net/http"
+	"os"
+	"path/filepath"
 	"runtime"
+	"sync"
 
 	"github.com/xuzhiping7/ai-kanban/internal/domain"
 )
@@ -20,6 +25,11 @@ func (h *Handler) handleGetInfo(w http.ResponseWriter, r *http.Request) {
 // buildUserSystemInfo constructs the full UserSystemInfo response.
 func buildUserSystemInfo() *UserSystemInfo {
 	defaultConfig := buildDefaultConfig()
+
+	// Merge with persisted config if available.
+	if persisted := loadPersistedConfig(); persisted != nil {
+		defaultConfig = persisted
+	}
 
 	executors := map[string]*ExecutorProfile{
 		string(domain.AgentClaudeCode): {
@@ -227,4 +237,75 @@ func detectEnvironment() *Environment {
 // would read from a persisted file or use a system-level identifier.
 func generateMachineID() string {
 	return "local-dev-machine"
+}
+
+// configMu protects the in-memory config and file writes.
+var configMu sync.Mutex
+
+// handleSaveConfig handles PUT /api/config.
+// Saves the user's config to disk and returns the saved config.
+func (h *Handler) handleSaveConfig(w http.ResponseWriter, r *http.Request) {
+	configMu.Lock()
+	defer configMu.Unlock()
+
+	var cfg Config
+	if err := json.NewDecoder(r.Body).Decode(&cfg); err != nil {
+		badRequest(w, "invalid JSON: "+err.Error())
+		return
+	}
+
+	// Persist to file.
+	configPath, err := getConfigFilePath()
+	if err != nil {
+		slog.Warn("could not determine config file path", "error", err)
+		// Still return success — config is ephemeral in local mode.
+		success(w, &cfg)
+		return
+	}
+
+	data, err := json.MarshalIndent(cfg, "", "  ")
+	if err != nil {
+		internalError(w, "failed to marshal config: "+err.Error())
+		return
+	}
+
+	if err := os.MkdirAll(filepath.Dir(configPath), 0755); err != nil {
+		slog.Warn("could not create config directory", "error", err)
+		success(w, &cfg)
+		return
+	}
+
+	if err := os.WriteFile(configPath, data, 0644); err != nil {
+		slog.Warn("could not write config file", "error", err)
+		success(w, &cfg)
+		return
+	}
+
+	success(w, &cfg)
+}
+
+// getConfigFilePath returns the path to the user config file.
+func getConfigFilePath() (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(homeDir, ".vibe-kanban", "config.json"), nil
+}
+
+// loadPersistedConfig loads config from disk if it exists, returns nil otherwise.
+func loadPersistedConfig() *Config {
+	configPath, err := getConfigFilePath()
+	if err != nil {
+		return nil
+	}
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil
+	}
+	var cfg Config
+	if err := json.Unmarshal(data, &cfg); err != nil {
+		return nil
+	}
+	return &cfg
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 
@@ -22,6 +23,8 @@ func (h *Handler) registerSessionRoutes(r chi.Router) {
 		r.Put("/", h.updateSession)
 		r.Post("/follow-up", h.handleFollowUp)
 		r.Post("/reset", h.handleReset)
+		r.Post("/review", h.startReview)
+		r.Post("/setup", h.runSetupScript)
 		r.Get("/queue", h.getQueue)
 		r.Post("/queue", h.queueMessage)
 		r.Delete("/queue", h.cancelQueued)
@@ -393,4 +396,204 @@ func (h *Handler) resetSessionToProcess(_ context.Context, session *domain.Sessi
 	}
 
 	return nil
+}
+
+// startReview handles POST /api/sessions/{id}/review.
+// Starts a code review execution by building a review prompt from the workspace's
+// git diff and launching a coding agent.
+func (h *Handler) startReview(w http.ResponseWriter, r *http.Request) {
+	sessionID, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	var req struct {
+		ExecutorConfig         domain.ExecutorConfig `json:"executor_config"`
+		AdditionalPrompt       *string               `json:"additional_prompt"`
+		UseAllWorkspaceCommits bool                  `json:"use_all_workspace_commits"`
+	}
+	if !decodeJSON(w, r, &req) {
+		return
+	}
+
+	session, err := h.sessionRepo.FindByID(sessionID)
+	if err != nil || session == nil {
+		notFound(w, "session not found")
+		return
+	}
+
+	workspace, err := h.wsRepo.FindByID(session.WorkspaceID)
+	if err != nil || workspace == nil {
+		notFound(w, "workspace not found")
+		return
+	}
+
+	// Check for running non-dev-server processes.
+	if h.hasRunningNonDevServerProcesses(session.WorkspaceID) {
+		errorWithData(w, http.StatusConflict, "a process is already running", map[string]string{
+			"type": "process_already_running",
+		})
+		return
+	}
+
+	// Build review prompt.
+	repos, _ := h.wsRepoRepo.FindByWorkspaceIDWithRepos(session.WorkspaceID)
+	var promptParts []string
+	for _, rwt := range repos {
+		ahead, behind, _ := h.gitSvc.GetBranchStatus(rwt.Path, workspace.Branch, rwt.TargetBranch)
+		if ahead > 0 || behind > 0 {
+			promptParts = append(promptParts, fmt.Sprintf(
+				"Repository: %s\nReview all changes from base commit of %s to HEAD on %s.",
+				rwt.Name, rwt.TargetBranch, workspace.Branch,
+			))
+		}
+	}
+
+	if len(promptParts) == 0 {
+		promptParts = append(promptParts, "Please review the code changes in this workspace.")
+	}
+
+	prompt := "Please review the code changes.\n\n" + strings.Join(promptParts, "\n\n")
+	if req.AdditionalPrompt != nil && *req.AdditionalPrompt != "" {
+		prompt += "\n\n" + *req.AdditionalPrompt
+	}
+
+	reviewAction := struct {
+		Type           string                `json:"type"`
+		Prompt         string                `json:"prompt"`
+		ExecutorConfig domain.ExecutorConfig `json:"executor_config"`
+	}{
+		Type:           "ReviewRequest",
+		Prompt:         prompt,
+		ExecutorConfig: req.ExecutorConfig,
+	}
+	rawAction, err := domain.BuildExecutorActionJSON(reviewAction)
+	if err != nil {
+		internalError(w, "failed to build review action")
+		return
+	}
+
+	processID, err := h.containerSvc.StartExecution(r.Context(), executor.StartExecutionInput{
+		Workspace: *workspace,
+		Session:   *session,
+		RawAction: rawAction,
+		RunReason: domain.RunReasonCodingAgent,
+	}, nil, nil)
+	if err != nil {
+		slog.Error("start review execution", "error", err)
+		internalError(w, "failed to start review: "+err.Error())
+		return
+	}
+
+	ep, err := h.execRepo.FindByID(processID)
+	if err != nil || ep == nil {
+		internalError(w, "review started but failed to load process")
+		return
+	}
+
+	created(w, ep)
+}
+
+// runSetupScript handles POST /api/sessions/{id}/setup.
+// Runs the setup script for each repo in the workspace that has one configured.
+func (h *Handler) runSetupScript(w http.ResponseWriter, r *http.Request) {
+	sessionID, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	session, err := h.sessionRepo.FindByID(sessionID)
+	if err != nil || session == nil {
+		notFound(w, "session not found")
+		return
+	}
+
+	workspace, err := h.wsRepo.FindByID(session.WorkspaceID)
+	if err != nil || workspace == nil {
+		notFound(w, "workspace not found")
+		return
+	}
+
+	// Check for running non-dev-server processes.
+	if h.hasRunningNonDevServerProcesses(session.WorkspaceID) {
+		errorWithData(w, http.StatusConflict, "a process is already running", map[string]string{
+			"type": "process_already_running",
+		})
+		return
+	}
+
+	repos, _ := h.wsRepoRepo.FindByWorkspaceIDWithRepos(session.WorkspaceID)
+	var scriptRepos []domain.RepoWithTargetBranch
+	for _, rwt := range repos {
+		if rwt.SetupScript != nil && *rwt.SetupScript != "" {
+			scriptRepos = append(scriptRepos, rwt)
+		}
+	}
+
+	if len(scriptRepos) == 0 {
+		errorWithData(w, http.StatusBadRequest, "no setup script configured", map[string]string{
+			"type": "no_script_configured",
+		})
+		return
+	}
+
+	// Build script action for the first repo with a setup script.
+	script := *scriptRepos[0].SetupScript
+	workingDir := scriptRepos[0].Name
+
+	scriptAction := struct {
+		Type       string  `json:"type"`
+		Script     string  `json:"script"`
+		WorkingDir *string `json:"working_dir,omitempty"`
+	}{
+		Type:       "ScriptRequest",
+		Script:     script,
+		WorkingDir: &workingDir,
+	}
+	rawAction, err := domain.BuildExecutorActionJSON(scriptAction)
+	if err != nil {
+		internalError(w, "failed to build setup action")
+		return
+	}
+
+	processID, err := h.containerSvc.StartExecution(r.Context(), executor.StartExecutionInput{
+		Workspace: *workspace,
+		Session:   *session,
+		RawAction: rawAction,
+		RunReason: domain.RunReasonSetupScript,
+	}, nil, nil)
+	if err != nil {
+		slog.Error("start setup execution", "error", err)
+		internalError(w, "failed to run setup script: "+err.Error())
+		return
+	}
+
+	ep, err := h.execRepo.FindByID(processID)
+	if err != nil || ep == nil {
+		internalError(w, "setup started but failed to load process")
+		return
+	}
+
+	created(w, ep)
+}
+
+// hasRunningNonDevServerProcesses checks if there are any running non-dev-server
+// execution processes for the given workspace.
+func (h *Handler) hasRunningNonDevServerProcesses(wsID domain.UUID) bool {
+	sessions, err := h.sessionRepo.FindByWorkspaceID(wsID)
+	if err != nil {
+		return false
+	}
+	for _, sess := range sessions {
+		processes, err := h.execRepo.FindBySessionID(sess.ID, false)
+		if err != nil {
+			continue
+		}
+		for _, proc := range processes {
+			if proc.Status == domain.ExecStatusRunning && proc.RunReason != domain.RunReasonDevServer {
+				return true
+			}
+		}
+	}
+	return false
 }

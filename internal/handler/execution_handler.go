@@ -25,6 +25,7 @@ func (h *Handler) registerExecutionRoutes(r chi.Router) {
 		r.Post("/stop", h.stopExecutionProcess)
 		r.Get("/repo-states", h.getRepoStates)
 		r.Get("/raw-logs/ws", h.handleRawLogsWS)
+		r.Get("/normalized-logs/ws", h.handleNormalizedLogsWS)
 	})
 }
 

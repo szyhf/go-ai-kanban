@@ -50,3 +50,41 @@ func (h *Handler) handleRawLogsWS(w http.ResponseWriter, r *http.Request) {
 	}
 	handleWSStream(w, r, cfg)
 }
+
+// handleNormalizedLogsWS handles GET /api/execution-processes/{id}/normalized-logs/ws
+// Streams structured log entries from the execution process.
+func (h *Handler) handleNormalizedLogsWS(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	// Get the per-execution MsgStore.
+	var execMsgStore *service.MsgStore
+	if h.containerSvc != nil {
+		execMsgStore = h.containerSvc.GetMsgStore(id)
+	}
+
+	// If no MsgStore, send finished and close.
+	if execMsgStore == nil {
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			return
+		}
+		defer conn.Close()
+		conn.WriteMessage(websocket.TextMessage, []byte(`{"finished":true}`))
+		return
+	}
+
+	// Build initial messages from all history.
+	history := execMsgStore.History()
+
+	cfg := wsStreamConfig{
+		InitialMessages: history,
+		Subscribe: func() (<-chan service.LogMsg, func()) {
+			return execMsgStore.Subscribe()
+		},
+		Convert: defaultWSConvert,
+	}
+	handleWSStream(w, r, cfg)
+}

@@ -97,6 +97,7 @@ func NewHandler(
 // RegisterRoutes registers all handler routes on the chi router.
 func (h *Handler) RegisterRoutes(r chi.Router) {
 	r.Get("/info", h.handleGetInfo)
+	r.Put("/config", h.handleSaveConfig)
 	r.Route("/repos", h.registerRepoRoutes)
 	r.Route("/workspaces", h.registerWorkspaceRoutes)
 	r.Route("/tags", h.registerTagRoutes)
