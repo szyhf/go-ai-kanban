@@ -68,3 +68,8 @@ func success(w http.ResponseWriter, data interface{}) {
 func created(w http.ResponseWriter, data interface{}) {
 	httputil.Created(w, data)
 }
+
+// errorWithData sends an error response with additional structured error data.
+func errorWithData(w http.ResponseWriter, code int, msg string, errData interface{}) {
+	httputil.ErrorWithData(w, code, msg, errData)
+}

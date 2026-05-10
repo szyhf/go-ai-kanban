@@ -20,6 +20,7 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 	r.Get("/", h.listWorkspaces)
 	r.Post("/", h.createWorkspace)
 	r.Post("/start", h.startWorkspace)
+	r.Post("/from-pr", h.createWorkspaceFromPR)
 	r.Post("/summaries", h.workspaceSummaries)
 	r.Get("/streams/ws", h.handleWorkspaceStreamWS)
 	r.Route("/{id}", func(r chi.Router) {
@@ -34,12 +35,20 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 			r.Get("/diff/ws", h.handleDiffStreamWS)
 			r.Post("/merge", h.gitMerge)
 			r.Post("/push", h.gitPush)
+			r.Post("/push/force", h.gitForcePush)
 			r.Post("/rebase", h.gitRebase)
+			r.Post("/rebase/continue", h.gitRebaseContinue)
+			r.Post("/conflicts/abort", h.gitConflictsAbort)
 			r.Put("/target-branch", h.changeTargetBranch)
 			r.Put("/branch", h.renameBranch)
 		})
 		r.Get("/repos", h.listWorkspaceRepos)
 		r.Post("/repos", h.addWorkspaceRepo)
+		r.Route("/pull-requests", func(r chi.Router) {
+			r.Post("/", h.createPR)
+			r.Post("/attach", h.attachPR)
+			r.Get("/comments", h.getPRComments)
+		})
 		r.Route("/integration", func(r chi.Router) {
 			r.Post("/agent/setup", h.handleWorkspaceAgentSetup)
 			r.Post("/editor/open", h.handleWorkspaceEditorOpen)

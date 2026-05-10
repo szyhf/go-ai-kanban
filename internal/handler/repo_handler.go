@@ -1,11 +1,13 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
 	"github.com/xuzhiping7/ai-kanban/internal/domain"
+	"github.com/xuzhiping7/ai-kanban/internal/githost"
 )
 
 // registerRepoRoutes registers repo-related routes.
@@ -13,11 +15,16 @@ func (h *Handler) registerRepoRoutes(r chi.Router) {
 	r.Get("/", h.listRepos)
 	r.Post("/", h.registerRepo)
 	r.Post("/init", h.initRepo)
+	r.Get("/pr-info", h.getPRInfo)
+	r.Get("/recent", h.listRecentRepos)
+	r.Post("/batch", h.batchGetReposByIDs)
 	r.Route("/{id}", func(r chi.Router) {
 		r.Get("/", h.getRepo)
 		r.Put("/", h.updateRepo)
 		r.Delete("/", h.deleteRepo)
 		r.Get("/branches", h.listBranches)
+		r.Get("/prs", h.listRepoPRs)
+		r.Get("/remotes", h.listRepoRemotes)
 	})
 }
 
@@ -171,4 +178,140 @@ func (h *Handler) listBranches(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	success(w, branches)
+}
+
+// --- PR and remote endpoints ---
+
+// listRepoPRs handles GET /api/repos/{id}/prs.
+func (h *Handler) listRepoPRs(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	repo, err := h.repoSvc.GetByID(id)
+	if err != nil || repo == nil {
+		notFound(w, "repo not found")
+		return
+	}
+
+	if !h.ghCLI.IsInstalled() {
+		errorWithData(w, http.StatusBadRequest, "GitHub CLI not installed", map[string]string{
+			"type":     "cli_not_installed",
+			"provider": "GitHub",
+		})
+		return
+	}
+
+	remoteName := getQuery(r, "remote")
+	if remoteName == "" {
+		remoteName = "origin"
+	}
+
+	remote, err := h.gitSvc.GetDefaultRemote(repo.Path)
+	if err != nil {
+		internalError(w, "failed to get remote: "+err.Error())
+		return
+	}
+	repoSlug, err := githost.ParseRepoFromURL(remote.URL)
+	if err != nil {
+		internalError(w, "failed to parse repo URL: "+err.Error())
+		return
+	}
+
+	prs, err := h.ghCLI.ListOpenPRs(repoSlug)
+	if err != nil {
+		slog.Warn("list PRs failed", "error", err)
+		errorWithData(w, http.StatusInternalServerError, "failed to list PRs", map[string]string{
+			"type": "cli_error",
+		})
+		return
+	}
+	success(w, prs)
+}
+
+// listRepoRemotes handles GET /api/repos/{id}/remotes.
+func (h *Handler) listRepoRemotes(w http.ResponseWriter, r *http.Request) {
+	id, ok := parseUUID(w, r, "id")
+	if !ok {
+		return
+	}
+
+	repo, err := h.repoSvc.GetByID(id)
+	if err != nil || repo == nil {
+		notFound(w, "repo not found")
+		return
+	}
+
+	remotes, err := h.gitSvc.ListRemotes(repo.Path)
+	if err != nil {
+		internalError(w, "failed to list remotes: "+err.Error())
+		return
+	}
+	success(w, remotes)
+}
+
+// getPRInfo handles GET /api/repos/pr-info?url=...
+func (h *Handler) getPRInfo(w http.ResponseWriter, r *http.Request) {
+	prURL := getQuery(r, "url")
+	if prURL == "" {
+		badRequest(w, "url query parameter is required")
+		return
+	}
+
+	if !h.ghCLI.IsInstalled() {
+		errorWithData(w, http.StatusBadRequest, "GitHub CLI not installed", map[string]string{
+			"type":     "cli_not_installed",
+			"provider": "GitHub",
+		})
+		return
+	}
+
+	repoInfo, err := h.ghCLI.GetRepoInfo(prURL)
+	if err != nil {
+		internalError(w, "failed to get repo info: "+err.Error())
+		return
+	}
+
+	pr, err := h.ghCLI.GetPRInfo(repoInfo.Owner+"/"+repoInfo.Name, prURL)
+	if err != nil {
+		internalError(w, "failed to get PR info: "+err.Error())
+		return
+	}
+	success(w, pr)
+}
+
+// listRecentRepos handles GET /api/repos/recent.
+func (h *Handler) listRecentRepos(w http.ResponseWriter, r *http.Request) {
+	// Return all repos sorted by most recently updated.
+	repos, err := h.repoSvc.FindAll()
+	if err != nil {
+		internalError(w, "failed to list repos: "+err.Error())
+		return
+	}
+	success(w, repos)
+}
+
+// batchGetReposByIDs handles POST /api/repos/batch.
+func (h *Handler) batchGetReposByIDs(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		IDs []string `json:"ids"`
+	}
+	if !decodeJSON(w, r, &req) {
+		return
+	}
+
+	var repos []domain.Repo
+	for _, s := range req.IDs {
+		id, err := domain.ParseUUID(s)
+		if err != nil {
+			continue
+		}
+		r, err := h.repoSvc.GetByID(id)
+		if err != nil || r == nil {
+			continue
+		}
+		repos = append(repos, *r)
+	}
+	success(w, repos)
 }

@@ -7,6 +7,7 @@ import (
 
 	"github.com/xuzhiping7/ai-kanban/internal/executor"
 	"github.com/xuzhiping7/ai-kanban/internal/git"
+	"github.com/xuzhiping7/ai-kanban/internal/githost"
 	"github.com/xuzhiping7/ai-kanban/internal/pty"
 	"github.com/xuzhiping7/ai-kanban/internal/repository"
 	"github.com/xuzhiping7/ai-kanban/internal/service"
@@ -38,6 +39,7 @@ type Handler struct {
 	ptySvc       *pty.Service
 	ptyHandler   *ptyHandler
 	turnRepo     *repository.CodingAgentTurnRepo
+	ghCLI        *githost.GhCLI
 }
 
 // NewHandler creates a Handler with all dependencies injected.
@@ -84,6 +86,7 @@ func NewHandler(
 		containerSvc: containerSvc,
 		ptySvc:       ptySvc,
 		turnRepo:     turnRepo,
+		ghCLI:        githost.NewGhCLI(),
 	}
 	if ptySvc != nil {
 		h.ptyHandler = newPTYHandler(ptySvc)
