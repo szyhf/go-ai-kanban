@@ -37,8 +37,23 @@ func (h *Handler) handleAgentPresetOptions(w http.ResponseWriter, r *http.Reques
 }
 
 // handleAgentDiscoveredOptionsWS handles GET /api/agents/discovered-options/ws.
+// Returns discovered agent capabilities. In local mode without a running agent
+// process, returns default empty options matching the frontend's expectations.
 func (h *Handler) handleAgentDiscoveredOptionsWS(w http.ResponseWriter, r *http.Request) {
-	success(w, map[string]any{})
+	success(w, map[string]any{
+		"model_selector": map[string]any{
+			"providers":     []any{},
+			"models":        []any{},
+			"default_model": nil,
+			"agents":        []any{},
+			"permissions":   []any{},
+		},
+		"slash_commands":         []any{},
+		"loading_models":         false,
+		"loading_agents":         false,
+		"loading_slash_commands": false,
+		"error":                  nil,
+	})
 }
 
 // handleAgentCheckAvailability handles GET /api/agents/check-availability.

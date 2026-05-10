@@ -7,9 +7,12 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"sync"
 
 	"github.com/xuzhiping7/ai-kanban/internal/domain"
+
+	"github.com/google/uuid"
 )
 
 // Version is set at build time via -ldflags.
@@ -233,10 +236,27 @@ func detectEnvironment() *Environment {
 }
 
 // generateMachineID returns a stable machine identifier.
-// In local mode, this is a fixed placeholder. A production implementation
-// would read from a persisted file or use a system-level identifier.
+// It generates a UUID on first call, persists it to ~/.vibe-kanban/machine-id,
+// and reuses it on subsequent calls.
 func generateMachineID() string {
-	return "local-dev-machine"
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "local-" + uuid.New().String()[:8]
+	}
+	path := filepath.Join(homeDir, ".vibe-kanban", "machine-id")
+
+	data, err := os.ReadFile(path)
+	if err == nil && len(data) > 0 {
+		id := strings.TrimSpace(string(data))
+		if id != "" {
+			return id
+		}
+	}
+
+	id := uuid.New().String()
+	_ = os.MkdirAll(filepath.Dir(path), 0755)
+	_ = os.WriteFile(path, []byte(id+"\n"), 0644)
+	return id
 }
 
 // configMu protects the in-memory config and file writes.

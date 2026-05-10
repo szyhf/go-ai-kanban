@@ -140,7 +140,25 @@ func (h *Handler) handleWorkspaceEditorPath(w http.ResponseWriter, r *http.Reque
 }
 
 // handleWorkspaceGHCLISetup handles POST /api/workspaces/{id}/integration/github/cli/setup.
+// Checks if gh CLI is installed and authenticated.
 func (h *Handler) handleWorkspaceGHCLISetup(w http.ResponseWriter, r *http.Request) {
+	if !h.ghCLI.IsInstalled() {
+		errorWithData(w, http.StatusBadRequest, "gh CLI not installed", map[string]any{
+			"error_type": "cli_not_installed",
+		})
+		return
+	}
+
+	// Check if gh is authenticated.
+	out, err := exec.Command("gh", "auth", "status").CombinedOutput()
+	_ = out
+	if err != nil {
+		errorWithData(w, http.StatusBadRequest, "gh CLI not authenticated", map[string]any{
+			"error_type": "cli_not_logged_in",
+		})
+		return
+	}
+
 	success(w, map[string]any{})
 }
 

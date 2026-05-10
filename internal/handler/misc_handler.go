@@ -15,6 +15,8 @@ func (h *Handler) registerMiscRoutes(r chi.Router) {
 	r.Get("/editors/check-availability", h.handleEditorCheckAvailability)
 	// Remote projects (cloud-only, stubbed for local mode).
 	r.Get("/remote/projects", h.handleRemoteProjects)
+	// Remote PR linking (cloud-only, stubbed for local mode).
+	r.Post("/remote/pull-requests/link", h.handleRemotePRLink)
 	// Open remote editor (relay-only, stubbed).
 	r.Post("/open-remote-editor/workspace", h.handleOpenRemoteEditor)
 }
@@ -55,6 +57,12 @@ func (h *Handler) handleRemoteProjects(w http.ResponseWriter, r *http.Request) {
 	success(w, map[string]any{
 		"projects": []any{},
 	})
+}
+
+// handleRemotePRLink handles POST /api/remote/pull-requests/link.
+// Cloud-only feature; returns success in local mode.
+func (h *Handler) handleRemotePRLink(w http.ResponseWriter, r *http.Request) {
+	success(w, map[string]any{})
 }
 
 // handleOpenRemoteEditor handles POST /api/open-remote-editor/workspace.
