@@ -111,6 +111,15 @@ func (h *Handler) RegisterRoutes(r chi.Router) {
 	// WebSocket approval stream.
 	r.Get("/approvals/stream/ws", h.handleApprovalStreamWS)
 	r.Post("/approvals/{id}/respond", h.handleApprovalRespond)
+
+	// Stub routes for local mode compatibility.
+	r.Route("/auth", h.registerAuthRoutes)
+	r.Route("/relay-auth", h.registerRelayRoutes)
+	r.Route("/agents", h.registerAgentRoutes)
+	r.Route("/mcp-config", h.registerMCPRoutes)
+	r.Route("/profiles", h.registerProfileRoutes)
+	r.Get("/releases", h.handleListReleases)
+	h.registerMiscRoutes(r)
 }
 
 // setupMultipartUpload is a helper that limits multipart form size.

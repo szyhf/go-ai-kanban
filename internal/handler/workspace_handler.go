@@ -40,7 +40,33 @@ func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 		})
 		r.Get("/repos", h.listWorkspaceRepos)
 		r.Post("/repos", h.addWorkspaceRepo)
+		r.Route("/integration", func(r chi.Router) {
+			r.Post("/agent/setup", h.handleWorkspaceAgentSetup)
+			r.Post("/editor/open", h.handleWorkspaceEditorOpen)
+			r.Get("/editor/path", h.handleWorkspaceEditorPath)
+			r.Post("/github/cli/setup", h.handleWorkspaceGHCLISetup)
+		})
 	})
+}
+
+// handleWorkspaceAgentSetup handles POST /api/workspaces/{id}/integration/agent/setup.
+func (h *Handler) handleWorkspaceAgentSetup(w http.ResponseWriter, r *http.Request) {
+	success(w, map[string]interface{}{})
+}
+
+// handleWorkspaceEditorOpen handles POST /api/workspaces/{id}/integration/editor/open.
+func (h *Handler) handleWorkspaceEditorOpen(w http.ResponseWriter, r *http.Request) {
+	success(w, map[string]interface{}{})
+}
+
+// handleWorkspaceEditorPath handles GET /api/workspaces/{id}/integration/editor/path.
+func (h *Handler) handleWorkspaceEditorPath(w http.ResponseWriter, r *http.Request) {
+	success(w, map[string]string{"workspace_path": ""})
+}
+
+// handleWorkspaceGHCLISetup handles POST /api/workspaces/{id}/integration/github/cli/setup.
+func (h *Handler) handleWorkspaceGHCLISetup(w http.ResponseWriter, r *http.Request) {
+	success(w, map[string]interface{}{})
 }
 
 // listWorkspaces handles GET /api/workspaces.
