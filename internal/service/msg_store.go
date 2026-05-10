@@ -74,6 +74,52 @@ func (m LogMsg) ToSSEEvent() (event string, data string) {
 	}
 }
 
+// wsPatchMsg is the WS JSON format for JsonPatch messages.
+type wsPatchMsg struct {
+	JsonPatch []*PatchOperation `json:"JsonPatch"`
+}
+
+// LogEntryValue represents a log entry in the format expected by the frontend PatchType.
+type LogEntryValue struct {
+	Type    string `json:"type"`
+	Content string `json:"content"`
+}
+
+// ToWSMessage converts the LogMsg to the frontend WebSocket JSON format.
+// Returns nil, nil for kinds that should be skipped (stdout/stderr).
+func (m LogMsg) ToWSMessage() ([]byte, error) {
+	switch m.Kind {
+	case LogMsgReady:
+		return []byte(`{"Ready":true}`), nil
+	case LogMsgFinished:
+		return []byte(`{"finished":true}`), nil
+	case LogMsgPatch:
+		return json.Marshal(wsPatchMsg{JsonPatch: []*PatchOperation{m.Patch}})
+	default:
+		return nil, nil
+	}
+}
+
+// ToLogEntryWSMessage converts stdout/stderr LogMsg to a log entry JsonPatch message.
+// Returns nil, nil for non-log kinds.
+func (m LogMsg) ToLogEntryWSMessage() ([]byte, error) {
+	entryType := ""
+	switch m.Kind {
+	case LogMsgStdout:
+		entryType = "STDOUT"
+	case LogMsgStderr:
+		entryType = "STDERR"
+	default:
+		return nil, nil
+	}
+	op := &PatchOperation{
+		Op:    "add",
+		Path:  "/entries/-",
+		Value: LogEntryValue{Type: entryType, Content: m.Data},
+	}
+	return json.Marshal(wsPatchMsg{JsonPatch: []*PatchOperation{op}})
+}
+
 // ApproxBytes estimates the memory usage of this message.
 func (m LogMsg) ApproxBytes() int {
 	n := len(m.Kind) + len(m.Data)

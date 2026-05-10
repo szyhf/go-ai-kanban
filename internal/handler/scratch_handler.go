@@ -17,6 +17,7 @@ func (h *Handler) registerScratchRoutes(r chi.Router) {
 		r.Post("/", h.createScratch)
 		r.Put("/", h.upsertScratch)
 		r.Delete("/", h.deleteScratch)
+		r.Get("/stream/ws", h.handleScratchStreamWS)
 	})
 }
 

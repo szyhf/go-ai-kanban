@@ -14,12 +14,14 @@ import (
 func (h *Handler) registerWorkspaceRoutes(r chi.Router) {
 	r.Get("/", h.listWorkspaces)
 	r.Post("/", h.createWorkspace)
+	r.Get("/streams/ws", h.handleWorkspaceStreamWS)
 	r.Route("/{id}", func(r chi.Router) {
 		r.Get("/", h.getWorkspace)
 		r.Put("/", h.updateWorkspace)
 		r.Delete("/", h.deleteWorkspace)
 		r.Route("/git", func(r chi.Router) {
 			r.Get("/status", h.gitStatus)
+			r.Get("/diff/ws", h.handleDiffStreamWS)
 			r.Post("/merge", h.gitMerge)
 			r.Post("/push", h.gitPush)
 			r.Post("/rebase", h.gitRebase)

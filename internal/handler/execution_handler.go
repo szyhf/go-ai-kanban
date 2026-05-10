@@ -17,11 +17,14 @@ var errInvalidAction = errors.New("executor_action is required")
 func (h *Handler) registerExecutionRoutes(r chi.Router) {
 	// POST /api/execution-processes — create and start an execution.
 	r.Post("/", h.createExecutionProcess)
+	// WS stream for per-session execution processes (before /{id} to avoid conflict).
+	r.Get("/stream/session/ws", h.handleExecProcessStreamWS)
 
 	r.Route("/{id}", func(r chi.Router) {
 		r.Get("/", h.getExecutionProcess)
 		r.Post("/stop", h.stopExecutionProcess)
 		r.Get("/repo-states", h.getRepoStates)
+		r.Get("/raw-logs/ws", h.handleRawLogsWS)
 	})
 }
 

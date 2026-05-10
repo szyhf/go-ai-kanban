@@ -104,6 +104,8 @@ func (h *Handler) RegisterRoutes(r chi.Router) {
 	if h.ptyHandler != nil {
 		r.Get("/terminal/ws", h.ptyHandler.handleTerminal)
 	}
+	// WebSocket approval stream.
+	r.Get("/approvals/stream/ws", h.handleApprovalStreamWS)
 }
 
 // setupMultipartUpload is a helper that limits multipart form size.
