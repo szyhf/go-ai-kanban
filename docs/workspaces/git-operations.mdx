@@ -1,376 +1,376 @@
 ---
-title: "Git Operations"
-description: "Create pull requests, merge, rebase, and manage branches in Workspaces"
+title: "Git 操作"
+description: "在工作空间中创建 Pull Request、合并、变基和管理分支"
 ---
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-git-panel.png" alt="Git section in the details sidebar showing repository status, branches, and commit information" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-git-panel.png" alt="详情侧边栏中的 Git 部分显示仓库状态、分支和提交信息" />
 </Frame>
 
-Workspaces provide integrated git operations for managing your code changes.
+工作空间提供集成的 Git 操作来管理你的代码变更。
 
-## Git Basics for Workspaces
+## 工作空间的 Git 基础知识
 
-If you're not familiar with git, here's what you need to know:
+如果你不熟悉 Git，这里是你需要了解的内容：
 
 <AccordionGroup>
-<Accordion title="What is a branch?">
-A **branch** is a separate line of development. Think of it as a copy of your code where you can make changes without affecting the original.
+<Accordion title="什么是分支？">
+**分支**是一条独立的开发线。可以把它想象成你代码的副本，你可以在其中进行更改而不影响原始代码。
 
-In Workspaces:
-- **Target branch** (e.g., `main`) - The "original" you'll eventually merge back into
-- **Working branch** (e.g., `vk/abc123-task`) - Your copy where changes happen
+在工作空间中：
+- **目标分支**（例如 `main`）- 你最终要合并回的"原始"分支
+- **工作分支**（例如 `vk/abc123-task`）- 你进行变更的副本
 </Accordion>
 
-<Accordion title="What is a commit?">
-A **commit** is a saved snapshot of your changes. It's like a save point in a video game - you can always go back to it.
+<Accordion title="什么是提交？">
+**提交**是你变更的保存快照。就像游戏中的存档点 - 你随时可以回到它。
 
-In Workspaces, commits happen automatically as the agent works, or you can commit manually through the terminal.
+在工作空间中，提交会在 Agent 工作时自动发生，你也可以通过终端手动提交。
 </Accordion>
 
-<Accordion title="What is a pull request (PR)?">
-A **pull request** is a request to merge your changes from your working branch into the target branch. It:
-- Shows all your changes in one place
-- Lets teammates review your code
-- Runs automated tests (CI)
-- Provides a history of what was changed and why
+<Accordion title="什么是 Pull Request (PR)？">
+**Pull Request** 是将你的变更从工作分支合并到目标分支的请求。它会：
+- 在一个地方展示你的所有变更
+- 让团队成员审查你的代码
+- 运行自动化测试（CI）
+- 提供变更内容和原因的历史记录
 </Accordion>
 
-<Accordion title="What is rebasing?">
-**Rebasing** updates your working branch with the latest changes from the target branch. It's like saying "pretend I started my work from the current state of main, not the old state."
+<Accordion title="什么是变基？">
+**变基**用目标分支的最新变更来更新你的工作分支。就像在说"假设我从 main 的当前状态开始工作，而不是从旧状态开始。"
 
-**When to rebase:**
-- Before creating a PR (to avoid conflicts)
-- When the target branch has new commits
-- When prompted by Vibe Kanban
+**何时变基：**
+- 创建 PR 之前（避免冲突）
+- 当目标分支有新提交时
+- 当 Vibe Kanban 提示你时
 </Accordion>
 
-<Accordion title="What is merging?">
-**Merging** combines your changes with the target branch. In Workspaces, this typically happens through a PR on GitHub after code review.
+<Accordion title="什么是合并？">
+**合并**将你的变更与目标分支组合。在工作空间中，这通常在代码审查后通过 GitHub 上的 PR 进行。
 
-The "Merge" action in Workspaces pulls the target branch INTO your working branch (the opposite direction of a PR merge).
+工作空间中的"合并"操作将目标分支拉取到你的工作分支中（与 PR 合并的方向相反）。
 </Accordion>
 </AccordionGroup>
 
-## Repository Status
+## 仓库状态
 
-The Git section in the right sidebar shows:
+右侧边栏中的 Git 部分显示：
 
-| Information | Description |
-|-------------|-------------|
-| **Repository name** | Current repository with status |
-| **Current branch** | Your working branch |
-| **Target branch** | Branch you'll merge into |
-| **Uncommitted changes** | Number of modified files |
-| **Ahead/Behind** | Commits relative to target branch |
-| **Conflict indicator** | Shows when merge conflicts exist |
+| 信息 | 描述 |
+|------|------|
+| **仓库名称** | 当前仓库及其状态 |
+| **当前分支** | 你的工作分支 |
+| **目标分支** | 你要合并到的分支 |
+| **未提交的变更** | 修改文件的数量 |
+| **领先/落后** | 相对于目标分支的提交数 |
+| **冲突指示器** | 存在合并冲突时显示 |
 
-## Creating Pull Requests
-
-<Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-create-pr.png" alt="Create pull request dialog with title, description, and draft mode options" />
-</Frame>
-
-Create PRs directly from your workspace.
-
-### Creating a PR
-
-**From the Git panel:**
-1. Click **Open pull request** in the Git section of the right sidebar
-2. Fill in the PR details
-
-**From the command bar:**
-1. Press `Cmd/Ctrl + K`
-2. Select **Create Pull Request**
-
-**PR details:**
-   - **Auto-generate PR description with AI** - Let AI write the description based on your changes
-   - **Title** - PR title (auto-filled from task name)
-   - **Description** - Optional details about the changes
-   - **Base Branch** - The branch to merge into
-   - **Create as draft** - Mark as draft PR
-4. Click **Create PR**
-
-Once created, your PR appears on GitHub with your commits, description, and CI checks running.
+## 创建 Pull Request
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-github-pr.png" alt="GitHub pull request page showing the created PR with commits, checks, and comments" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-create-pr.png" alt="创建 Pull Request 对话框包含标题、描述和草稿模式选项" />
 </Frame>
 
-### Draft PRs
+直接从你的工作空间创建 PR。
 
-Enable **Draft** mode when:
+### 创建 PR
 
-- Work is still in progress
-- You want early feedback before completion
-- CI checks should run but reviewers shouldn't merge yet
+**从 Git 面板：**
+1. 点击右侧边栏 Git 部分中的**打开 Pull Request**
+2. 填写 PR 详情
 
-### Multi-Repo PRs
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K`
+2. 选择**创建 Pull Request**
 
-For workspaces with multiple repositories:
+**PR 详情：**
+   - **使用 AI 自动生成 PR 描述** - 让 AI 根据你的变更编写描述
+   - **标题** - PR 标题（从任务名称自动填充）
+   - **描述** - 关于变更的详细信息（可选）
+   - **基础分支** - 要合并到的分支
+   - **创建为草稿** - 标记为草稿 PR
+4. 点击**创建 PR**
 
-- Create PRs for each repo separately
-- Use the Repo Actions in the command bar
-- Reference related PRs in descriptions
+创建后，你的 PR 会出现在 GitHub 上，包含你的提交、描述和正在运行的 CI 检查。
+
+<Frame>
+<img style={{maxHeight: "400px"}} src="/images/workspaces-github-pr.png" alt="GitHub Pull Request 页面显示已创建的 PR 及其提交、检查和注释" />
+</Frame>
+
+### 草稿 PR
+
+在以下情况下启用**草稿**模式：
+
+- 工作仍在进行中
+- 你希望在完成前获得早期反馈
+- CI 检查应该运行但审查者不应合并
+
+### 多仓库 PR
+
+对于包含多个仓库的工作空间：
+
+- 为每个仓库分别创建 PR
+- 使用命令栏中的仓库操作
+- 在描述中引用相关的 PR
 
 <Tip>
-Create PRs early to get CI feedback and enable team visibility into your progress.
+尽早创建 PR 以获取 CI 反馈并让团队了解你的进展。
 </Tip>
 
-## Merging Changes
+## 合并变更
 
-Pull the latest changes from the target branch into your working branch.
+将目标分支的最新变更拉取到你的工作分支中。
 
-### Merge Process
+### 合并流程
 
-**From the Git panel:**
-1. Click the dropdown arrow next to **Open pull request**
-2. Select **Merge**
+**从 Git 面板：**
+1. 点击**打开 Pull Request**旁边的下拉箭头
+2. 选择**合并**
 
-**From the command bar:**
-1. Press `Cmd/Ctrl + K` and select **Merge**
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K` 并选择**合并**
 
-Target branch changes are merged into your working branch after confirmation.
+确认后，目标分支的变更会合并到你的工作分支中。
 
-### Before Merging
+### 合并前
 
-The workspace checks if you're behind the target branch:
+工作空间会检查你是否落后于目标分支：
 
-- **Up to date**: Merge proceeds normally
-- **Behind target**: You'll be prompted to rebase first
+- **已是最新**：正常进行合并
+- **落后于目标**：你将被提示先进行变基
 
 <Warning>
-Always ensure CI checks pass and code reviews are complete before merging.
+始终确保 CI 检查通过且代码审查完成后再进行合并。
 </Warning>
 
-## Rebasing
+## 变基
 
-Keep your branch up to date with the target branch.
+保持你的分支与目标分支同步。
 
-### Rebase Process
+### 变基流程
 
-**From the Git panel:**
-1. Click the target branch dropdown (e.g., **main**)
-2. Select **Rebase** from the menu
+**从 Git 面板：**
+1. 点击目标分支下拉菜单（例如 **main**）
+2. 从菜单中选择**变基**
 
-**From the command bar:**
-1. Press `Cmd/Ctrl + K` and select **Rebase**
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K` 并选择**变基**
 
-Your commits are replayed on top of the target branch after confirmation.
+确认后，你的提交会在目标分支之上重新播放。
 
-### Handling Conflicts
+### 处理冲突
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-conflict-dialog.png" alt="Conflict resolution dialog showing list of conflicting files with resolve and abort options" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-conflict-dialog.png" alt="冲突解决对话框显示冲突文件列表及解决和中止选项" />
 </Frame>
 
-If conflicts occur during rebase:
+如果变基期间发生冲突：
 
-1. The workspace shows a conflict resolution dialog
-2. List of conflicting files is displayed
-3. Resolve conflicts in your editor
-4. Mark files as resolved
-5. Continue or abort the rebase
+1. 工作空间显示冲突解决对话框
+2. 显示冲突文件列表
+3. 在你的编辑器中解决冲突
+4. 将文件标记为已解决
+5. 继续或中止变基
 
-### When to Rebase
+### 何时变基
 
-- Before creating a pull request
-- When the target branch has new commits
-- Before merging to ensure a clean history
-- When prompted due to being behind target
+- 创建 Pull Request 之前
+- 当目标分支有新提交时
+- 合并前以确保干净的提交历史
+- 当由于落后于目标分支而被提示时
 
-## Changing Target Branch
+## 更改目标分支
 
-Switch the branch you're merging into.
+切换你要合并到的分支。
 
-### Changing the Target
+### 更改目标
 
-**From the Git panel:**
-1. Click the target branch dropdown (e.g., **main**) in the Git section
-2. Select a new target branch from the list
+**从 Git 面板：**
+1. 点击 Git 部分中的目标分支下拉菜单（例如 **main**）
+2. 从列表中选择新的目标分支
 
-**From the command bar:**
-1. Press `Cmd/Ctrl + K` and select **Change Target Branch**
-2. Choose the new target branch
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K` 并选择**更改目标分支**
+2. 选择新的目标分支
 
-The workspace updates to show the new ahead/behind status.
+工作空间会更新以显示新的领先/落后状态。
 
-### Use Cases
+### 使用场景
 
-- Switch from `develop` to `main` for release
-- Target a feature branch instead of main
-- Correct an incorrectly set target
+- 从 `develop` 切换到 `main` 进行发布
+- 目标设为功能分支而不是 main
+- 更正错误设置的目标
 
-## Pushing Changes
+## 推送变更
 
-Push your commits to the remote repository.
+将你的提交推送到远程仓库。
 
-### When Push is Available
+### 推送何时可用
 
-The Push command appears when:
+Push 命令在以下情况下出现：
 
-- You have unpushed commits
-- A pull request is open for the branch
+- 你有未推送的提交
+- 该分支有一个开放的 Pull Request
 
-### Pushing
+### 推送
 
-**From the Git panel:**
-- Click the **Push** button when it appears (shows when you have unpushed commits)
+**从 Git 面板：**
+- 点击出现的 **Push** 按钮（当你有未推送的提交时显示）
 
-**From the command bar:**
-- Press `Cmd/Ctrl + K` and select **Push**
+**从命令栏：**
+- 按 `Cmd/Ctrl + K` 并选择**推送**
 
-Commits are pushed to the remote repository.
+提交会被推送到远程仓库。
 
 <Info>
-Push is contextual - it only appears when there are changes to push and a PR exists.
+推送是上下文相关的 - 只在有变更需要推送且存在 PR 时才会出现。
 </Info>
 
-## Multi-Repository Git Operations
+## 多仓库 Git 操作
 
-For workspaces with multiple repositories, manage each repo independently.
+对于包含多个仓库的工作空间，独立管理每个仓库。
 
-### Per-Repository Actions
+### 每个仓库的操作
 
-Access via command bar's **Repo Actions** page:
+通过命令栏的**仓库操作**页面访问：
 
-| Action | Description |
-|--------|-------------|
-| Create PR | Create PR for specific repository |
-| Merge | Merge specific repository only |
-| Rebase | Rebase specific repository |
-| Change Target | Change target for specific repo |
+| 操作 | 描述 |
+|------|------|
+| 创建 PR | 为特定仓库创建 PR |
+| 合并 | 仅合并特定仓库 |
+| 变基 | 变基特定仓库 |
+| 更改目标 | 更改特定仓库的目标 |
 
-### Coordinating Changes
+### 协调变更
 
-When working across repos:
+跨仓库工作时：
 
-1. Make related changes in each repository
-2. Create linked PRs referencing each other
-3. Merge in the correct order based on dependencies
-4. Verify integration after merging
+1. 在每个仓库中进行相关变更
+2. 创建相互引用的关联 PR
+3. 按依赖关系正确的顺序合并
+4. 合并后验证集成
 
-## Conflict Resolution
+## 冲突解决
 
-When git conflicts occur:
+当 Git 冲突发生时：
 
-### Conflict Dialog
+### 冲突对话框
 
-The workspace displays a conflict resolution dialog showing:
+工作空间显示冲突解决对话框，包含：
 
-- List of conflicting files
-- Options to resolve or abort
+- 冲突文件列表
+- 解决或中止的选项
 
-### Resolution Steps
+### 解决步骤
 
-1. Open conflicting files in your editor
-2. Resolve the conflicts manually
-3. Save the resolved files
-4. Return to the workspace
-5. Continue the operation
+1. 在编辑器中打开冲突文件
+2. 手动解决冲突
+3. 保存已解决的文件
+4. 返回工作空间
+5. 继续操作
 
-### Aborting
+### 中止
 
-If you can't resolve conflicts:
+如果你无法解决冲突：
 
-- Click **Abort** in the conflict dialog
-- The operation is cancelled
-- Your branch returns to its previous state
+- 在冲突对话框中点击**中止**
+- 操作被取消
+- 你的分支恢复到之前的状态
 
 <Warning>
-Unresolved conflicts block git operations. Always resolve or abort before continuing work.
+未解决的冲突会阻止 Git 操作。始终在继续工作前解决或中止冲突。
 </Warning>
 
-## Best Practices
+## 最佳实践
 
-### Branch Hygiene
+### 分支管理
 
-- Rebase regularly to stay current with target
-- Create PRs early for visibility
-- Use descriptive branch names
-- Delete merged branches
+- 定期变基以与目标分支保持同步
+- 尽早创建 PR 以获得可见性
+- 使用描述性的分支名称
+- 删除已合并的分支
 
-### PR Workflow
+### PR 工作流
 
-1. Complete your changes
-2. Review diffs in the changes panel
-3. Rebase if behind target
-4. Create a PR (draft if work continues)
-5. Address review feedback
-6. Merge when approved
+1. 完成你的变更
+2. 在变更面板中审查 Diff
+3. 如果落后于目标则进行变基
+4. 创建 PR（如果工作继续则标记为草稿）
+5. 处理审查反馈
+6. 批准后合并
 
-### Multi-Repo Coordination
+### 多仓库协调
 
-- Plan cross-repo changes upfront
-- Document dependencies between PRs
-- Merge in dependency order
-- Test integration thoroughly
+- 提前规划跨仓库变更
+- 记录 PR 之间的依赖关系
+- 按依赖顺序合并
+- 充分测试集成
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="'You have uncommitted changes' error">
-**What it means:** You have modified files that haven't been committed.
+<Accordion title="'You have uncommitted changes' 错误">
+**含义：** 你有未提交的修改文件。
 
-**Solutions:**
-1. Let the agent finish its current work (it may be about to commit)
-2. Check the Changes panel to see what's modified
-3. Commit the changes using the terminal: `git add . && git commit -m "WIP"`
-4. Or stash them: `git stash`
+**解决方案：**
+1. 让 Agent 完成当前工作（它可能即将提交）
+2. 检查变更面板查看修改了什么
+3. 使用终端提交变更：`git add . && git commit -m "WIP"`
+4. 或者暂存它们：`git stash`
 </Accordion>
 
-<Accordion title="'Branch is behind target' warning">
-**What it means:** The target branch (e.g., `main`) has new commits that your working branch doesn't have.
+<Accordion title="'Branch is behind target' 警告">
+**含义：** 目标分支（例如 `main`）有你的工作分支没有的新提交。
 
-**Solution:** Rebase your branch to include the new changes:
-1. Open command bar (`Cmd/Ctrl + K`)
-2. Select **Rebase**
-3. Resolve any conflicts if prompted
+**解决方案：** 变基你的分支以包含新变更：
+1. 打开命令栏（`Cmd/Ctrl + K`）
+2. 选择**变基**
+3. 如果提示则解决冲突
 </Accordion>
 
-<Accordion title="Merge conflicts during rebase">
-**What it means:** Your changes and the target branch's changes modify the same lines of code.
+<Accordion title="变基期间的合并冲突">
+**含义：** 你的变更和目标分支的变更修改了相同的代码行。
 
-**Solutions:**
-1. Vibe Kanban shows a conflict dialog listing affected files
-2. Open each conflicting file in your editor
-3. Look for conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
-4. Choose which version to keep (or combine them)
-5. Save the file and mark it as resolved
-6. Continue the rebase
+**解决方案：**
+1. Vibe Kanban 显示列出受影响文件的冲突对话框
+2. 在编辑器中打开每个冲突文件
+3. 查找冲突标记（`<<<<<<<`、`=======`、`>>>>>>>`）
+4. 选择要保留的版本（或组合它们）
+5. 保存文件并将其标记为已解决
+6. 继续变基
 
 <Tip>
-For complex conflicts, you can ask the agent to help resolve them. Start a new message describing the conflict.
+对于复杂的冲突，你可以让 Agent 帮助解决。发送一条描述冲突的新消息。
 </Tip>
 </Accordion>
 
-<Accordion title="PR creation fails">
-**Possible causes:**
-- Not authenticated with GitHub
-- No changes to create a PR from
-- Branch doesn't exist on remote
+<Accordion title="PR 创建失败">
+**可能的原因：**
+- 未通过 GitHub 认证
+- 没有可以创建 PR 的变更
+- 分支在远程不存在
 
-**Solutions:**
-1. Check GitHub integration in Settings → Integrations
-2. Ensure you have committed changes
-3. Try pushing the branch first using the terminal
+**解决方案：**
+1. 在设置 → 集成中检查 GitHub 集成
+2. 确保你已提交变更
+3. 尝试先通过终端推送分支
 </Accordion>
 
-<Accordion title="Can't push to remote">
-**Possible causes:**
-- No remote configured
-- Authentication issues
-- Remote branch is protected
+<Accordion title="无法推送到远程">
+**可能的原因：**
+- 未配置远程仓库
+- 认证问题
+- 远程分支受保护
 
-**Solutions:**
-1. Verify remote is configured: `git remote -v` in terminal
-2. Check GitHub authentication in Settings
-3. For protected branches, create a PR instead of pushing directly
+**解决方案：**
+1. 验证远程仓库已配置：在终端中运行 `git remote -v`
+2. 在设置中检查 GitHub 认证
+3. 对于受保护的分支，创建 PR 而不是直接推送
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Multi-Repo & Sessions](/workspaces/multi-repo-sessions) - Working with multiple repositories
-- [Command Bar](/workspaces/command-bar) - Git commands and shortcuts
-- [GitHub Integration](/integrations/github-integration) - GitHub setup and features
+- [多仓库与会话](/workspaces/multi-repo-sessions) - 使用多个仓库
+- [命令栏](/workspaces/command-bar) - Git 命令和快捷键
+- [GitHub 集成](/integrations/github-integration) - GitHub 设置和功能

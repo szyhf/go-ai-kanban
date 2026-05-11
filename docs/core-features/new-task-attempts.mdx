@@ -1,62 +1,62 @@
 ---
-title: "New Task Attempts"
-description: "Understand when and why to create multiple task attempts for fresh restarts with different configurations."
-sidebarTitle: "New Task Attempts"
+title: "新任务尝试"
+description: "了解何时以及为何要创建多次任务尝试，以使用不同的配置重新开始。"
+sidebarTitle: "新任务尝试"
 ---
 
 <Frame>
-<img src="/images/vk-create-new-attempt.png" alt="Create new task attempt dialog showing configuration options" />
+<img src="/images/vk-create-new-attempt.png" alt="创建新任务尝试对话框，显示配置选项" />
 </Frame>
 
-A task attempt represents a single session with a coding agent against a task. Most tasks only need one attempt, but you may need additional attempts for fresh restarts.
+任务尝试代表一次编程代理针对某个任务的会话。大多数任务只需要一次尝试，但有时你可能需要额外的尝试来重新开始。
 
-## When to Create New Task Attempts
+## 何时创建新任务尝试
 
-Create a new task attempt when you want to:
+在以下情况下创建新的任务尝试：
 
-- **Start from scratch** with a different approach after an unsuccessful attempt
-- **Try a different coding agent** (e.g., switching from Claude to Codex)
-- **Use a different agent profile or variant** for specialised behaviour
-- **Work from a different base branch** to incorporate recent changes
-- **Reset the conversation context** for a completely fresh start
+- 一次尝试不成功后想用不同的方法**从头开始**
+- 想尝试**不同的编程代理**（如从 Claude 切换到 Codex）
+- 想使用**不同的代理配置或变体**以获得特定行为
+- 想从**不同的基础分支**开始工作，以纳入最新的更改
+- 想要**重置对话上下文**，完全重新开始
 
 <Tip>
-Most users will only need one attempt per task. Only create additional attempts if the first approach didn't work as expected.
+大多数用户每个任务只需要一次尝试。只有在第一次尝试效果不如预期时才创建额外的尝试。
 </Tip>
 
-## Creating Additional Attempts
+## 创建额外的尝试
 
-To create a new task attempt for an existing task:
+要为现有任务创建新的任务尝试：
 
 <Steps>
-<Step title="Navigate to the task">
-  Open the task that needs a fresh attempt.
+<Step title="导航到任务">
+  打开需要重新尝试的任务。
 </Step>
 
-<Step title="Click Create New Attempt">
-  Click the triple dot icon in the top right of the task, then select **Create New Attempt**.
+<Step title="点击 Create New Attempt">
+  点击任务右上角的三点图标，然后选择 **Create New Attempt**。
 </Step>
 
-<Step title="Configure the attempt">
-  Choose your agent profile, variant, and base branch. These can be different from previous attempts.
+<Step title="配置尝试">
+  选择你的代理配置、变体和基础分支。这些可以与之前的尝试不同。
 </Step>
 
-<Step title="Start execution">
-  Click **Create Attempt** to begin a fresh execution with the new configuration.
+<Step title="开始执行">
+  点击 **Create Attempt** 以使用新配置开始全新的执行。
 </Step>
 </Steps>
 
-## Impact on Subtasks
+## 对子任务的影响
 
 <Warning>
-Creating new task attempts affects subtasks. Subtasks are linked to specific task attempts, not tasks themselves.
+创建新任务尝试会影响子任务。子任务关联的是特定的任务尝试，而不是任务本身。
 </Warning>
 
-When you create a new task attempt:
+当你创建新的任务尝试时：
 
-- **Existing subtasks** remain linked to their original parent attempt
-- **New subtasks** created from the new attempt will use the new attempt's branch as their base
+- **已有的子任务**仍然关联到其原始的父尝试
+- 从新尝试创建的**新子任务**将使用新尝试的分支作为基础
 
 <Info>
-For more details about how subtasks work with task attempts, see [Creating Subtasks](/core-features/subtasks).
+有关子任务如何与任务尝试配合使用的更多详情，请参阅[创建子任务](/core-features/subtasks)。
 </Info>

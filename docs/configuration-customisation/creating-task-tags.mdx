@@ -1,79 +1,79 @@
 ---
-title: "Creating Task Tags"
-description: "Create reusable text snippets that can be quickly inserted into task descriptions using @mentions. Task tags are available globally across all projects."
+title: "创建任务标签"
+description: "创建可复用的文本片段，通过 @提及 快速插入到任务描述中。任务标签在所有项目中全局可用。"
 ---
 
-## What are task tags?
+## 什么是任务标签？
 
-Task tags are reusable text snippets that you can quickly insert into task descriptions by typing `@` followed by the tag name. When you select a tag, its content is automatically inserted at your cursor position.
+任务标签是可复用的文本片段，你可以通过输入 `@` 后跟标签名称来快速将其插入到任务描述中。当你选择一个标签时，其内容会自动插入到光标位置。
 
 <Tip>
-Task tags use snake_case naming (no spaces allowed). For example: `bug_report`, `feature_request`, or `code_review_checklist`.
+任务标签使用 snake_case 命名（不允许包含空格）。例如：`bug_report`、`feature_request` 或 `code_review_checklist`。
 </Tip>
 
-## Managing task tags
+## 管理任务标签
 
-Access task tags from **Settings → General → Task Tags**. Tags are available globally across all projects in your workspace.
+从 **Settings → General → Task Tags** 访问任务标签。标签在工作区的所有项目中全局可用。
 
 <Frame>
-<img src="/images/screenshot-task-tags-manager.png" alt="Task tags management interface showing the tag list with names and content" />
+<img src="/images/screenshot-task-tags-manager.png" alt="任务标签管理界面，显示标签列表及其名称和内容" />
 </Frame>
 
 <Steps>
-<Step title="Create a new tag">
-  Click **Add Tag** to create a new task tag.
+<Step title="创建新标签">
+  点击 **Add Tag** 创建新的任务标签。
 
   <Frame>
-  <img src="/images/screenshot-create-task-tag.png" alt="Create task tag dialogue showing tag name and content fields" />
+  <img src="/images/screenshot-create-task-tag.png" alt="创建任务标签对话框，显示标签名称和内容字段" />
   </Frame>
 
-  - **Tag name**: Use snake_case without spaces (e.g., `acceptance_criteria`)
-  - **Content**: The text that will be inserted when the tag is used
+  - **标签名称**：使用 snake_case 格式，不含空格（例如 `acceptance_criteria`）
+  - **内容**：使用标签时将插入的文本
 </Step>
 
-<Step title="Edit existing tags">
-  Click the edit icon (✏️) next to any tag to modify its name or content.
+<Step title="编辑现有标签">
+  点击标签旁边的编辑图标（✏️）来修改其名称或内容。
 </Step>
 
-<Step title="Remove unwanted tags">
-  Click the delete icon (🗑️) to remove tags you no longer need.
+<Step title="删除不需要的标签">
+  点击删除图标（🗑️）来移除不再需要的标签。
 
   <Warning>
-  Deleting a tag does not affect existing tasks that already have the tag's content inserted.
+  删除标签不会影响已经插入该标签内容的现有任务。
   </Warning>
 </Step>
 </Steps>
 
-## Using task tags
+## 使用任务标签
 
-Insert task tags into task descriptions and follow-up messages using @mention autocomplete.
+通过 @提及 自动补全功能将任务标签插入到任务描述和后续跟进消息中。
 
 <Steps>
-<Step title="Trigger autocomplete">
-  When creating or editing a task description, type `@` to trigger the autocomplete dropdown.
+<Step title="触发自动补全">
+  在创建或编辑任务描述时，输入 `@` 以触发自动补全下拉菜单。
 
   <Frame>
-  <img src="/images/screenshot-task-tag-autocomplete.png" alt="Autocomplete dropdown showing available tags after typing @ symbol" />
+  <img src="/images/screenshot-task-tag-autocomplete.png" alt="输入 @ 符号后显示可用标签的自动补全下拉菜单" />
   </Frame>
 </Step>
 
-<Step title="Search and select">
-  Continue typing to filter tags by name, then:
-  - Click on a tag to select it
-  - Use arrow keys to navigate and press Enter to select
-  - Press Escape to close the dropdown
+<Step title="搜索并选择">
+  继续输入以按名称过滤标签，然后：
+  - 点击标签以选择
+  - 使用方向键导航并按 Enter 选择
+  - 按 Escape 关闭下拉菜单
 
   <Check>
-  The tag's content is automatically inserted at your cursor position, replacing the @query.
+  标签内容会自动插入到光标位置，替换 @查询文本。
   </Check>
 </Step>
 </Steps>
 
-## Common use cases
+## 常见用例
 
 <AccordionGroup>
-<Accordion title="Bug report templates">
-Create a `bug_report` tag with standardised bug reporting fields:
+<Accordion title="Bug 报告模板">
+创建一个 `bug_report` 标签，包含标准化的 Bug 报告字段：
 
 ```
 **Description:**
@@ -91,8 +91,8 @@ Create a `bug_report` tag with standardised bug reporting fields:
 ```
 </Accordion>
 
-<Accordion title="Acceptance criteria checklists">
-Create an `acceptance_criteria` tag for feature requirements:
+<Accordion title="验收标准清单">
+创建一个 `acceptance_criteria` 标签，用于功能需求：
 
 ```
 **Acceptance criteria:**
@@ -104,8 +104,8 @@ Create an `acceptance_criteria` tag for feature requirements:
 ```
 </Accordion>
 
-<Accordion title="Code review guidelines">
-Create a `code_review` tag with review checklist items:
+<Accordion title="代码审查指南">
+创建一个 `code_review` 标签，包含审查清单项目：
 
 ```
 **Code review checklist:**
@@ -119,5 +119,5 @@ Create a `code_review` tag with review checklist items:
 </AccordionGroup>
 
 <Tip>
-Task tags work in all text fields that support the @mention feature, including task descriptions and follow-up messages, making it easy to maintain consistency across your tasks.
+任务标签适用于所有支持 @提及 功能的文本字段，包括任务描述和后续跟进消息，让你可以轻松保持任务间的一致性。
 </Tip>

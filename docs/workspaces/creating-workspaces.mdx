@@ -1,257 +1,257 @@
 ---
-title: "Creating Workspaces"
-description: "Learn how to create and configure workspaces for your development tasks"
+title: "创建工作空间"
+description: "了解如何为你的开发任务创建和配置工作空间"
 ---
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-create-new.png" alt="Create workspace view showing project selection, repository list, and task input" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-create-new.png" alt="创建工作空间视图显示项目选择、仓库列表和任务输入" />
 </Frame>
 
-A workspace is your task execution environment where you work with coding agents. Each workspace can include one or more repositories and supports multiple conversation sessions.
+工作空间是你与编码 Agent 协作的任务执行环境。每个工作空间可以包含一个或多个仓库，并支持多个对话会话。
 
-## What Happens When You Create a Workspace
+## 创建工作空间时发生了什么
 
-Understanding what happens behind the scenes helps you work more effectively:
+了解幕后发生的事情有助于你更有效地工作：
 
 <Steps>
-<Step title="Git worktree is created">
-Vibe Kanban creates a **git worktree** - a separate working directory with its own branch. This keeps your changes isolated from your main codebase. Your original repository remains untouched.
+<Step title="创建 Git worktree">
+Vibe Kanban 创建一个 **Git worktree** - 一个拥有自己分支的独立工作目录。这使你的变更与主代码库隔离。你的原始仓库保持不变。
 </Step>
 
-<Step title="Working branch is created">
-A new branch is created based on your target branch (e.g., `main`). The branch name is auto-generated based on your task (e.g., `vk/abc123-add-login-page`).
+<Step title="创建工作分支">
+基于你的目标分支（例如 `main`）创建一个新分支。分支名称根据你的任务自动生成（例如 `vk/abc123-add-login-page`）。
 </Step>
 
-<Step title="Agent session starts">
-A coding agent is initialised and ready to receive your instructions. The agent can read files, make changes, and run commands within your workspace.
+<Step title="启动 Agent 会话">
+编码 Agent 被初始化并准备接收你的指令。Agent 可以在工作空间内读取文件、进行更改和运行命令。
 </Step>
 
-<Step title="Setup scripts run (if configured)">
-If your repository has setup scripts configured (e.g., `npm install`), they run automatically to prepare the environment.
+<Step title="运行设置脚本（如已配置）">
+如果你的仓库配置了设置脚本（例如 `npm install`），它们会自动运行以准备环境。
 </Step>
 </Steps>
 
 <Info>
-**Where do workspaces live?** Worktrees are created in a `.vibe-kanban-workspaces` directory (configurable in Settings → General → Workspace Directory). Each workspace gets its own folder.
+**工作空间存放在哪里？** Worktree 创建在 `.vibe-kanban-workspaces` 目录中（可在设置 → 通用 → 工作空间目录中配置）。每个工作空间都有自己的文件夹。
 </Info>
 
-## Creating a New Workspace
+## 创建新工作空间
 
 <Steps>
-<Step title="Open the Create View">
-  Click the **+** button at the top of the workspace sidebar, or use the command bar (`Cmd/Ctrl + K`) and select **New Workspace**.
+<Step title="打开创建视图">
+  点击工作空间侧边栏顶部的 **+** 按钮，或使用命令栏（`Cmd/Ctrl + K`）并选择**新建工作空间**。
 
   <Frame>
-  <img style={{maxHeight: "300px"}} src="/images/workspaces-sidebar-create-button.png" alt="Workspace sidebar showing the plus button for creating new workspaces" />
+  <img style={{maxHeight: "300px"}} src="/images/workspaces-sidebar-create-button.png" alt="工作空间侧边栏显示用于创建新工作空间的加号按钮" />
   </Frame>
 </Step>
 
-<Step title="Select a Project">
-  Choose a project from the **Project** dropdown in the right panel. Projects group related repositories together.
+<Step title="选择项目">
+  从右侧面板的**项目**下拉菜单中选择一个项目。项目将相关仓库分组在一起。
 
   <Frame>
-  <img style={{maxHeight: "300px"}} src="/images/workspaces-select-project.png" alt="Project dropdown showing selected project" />
+  <img style={{maxHeight: "300px"}} src="/images/workspaces-select-project.png" alt="项目下拉菜单显示已选中的项目" />
   </Frame>
 
   <Note>
-  If you haven't created a project yet, see [Creating a New Project](#creating-a-new-project) below.
+  如果你还没有创建项目，请参阅下面的[创建新项目](#creating-a-new-project)。
   </Note>
 </Step>
 
-<Step title="Add Repositories">
+<Step title="添加仓库">
   <Frame>
-  <img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="Repository selection showing selected repo with branch dropdown and list of available repositories" />
+  <img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="仓库选择显示已选仓库和分支下拉菜单以及可用仓库列表" />
   </Frame>
 
-  Select which repositories to include in your workspace:
+  选择要包含在工作空间中的仓库：
 
-  - **Recent repositories** - Click any repo from the list to add it
-  - **Browse repos on disk** - Find repositories not in the recent list
-  - **Create new repo on disk** - Initialise a new git repository
+  - **最近仓库** - 点击列表中的任何仓库来添加
+  - **浏览磁盘上的仓库** - 查找不在最近列表中的仓库
+  - **在磁盘上创建新仓库** - 初始化一个新的 Git 仓库
 
   <Tip>
-  You can add multiple repositories to a single workspace if your task spans multiple codebases. Each repository maintains independent git state.
+  如果你的任务涉及多个代码库，你可以在单个工作空间中添加多个仓库。每个仓库维护独立的 Git 状态。
   </Tip>
 </Step>
 
-<Step title="Set Target Branches">
-  For each selected repository, set the **target branch** - this is the branch your changes will eventually be merged into (e.g., `main` or `develop`).
+<Step title="设置目标分支">
+  对于每个选定的仓库，设置**目标分支** - 这是你的变更最终要合并到的分支（例如 `main` 或 `develop`）。
 
-  Click the branch dropdown next to each repository to change the target branch.
+  点击每个仓库旁边的分支下拉菜单来更改目标分支。
 
   <Info>
-  **Target branch vs Working branch - what's the difference?**
+  **目标分支与工作分支有什么区别？**
 
-  - **Target branch** = Where your changes will eventually be merged (e.g., `main`). You set this.
-  - **Working branch** = Where your changes are made (e.g., `vk/abc123-task-name`). Auto-created from target.
+  - **目标分支** = 你的变更最终要合并到的地方（例如 `main`）。由你设置。
+  - **工作分支** = 你进行变更的地方（例如 `vk/abc123-task-name`）。从目标分支自动创建。
 
-  Your changes are made on the working branch and don't affect the target until you create and merge a PR.
+  你的变更在工作分支上进行，在你创建并合并 PR 之前不会影响目标分支。
   </Info>
 </Step>
 
-<Step title="Describe Your Task">
-  In the chat input at the bottom, describe what you want to accomplish. Be specific about:
+<Step title="描述你的任务">
+  在底部的聊天输入中，描述你想要完成的事情。具体说明：
 
-  - What feature or fix you need
-  - Any constraints or requirements
-  - Files or areas of the codebase to focus on
+  - 你需要什么功能或修复
+  - 任何约束或要求
+  - 要关注的文件或代码库区域
 
   <Tip>
-  Clear, detailed task descriptions help the agent understand your requirements and produce better results.
+  清晰、详细的任务描述有助于 Agent 理解你的需求并产生更好的结果。
   </Tip>
 </Step>
 
-<Step title="Select an Agent">
-  Choose which coding agent to use from the **Agent** dropdown. Available agents depend on your configuration.
+<Step title="选择 Agent">
+  从 **Agent** 下拉菜单中选择要使用的编码 Agent。可用的 Agent 取决于你的配置。
 
   <Note>
-  See [Agent Configurations](/settings/agent-configurations) for details on setting up different agents.
+  有关设置不同 Agent 的详情，请参阅 [Agent 配置](/settings/agent-configurations)。
   </Note>
 </Step>
 
-<Step title="Create the Workspace">
-  Click **Create** to start the workspace. The agent will begin working on your task immediately.
+<Step title="创建工作空间">
+  点击**创建**启动工作空间。Agent 将立即开始处理你的任务。
 </Step>
 </Steps>
 
-## Creating a New Project
+## 创建新项目
 
-If you need to create a new project before setting up your workspace:
+如果你需要在设置工作空间之前创建新项目：
 
 <Steps>
-<Step title="Open the Project Dropdown">
-  In the create workspace view, click the **Project** dropdown.
+<Step title="打开项目下拉菜单">
+  在创建工作空间视图中，点击**项目**下拉菜单。
 
   <Frame>
-  <img style={{maxHeight: "300px"}} src="/images/workspaces-project-dropdown.png" alt="Project dropdown showing Create new project option and list of existing projects" />
+  <img style={{maxHeight: "300px"}} src="/images/workspaces-project-dropdown.png" alt="项目下拉菜单显示创建新项目选项和现有项目列表" />
   </Frame>
 </Step>
 
-<Step title="Select Create New Project">
-  Click **+ Create new project** at the top of the dropdown list.
+<Step title="选择创建新项目">
+  点击下拉列表顶部的 **+ 创建新项目**。
 </Step>
 
-<Step title="Enter Project Details">
+<Step title="输入项目详情">
   <Frame>
-  <img style={{maxHeight: "250px"}} src="/images/workspaces-create-project.png" alt="Create Project dialog with name field" />
+  <img style={{maxHeight: "250px"}} src="/images/workspaces-create-project.png" alt="创建项目对话框包含名称字段" />
   </Frame>
 
-  Enter a name for your project and click **Create**.
+  输入项目名称并点击**创建**。
 </Step>
 
-<Step title="Continue with Workspace Creation">
-  Your new project is automatically selected. Continue adding repositories and configuring your workspace.
+<Step title="继续创建工作空间">
+  你的新项目会被自动选中。继续添加仓库并配置你的工作空间。
 </Step>
 </Steps>
 
 <Note>
-After creating a project, you can configure additional settings like setup scripts, dev server scripts, and cleanup scripts in the project settings. See [Projects & Repositories](/settings/projects-repositories) for more details.
+创建项目后，你可以在项目设置中配置额外的设置，如设置脚本、开发服务器脚本和清理脚本。详见[项目与仓库](/settings/projects-repositories)。
 </Note>
 
-## Workspace Settings
+## 工作空间设置
 
-Once a workspace is created, you can configure additional settings:
+工作空间创建后，你可以配置额外的设置：
 
-### Working Branch
+### 工作分支
 
-The workspace automatically creates a working branch for your changes. You can view and change this in the **Git** section of the details sidebar.
+工作空间会自动为你的变更创建一个工作分支。你可以在详情侧边栏的 **Git** 部分查看和更改此分支。
 
-### Dev Server
+### 开发服务器
 
-If your project has a dev server script configured, you can start it using:
-- The **Play** icon (<Icon icon="play" />) in the context bar
-- The command bar: `Cmd/Ctrl + K` → **Start Dev Server**
+如果你的项目配置了开发服务器脚本，可以通过以下方式启动：
+- 上下文栏中的**播放**图标（<Icon icon="play" />）
+- 命令栏：`Cmd/Ctrl + K` → **启动开发服务器**
 
 <Note>
-Configure dev server scripts in your project settings. See [Projects & Repositories](/settings/projects-repositories) for setup instructions.
+在项目设置中配置开发服务器脚本。详见[项目与仓库](/settings/projects-repositories)获取设置说明。
 </Note>
 
-### Workspace Notes
+### 工作空间笔记
 
-Use the **Notes** section in the details sidebar to document important information about the workspace - requirements, decisions, or anything you want to remember.
+使用详情侧边栏中的**笔记**部分来记录关于工作空间的重要信息 - 需求、决策或任何你想记住的内容。
 
-## Duplicating a Workspace
+## 复制工作空间
 
-To create a copy of an existing workspace:
+要创建现有工作空间的副本：
 
-1. Open the command bar (`Cmd/Ctrl + K`)
-2. Go to **Workspace Actions**
-3. Select **Duplicate Workspace**
+1. 打开命令栏（`Cmd/Ctrl + K`）
+2. 进入**工作空间操作**
+3. 选择**复制工作空间**
 
-The duplicate includes the same repositories and branch configuration but starts with a fresh conversation.
+副本包含相同的仓库和分支配置，但以全新的对话开始。
 
-## Archiving Workspaces
+## 归档工作空间
 
-When you're done with a workspace, archive it to keep your workspace list clean:
+当你完成一个工作空间后，将其归档以保持工作空间列表整洁：
 
-**From the navbar:**
-- Click the **Archive** button (<Icon icon="box-archive" />) in the top left of the navbar
+**从导航栏：**
+- 点击导航栏左上角的**归档**按钮（<Icon icon="box-archive" />）
 
-**From the command bar:**
-1. Press `Cmd/Ctrl + K`
-2. Go to **Workspace Actions** → **Archive**
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K`
+2. 进入**工作空间操作** → **归档**
 
-Archived workspaces can be viewed by clicking **View Archive** at the bottom of the sidebar.
+归档的工作空间可以通过点击侧边栏底部的**查看归档**来查看。
 
 <Tip>
-Use the **Pin** feature to keep important active workspaces at the top of your list.
+使用**固定**功能将重要的活跃工作空间保持在列表顶部。
 </Tip>
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="I can't see my repository in the list">
-**Possible causes:**
-- The repository hasn't been added to a project yet
-- The folder isn't a git repository (no `.git` folder)
-- The path isn't accessible
+<Accordion title="我在列表中看不到我的仓库">
+**可能的原因：**
+- 仓库尚未添加到项目中
+- 文件夹不是 Git 仓库（没有 `.git` 文件夹）
+- 路径无法访问
 
-**Solutions:**
-1. Click **Browse repos on disk** to manually locate the repository
-2. Ensure the folder contains a `.git` directory
-3. Check that Vibe Kanban has permission to access the folder
+**解决方案：**
+1. 点击**浏览磁盘上的仓库**手动定位仓库
+2. 确保文件夹包含 `.git` 目录
+3. 检查 Vibe Kanban 是否有权限访问该文件夹
 </Accordion>
 
-<Accordion title="Workspace creation fails">
-**Possible causes:**
-- Git worktree creation failed (usually due to uncommitted changes in the original repo)
-- Branch name conflict
-- Disk space issues
+<Accordion title="工作空间创建失败">
+**可能的原因：**
+- Git worktree 创建失败（通常由于原始仓库中有未提交的变更）
+- 分支名称冲突
+- 磁盘空间不足
 
-**Solutions:**
-1. Commit or stash any uncommitted changes in your original repository
-2. Try a different target branch
-3. Check available disk space (worktrees require space for a full copy of tracked files)
+**解决方案：**
+1. 提交或暂存原始仓库中的任何未提交变更
+2. 尝试不同的目标分支
+3. 检查可用磁盘空间（worktree 需要跟踪文件的完整副本的空间）
 </Accordion>
 
-<Accordion title="Agent doesn't start after creating workspace">
-**Possible causes:**
-- Agent isn't installed or configured
-- API key issues
-- Network connectivity problems
+<Accordion title="创建工作空间后 Agent 不启动">
+**可能的原因：**
+- Agent 未安装或未配置
+- API Key 问题
+- 网络连接问题
 
-**Solutions:**
-1. Check that your agent (e.g., Claude Code) is installed: run the CLI command manually in terminal
-2. Verify API keys are configured in Settings → Agents
-3. Check your internet connection
+**解决方案：**
+1. 检查你的 Agent（例如 Claude Code）是否已安装：在终端中手动运行 CLI 命令
+2. 验证 API Key 已在设置 → Agent 中配置
+3. 检查你的网络连接
 </Accordion>
 
-<Accordion title="Setup script fails">
-**Possible causes:**
-- Script has errors
-- Missing dependencies
-- Wrong working directory
+<Accordion title="设置脚本失败">
+**可能的原因：**
+- 脚本有错误
+- 缺少依赖项
+- 工作目录不正确
 
-**Solutions:**
-1. Test the script manually in terminal first
-2. Check the Logs panel for error messages
-3. Ensure paths in the script are relative to the repository root
+**解决方案：**
+1. 首先在终端中手动测试脚本
+2. 检查日志面板中的错误消息
+3. 确保脚本中的路径相对于仓库根目录
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Interface Guide](/workspaces/interface) - Learn about the workspace layout and panels
-- [Multi-Repo & Sessions](/workspaces/multi-repo-sessions) - Working with multiple repositories
-- [Sessions](/workspaces/sessions) - Creating and managing conversation sessions
-- [Command Bar](/workspaces/command-bar) - Quick actions and keyboard shortcuts
+- [界面指南](/workspaces/interface) - 了解工作空间布局和面板
+- [多仓库与会话](/workspaces/multi-repo-sessions) - 使用多个仓库
+- [会话](/workspaces/sessions) - 创建和管理对话会话
+- [命令栏](/workspaces/command-bar) - 快速操作和键盘快捷键

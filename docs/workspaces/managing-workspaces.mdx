@@ -1,111 +1,111 @@
 ---
-title: "Managing Workspaces"
-description: "Archive, delete, and manage disk space for your workspaces"
+title: "管理工作空间"
+description: "归档、删除和管理你的工作空间磁盘空间"
 ---
 
-Learn how to organise your workspace list, free up disk space, and understand what happens to your code when you archive or delete workspaces.
+了解如何组织你的工作空间列表、释放磁盘空间，以及了解归档或删除工作空间时代码会发生什么。
 
 <Note>
-**Workspace Actions** are available from both the command bar and the workspace sidebar. These actions require an active workspace - they won't appear on the create workspace page.
+**工作空间操作**可通过命令栏和工作空间侧边栏访问。这些操作需要有活跃的工作空间 - 它们不会在创建工作空间页面出现。
 </Note>
 
-## Accessing Workspace Actions
+## 访问工作空间操作
 
-You can access workspace actions in two ways:
+你可以通过两种方式访问工作空间操作：
 
-**From the sidebar:**
-
-<Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-sidebar-actions.png" alt="Workspace sidebar showing the More actions button on hover" />
-</Frame>
-
-Hover over a workspace in the sidebar and click the **...** (More actions) button to see available actions.
-
-**From the command bar:**
-1. Press `Cmd/Ctrl + K`
-2. Go to **Workspace Actions**
-3. Select the action you want
+**从侧边栏：**
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-actions-menu.png" alt="Workspace Actions menu showing available actions like Rename, Duplicate, Pin, Archive, and Delete" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-sidebar-actions.png" alt="工作空间侧边栏悬停时显示更多操作按钮" />
 </Frame>
 
-## Pinning Workspaces
+将鼠标悬停在侧边栏中的工作空间上，点击 **...**（更多操作）按钮查看可用操作。
 
-Keep important workspaces at the top of your list by selecting **Pin Workspace** from the workspace actions.
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K`
+2. 进入**工作空间操作**
+3. 选择你想要的操作
 
-Pinned workspaces appear at the top of the sidebar regardless of their last activity time.
+<Frame>
+<img style={{maxHeight: "400px"}} src="/images/workspaces-actions-menu.png" alt="工作空间操作菜单显示可用操作，如重命名、复制、固定、归档和删除" />
+</Frame>
 
-## Archiving Workspaces
+## 固定工作空间
 
-When you're done with a workspace but might want to return to it later, archive it to keep your workspace list clean.
+通过从工作空间操作中选择**固定工作空间**，将重要工作空间保持在列表顶部。
 
-Select **Archive** from the workspace actions, or click the **Archive** button (<Icon icon="box-archive" />) in the top left of the navbar.
+固定的工作空间会显示在侧边栏顶部，无论其最后活动时间如何。
 
-Archived workspaces can be viewed by clicking **View Archive** at the bottom of the sidebar.
+## 归档工作空间
+
+当你完成一个工作空间但可能稍后想返回时，将其归档以保持工作空间列表整洁。
+
+从工作空间操作中选择**归档**，或点击导航栏左上角的**归档**按钮（<Icon icon="box-archive" />）。
+
+归档的工作空间可以通过点击侧边栏底部的**查看归档**来查看。
 
 <Info>
-**Archiving preserves everything.** Your conversation history, sessions, notes, and worktree files all remain intact. You can unarchive at any time to continue working.
+**归档会保留所有内容。** 你的对话历史、会话、笔记和 worktree 文件都保持完整。你可以随时取消归档继续工作。
 </Info>
 
-## Deleting Workspaces
+## 删除工作空间
 
-To permanently delete a workspace, select **Delete Workspace** from the workspace actions.
+要永久删除工作空间，从工作空间操作中选择**删除工作空间**。
 
 <Warning>
-Deleting a workspace is permanent and cannot be undone. Make sure you've pushed any changes you want to keep before deleting.
+删除工作空间是永久性的且无法撤销。在删除前确保你已推送了想要保留的任何变更。
 </Warning>
 
-### What Gets Deleted
+### 删除内容
 
-When you delete a workspace:
+当你删除工作空间时：
 
-| What | Deleted? | Notes |
-|------|----------|-------|
-| **Workspace data** | Yes | Conversation history, sessions, notes |
-| **Git worktree** | Yes | The working directory and its files |
-| **Git branch** | No | The branch remains in your repository |
-| **Commits** | No | All commits are preserved in the repository |
-| **Original repository** | No | Your source repository is never touched |
+| 内容 | 是否删除 | 说明 |
+|------|----------|------|
+| **工作空间数据** | 是 | 对话历史、会话、笔记 |
+| **Git worktree** | 是 | 工作目录及其文件 |
+| **Git 分支** | 否 | 分支保留在你的仓库中 |
+| **提交** | 否 | 所有提交保留在仓库中 |
+| **原始仓库** | 否 | 你的源仓库永远不会被触碰 |
 
 <Info>
-**Your code is safe.** Deleting a workspace removes the worktree copy, but all commits remain in your original repository. If you've pushed to remote or created a PR, your work is preserved.
+**你的代码是安全的。** 删除工作空间只会移除 worktree 副本，但所有提交保留在你的原始仓库中。如果你已推送到远程或创建了 PR，你的工作会保留。
 </Info>
 
-### Archive vs Delete
+### 归档与删除
 
-| Action | Worktree | Conversation | Can Restore? |
-|--------|----------|--------------|--------------|
-| **Archive** | Kept on disk | Preserved | Yes - unarchive anytime |
-| **Delete** | Removed | Deleted | No - permanent |
+| 操作 | Worktree | 对话 | 能否恢复？ |
+|------|----------|------|------------|
+| **归档** | 保留在磁盘上 | 保留 | 可以 - 随时取消归档 |
+| **删除** | 移除 | 删除 | 不可以 - 永久性的 |
 
-**Use Archive when:**
-- You might return to this work later
-- You want to keep the conversation history
-- You're cleaning up your workspace list but not done with the task
+**使用归档当：**
+- 你可能稍后返回这项工作
+- 你想保留对话历史
+- 你在清理工作空间列表但任务还未完成
 
-**Use Delete when:**
-- The task is complete and merged
-- You want to free up disk space
-- You don't need the conversation history
+**使用删除当：**
+- 任务已完成并合并
+- 你想释放磁盘空间
+- 你不需要对话历史
 
-## Disk Space and Worktree Location
+## 磁盘空间和 Worktree 位置
 
-Each workspace creates a **git worktree** - a separate working directory with a full copy of your repository's tracked files. Multiple workspaces for large repositories can consume significant disk space.
+每个工作空间创建一个 **Git worktree** - 一个包含仓库跟踪文件完整副本的独立工作目录。大型仓库的多个工作空间可能会消耗大量磁盘空间。
 
-### Where Worktrees Are Stored
+### Worktree 存储位置
 
-Worktrees are stored in a platform-specific directory by default:
+Worktree 默认存储在平台特定的目录中：
 
-| Platform | Default Location |
-|----------|-----------------|
-| **macOS** | `/var/folders/.../T/vibe-kanban/worktrees` (system temp) |
+| 平台 | 默认位置 |
+|------|----------|
+| **macOS** | `/var/folders/.../T/vibe-kanban/worktrees`（系统临时目录） |
 | **Linux** | `/var/tmp/vibe-kanban/worktrees` |
 | **Windows** | `%TEMP%\vibe-kanban\worktrees` |
 
-You can configure a custom location in **Settings → General → Workspace Directory**. When set, worktrees are stored in `{your-path}/.vibe-kanban-workspaces`.
+你可以在**设置 → 通用 → 工作空间目录**中配置自定义位置。设置后，worktree 存储在 `{你的路径}/.vibe-kanban-workspaces` 中。
 
-### Checking Disk Usage
+### 检查磁盘使用量
 
 <Tabs>
 <Tab title="macOS">
@@ -125,44 +125,44 @@ Get-ChildItem "$env:TEMP\vibe-kanban\worktrees" -Recurse | Measure-Object -Prope
 </Tab>
 </Tabs>
 
-### Freeing Up Space
+### 释放空间
 
-To reduce disk usage:
+要减少磁盘使用量：
 
-1. **Delete completed workspaces** - Use Delete (not Archive) for tasks that are finished and merged
-2. **Review archived workspaces** - Archived workspaces still consume disk space
-3. **Configure cleanup scripts** - Add cleanup scripts to remove build artifacts (like `node_modules`) when workspaces close
+1. **删除已完成的工作空间** - 对已完成并合并的任务使用删除（而非归档）
+2. **检查归档的工作空间** - 归档的工作空间仍然消耗磁盘空间
+3. **配置清理脚本** - 添加清理脚本以在工作空间关闭时移除构建产物（如 `node_modules`）
 
 <Tip>
-Large directories like `node_modules`, `target/`, or `build/` are copied into each worktree. Consider adding cleanup scripts to remove these when you're done with a workspace.
+像 `node_modules`、`target/` 或 `build/` 这样的大型目录会被复制到每个 worktree 中。考虑添加清理脚本，在工作空间使用完毕后移除这些目录。
 </Tip>
 
-## Manual Worktree Deletion
+## 手动删除 Worktree
 
-If you manually delete a worktree directory (e.g., using `rm -rf` in terminal), Vibe Kanban will **automatically recreate it** the next time you open that workspace. The worktree is recreated from the branch's last commit.
+如果你手动删除 worktree 目录（例如在终端中使用 `rm -rf`），Vibe Kanban 会在你下次打开该工作空间时**自动重新创建**它。Worktree 从分支的最后一次提交重新创建。
 
 <Warning>
-**Uncommitted changes will be lost.** If you had staged or unstaged changes that weren't committed, they cannot be recovered. Always commit your work before manually deleting worktree directories.
+**未提交的变更将丢失。** 如果你有已暂存或未暂存的未提交变更，它们无法恢复。在手动删除 worktree 目录之前始终提交你的工作。
 </Warning>
 
-## Orphan Cleanup
+## 孤立 Worktree 清理
 
-Vibe Kanban automatically cleans up "orphaned" worktrees on startup - these are worktree directories that no longer have a matching workspace in the database (e.g., if the app crashed during deletion).
+Vibe Kanban 会在启动时自动清理"孤立"的 worktree - 这些是不再有数据库中匹配工作空间的 worktree 目录（例如应用在删除过程中崩溃）。
 
-This cleanup runs automatically, so you don't need to manually manage stale worktree directories.
+此清理自动运行，你不需要手动管理过期的 worktree 目录。
 
-## Renaming Workspaces
+## 重命名工作空间
 
-To rename a workspace, select **Rename Workspace** from the workspace actions and enter the new name.
+要重命名工作空间，从工作空间操作中选择**重命名工作空间**并输入新名称。
 
-## Duplicating Workspaces
+## 复制工作空间
 
-To create a copy of an existing workspace, select **Duplicate Workspace** from the workspace actions.
+要创建现有工作空间的副本，从工作空间操作中选择**复制工作空间**。
 
-The duplicate includes the same repositories and branch configuration but starts with a fresh conversation.
+副本包含相同的仓库和分支配置，但以全新的对话开始。
 
-## Related Documentation
+## 相关文档
 
-- [Creating Workspaces](/workspaces/creating-workspaces) - Setting up new workspaces
-- [Interface Guide](/workspaces/interface) - Understanding the workspace layout
-- [Command Bar](/workspaces/command-bar) - Quick actions and keyboard shortcuts
+- [创建工作空间](/workspaces/creating-workspaces) - 设置新工作空间
+- [界面指南](/workspaces/interface) - 了解工作空间布局
+- [命令栏](/workspaces/command-bar) - 快速操作和键盘快捷键

@@ -1,182 +1,182 @@
 ---
-title: "Multi-Repo & Sessions"
-description: "Work with multiple repositories and agent sessions in a single workspace"
+title: "多仓库与会话"
+description: "在单个工作空间中使用多个仓库和 Agent 会话"
 ---
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-multi-repo.png" alt="Workspace with multiple repositories showing the repository panel with two repos" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-multi-repo.png" alt="包含多个仓库的工作空间显示仓库面板和两个仓库" />
 </Frame>
 
-Workspaces support working across multiple repositories and running multiple agent sessions simultaneously.
+工作空间支持跨多个仓库工作，并同时运行多个 Agent 会话。
 
-## Multi-Repository Support
+## 多仓库支持
 
-Add multiple repositories to a single workspace to work on cross-repo tasks.
+在单个工作空间中添加多个仓库以处理跨仓库的任务。
 
-### Adding Repositories
+### 添加仓库
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="Repository selection showing selected repo with branch dropdown and list of available repositories to add" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="仓库选择显示已选仓库和分支下拉菜单以及可添加的仓库列表" />
 </Frame>
 
-When creating a new workspace, add multiple repositories from the create view:
+创建新工作空间时，从创建视图添加多个仓库：
 
-1. Click the **+** button in the workspace sidebar
-2. Select your **project** from the dropdown
-3. Click repositories from the **Add Repositories** list to include them
-4. Set the **target branch** for each selected repository
-5. Each repo maintains independent git state
+1. 点击工作空间侧边栏中的 **+** 按钮
+2. 从下拉菜单中选择你的**项目**
+3. 从**添加仓库**列表中点击仓库来包含它们
+4. 为每个选定的仓库设置**目标分支**
+5. 每个仓库维护独立的 Git 状态
 
-### Working Across Repos
+### 跨仓库工作
 
-With multiple repositories in a workspace:
+当工作空间包含多个仓库时：
 
-- **Reference code** from one repo while implementing changes in another
-- **Implement coordinated changes** across multiple codebases
-- **Manage git operations** independently per repository
-- **View changes** from all repos in a unified diff view
+- **引用代码** - 在一个仓库中引用代码的同时在另一个仓库中实现变更
+- **实现协调变更** - 跨多个代码库
+- **管理 Git 操作** - 每个仓库独立管理
+- **查看变更** - 在统一的 Diff 视图中查看所有仓库的变更
 
-### Repository Panel
+### 仓库面板
 
-Each repository in the workspace shows:
+工作空间中的每个仓库显示：
 
-| Information | Description |
-|-------------|-------------|
-| Repository name | With status indicator |
-| Current branch | The working branch |
-| Target branch | Branch to merge into |
-| Changes count | Uncommitted modifications |
-| Commits ahead/behind | Relative to target branch |
+| 信息 | 描述 |
+|------|------|
+| 仓库名称 | 带状态指示器 |
+| 当前分支 | 工作分支 |
+| 目标分支 | 要合并到的分支 |
+| 变更计数 | 未提交的修改 |
+| 领先/落后提交 | 相对于目标分支 |
 
-### Per-Repository Actions
+### 每个仓库的操作
 
-Access repository-specific actions via the [command bar](/workspaces/command-bar):
+通过[命令栏](/workspaces/command-bar)访问特定仓库的操作：
 
-- **Open Repo in IDE** - Open just this repository
-- **Copy Repo Path** - Copy the repository path
-- **Repository Settings** - Configure repo options
-- **Git Operations** - PR, merge, rebase per repo
+- **在 IDE 中打开仓库** - 仅打开该仓库
+- **复制仓库路径** - 复制仓库路径
+- **仓库设置** - 配置仓库选项
+- **Git 操作** - 每个仓库的 PR、合并、变基
 
 <Tip>
-Use the command bar's Repo Actions page to quickly switch between repositories when performing git operations.
+使用命令栏的仓库操作页面在执行 Git 操作时快速切换仓库。
 </Tip>
 
-## Multiple Sessions
+## 多个会话
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-sessions.png" alt="Session dropdown in chat box toolbar showing multiple sessions" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-sessions.png" alt="聊天框工具栏中的会话下拉菜单显示多个会话" />
 </Frame>
 
-Create multiple agent conversation sessions within a single workspace.
+在单个工作空间中创建多个 Agent 对话会话。
 
-### Why Use Multiple Sessions?
+### 为什么使用多个会话？
 
-- **Token limits**: Start fresh sessions when conversations get long
-- **Parallel work**: Run different tasks or agents simultaneously
-- **Code review**: Start a dedicated review session
-- **Experimentation**: Try different approaches in separate sessions
+- **Token 限制**：当对话变得很长时启动新会话
+- **并行工作**：同时运行不同的任务或 Agent
+- **代码审查**：启动专门的审查会话
+- **实验**：在独立的会话中尝试不同的方法
 
-### Creating a New Session
+### 创建新会话
 
-1. Click the session dropdown in the chat box toolbar
-2. Select **New Session** from the dropdown
-3. Select the agent to use for the new session
-4. Start your conversation
+1. 点击聊天框工具栏中的会话下拉菜单
+2. 从下拉菜单中选择**新建会话**
+3. 选择要用于新会话的 Agent
+4. 开始你的对话
 
-### Switching Between Sessions
+### 在会话之间切换
 
-The session dropdown in the chat box toolbar shows all sessions:
+聊天框工具栏中的会话下拉菜单显示所有会话：
 
-- **Latest** - the most recent session
-- Older sessions show their creation timestamp
-- Click any session to switch to it
-- Each session maintains its own conversation history
+- **最新** - 最近的会话
+- 较早的会话显示其创建时间戳
+- 点击任何会话切换到它
+- 每个会话维护自己的对话历史
 
-### Session Indicators
+### 会话指示器
 
-| Indicator | Meaning |
-|-----------|---------|
-| **Running** | Agent is actively processing |
-| **Idle** | Session waiting for input |
-| **Agent icon** | Shows which agent is assigned |
+| 指示器 | 含义 |
+|--------|------|
+| **运行中** | Agent 正在活跃处理 |
+| **空闲** | 会话等待输入 |
+| **Agent 图标** | 显示分配了哪个 Agent |
 
-### Running Multiple Agents
+### 运行多个 Agent
 
-Different sessions can use different coding agents:
+不同的会话可以使用不同的编码 Agent：
 
-1. Create a new session
-2. Select a different agent (Claude Code, Gemini CLI, etc.)
-3. Both sessions can run in parallel
-4. Switch between them to monitor progress
+1. 创建新会话
+2. 选择不同的 Agent（Claude Code、Gemini CLI 等）
+3. 两个会话可以并行运行
+4. 在它们之间切换以监控进度
 
 <Info>
-Each session operates independently. Changes made by one agent are visible to other sessions through the shared workspace files.
+每个会话独立运行。一个 Agent 做出的变更通过共享的工作空间文件对其他会话可见。
 </Info>
 
-## Example: Full-Stack Feature
+## 示例：全栈功能
 
-Here's a practical workflow for implementing a feature across frontend and backend repositories:
+以下是跨前端和后端仓库实现功能的实用工作流：
 
 <Steps>
-<Step title="Create workspace with both repos">
-Create a new workspace, select your project, and add both `frontend` and `backend` repositories. Set target branches to `main` for both.
+<Step title="创建包含两个仓库的工作空间">
+创建新工作空间，选择你的项目，并添加 `frontend` 和 `backend` 仓库。将两者的目标分支都设为 `main`。
 </Step>
 
-<Step title="Describe the full task">
-In your initial message, describe the complete feature:
+<Step title="描述完整任务">
+在你的初始消息中，描述完整的功能：
 
 ```
-Add a user profile page:
-- Backend: Create GET /api/users/:id endpoint returning user data
-- Frontend: Add /profile/:id route with a UserProfile component
-- The frontend should fetch from the backend endpoint
+添加用户个人资料页面：
+- 后端：创建 GET /api/users/:id 端点返回用户数据
+- 前端：添加 /profile/:id 路由和 UserProfile 组件
+- 前端应从后端端点获取数据
 ```
 </Step>
 
-<Step title="Agent works across repos">
-The agent reads code from both repositories and makes coordinated changes. It understands the relationship between frontend and backend.
+<Step title="Agent 跨仓库工作">
+Agent 从两个仓库读取代码并进行协调变更。它理解前端和后端之间的关系。
 </Step>
 
-<Step title="Test integration">
-Start the dev server (if configured for one repo, you may need to start the other manually via terminal). Test that the frontend correctly calls the backend.
+<Step title="测试集成">
+启动开发服务器（如果只对一个仓库配置了开发服务器，你可能需要通过终端手动启动另一个）。测试前端是否正确调用后端。
 </Step>
 
-<Step title="Create separate PRs">
-Create a PR for each repository:
-1. Open command bar (`Cmd/Ctrl + K`)
-2. Go to **Repo Actions**
-3. Select **Create PR** for the backend repo
-4. Repeat for the frontend repo
-5. In PR descriptions, reference the related PR
+<Step title="创建单独的 PR">
+为每个仓库创建 PR：
+1. 打开命令栏（`Cmd/Ctrl + K`）
+2. 进入**仓库操作**
+3. 为后端仓库选择**创建 PR**
+4. 为前端仓库重复操作
+5. 在 PR 描述中引用相关的 PR
 </Step>
 
-<Step title="Merge in order">
-Merge backend first (since frontend depends on it), then merge frontend.
+<Step title="按顺序合并">
+先合并后端（因为前端依赖它），然后合并前端。
 </Step>
 </Steps>
 
-## Best Practices
+## 最佳实践
 
-### Multi-Repo Workflows
+### 多仓库工作流
 
-- **Start with a plan**: Describe the cross-repo changes needed upfront
-- **Coordinate commits**: Ensure related changes are committed together
-- **Test integration**: Use the preview to verify repos work together
-- **Create linked PRs**: Reference related PRs across repositories (e.g., "Related to frontend#123")
+- **从计划开始**：提前描述跨仓库的变更需求
+- **协调提交**：确保相关变更一起提交
+- **测试集成**：使用预览验证仓库之间的协作
+- **创建关联 PR**：在仓库之间引用相关的 PR（例如"关联到 frontend#123"）
 
-### Session Management
+### 会话管理
 
-- **One focus per session**: Keep each session focused on a specific goal
-- **Document in notes**: Use workspace notes to track which session does what
-- **Limit concurrent sessions**: Too many active sessions can be confusing
-- **Review before switching**: Check the changes panel when switching sessions
+- **每个会话一个焦点**：让每个会话专注于特定目标
+- **在笔记中记录**：使用工作空间笔记跟踪哪个会话做什么
+- **限制并发会话**：太多活跃会话可能会造成混乱
+- **切换前审查**：切换会话时检查变更面板
 
 <Warning>
-**File conflicts:** When multiple sessions modify the same files, the last write wins. Review the Changes panel carefully to ensure nothing was overwritten unexpectedly.
+**文件冲突：** 当多个会话修改相同的文件时，最后写入的生效。仔细检查变更面板确保没有意外覆盖。
 </Warning>
 
-## Related Documentation
+## 相关文档
 
-- [Interface Guide](/workspaces/interface) - Understanding the workspace layout
-- [Git Operations](/workspaces/git-operations) - Managing git across repositories
-- [Command Bar](/workspaces/command-bar) - Quick actions for repo management
+- [界面指南](/workspaces/interface) - 了解工作空间布局
+- [Git 操作](/workspaces/git-operations) - 跨仓库管理 Git
+- [命令栏](/workspaces/command-bar) - 仓库管理的快捷操作

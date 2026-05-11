@@ -1,49 +1,49 @@
 ---
-title: "Remote Access"
-description: "Access your local Vibe Kanban instance from another device"
+title: "远程访问"
+description: "从其他设备访问你的本地 Vibe Kanban 实例"
 ---
 
-Remote Access allows you to access a host instance of Vibe Kanban from another device, like your mobile phone.
+远程访问功能允许你从其他设备（如手机）访问主机上的 Vibe Kanban 实例。
 
-# 1. Launch Vibe Kanban on the host device
+# 1. 在主机设备上启动 Vibe Kanban
 
-Make sure you've started Vibe Kanban and logged in.
+确保你已经启动 Vibe Kanban 并已登录。
 
-# 2. Generate a pairing code
+# 2. 生成配对码
 
-Open the settings dialog, navigate to the `Remote Access` tab and click `Show pairing code`:
+打开设置对话框，导航到 `Remote Access`（远程访问）标签页，点击 `Show pairing code`（显示配对码）：
 
 <Frame>
   <img src="/images/remote-access-generate-pairing-code-settings.png" alt="Remote Access settings page on the host device with the Show pairing code button" />
 </Frame>
 
-Make a note of the pairing code:
+记下显示的配对码：
 
 <Frame>
   <img src="/images/remote-access-generate-pairing-code-modal.png" alt="Pairing code modal on the host device showing the generated code" />
 </Frame>
 
-# 3. Log into Vibe Kanban cloud
+# 3. 登录 Vibe Kanban 云端
 
-On the client device where you'd now like to access your host machine from, navigate to [cloud.vibekanban.com](https://cloud.vibekanban.com) in a browser and log in.
+在你要用来访问主机的客户端设备上，在浏览器中导航到 [cloud.vibekanban.com](https://cloud.vibekanban.com) 并登录。
 
-# 4. Pair your client with your host
+# 4. 将客户端与主机配对
 
-On your client, navigate to `Remote Access` and click `Link a host`. Select the relevant host from the dropdown:
+在客户端设备上，导航到 `Remote Access` 并点击 `Link a host`（连接主机）。从下拉菜单中选择对应的主机：
 
 <Frame>
   <img style={{maxHeight: "500px"}} src="/images/remote-access-pair-host-mobile-form.png" alt="Remote Access page on mobile showing the Pair host form with host selection and pairing code input" />
 </Frame>
 
-Enter the pairing code you generated earlier and click `Pair host`:
+输入你之前生成的配对码，然后点击 `Pair host`（配对主机）：
 
 <Frame>
   <img style={{maxHeight: "500px"}} src="/images/remote-access-pair-host-mobile-select.png" alt="Remote Access page on mobile with the host dropdown opened before pairing" />
 </Frame>
 
-# 5. Access workspaces from your host device
+# 5. 从客户端设备访问主机工作区
 
-You can now exit the settings page. You should see the paired host, clicking on the host will list the host's workspaces.
+现在你可以退出设置页面。你应该能看到已配对的主机，点击主机会列出该主机上的工作区。
 
 <Frame>
   <img style={{maxHeight: "500px"}} src="/images/remote-access-cloud-mobile.png" alt="Vibe Kanban cloud remote access page on mobile showing a paired host and workspaces" />

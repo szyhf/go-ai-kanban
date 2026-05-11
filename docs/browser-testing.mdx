@@ -1,146 +1,146 @@
 ---
-title: "Browser Testing"
-description: "Preview your app in the built-in browser, inspect components, and debug with full devtools"
+title: "浏览器测试"
+description: "在内置浏览器中预览应用、检查组件，并使用完整的 DevTools 进行调试"
 ---
 
-The built-in preview browser lets you test your application, inspect components, and open full devtools — all without leaving the workspace.
+内置预览浏览器让你可以测试应用、检查组件并打开完整的 DevTools —— 所有这些都不需要离开工作区。
 
-## 1. Configure a dev server
+## 1. 配置开发服务器
 
-If no dev server script is configured, the preview panel shows a setup prompt. Click **Edit Dev Server Script** to open the script dialog.
+如果没有配置开发服务器脚本，预览面板会显示设置提示。点击 **编辑开发服务器脚本** 打开脚本对话框。
 
 <Frame>
   <img src="/images/workspaces-preview-no-script.png" alt="Preview panel showing prompt to set up a dev server script" />
 </Frame>
 
-Enter the command that starts your dev server (e.g. `npm run dev`, `pnpm dev`, `yarn dev`) and click **Save and Test** to verify it works.
+输入启动开发服务器的命令（例如 `npm run dev`、`pnpm dev`、`yarn dev`），然后点击 **保存并测试** 来验证它是否正常工作。
 
 <Frame>
   <img style={{maxHeight: "300px"}} src="/images/workspaces-preview-script-dialog.png" alt="Script editor dialog with dev server command and Save and Test button" />
 </Frame>
 
 <Info>
-You can also configure dev server scripts from **Settings** → **Repos** → select your repository → **Dev Server Script**. See [Projects & Repositories](/settings/projects-repositories) for details.
+你也可以从 **设置** → **仓库** → 选择你的仓库 → **开发服务器脚本** 来配置开发服务器脚本。详情请参阅 [项目与仓库](/settings/projects-repositories)。
 </Info>
 
-## 2. Start the dev server
+## 2. 启动开发服务器
 
-Once you've saved a script, click **Start dev server** in the preview panel to launch it.
+保存脚本后，在预览面板中点击 **启动开发服务器** 来启动它。
 
 <Frame>
   <img src="/images/workspaces-preview-dev-server-start.png" alt="Preview panel showing the Start dev server button" />
 </Frame>
 
-Logs stream in real-time in the **Log** panel (highlighted in red) on the right side of the workspace. Look for the URL output (e.g. `http://localhost:3000`) — Vibe Kanban detects this automatically and loads it in the preview.
+日志会在工作区右侧的 **日志** 面板（红色高亮部分）中实时显示。留意 URL 输出（例如 `http://localhost:3000`）—— Vibe Kanban 会自动检测并将其加载到预览中。
 
 <Frame>
   <img src="/images/workspaces-preview-dev-server-running.png" alt="Dev server log output streaming in real-time in the Log panel" />
 </Frame>
 
-## 3. The preview browser
+## 3. 预览浏览器
 
-Once the dev server starts, your application loads in the built-in browser. Here's an overview of the preview toolbar and what each control does.
+开发服务器启动后，你的应用会在内置浏览器中加载。以下是预览工具栏及其各控件功能的概览。
 
 <Frame>
   <img src="/images/workspaces-preview-browser-annotated.png" alt="Annotated preview browser showing the toolbar controls numbered 1 through 7" />
 </Frame>
 
-1. **Back / Forward** — navigate between pages
-2. **Inspect** (crosshair icon) — enter click-to-component mode
-3. **DevTools** (terminal icon) — toggle the built-in devtools panel
-4. **URL bar** — shows the current page address; type a URL to navigate manually
-5. **Page actions** — submit, copy the URL, open in a new tab, and refresh
-6. **Device modes** — switch between Desktop, Mobile, and Responsive views
-7. **Pause** — pause or resume the dev server
+1. **后退 / 前进** — 在页面之间导航
+2. **检查**（十字准星图标）— 进入点击选择组件模式
+3. **DevTools**（终端图标）— 切换内置 DevTools 面板
+4. **地址栏** — 显示当前页面地址；输入 URL 可手动导航
+5. **页面操作** — 提交、复制 URL、在新标签页中打开和刷新
+6. **设备模式** — 在桌面、移动端和响应式视图之间切换
+7. **暂停** — 暂停或恢复开发服务器
 
-## 4. Switch device modes
+## 4. 切换设备模式
 
-You can test your application across different viewport sizes without resizing your browser window. The device mode buttons in the toolbar let you switch instantly.
+你可以在不同的视口尺寸下测试应用，而无需调整浏览器窗口大小。工具栏中的设备模式按钮让你可以即时切换。
 
-| Mode | What it does |
-|------|--------------|
-| **Desktop** | Full-width browser view |
-| **Mobile** | Phone frame at 390×844, with device chrome |
-| **Responsive** | Drag the edges to set a custom width and height |
+| 模式 | 功能说明 |
+|------|----------|
+| **桌面** | 全宽浏览器视图 |
+| **移动端** | 390×844 像素的手机框架，带有设备外壳 |
+| **响应式** | 拖动边缘设置自定义宽度和高度 |
 
-**Mobile mode** wraps your application in a phone frame so you can see exactly how it looks on a mobile device.
+**移动端模式** 会将你的应用包裹在手机框架中，让你可以准确看到它在移动设备上的显示效果。
 
 <Frame>
   <img src="/images/workspaces-preview-mobile.png" alt="Mobile device mode showing the application inside a phone frame at 390 by 844 pixels" />
 </Frame>
 
-**Responsive mode** lets you drag the edges of the preview to test any custom width and height.
+**响应式模式** 让你可以拖动预览的边缘来测试任何自定义宽度和高度。
 
 <Frame>
   <img src="/images/workspaces-preview-responsive.png" alt="Responsive device mode with a custom viewport width" />
 </Frame>
 
-## 5. Inspect components
+## 5. 检查组件
 
-The preview browser includes a built-in click-to-component feature. Click **Select element as context** in the toolbar to enter inspect mode, hover over any element to highlight it, then click to select.
+预览浏览器包含内置的点击选择组件功能。在工具栏中点击 **选择元素作为上下文** 进入检查模式，将鼠标悬停在任何元素上以高亮显示，然后点击选择。
 
 <Frame>
   <img src="/images/workspaces-preview-inspect.png" alt="Inspect mode showing the full flow: activating inspect, hovering over a component, and the selected context appearing in the chat" />
 </Frame>
 
-When you click a component, inspect mode exits and the component's details are sent to the chat as context — you can then ask your coding agent questions about that specific component. This works automatically with React, Vue, Svelte, Astro, and plain HTML — no packages to install.
+当你点击一个组件时，检查模式退出，组件的详细信息作为上下文发送到聊天中 —— 然后你可以向编码代理询问关于该特定组件的问题。此功能可自动与 React、Vue、Svelte、Astro 和纯 HTML 配合使用 —— 无需安装任何包。
 
-## 6. Open DevTools
+## 6. 打开 DevTools
 
-Click the terminal icon in the toolbar to toggle the built-in devtools panel. The devtools open at the bottom of the preview and give you a full debugging console without leaving the workspace.
+点击工具栏中的终端图标可以切换内置 DevTools 面板。DevTools 在预览的底部打开，为你提供完整的调试控制台，无需离开工作区。
 
 <Frame>
   <img src="/images/workspaces-preview-devtools.png" alt="Eruda devtools panel open at the bottom of the preview browser showing the Console tab" />
 </Frame>
 
-The devtools give you access to:
+DevTools 为你提供以下功能：
 
-- **Console** — view logs, warnings, errors, and run JavaScript
-- **Elements** — inspect and modify the DOM tree
-- **Network** — monitor requests and responses
-- **Resources** — view cookies, localStorage, and sessionStorage
-- **Sources** — view the page source code
-- **Info** — check the page URL, user agent, viewport size, and device details
+- **控制台** — 查看日志、警告、错误并运行 JavaScript
+- **元素** — 检查和修改 DOM 树
+- **网络** — 监控请求和响应
+- **资源** — 查看 cookies、localStorage 和 sessionStorage
+- **源码** — 查看页面源代码
+- **信息** — 检查页面 URL、用户代理、视口大小和设备详情
 
 <Info>
-DevTools are powered by [Eruda](https://github.com/liriliri/eruda), a mobile-friendly debugging console. They run inside the preview iframe, so they reflect exactly what your application sees.
+DevTools 由 [Eruda](https://github.com/liriliri/eruda) 提供支持，这是一个移动端友好的调试控制台。它们在预览 iframe 内运行，因此能准确反映你的应用所看到的内容。
 </Info>
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="Preview shows a blank page">
-- Check the log output for errors — the dev server may still be starting
-- Verify the correct URL is detected in the preview address bar
-- Try refreshing the preview with the refresh button
+<Accordion title="预览显示空白页面">
+- 检查日志输出中是否有错误 —— 开发服务器可能还在启动中
+- 验证预览地址栏中检测到的 URL 是否正确
+- 尝试使用刷新按钮刷新预览
 </Accordion>
 
-<Accordion title="Preview doesn't update after changes">
-- Check the logs for build errors
-- Try a hard refresh (`Cmd/Ctrl + Shift + R`)
-- Restart the dev server with the play/pause button
-- Verify your framework supports hot module replacement (HMR)
+<Accordion title="更改后预览不更新">
+- 检查日志中是否有构建错误
+- 尝试强制刷新（`Cmd/Ctrl + Shift + R`）
+- 使用播放/暂停按钮重启开发服务器
+- 确认你的框架支持热模块替换（HMR）
 </Accordion>
 
-<Accordion title="Port conflict error">
-Another process is using the same port. Find and stop it, or change the port in your project config. Run `lsof -i :3000` (replace 3000 with your port) to see what's using it.
+<Accordion title="端口冲突错误">
+另一个进程正在使用相同的端口。找到并停止它，或者在项目配置中更改端口。运行 `lsof -i :3000`（将 3000 替换为你的端口号）查看占用端口的进程。
 </Accordion>
 
-<Accordion title="Inspect mode doesn't detect components">
-- Make sure the dev server is running a **development** build (production builds strip component metadata)
-- For React, ensure the app has loaded before entering inspect mode
-- The HTML fallback always works — if you see tag names instead of component names, the framework adapter couldn't detect the framework
+<Accordion title="检查模式无法检测组件">
+- 确保开发服务器运行的是 **开发** 构建（生产构建会剥离组件元数据）
+- 对于 React，请确保应用已加载完毕再进入检查模式
+- HTML 回退始终可用 —— 如果你看到的是标签名而不是组件名，说明框架适配器未能检测到框架
 </Accordion>
 </AccordionGroup>
 
-## Next steps
+## 下一步
 
 <CardGroup cols={2}>
-  <Card title="Changes panel" icon="code-compare" href="/workspaces/changes">
-    Review diffs and provide feedback to your coding agent
+  <Card title="更改面板" icon="code-compare" href="/workspaces/changes">
+    审查差异并向编码代理提供反馈
   </Card>
 
-  <Card title="Projects & Repositories" icon="gear" href="/settings/projects-repositories">
-    Configure setup, cleanup, and dev server scripts per repository
+  <Card title="项目与仓库" icon="gear" href="/settings/projects-repositories">
+    为每个仓库配置安装、清理和开发服务器脚本
   </Card>
 </CardGroup>

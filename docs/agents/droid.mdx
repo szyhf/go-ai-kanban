@@ -1,11 +1,11 @@
 ---
 title: "Factory Droid"
-description: "Set up Factory AI's Droid coding agent"
+description: "设置 Factory AI 的 Droid 编码 agent"
 icon: https://www.vibekanban.com/images/logos/factory-ai-logo-light.png
 ---
 
 <Steps>
-<Step title="Install Droid CLI">
+<Step title="安装 Droid CLI">
   <Tabs>
   <Tab title="macOS / Linux">
   ```bash
@@ -20,52 +20,52 @@ icon: https://www.vibekanban.com/images/logos/factory-ai-logo-light.png
   </Tab>
   </Tabs>
 
-  For the latest installation instructions and platform-specific guidance, visit the [Factory AI CLI documentation](https://factory.ai/product/cli).
+  如需最新的安装说明和平台特定指南，请访问 [Factory AI CLI 文档](https://factory.ai/product/cli)。
 </Step>
 
-<Step title="Authenticate with Factory AI">
-  To use Droid in Vibe Kanban, you must first authenticate:
+<Step title="通过 Factory AI 进行身份验证">
+  要在 Vibe Kanban 中使用 Droid，你需要先完成身份验证：
 
-  1. Run `droid` to launch the interactive CLI
-  2. Use the `/login` command within Droid to authenticate
+  1. 运行 `droid` 启动交互式 CLI
+  2. 在 Droid 中使用 `/login` 命令进行身份验证
 
-  Alternatively, generate an API key from [Factory Settings](https://app.factory.ai/settings/api-keys) and set it as an environment variable:
+  或者，你可以从 [Factory 设置页面](https://app.factory.ai/settings/api-keys)生成 API 密钥，并将其设置为环境变量：
 
   ```bash
   export FACTORY_API_KEY=fk-...
   ```
 
-  For detailed authentication instructions, see the [Factory AI documentation](https://docs.factory.ai/factory-cli/getting-started/overview).
+  详细的身份验证说明请参阅 [Factory AI 文档](https://docs.factory.ai/factory-cli/getting-started/overview)。
 </Step>
 
-<Step title="Start Vibe Kanban">
-  Once authenticated, launch Vibe Kanban:
+<Step title="启动 Vibe Kanban">
+  完成身份验证后，启动 Vibe Kanban：
 
   ```bash
   npx vibe-kanban
   ```
 
-  You can now select Factory Droid when creating task attempts.
+  现在你可以在创建任务尝试时选择 Factory Droid。
 </Step>
 </Steps>
 
-## Configuration Options
+## 配置选项
 
-Droid supports several configuration options in Vibe Kanban:
+Droid 在 Vibe Kanban 中支持以下配置选项：
 
-- **Autonomy Level**: Controls permission level for file and system operations
-  - `normal`: Read-only mode – safe for reviewing planned changes without execution
-  - `low`: Basic file creation/editing while blocking system changes
-  - `medium`: Development operations with recoverable side effects
-  - `high`: Production operations with security implications or major side effects
-  - `skip-permissions-unsafe`: Bypasses all permission checks (use only in isolated environments) (default)
+- **自主级别**：控制文件和系统操作的权限级别
+  - `normal`：只读模式——适合在不执行的情况下审查计划变更
+  - `low`：基本的文件创建/编辑，同时阻止系统更改
+  - `medium`：具有可恢复副作用的开发操作
+  - `high`：具有安全隐患或重大副作用的操作
+  - `skip-permissions-unsafe`：跳过所有权限检查（仅在隔离环境中使用）（默认值）
 
-- **Model**: Specify which model to use
+- **模型**：指定要使用的模型
 
-- **Reasoning Effort**: Control the reasoning depth
-  - `off`: Minimal reasoning
-  - `low`: Light reasoning
-  - `medium`: Balanced reasoning
-  - `high`: Deep reasoning for complex tasks
+- **推理强度**：控制推理深度
+  - `off`：最少的推理
+  - `low`：轻度推理
+  - `medium`：平衡推理
+  - `high`：针对复杂任务的深度推理
 
-These options can be configured when creating agent configurations in Vibe Kanban.
+这些选项可以在 Vibe Kanban 中创建 agent 配置时进行设置。

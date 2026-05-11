@@ -1,101 +1,101 @@
 ---
-title: "Local Development"
-description: "Run Vibe Kanban locally for development and testing"
+title: "本地开发"
+description: "在本地运行 Vibe Kanban 进行开发和测试"
 ---
 
-This guide walks you through setting up Vibe Kanban locally for development and testing.
+本指南将带你完成 Vibe Kanban 的本地开发环境搭建。
 
-## Prerequisites
+## 前提条件
 
-Before you begin, ensure you have:
+在开始之前，请确保你已安装：
 
 - **Go** 1.24+
-- **Node.js** 20+ and **pnpm**
+- **Node.js** 20+ 和 **pnpm**
 - **Git**
 
-## Step 1: Clone the Repository
+## 第 1 步：克隆仓库
 
 ```bash
 git clone https://github.com/BloopAI/vibe-kanban.git
 cd vibe-kanban
 ```
 
-## Step 2: Install Dependencies
+## 第 2 步：安装依赖
 
 ```bash
 pnpm install
 ```
 
-## Step 3: Start Development Server
+## 第 3 步：启动开发服务器
 
 ```bash
 pnpm run dev
 ```
 
-This starts both the Go backend and the React frontend with hot-reload:
+此命令会同时启动 Go 后端和 React 前端，并支持热重载：
 
-- **Frontend**: `http://localhost:3000` (Vite dev server)
-- **Backend**: auto-assigned port (typically `3001`)
+- **前端**：`http://localhost:3000`（Vite 开发服务器）
+- **后端**：自动分配端口（通常为 `3001`）
 
-The frontend automatically proxies API requests to the backend.
+前端会自动将 API 请求代理到后端。
 
 <Info>
-The backend uses SQLite and will auto-initialize the database on first run. If no database exists, it copies seed data from `dev_assets_seed/`.
+后端使用 SQLite，首次运行时会自动初始化数据库。如果数据库不存在，会从 `dev_assets_seed/` 目录复制种子数据。
 </Info>
 
-## Step 4: Verify
+## 第 4 步：验证
 
-Open [http://localhost:3000](http://localhost:3000) in your browser. You should see the Vibe Kanban interface.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000)，你应该能看到 Vibe Kanban 的界面。
 
-## Development Commands
+## 开发命令
 
-| Command | Description |
+| 命令 | 说明 |
 |---------|-------------|
-| `pnpm run dev` | Start backend + frontend |
-| `pnpm run local-web:dev` | Start frontend only |
-| `pnpm run backend:dev:watch` | Start backend only |
-| `go test -race ./...` | Run Go tests |
-| `go vet ./...` | Run Go static analysis |
-| `pnpm run format` | Format all code (Go + frontend) |
-| `pnpm run lint` | Lint all code |
+| `pnpm run dev` | 启动后端 + 前端 |
+| `pnpm run local-web:dev` | 仅启动前端 |
+| `pnpm run backend:dev:watch` | 仅启动后端 |
+| `go test -race ./...` | 运行 Go 测试 |
+| `go vet ./...` | 运行 Go 静态分析 |
+| `pnpm run format` | 格式化所有代码（Go + 前端） |
+| `pnpm run lint` | 检查所有代码 |
 
-## Project Structure
+## 项目结构
 
-| Path | Description |
+| 路径 | 说明 |
 |------|-------------|
-| `cmd/server/` | Go application entrypoint |
-| `internal/` | Go backend (domain, handlers, services) |
-| `packages/local-web/` | React frontend |
-| `packages/web-core/` | Shared frontend components |
-| `shared/` | TypeScript type definitions |
+| `cmd/server/` | Go 应用入口 |
+| `internal/` | Go 后端（领域模型、处理器、服务） |
+| `packages/local-web/` | React 前端 |
+| `packages/web-core/` | 共享前端组件 |
+| `shared/` | TypeScript 类型定义 |
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="Port already in use">
-Set custom ports via environment variables:
+<Accordion title="端口已被占用">
+通过环境变量设置自定义端口：
 
 ```bash
 FRONTEND_PORT=3001 BACKEND_PORT=3002 pnpm run dev
 ```
 </Accordion>
 
-<Accordion title="Go build errors">
-Ensure you're using Go 1.24+:
+<Accordion title="Go 构建错误">
+确保你使用的是 Go 1.24+：
 
 ```bash
 go version
 ```
 
-Download dependencies:
+下载依赖：
 
 ```bash
 go mod download
 ```
 </Accordion>
 
-<Accordion title="Frontend build errors">
-Clear the cache and reinstall:
+<Accordion title="前端构建错误">
+清除缓存并重新安装：
 
 ```bash
 rm -rf node_modules

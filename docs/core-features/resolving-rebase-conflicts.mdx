@@ -1,56 +1,56 @@
 ---
-title: "Resolving Rebase Conflicts"
-description: "Learn how to handle rebase conflicts when your base branch has advanced, using either manual resolution or automatic conflict resolution with coding agents."
-sidebarTitle: "Resolving Rebase Conflicts"
+title: "解决 Rebase 冲突"
+description: "了解当基础分支已有更新时如何处理 rebase 冲突，包括手动解决和使用编程代理自动解决。"
+sidebarTitle: "解决 Rebase 冲突"
 ---
 
-## When You See "Rebase Conflicts"
+## 当你看到"Rebase Conflicts"时
 
-After clicking the rebase button, if your changes conflict with the base branch, your task status changes to "Rebase conflicts" and a conflict resolution banner appears.
-
-<Frame>
-<img src="/images/vk-rebase-conflicts-top.png" alt="Task showing rebase conflicts status with conflict resolution options" />
-</Frame>
-
-The conflict banner provides three options to resolve the situation:
+点击 rebase 按钮后，如果你的更改与基础分支有冲突，任务状态会变为"Rebase conflicts"并出现冲突解决横幅。
 
 <Frame>
-<img src="/images/vk-rebase-banner.png" alt="Conflict resolution banner showing the three available options" />
+<img src="/images/vk-rebase-conflicts-top.png" alt="任务显示 rebase 冲突状态和冲突解决选项" />
 </Frame>
 
-- **Resolve Conflicts** - Auto-generate resolution instructions for the coding agent
-- **Open in Editor** - Manually edit conflicted files
-- **Abort Rebase** - Cancel and return to previous state
-
-## Resolving Conflicts Automatically
-
-The simplest solution is to let the coding agent resolve conflicts automatically:
-
-1. Click **Resolve Conflicts** from the conflict banner to generate specific instructions tailored to your conflict situation and insert them into the follow-up message area.
-
-2. Review the generated instructions and click **Resolve Conflicts** (the Send button changes to this) to have the agent analyse the conflicted files and complete the rebase automatically.
+冲突横幅提供了三种解决方式：
 
 <Frame>
-<img src="/images/vk-rebase-conflicts-prompt.png" alt="Conflict resolution banner with auto-generated instructions in the follow-up field" />
+<img src="/images/vk-rebase-banner.png" alt="冲突解决横幅，显示三个可用选项" />
 </Frame>
 
-Once the agent completes the resolution, your task status will show *n* commits ahead and the **Merge** button becomes available again.
+- **Resolve Conflicts** - 自动生成解决指令给编程代理
+- **Open in Editor** - 手动编辑冲突文件
+- **Abort Rebase** - 取消并返回之前的状态
 
-## Manual Resolution (Alternative)
+## 自动解决冲突
 
-If you prefer to resolve conflicts manually, you have two options:
+最简单的方法是让编程代理自动解决冲突：
 
-**For single files:** Use **Open in Editor** from the conflict banner to edit one conflicted file at a time. After resolving and refreshing the page, you can press the button again for the next file.
+1. 从冲突横幅中点击 **Resolve Conflicts**，生成针对你的冲突情况量身定制的指令，并将其插入到后续消息区域。
 
-**For multiple files (recommended):** Click the triple dot icon at the top right of the task and select **Open in [Your IDE]** to open all worktree files in your chosen IDE, where you can resolve all conflicts at once.
+2. 查看生成的指令，然后点击 **Resolve Conflicts**（发送按钮会变为这个），让代理分析冲突文件并自动完成 rebase。
+
+<Frame>
+<img src="/images/vk-rebase-conflicts-prompt.png" alt="冲突解决横幅，后续消息字段中显示自动生成的指令" />
+</Frame>
+
+代理完成解决后，你的任务状态会显示领先 *n* 个提交，**Merge** 按钮会再次可用。
+
+## 手动解决（替代方案）
+
+如果你更愿意手动解决冲突，有两个选择：
+
+**单个文件**：从冲突横幅中使用 **Open in Editor** 一次编辑一个冲突文件。解决并刷新页面后，你可以再次点击该按钮处理下一个文件。
+
+**多个文件（推荐）**：点击任务右上角的三点图标并选择 **Open in [Your IDE]**，在你选择的 IDE 中打开所有 worktree 文件，可以一次性解决所有冲突。
 
 <Steps>
-<Step title="Open your IDE">
-  Click the triple dot icon at the top right and select **Open in [Your IDE]** to access all worktree files, or use **Open in Editor** from the banner for individual files.
+<Step title="打开 IDE">
+  点击右上角的三点图标并选择 **Open in [Your IDE]** 来访问所有 worktree 文件，或从横幅中使用 **Open in Editor** 处理单个文件。
 </Step>
 
-<Step title="Edit conflicted files">
-  Resolve merge markers in each file:
+<Step title="编辑冲突文件">
+  解决每个文件中的合并标记：
   
   ```diff
   <<<<<<< HEAD (your changes)
@@ -65,8 +65,8 @@ If you prefer to resolve conflicts manually, you have two options:
   ```
 </Step>
 
-<Step title="Continue the rebase">
-  After editing all conflicts, stage and continue:
+<Step title="继续 rebase">
+  编辑完所有冲突后，暂存并继续：
   
   ```bash
   git add .
@@ -76,33 +76,33 @@ If you prefer to resolve conflicts manually, you have two options:
 </Steps>
 
 <Tip>
-Automatic resolution works best for most conflicts. Use manual resolution only when you need precise control over the merge decisions.
+自动解决适用于大多数冲突。仅在你需要精确控制合并决策时才使用手动解决。
 </Tip>
 
-## Aborting a Rebase
+## 中止 Rebase
 
-If you need to cancel the rebase entirely, click **Abort Rebase** to return to the "Rebase needed" state. You can then try rebasing again or create a new task attempt from the updated base branch.
+如果你需要完全取消 rebase，点击 **Abort Rebase** 返回到"Rebase needed"状态。然后你可以再次尝试 rebase 或从更新的基础分支创建新的任务尝试。
 
-## Rebasing onto a Different Base Branch
+## Rebase 到不同的基础分支
 
-If you've changed the base branch of your task attempt and see commits unrelated to your changes, you can use `git rebase --onto` to rebase only your work onto the new base:
+如果你更改了任务尝试的基础分支，并看到与你更改无关的提交，你可以使用 `git rebase --onto` 仅将你的工作 rebase 到新的基础分支上：
 
 ```bash
 git rebase <last-commit-before-your-work> --onto <new-base>
 ```
 
-### Example Scenario
+### 示例场景
 
-You accidentally created a task attempt from the `develop` branch, but it should have been based on `main`. After changing the base branch to `main` in the task settings, you see commits from `develop` that aren't part of your work:
+你不小心从 `develop` 分支创建了任务尝试，但它应该基于 `main` 分支。在任务设置中将基础分支更改为 `main` 后，你会看到来自 `develop` 的不属于你工作的提交：
 
 ```bash
-# Find the last commit before your work started (e.g., in the git log)
-# Then rebase only your commits onto main
+# 找到你工作开始前的最后一个提交（例如在 git log 中）
+# 然后仅将你的提交 rebase 到 main 上
 git rebase 64d504c94d076070d17affd3f84be63b34515445 --onto main
 ```
 
-This command takes your commits (everything after the specified commit hash) and replays them onto `main`, excluding the unrelated commits from `develop`.
+此命令会提取你的提交（指定提交哈希之后的所有内容），并将它们重新应用到 `main` 上，排除来自 `develop` 的无关提交。
 
 <Warning>
-Use `git rebase --onto` carefully. Make sure you identify the correct commit hash—the last commit that isn't part of your current task. Consider creating a backup branch first: `git branch backup-branch`.
+谨慎使用 `git rebase --onto`。确保你识别了正确的提交哈希——即不属于你当前任务的最后一个提交。建议先创建备份分支：`git branch backup-branch`。
 </Warning>

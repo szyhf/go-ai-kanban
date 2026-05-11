@@ -1,44 +1,44 @@
 ---
 title: "OpenAI Codex"
-description: "Set up OpenAI Codex integration"
+description: "设置 OpenAI Codex 集成"
 icon: https://www.vibekanban.com/images/logos/openai-logo.svg
 ---
 
 <Steps>
-<Step title="Run OpenAI Codex">
+<Step title="运行 OpenAI Codex">
   ```bash
   npx -y @openai/codex
   ```
 </Step>
 
-<Step title="Follow the login instructions">
-  Complete the authentication flow as prompted. Follow the authentication instructions from the [OpenAI help centre](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan) to use Codex with your ChatGPT plan.
+<Step title="按照登录指引操作">
+  按照提示完成身份验证流程。请按照 [OpenAI 帮助中心](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan)的身份验证说明，将 Codex 与你的 ChatGPT 计划配合使用。
 
-  Alternatively, Codex can be used via the OpenAI API by setting the `OPENAI_API_KEY` environment variable. For more details, see the [OpenAI documentation](https://developers.openai.com/codex/pricing/#use-an-openai-api-key)
+  或者，你可以通过设置 `OPENAI_API_KEY` 环境变量，通过 OpenAI API 使用 Codex。更多详情请参阅 [OpenAI 文档](https://developers.openai.com/codex/pricing/#use-an-openai-api-key)
 </Step>
 
-<Step title="Start Vibe Kanban">
-  Once authenticated, launch Vibe Kanban:
+<Step title="启动 Vibe Kanban">
+  完成身份验证后，启动 Vibe Kanban：
 
   ```bash
   npx vibe-kanban
   ```
 
-  You can now select OpenAI Codex when creating task attempts.
+  现在你可以在创建任务尝试时选择 OpenAI Codex。
 </Step>
 </Steps>
 
-## Custom Configuration Directory
+## 自定义配置目录
 
-By default, Codex stores its configuration and session data in `~/.codex`. If you have configured a custom location using the `CODEX_HOME` environment variable, Vibe Kanban will automatically detect and use that location.
+默认情况下，Codex 将其配置和会话数据存储在 `~/.codex` 中。如果你已使用 `CODEX_HOME` 环境变量配置了自定义位置，Vibe Kanban 会自动检测并使用该位置。
 
 ```bash
-# Example: Using a project-specific Codex configuration
+# 示例：使用项目特定的 Codex 配置
 export CODEX_HOME=/path/to/custom/codex
 npx vibe-kanban
 ```
 
-This is useful for:
-- Project-specific Codex profiles
-- Separating work and personal configurations
-- Custom automation setups
+这适用于以下场景：
+- 项目特定的 Codex 配置
+- 分离工作和个人配置
+- 自定义自动化设置

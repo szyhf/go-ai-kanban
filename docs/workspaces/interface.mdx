@@ -1,292 +1,292 @@
 ---
-title: "Interface Guide"
-description: "Understanding the Workspaces four-panel layout and navigation"
+title: "界面指南"
+description: "了解工作空间的四面板布局和导航"
 ---
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-interface-overview.png" alt="Workspaces interface showing the four-panel layout with labels for each section" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-interface-overview.png" alt="工作空间界面显示四面板布局，每个部分都有标签" />
 </Frame>
 
-The Workspaces UI uses a flexible four-panel layout designed for efficient AI-assisted development workflows.
+工作空间界面采用灵活的四面板布局，专为高效的 AI 辅助开发工作流设计。
 
-## Panel Overview
+## 面板概览
 
-| Panel | Position | Purpose |
-|-------|----------|---------|
-| **Workspace Sidebar** | Left edge | List of all workspaces with status indicators |
-| **Conversation Panel** | Left main | Chat with coding agents, session management |
-| **Context Panel** | Right main | Changes, logs, or preview (toggleable) |
-| **Details Sidebar** | Right edge | Git status, terminal, notes |
+| 面板 | 位置 | 用途 |
+|------|------|------|
+| **工作空间侧边栏** | 左侧边缘 | 所有工作空间列表及状态指示器 |
+| **对话面板** | 左侧主区域 | 与编码 Agent 聊天、会话管理 |
+| **上下文面板** | 右侧主区域 | 变更、日志或预览（可切换） |
+| **详情侧边栏** | 右侧边缘 | Git 状态、终端、笔记 |
 
-## Navbar
+## 导航栏
 
-The navbar at the top of the workspace provides quick access to common actions.
+工作空间顶部的导航栏提供对常用操作的快速访问。
 
-### Left Section
+### 左侧区域
 
-| Icon | Action | Description |
-|:----:|--------|-------------|
-| <Icon icon="box-archive" /> | Archive Workspace | Move workspace to/from archive |
-| <Icon icon="arrow-right-from-bracket" /> | Open in Old UI | Switch to the classic interface |
+| 图标 | 操作 | 描述 |
+|:----:|------|------|
+| <Icon icon="box-archive" /> | 归档工作空间 | 将工作空间移入/移出归档 |
+| <Icon icon="arrow-right-from-bracket" /> | 在旧界面中打开 | 切换到经典界面 |
 
-### Right Section - Panel Controls
+### 右侧区域 - 面板控制
 
-| Icon | Action | Description |
-|:----:|--------|-------------|
-| <Icon icon="sidebar" /> | Toggle Left Sidebar | Show/hide the workspace list |
-| <Icon icon="comments" /> | Toggle Chat Panel | Show/hide the conversation panel |
-| <Icon icon="code-compare" /> | Toggle Changes | Show/hide the changes panel |
-| <Icon icon="terminal" /> | Toggle Logs | Show/hide the logs panel |
-| <Icon icon="desktop" /> | Toggle Preview | Show/hide the preview panel |
-| <Icon icon="sidebar-flip" /> | Toggle Right Sidebar | Show/hide the details sidebar |
+| 图标 | 操作 | 描述 |
+|:----:|------|------|
+| <Icon icon="sidebar" /> | 切换左侧边栏 | 显示/隐藏工作空间列表 |
+| <Icon icon="comments" /> | 切换聊天面板 | 显示/隐藏对话面板 |
+| <Icon icon="code-compare" /> | 切换变更 | 显示/隐藏变更面板 |
+| <Icon icon="terminal" /> | 切换日志 | 显示/隐藏日志面板 |
+| <Icon icon="desktop" /> | 切换预览 | 显示/隐藏预览面板 |
+| <Icon icon="sidebar-flip" /> | 切换右侧边栏 | 显示/隐藏详情侧边栏 |
 
-### Right Section - Utilities
+### 右侧区域 - 实用工具
 
-| Icon | Action | Description |
-|:----:|--------|-------------|
-| <Icon icon="list" /> | Command Bar | Open the command bar |
-| <Icon icon="bullhorn" /> | Feedback | Send feedback about Workspaces |
-| <Icon icon="circle-question" /> | Workspaces Guide | Open the onboarding guide |
-| <Icon icon="gear" /> | Settings | Open application settings |
+| 图标 | 操作 | 描述 |
+|:----:|------|------|
+| <Icon icon="list" /> | 命令栏 | 打开命令栏 |
+| <Icon icon="bullhorn" /> | 反馈 | 发送关于工作空间的反馈 |
+| <Icon icon="circle-question" /> | 工作空间指南 | 打开新手引导 |
+| <Icon icon="gear" /> | 设置 | 打开应用设置 |
 
 <Tip>
-When the Changes panel is open, additional diff controls appear for toggling between side-by-side and inline views.
+当变更面板打开时，会出现额外的 Diff 控制按钮，用于在并排视图和内联视图之间切换。
 </Tip>
 
-## Workspace Sidebar
+## 工作空间侧边栏
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-sidebar.png" alt="Workspace sidebar in flat list layout showing workspaces with timestamps and change counts" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-sidebar.png" alt="工作空间侧边栏平铺列表布局，显示带有时间戳和变更计数的工作空间" />
 </Frame>
 
-The left sidebar displays all your workspaces at a glance.
+左侧边栏让你一目了然地查看所有工作空间。
 
-Switch to accordion layout to group workspaces by status:
+切换到手风琴布局按状态分组工作空间：
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-sidebar-accordion.png" alt="Workspace sidebar in accordion layout grouped by Needs Attention, Idle, and Running" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-sidebar-accordion.png" alt="工作空间侧边栏手风琴布局按需要关注、空闲和运行中分组" />
 </Frame>
 
-### Status Indicators
+### 状态指示器
 
-Each workspace shows its current state:
+每个工作空间显示其当前状态：
 
-| Indicator | Meaning |
-|-----------|---------|
-| **Running** | Agent is actively processing |
-| **Idle** | Waiting for input |
-| **Needs Attention** | Pending approval required (raised hand icon) |
-| **Pinned** | Workspace pinned to top of list |
-| **Dev Server** | Blue indicator when dev server is running |
-| **PR Status** | Badge showing linked pull request status |
+| 指示器 | 含义 |
+|--------|------|
+| **运行中** | Agent 正在活跃处理 |
+| **空闲** | 等待输入 |
+| **需要关注** | 需要待审批（举手图标） |
+| **已固定** | 工作空间固定在列表顶部 |
+| **开发服务器** | 开发服务器运行时显示蓝色指示器 |
+| **PR 状态** | 显示关联 Pull Request 状态的徽章 |
 
-### Workspace Actions
+### 工作空间操作
 
-- **Search**: Filter workspaces by name or branch
-- **Pin**: Keep important workspaces at the top
-- **Archive**: Move completed workspaces out of the main list
-- **Layout toggle**: Switch between flat list and accordion (grouped by status)
+- **搜索**：按名称或分支筛选工作空间
+- **固定**：将重要工作空间保持在顶部
+- **归档**：将已完成的工作空间移出主列表
+- **布局切换**：在平铺列表和手风琴（按状态分组）之间切换
 
-### Creating a New Workspace
+### 创建新工作空间
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-create-new.png" alt="Create Workspace view showing project selection, repositories panel, and task description input" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-create-new.png" alt="创建工作空间视图显示项目选择、仓库面板和任务描述输入" />
 </Frame>
 
-Click the **+** button at the top of the sidebar to create a new workspace. The interface switches to create mode:
+点击侧边栏顶部的 **+** 按钮创建新工作空间。界面切换到创建模式：
 
-1. **Select a project** from the Project dropdown in the right sidebar
-2. **Add repositories** - click repos from the "Add Repositories" list or browse for repos on disk
-3. **Set target branch** - each selected repo shows its target branch (click to change)
-4. **Describe your task** in the chat input at the bottom
-5. **Select an agent** (e.g., Claude Code) and variant
-6. Click **Create** to start the workspace
+1. 从右侧边栏的**项目**下拉菜单中**选择一个项目**
+2. **添加仓库** - 从"添加仓库"列表中点击仓库或浏览磁盘上的仓库
+3. **设置目标分支** - 每个选定的仓库显示其目标分支（点击可更改）
+4. 在底部的聊天输入中**描述你的任务**
+5. **选择 Agent**（例如 Claude Code）和变体
+6. 点击**创建**启动工作空间
 
 <Note>
-For detailed instructions, see [Creating Workspaces](/workspaces/creating-workspaces) and [Repositories](/workspaces/repositories).
+有关详细说明，请参阅[创建工作空间](/workspaces/creating-workspaces)和[仓库](/workspaces/repositories)。
 </Note>
 
-## Conversation Panel
+## 对话面板
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-conversation.png" alt="Conversation panel showing chat history with coding agent and session switcher" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-conversation.png" alt="对话面板显示与编码 Agent 的聊天历史和会话切换器" />
 </Frame>
 
-The left main panel is where you interact with coding agents.
+左侧主面板是你与编码 Agent 交互的区域。
 
-### Chat Interface
+### 聊天界面
 
-- View the full conversation history with the agent
-- Send messages and follow-up instructions
-- Rich text support for formatting
-- Approval workflows for reviewing agent plans
-- Agent and variant selection
+- 查看与 Agent 的完整对话历史
+- 发送消息和后续指令
+- 富文本格式支持
+- 审查 Agent 计划的审批工作流
+- Agent 和变体选择
 
-See [Chat Interface](/workspaces/chat-interface) for the complete guide.
+完整指南请参阅[聊天界面](/workspaces/chat-interface)。
 
-### Session Dropdown
+### 会话下拉菜单
 
-The chat box toolbar includes a session dropdown that lets you:
+聊天框工具栏包含一个会话下拉菜单，可以让你：
 
-- View all sessions in the workspace
-- Switch between sessions (shows "Latest" or timestamp)
-- Create a new session by selecting "New Session"
+- 查看工作空间中的所有会话
+- 在会话之间切换（显示"最新"或时间戳）
+- 通过选择"新建会话"创建新会话
 
 <Tip>
-Create multiple sessions to work around conversation token limits or to run different agents in parallel.
+创建多个会话来绕过对话 Token 限制或并行运行不同的 Agent。
 </Tip>
 
-See [Sessions](/workspaces/sessions) for more details on managing multiple sessions.
+有关管理多个会话的更多详情，请参阅[会话](/workspaces/sessions)。
 
-### Chat Shortcuts
+### 聊天快捷键
 
-| Shortcut | Action |
-|----------|--------|
-| `Cmd/Ctrl + Enter` | Send message |
-| `Shift + Cmd/Ctrl + Enter` | Alternative send mode |
-| `Cmd/Ctrl + B` | Bold text |
-| `Cmd/Ctrl + I` | Italic text |
-| `Cmd/Ctrl + U` | Underline text |
+| 快捷键 | 操作 |
+|--------|------|
+| `Cmd/Ctrl + Enter` | 发送消息 |
+| `Shift + Cmd/Ctrl + Enter` | 备用发送模式 |
+| `Cmd/Ctrl + B` | 加粗文本 |
+| `Cmd/Ctrl + I` | 斜体文本 |
+| `Cmd/Ctrl + U` | 下划线文本 |
 
-## Context Panel
+## 上下文面板
 
-The right main panel toggles between three views:
+右侧主面板在三个视图之间切换：
 
-### Changes View
+### 变更视图
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-changes-panel.png" alt="Changes panel showing file tree and diff viewer with code changes" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-changes-panel.png" alt="变更面板显示文件树和带有代码变更的 Diff 查看器" />
 </Frame>
 
-Displays all modified files with inline diffs:
+显示所有修改的文件及内联 Diff：
 
-- **File tree**: Hierarchical view of changed files
-- **Search**: Filter files by name
-- **Diff viewer**: See code changes with syntax highlighting
-- **Comments**: Add inline comments for agent feedback
+- **文件树**：已更改文件的层级视图
+- **搜索**：按名称筛选文件
+- **Diff 查看器**：以语法高亮查看代码变更
+- **注释**：添加行内注释向 Agent 提供反馈
 
-### Logs View
+### 日志视图
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-logs-panel.png" alt="Logs panel showing process output with tabs for different processes" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-logs-panel.png" alt="日志面板显示进程输出，包含不同进程的标签页" />
 </Frame>
 
-Shows process execution logs:
+显示进程执行日志：
 
-- **Process tabs**: Switch between different running processes
-- **Log output**: View stdout/stderr in real-time
-- **Search logs**: Filter log content
+- **进程标签页**：在不同运行中的进程之间切换
+- **日志输出**：实时查看标准输出/标准错误
+- **搜索日志**：筛选日志内容
 
-### Preview View
+### 预览视图
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-preview-panel.png" alt="Preview panel showing built-in browser with dev server output" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-preview-panel.png" alt="预览面板显示内置浏览器及开发服务器输出" />
 </Frame>
 
-Built-in browser for testing your application:
+用于测试应用的内置浏览器：
 
-- **Dev server tabs**: Multiple dev servers supported
-- **Device modes**: Desktop, mobile, custom viewport
-- **Process logs**: View dev server output
+- **开发服务器标签页**：支持多个开发服务器
+- **设备模式**：桌面、移动、自定义视口
+- **进程日志**：查看开发服务器输出
 
-Toggle between views using the navbar buttons or the [command bar](/workspaces/command-bar).
+使用导航栏按钮或[命令栏](/workspaces/command-bar)在视图之间切换。
 
-## Details Sidebar
+## 详情侧边栏
 
-The right sidebar provides quick access to workspace details.
+右侧边栏提供对工作空间详情的快速访问。
 
-### Git Section
+### Git 部分
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-git-panel.png" alt="Git section showing repository, branch, and pull request options" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-git-panel.png" alt="Git 部分显示仓库、分支和 Pull Request 选项" />
 </Frame>
 
-Always visible, showing:
+始终可见，显示：
 
-- Current repository and branch
-- Target branch for merging
-- Uncommitted changes count
-- Commits ahead/behind target
-- Quick access to [git operations](/workspaces/git-operations)
+- 当前仓库和分支
+- 合并的目标分支
+- 未提交变更数量
+- 相对于目标分支的领先/落后提交
+- [Git 操作](/workspaces/git-operations)的快速访问
 
-See [Repositories](/workspaces/repositories) for details on managing repositories and branches.
+有关管理仓库和分支的详情，请参阅[仓库](/workspaces/repositories)。
 
-### Terminal Section
-
-<Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-terminal.png" alt="Integrated terminal in the details sidebar showing command output" />
-</Frame>
-
-<Note>
-The integrated terminal is a new feature exclusive to the Workspaces UI and is not available in the classic interface.
-</Note>
-
-The expandable terminal lets you run commands directly in your workspace:
-
-- **Full terminal emulation** powered by xterm.js
-- **Run any command** - git, npm, build scripts, etc.
-- **Persistent state** - terminal persists across panel toggles
-- **Expandable** - collapse when not needed, expand when you need it
-
-### Notes Section
+### 终端部分
 
 <Frame>
-<img style={{maxHeight: "250px"}} src="/images/workspaces-notes.png" alt="Notes section in the details sidebar showing rich text editor with workspace notes" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-terminal.png" alt="详情侧边栏中的集成终端显示命令输出" />
 </Frame>
 
 <Note>
-Workspace notes are a new feature exclusive to the Workspaces UI and are not available in the classic interface.
+集成终端是工作空间界面的独有新功能，在经典界面中不可用。
 </Note>
 
-The expandable notes section lets you document important information:
+可展开的终端让你直接在工作空间中运行命令：
 
-- **Auto-save** - Notes save automatically as you type
-- **Per-workspace** - Each workspace has its own notes
-- **Persistent** - Notes are preserved across sessions
+- **完整的终端模拟**，由 xterm.js 驱动
+- **运行任何命令** - git、npm、构建脚本等
+- **持久状态** - 终端在面板切换时保持
+- **可展开** - 不需要时折叠，需要时展开
 
-## Context Bar
+### 笔记部分
 
 <Frame>
-<img style={{maxHeight: "150px"}} src="/images/workspaces-context-bar.png" alt="Context bar floating toolbar showing quick action buttons" />
+<img style={{maxHeight: "250px"}} src="/images/workspaces-notes.png" alt="详情侧边栏中的笔记部分显示带有工作空间笔记的富文本编辑器" />
 </Frame>
 
-A floating toolbar that provides quick access to common actions:
+<Note>
+工作空间笔记是工作空间界面的独有新功能，在经典界面中不可用。
+</Note>
 
-| Icon | Action | Description |
-|:----:|--------|-------------|
-| *IDE logo* | Open in IDE | Launch workspace in your configured editor (icon shows your IDE) |
-| <Icon icon="copy" /> | Copy Path | Copy the workspace path to clipboard |
-| <Icon icon="play" /> | Toggle Dev Server | Start or stop the development server |
-| <Icon icon="desktop" /> | Toggle Preview | Show or hide the preview panel |
-| <Icon icon="code-branch" /> | Toggle Changes | Show or hide the changes panel |
+可展开的笔记部分让你记录重要信息：
+
+- **自动保存** - 笔记在你输入时自动保存
+- **每个工作空间独立** - 每个工作空间有自己的笔记
+- **持久保存** - 笔记在会话之间保留
+
+## 上下文栏
+
+<Frame>
+<img style={{maxHeight: "150px"}} src="/images/workspaces-context-bar.png" alt="上下文栏浮动工具栏显示快捷操作按钮" />
+</Frame>
+
+一个浮动工具栏，提供对常用操作的快速访问：
+
+| 图标 | 操作 | 描述 |
+|:----:|------|------|
+| *IDE 图标* | 在 IDE 中打开 | 在配置的编辑器中启动工作空间（图标显示你的 IDE） |
+| <Icon icon="copy" /> | 复制路径 | 将工作空间路径复制到剪贴板 |
+| <Icon icon="play" /> | 切换开发服务器 | 启动或停止开发服务器 |
+| <Icon icon="desktop" /> | 切换预览 | 显示或隐藏预览面板 |
+| <Icon icon="code-branch" /> | 切换变更 | 显示或隐藏变更面板 |
 
 <Tip>
-The context bar is draggable - position it wherever works best for your workflow.
+上下文栏可拖动 - 将其放在最适合你工作流程的位置。
 </Tip>
 
-## Resizing Panels
+## 调整面板大小
 
-Drag the separators between panels to adjust their proportions. Your layout preferences are saved per workspace.
+拖动面板之间的分隔线来调整它们的比例。你的布局偏好会按工作空间保存。
 
-## Toggling Panels
+## 切换面板
 
-Show or hide panels to focus on what matters:
+显示或隐藏面板以专注于重要内容：
 
-- Use the navbar toggle buttons
-- Use the [command bar](/workspaces/command-bar) with `Cmd/Ctrl + K`
-- View Options commands let you toggle any panel
+- 使用导航栏切换按钮
+- 使用 [命令栏](/workspaces/command-bar) 按 `Cmd/Ctrl + K`
+- 视图选项命令让你切换任何面板
 
 <Info>
-Panel states are remembered, so your preferred layout is restored when you return to a workspace.
+面板状态会被记住，因此你返回工作空间时会恢复首选的布局。
 </Info>
 
-## Related Documentation
+## 相关文档
 
-- [Creating Workspaces](/workspaces/creating-workspaces) - Step-by-step guide to creating workspaces
-- [Repositories](/workspaces/repositories) - Managing repositories and branches
-- [Sessions](/workspaces/sessions) - Working with multiple conversation sessions
-- [Chat Interface](/workspaces/chat-interface) - Complete guide to the conversation panel
-- [Command Bar](/workspaces/command-bar) - Master keyboard shortcuts and quick actions
-- [Browser Testing](/browser-testing) - Built-in browser for testing your application
-- [Changes Panel](/workspaces/changes) - Review code modifications and provide feedback
-- [Git Operations](/workspaces/git-operations) - Create PRs, merge, rebase, and manage branches
+- [创建工作空间](/workspaces/creating-workspaces) - 创建工作空间的分步指南
+- [仓库](/workspaces/repositories) - 管理仓库和分支
+- [会话](/workspaces/sessions) - 使用多个对话会话
+- [聊天界面](/workspaces/chat-interface) - 对话面板完整指南
+- [命令栏](/workspaces/command-bar) - 掌握键盘快捷键和快捷操作
+- [浏览器测试](/browser-testing) - 内置浏览器测试你的应用
+- [变更面板](/workspaces/changes) - 审查代码修改并提供反馈
+- [Git 操作](/workspaces/git-operations) - 创建 PR、合并、变基和管理分支

@@ -1,79 +1,79 @@
 ---
-title: "Creating Tags"
-description: "Create reusable text snippets that can be quickly inserted into workspace prompts using @mentions. Tags are available globally across all projects."
+title: "创建标签"
+description: "创建可复用的文本片段，通过 @提及快速插入到工作区提示中。标签在所有项目中全局可用。"
 ---
 
-## What are tags?
+## 什么是标签？
 
-Tags are reusable text snippets that you can quickly insert into workspace prompts by typing `@` followed by the tag name. When you select a tag, its content is automatically inserted at your cursor position.
+标签是可复用的文本片段，你可以通过输入 `@` 后跟标签名称快速插入到工作区提示中。选择标签后，其内容会自动插入到光标位置。
 
 <Tip>
-Tags use snake_case naming (no spaces allowed). For example: `bug_report`, `feature_request`, or `code_review_checklist`.
+标签使用 snake_case 命名（不允许使用空格）。例如：`bug_report`、`feature_request` 或 `code_review_checklist`。
 </Tip>
 
-## Managing tags
+## 管理标签
 
-Access tags from **Settings → General → Tags**. Tags are available globally across all projects in your workspace.
+从 **Settings → General → Tags** 访问标签。标签在工作区的所有项目中全局可用。
 
 <Frame>
 <img src="/images/settings-tags.png" alt="Tags management interface showing the tag list with names and content" />
 </Frame>
 
 <Steps>
-<Step title="Create a new tag">
-  Click **Add Tag** to create a new tag.
+<Step title="创建新标签">
+  点击 **Add Tag** 创建新标签。
 
   <Frame>
   <img src="/images/settings-create-task-tag.png" alt="Create tag dialogue showing tag name and content fields" />
   </Frame>
 
-  - **Tag name**: Use snake_case without spaces (e.g., `acceptance_criteria`)
-  - **Content**: The text that will be inserted when the tag is used
+  - **标签名称**：使用 snake_case，不含空格（如 `acceptance_criteria`）
+  - **内容**：使用标签时将插入的文本
 </Step>
 
-<Step title="Edit existing tags">
-  Click the edit icon (✏️) next to any tag to modify its name or content.
+<Step title="编辑现有标签">
+  点击标签旁边的编辑图标（✏️）以修改其名称或内容。
 </Step>
 
-<Step title="Remove unwanted tags">
-  Click the delete icon (🗑️) to remove tags you no longer need.
+<Step title="删除不需要的标签">
+  点击删除图标（🗑️）删除不再需要的标签。
 
   <Warning>
-  Deleting a tag does not affect existing tasks that already have the tag's content inserted.
+  删除标签不会影响已插入标签内容的现有任务。
   </Warning>
 </Step>
 </Steps>
 
-## Using tags
+## 使用标签
 
-Insert tags into workspace prompts and follow-up messages using @mention autocomplete.
+通过 @提及自动补全将标签插入到工作区提示和后续消息中。
 
 <Steps>
-<Step title="Trigger autocomplete">
-  When writing a prompt, type `@` to trigger the autocomplete dropdown.
+<Step title="触发自动补全">
+  编写提示时，输入 `@` 触发自动补全下拉菜单。
 
   <Frame>
   <img src="/images/settings-task-tag-autocomplete.png" alt="Autocomplete dropdown showing available tags after typing @ symbol" />
   </Frame>
 </Step>
 
-<Step title="Search and select">
-  Continue typing to filter tags by name, then:
-  - Click on a tag to select it
-  - Use arrow keys to navigate and press Enter to select
-  - Press Escape to close the dropdown
+<Step title="搜索并选择">
+  继续输入以按名称筛选标签，然后：
+  - 点击标签进行选择
+  - 使用方向键导航并按 Enter 选择
+  - 按 Escape 关闭下拉菜单
 
   <Check>
-  The tag's content is automatically inserted at your cursor position, replacing the @query.
+  标签的内容会自动插入到光标位置，替换 @查询文本。
   </Check>
 </Step>
 </Steps>
 
-## Common use cases
+## 常见用例
 
 <AccordionGroup>
-<Accordion title="Bug report templates">
-Create a `bug_report` tag with standardised bug reporting fields:
+<Accordion title="Bug 报告模板">
+创建一个 `bug_report` 标签，包含标准化的 Bug 报告字段：
 
 ```
 **Description:**
@@ -91,8 +91,8 @@ Create a `bug_report` tag with standardised bug reporting fields:
 ```
 </Accordion>
 
-<Accordion title="Acceptance criteria checklists">
-Create an `acceptance_criteria` tag for feature requirements:
+<Accordion title="验收标准清单">
+创建一个 `acceptance_criteria` 标签，用于功能需求：
 
 ```
 **Acceptance criteria:**
@@ -104,8 +104,8 @@ Create an `acceptance_criteria` tag for feature requirements:
 ```
 </Accordion>
 
-<Accordion title="Code review guidelines">
-Create a `code_review` tag with review checklist items:
+<Accordion title="代码审查指南">
+创建一个 `code_review` 标签，包含审查清单项目：
 
 ```
 **Code review checklist:**
@@ -119,5 +119,5 @@ Create a `code_review` tag with review checklist items:
 </AccordionGroup>
 
 <Tip>
-Tags work in all text fields that support the @mention feature, including workspace prompts and follow-up messages, making it easy to maintain consistency across your tasks.
+标签在所有支持 @提及功能的文本字段中均可使用，包括工作区提示和后续消息，便于在任务中保持一致性。
 </Tip>

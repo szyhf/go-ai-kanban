@@ -1,302 +1,302 @@
 ---
-title: "Chat Interface"
-description: "Interact with coding agents through the conversation panel"
+title: "聊天界面"
+description: "通过对话面板与编码 Agent 交互"
 ---
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-conversation.png" alt="Chat interface showing conversation with coding agent" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-conversation.png" alt="聊天界面显示与编码 Agent 的对话" />
 </Frame>
 
-The chat interface is your primary way of communicating with coding agents. It supports rich message formatting, file attachments, approval workflows, and multiple conversation sessions.
+聊天界面是你与编码 Agent 交流的主要方式。它支持富文本消息格式、文件附件、审批工作流和多个对话会话。
 
-## Message Types
+## 消息类型
 
-The chat displays different types of messages, each with distinct styling:
+聊天显示不同类型的消息，每种都有独特的样式：
 
-### User Messages
+### 用户消息
 
-Your messages appear with an edit option. Click the pencil icon to modify and resend a message.
+你的消息显示时会带有编辑选项。点击铅笔图标可以修改并重新发送消息。
 
-### Agent Messages
+### Agent 消息
 
-Agent responses are rendered with full markdown support, including:
-- Code blocks with syntax highlighting
-- Tables and lists
-- Links and formatted text
+Agent 的回复以完整的 Markdown 支持呈现，包括：
+- 带语法高亮的代码块
+- 表格和列表
+- 链接和格式化文本
 
-### System Messages
+### 系统消息
 
-Informational messages from the system, such as model initialisation or status updates.
+来自系统的信息性消息，例如模型初始化或状态更新。
 
-### Error Messages
+### 错误消息
 
-Error messages appear in red with a warning icon. Click to expand and see full error details.
+错误消息以红色显示并带有警告图标。点击展开查看完整的错误详情。
 
-## Chat Input
+## 聊天输入
 
-### Writing Messages
+### 编写消息
 
 <Frame>
-<img style={{maxHeight: "250px"}} src="/images/workspaces-writing-messages.png" alt="Chat input formatting toolbar showing bold, italic, underline, strikethrough, and code buttons" />
+<img style={{maxHeight: "250px"}} src="/images/workspaces-writing-messages.png" alt="聊天输入格式工具栏显示加粗、斜体、下划线、删除线和代码按钮" />
 </Frame>
 
-The chat input supports rich text editing:
+聊天输入支持富文本编辑：
 
-- **Bold** - `Cmd/Ctrl + B` or click **B**
-- **Italic** - `Cmd/Ctrl + I` or click **I**
-- **Underline** - `Cmd/Ctrl + U` or click **U**
-- **Strikethrough** - Click **S**
-- **Code** - Click the code button or wrap with backticks
+- **加粗** - `Cmd/Ctrl + B` 或点击 **B**
+- **斜体** - `Cmd/Ctrl + I` 或点击 **I**
+- **下划线** - `Cmd/Ctrl + U` 或点击 **U**
+- **删除线** - 点击 **S**
+- **代码** - 点击代码按钮或用反引号包裹
 
-### Attaching Images
+### 附加图片
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-attach-images.png" alt="File picker dialog for attaching images to chat messages" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-attach-images.png" alt="附加图片到聊天消息的文件选择器对话框" />
 </Frame>
 
-You can attach images to your messages:
+你可以在消息中附加图片：
 
-1. **Click the attachment button** (paperclip icon) in the toolbar
-2. **Drag and drop** images directly into the chat
-3. Images are uploaded and referenced in your message
+1. **点击附件按钮**（回形针图标）在工具栏中
+2. **拖放**图片到聊天中
+3. 图片会上传并在你的消息中引用
 
 <Tip>
-Attach screenshots to show the agent exactly what you're working on or what issue you're experiencing.
+附加截图可以精确向 Agent 展示你正在处理的内容或遇到的问题。
 </Tip>
 
-### File Mentions
+### 文件提及
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-file-mentions.png" alt="File mentions typeahead showing matching files when typing @" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-file-mentions.png" alt="输入 @ 时文件提及自动补全显示匹配的文件" />
 </Frame>
 
-Type `@` to mention files from your repository. The chat provides typeahead suggestions showing:
+输入 `@` 来提及仓库中的文件。聊天会提供自动补全建议，显示：
 
-- **Filename** in bold
-- **Full path** below each file
-- Matches update as you type
+- **文件名**以粗体显示
+- **完整路径**显示在每个文件下方
+- 随着你输入而更新匹配结果
 
-Select a file to include it as context for the agent.
+选择文件将其作为 Agent 的上下文包含。
 
-## Sending Messages
+## 发送消息
 
-### Send Actions
+### 发送操作
 
-| Action | Shortcut | Description |
-|--------|----------|-------------|
-| **Send** | `Cmd/Ctrl + Enter` | Send message immediately |
-| **Queue** | Click Queue button | Queue message while agent is running |
-| **Stop** | Click Stop button | Stop the current agent execution |
+| 操作 | 快捷键 | 描述 |
+|------|--------|------|
+| **发送** | `Cmd/Ctrl + Enter` | 立即发送消息 |
+| **排队** | 点击排队按钮 | 在 Agent 运行时将消息排队 |
+| **停止** | 点击停止按钮 | 停止当前 Agent 执行 |
 
-### Execution States
+### 执行状态
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-running-state.png" alt="Chat interface in running state showing Queue and Stop buttons" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-running-state.png" alt="聊天界面在运行状态显示排队和停止按钮" />
 </Frame>
 
-The chat interface shows different states:
+聊天界面显示不同的状态：
 
-| State | Description |
-|-------|-------------|
-| **Idle** | Ready to send a new message |
-| **Running** | Agent is actively working |
-| **Queued** | Your message is queued for when agent finishes |
-| **Sending** | Message is being sent |
+| 状态 | 描述 |
+|------|------|
+| **空闲** | 准备发送新消息 |
+| **运行中** | Agent 正在活跃工作 |
+| **已排队** | 你的消息已排队等待 Agent 完成 |
+| **发送中** | 消息正在发送 |
 
 <Info>
-When the agent is running, you can queue a follow-up message instead of waiting for it to finish.
+当 Agent 运行时，你可以排队后续消息，而不必等待它完成。
 </Info>
 
-## Agent Selection
+## Agent 选择
 
-### Choosing an Agent
+### 选择 Agent
 
-Select which coding agent to use from the **Agent** dropdown in the chat toolbar. Available agents depend on your configuration.
+从聊天工具栏的 **Agent** 下拉菜单中选择要使用的编码 Agent。可用的 Agent 取决于你的配置。
 
-### Variants
+### 变体
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-agent-selection.png" alt="Variants dropdown showing Default, Approvals, Opus, and Plan options with Customise button" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-agent-selection.png" alt="变体下拉菜单显示默认、审批、Opus 和计划选项以及自定义按钮" />
 </Frame>
 
-Some agents support different variants or profiles. Use the variant selector to choose:
+某些 Agent 支持不同的变体或配置文件。使用变体选择器来选择：
 
-- Different model configurations
-- Custom system prompts
-- Specialised behaviours
+- 不同的模型配置
+- 自定义系统提示词
+- 专业化的行为模式
 
-Click **Customise** to configure agent settings.
+点击**自定义**来配置 Agent 设置。
 
-## Approval Workflow
+## 审批工作流
 
-Some agents (especially with planning mode enabled) ask for your approval before making changes. This gives you control over what gets implemented.
+某些 Agent（特别是启用了规划模式的 Agent）会在进行更改之前请求你的审批。这让你可以控制实施的内容。
 
-### Why Approvals Exist
+### 为什么需要审批
 
-- **Prevent unwanted changes** - Review the plan before code is written
-- **Catch misunderstandings early** - Ensure the agent understood your request
-- **Guide the approach** - Steer the agent toward your preferred solution
+- **防止不需要的变更** - 在代码编写前审查计划
+- **及早发现误解** - 确保 Agent 理解了你的请求
+- **引导方法** - 将 Agent 引向你偏好的解决方案
 
-### Reviewing Plans
+### 审查计划
 
-When the agent needs approval, you'll see an approval card in the chat:
+当 Agent 需要审批时，你会在聊天中看到一个审批卡片：
 
-1. **Read the plan summary** - What the agent intends to do
-2. **Expand for details** - Click to see the full plan with specific files and changes
-3. **Choose an action:**
-   - **Approve** - Agent proceeds with the plan
-   - **Request Changes** - Provide feedback for revision
+1. **阅读计划摘要** - Agent 打算做什么
+2. **展开查看详情** - 点击查看包含具体文件和变更的完整计划
+3. **选择操作：**
+   - **批准** - Agent 按计划继续
+   - **请求修改** - 提供反馈供修订
 
-### Requesting Changes
+### 请求修改
 
-If the plan isn't quite right:
+如果计划不太合适：
 
-1. Type your feedback in the chat input explaining what should be different
-2. Click **Request Changes**
-3. The agent revises the plan based on your feedback
-4. Review the new plan and approve or request more changes
+1. 在聊天输入中输入你的反馈，说明应该改什么
+2. 点击**请求修改**
+3. Agent 根据你的反馈修订计划
+4. 审查新计划，批准或请求更多修改
 
 <Tip>
-**Be specific in your feedback.** Instead of "that's not right", say "don't modify the database schema - just add the validation to the existing User model."
+**反馈要具体。** 不要说"那不对"，而是说"不要修改数据库 schema - 只需在现有的 User 模型中添加验证。"
 </Tip>
 
 <Warning>
-**Approval timeouts:** If you don't respond to an approval request, it may timeout. You'll need to send a new message to restart the task.
+**审批超时：** 如果你不响应审批请求，它可能会超时。你需要发送新消息来重新启动任务。
 </Warning>
 
-### Disabling Approvals
+### 禁用审批
 
-If you want the agent to work autonomously without asking for approval:
-1. Use an agent variant without planning mode
-2. Or configure `dangerously_skip_permissions` in agent settings (use with caution)
+如果你希望 Agent 自主工作而无需审批：
+1. 使用没有规划模式的 Agent 变体
+2. 或在 Agent 设置中配置 `dangerously_skip_permissions`（谨慎使用）
 
-## Editing Messages
+## 编辑消息
 
-You can edit and resend previous messages:
+你可以编辑并重新发送之前的消息：
 
 <Frame>
-<img style={{maxHeight: "250px"}} src="/images/workspaces-edit-message-1.png" alt="User message showing edit pencil icon in the top right corner" />
+<img style={{maxHeight: "250px"}} src="/images/workspaces-edit-message-1.png" alt="用户消息右上角显示编辑铅笔图标" />
 </Frame>
 
 <Steps>
-<Step title="Click the Edit Button">
-  Click the pencil icon on any of your messages.
+<Step title="点击编辑按钮">
+  点击你任何消息上的铅笔图标。
 </Step>
 
-<Step title="Modify Your Message">
-  The message content appears in an editable text area. Make your changes.
+<Step title="修改你的消息">
+  消息内容出现在可编辑的文本区域中。进行你的修改。
 
   <Frame>
-  <img style={{maxHeight: "250px"}} src="/images/workspaces-edit-message-2.png" alt="Edit mode showing message in editable text area with Cancel and Retry buttons" />
+  <img style={{maxHeight: "250px"}} src="/images/workspaces-edit-message-2.png" alt="编辑模式显示可编辑文本区域中的消息，带有取消和重试按钮" />
   </Frame>
 </Step>
 
-<Step title="Submit the Edit">
-  Click **Retry** to resend the modified message. The conversation continues from that point. Click **Cancel** to discard your changes.
+<Step title="提交编辑">
+  点击**重试**重新发送修改后的消息。对话从该点继续。点击**取消**放弃你的更改。
 </Step>
 </Steps>
 
 <Warning>
-Editing a message creates a new branch in the conversation. Subsequent messages after the edited one will be replaced.
+编辑消息会在对话中创建一个新分支。被编辑消息之后的后续消息将被替换。
 </Warning>
 
-## Status Indicators
+## 状态指示器
 
-### Token Usage
+### Token 使用量
 
 <Frame>
-<img style={{maxHeight: "200px"}} src="/images/workspaces-token-usage.png" alt="Context gauge showing 13% usage with 27K of 200K tokens used" />
+<img style={{maxHeight: "200px"}} src="/images/workspaces-token-usage.png" alt="上下文仪表显示 13% 使用量，已使用 27K / 200K Token" />
 </Frame>
 
-The context gauge shows how much of the agent's context window is used. Understanding this helps you get better results.
+上下文仪表显示 Agent 的上下文窗口已使用了多少。理解这一点有助于你获得更好的结果。
 
-#### What are Tokens?
+#### 什么是 Token？
 
-**Tokens** are how AI models measure text. Roughly:
-- 1 token ≈ 4 characters or ¾ of a word
-- A 200K context window can hold about 150,000 words
+**Token** 是 AI 模型衡量文本的方式。大致上：
+- 1 个 Token ≈ 4 个字符或 ¾ 个单词
+- 200K 的上下文窗口大约可以容纳 150,000 个单词
 
-The context window includes everything the agent "remembers": your messages, its responses, code it has read, and file contents.
+上下文窗口包含 Agent "记住"的所有内容：你的消息、它的回复、它读取的代码和文件内容。
 
-#### Why Token Usage Matters
+#### 为什么 Token 使用量很重要
 
-When usage is high:
-- Agent may "forget" earlier parts of the conversation
-- Responses may become less accurate
-- Agent might re-read files it already read
-- Complex reasoning may suffer
+当使用量很高时：
+- Agent 可能"忘记"对话的早期部分
+- 回复可能变得不太准确
+- Agent 可能重新读取已经读过的文件
+- 复杂推理可能受影响
 
-#### Usage Levels
+#### 使用量级别
 
-| Colour | Usage | What to Do |
-|--------|-------|------------|
-| Grey | 0-30% | All good, continue working |
-| Default | 30-60% | Normal usage, keep going |
-| Orange | 60-80% | Consider starting a new session soon |
-| Red | 80%+ | Start a new session - agent is near its limit |
+| 颜色 | 使用量 | 如何处理 |
+|------|--------|----------|
+| 灰色 | 0-30% | 一切正常，继续工作 |
+| 默认 | 30-60% | 正常使用，继续 |
+| 橙色 | 60-80% | 考虑尽快启动新会话 |
+| 红色 | 80%+ | 启动新会话 - Agent 已接近其极限 |
 
 <Tip>
-**Pro tip:** When starting a new session due to high token usage, briefly summarise what was accomplished. The new agent won't know what happened before.
+**专业提示：** 当由于高 Token 使用量而启动新会话时，简要总结已完成的工作。新的 Agent 不会知道之前发生了什么。
 </Tip>
 
-### Tasks Progress
+### 任务进度
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-tasks-panel.png" alt="Tasks panel showing 5/5 completed with progress bar and list of individual tasks" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-tasks-panel.png" alt="任务面板显示 5/5 完成，带有进度条和各个任务的列表" />
 </Frame>
 
-When the agent breaks down work into tasks, a progress indicator appears in the chat toolbar:
+当 Agent 将工作分解为任务时，聊天工具栏中会出现进度指示器：
 
-- **Progress bar** showing completion percentage
-- **Task count** (e.g., "5/5 completed")
-- **Individual tasks** with checkmarks when complete
+- **进度条**显示完成百分比
+- **任务计数**（例如"5/5 已完成"）
+- **各个任务**完成时显示勾选标记
 
-Click the indicator to expand the full task list showing each step the agent is working through.
+点击指示器展开完整的任务列表，显示 Agent 正在处理的每个步骤。
 
-### File Changes
+### 文件变更
 
-The chat shows file modification summaries:
+聊天显示文件修改摘要：
 
-- **Green** numbers indicate lines added
-- **Red** numbers indicate lines removed
-- Click to view the file in the Changes panel
+- **绿色**数字表示添加的行数
+- **红色**数字表示删除的行数
+- 点击可在变更面板中查看文件
 
-## Tool Outputs
+## 工具输出
 
-### Command Execution
+### 命令执行
 
-When the agent runs commands, you'll see:
+当 Agent 运行命令时，你会看到：
 
-- **Terminal icon** for bash commands
-- **Exit code** for completed commands
-- **Fix Script** button if a command fails
+- **终端图标**表示 bash 命令
+- **退出代码**表示已完成的命令
+- **修复脚本**按钮（如果命令失败）
 
-Click to view full output in the logs panel.
+点击在日志面板中查看完整输出。
 
-### Search Results
+### 搜索结果
 
-Search operations show summarised results. Click to expand and see full search output.
+搜索操作显示摘要结果。点击展开查看完整的搜索输出。
 
-## Review Comments
+## 审查注释
 
-When you add inline comments in the Changes panel:
+当你在变更面板中添加行内注释时：
 
-1. A banner appears showing the comment count
-2. Comments are automatically included when you send a message
-3. Click **Clear** to remove pending comments
+1. 出现一个横幅显示注释数量
+2. 你发送消息时注释会自动包含
+3. 点击**清除**移除待处理的注释
 
-## Keyboard Shortcuts
+## 键盘快捷键
 
-| Shortcut | Action |
-|----------|--------|
-| `Cmd/Ctrl + Enter` | Send message (or contextual action) |
-| `Cmd/Ctrl + B` | Bold text |
-| `Cmd/Ctrl + I` | Italic text |
-| `Escape` | Cancel current action |
+| 快捷键 | 操作 |
+|--------|------|
+| `Cmd/Ctrl + Enter` | 发送消息（或上下文操作） |
+| `Cmd/Ctrl + B` | 加粗文本 |
+| `Cmd/Ctrl + I` | 斜体文本 |
+| `Escape` | 取消当前操作 |
 
-## Related Documentation
+## 相关文档
 
-- [Slash Commands](/workspaces/slash-commands) - Quick actions with slash commands
-- [Sessions](/workspaces/sessions) - Managing multiple conversation sessions
-- [Interface Guide](/workspaces/interface) - Overview of the workspace layout
-- [Command Bar](/workspaces/command-bar) - Quick actions and shortcuts
+- [斜杠命令](/workspaces/slash-commands) - 使用斜杠命令的快捷操作
+- [会话](/workspaces/sessions) - 管理多个对话会话
+- [界面指南](/workspaces/interface) - 工作空间布局概览
+- [命令栏](/workspaces/command-bar) - 快速操作和快捷键

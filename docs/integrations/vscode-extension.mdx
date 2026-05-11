@@ -1,9 +1,9 @@
 ---
-title: "VSCode Extension Integration"
-description: "Complete guide to using the Vibe Kanban extension with VSCode, Cursor, and Windsurf"
+title: "VSCode 扩展集成"
+description: "在 VSCode、Cursor 和 Windsurf 中使用 Vibe Kanban 扩展的完整指南"
 ---
 
-The Vibe Kanban VSCode extension brings task management directly into your IDE, providing seamless integration with logs, diffs, and process monitoring. This extension works with VSCode and popular forks including Cursor and Windsurf.
+Vibe Kanban VSCode 扩展将任务管理直接集成到你的 IDE 中，提供与日志、差异对比和进程监控的无缝整合。此扩展适用于 VSCode 以及流行的分支版本，包括 Cursor 和 Windsurf。
 
 <video
   controls
@@ -11,153 +11,153 @@ The Vibe Kanban VSCode extension brings task management directly into your IDE, 
   src="https://vkcdn.britannio.dev/vk-ide-extension-light.mp4"
 ></video>
 
-## Installation
+## 安装
 
 <Tabs>
 <Tab title="VSCode">
-Install directly from the Visual Studio Code Marketplace:
+直接从 Visual Studio Code Marketplace 安装：
 
 <Card title="VSCode Marketplace" icon="download" href="https://marketplace.visualstudio.com/items?itemName=bloop.vibe-kanban">
-  Install the official Vibe Kanban extension for VSCode
+  安装适用于 VSCode 的官方 Vibe Kanban 扩展
 </Card>
 
-Alternatively, search for the extension ID in VSCode:
-1. Open VSCode
-2. Press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS) to open Extensions
-3. Search for `@id:bloop.vibe-kanban`
-4. Click **Install**
+或者，在 VSCode 中通过扩展 ID 搜索：
+1. 打开 VSCode
+2. 按 `Ctrl+Shift+X`（Windows/Linux）或 `Cmd+Shift+X`（macOS）打开扩展面板
+3. 搜索 `@id:bloop.vibe-kanban`
+4. 点击 **Install**
 </Tab>
 
 <Tab title="Cursor">
-For Cursor, use the Open VSX Registry:
+对于 Cursor，使用 Open VSX Registry：
 
 <Card title="Open VSX Registry" icon="download" href="https://open-vsx.org/extension/bloop/vibe-kanban">
-  Install from Open VSX for Cursor compatibility
+  从 Open VSX 安装以确保 Cursor 兼容性
 </Card>
 
 <Tip>
-Since deeplinking from Open VSX doesn't work reliably in Cursor, the easiest installation method is searching by extension ID within the IDE.
+由于从 Open VSX 的深度链接在 Cursor 中不太可靠，最简单的安装方法是在 IDE 中通过扩展 ID 搜索。
 </Tip>
 
-**Installation Steps**:
-1. Open Cursor
-2. Open the Extensions panel
-3. Search for `@id:bloop.vibe-kanban`
-4. Install the extension
+**安装步骤**：
+1. 打开 Cursor
+2. 打开扩展面板
+3. 搜索 `@id:bloop.vibe-kanban`
+4. 安装扩展
 </Tab>
 
 <Tab title="Windsurf">
-For Windsurf, use the Open VSX Registry:
+对于 Windsurf，使用 Open VSX Registry：
 
 <Card title="Open VSX Registry" icon="download" href="https://open-vsx.org/extension/bloop/vibe-kanban">
-  Install from Open VSX for Windsurf compatibility
+  从 Open VSX 安装以确保 Windsurf 兼容性
 </Card>
 
 <Tip>
-Since deeplinking from Open VSX doesn't work reliably in Windsurf, the easiest installation method is searching by extension ID within the IDE.
+由于从 Open VSX 的深度链接在 Windsurf 中不太可靠，最简单的安装方法是在 IDE 中通过扩展 ID 搜索。
 </Tip>
 
-**Installation Steps**:
-1. Open Windsurf
-2. Open the Extensions panel
-3. Search for `@id:bloop.vibe-kanban`
-4. Install the extension
+**安装步骤**：
+1. 打开 Windsurf
+2. 打开扩展面板
+3. 搜索 `@id:bloop.vibe-kanban`
+4. 安装扩展
 </Tab>
 </Tabs>
 
-## Features
+## 功能
 
-The extension provides an integrated workspace view with three main components:
+扩展提供了一个集成的工作区视图，包含三个主要组件：
 
-### Logs View
-- List of task attempts for the current task
-- Agent steps performed in each task attempt
+### 日志视图
+- 当前任务的任务尝试列表
+- 每个任务尝试中执行的智能体步骤
 
-### Diffs View  
-- Side-by-side comparison of code changes
-- Inline commenting and review capabilities
+### 差异对比视图
+- 代码更改的并排比较
+- 行内评论和审查功能
 
-### Processes View
-- Monitor running task processes
-- Process status indicators (running, completed, failed)
+### 进程视图
+- 监控运行中的任务进程
+- 进程状态指示器（运行中、已完成、失败）
 
-### Task Management
-- **Task Iteration**: Continue iterating on the current ongoing task
-- **Status Updates**: Real-time task status synchronization
+### 任务管理
+- **任务迭代**：继续迭代当前进行中的任务
+- **状态更新**：实时任务状态同步
 
-## Usage Workflow
+## 使用工作流
 
 <Steps>
-<Step title="Start a task in Vibe Kanban">
-  Navigate to your project's kanban board and create or select an existing task.
+<Step title="在 Vibe Kanban 中启动任务">
+  导航到你的项目看板，创建或选择一个现有任务。
 </Step>
 
-<Step title="Open task">
-  Click on the task to open its detailed view.
+<Step title="打开任务">
+  点击任务以打开其详细视图。
 </Step>
 
-<Step title="Launch IDE integration">
-  Click the **"Open in VSCode"**, **"Open in Cursor"**, or **"Open in Windsurf"** button depending on your preferred IDE.
+<Step title="启动 IDE 集成">
+  根据你首选的 IDE，点击 **"Open in VSCode"**、**"Open in Cursor"** 或 **"Open in Windsurf"** 按钮。
   
   <Note>
-  The button text will reflect your editor choice configured in Vibe Kanban settings.
+  按钮文字将反映你在 Vibe Kanban 设置中配置的编辑器选择。
   </Note>
 </Step>
 
-<Step title="Work in your IDE">
-  Your IDE will open in the task's dedicated worktree with the extension UI populated with:
-  - Current task context
-  - Real-time logs
-  - Code diffs
-  - Process monitoring
+<Step title="在 IDE 中工作">
+  你的 IDE 将在任务专用的工作树中打开，扩展 UI 将显示以下内容：
+  - 当前任务上下文
+  - 实时日志
+  - 代码差异
+  - 进程监控
 </Step>
 </Steps>
 
-## Troubleshooting
+## 故障排除
 
-### Empty Extension UI
+### 扩展 UI 为空
 
-**Problem**: The extension UI appears empty or shows no task information.
+**问题**：扩展 UI 显示为空或没有显示任务信息。
 
-**Solution**: Ensure you're working within a worktree created by a Vibe Kanban task.
+**解决方案**：确保你正在 Vibe Kanban 任务创建的工作树中工作。
 
 <Warning>
-The extension can only display task information when VSCode is opened in a directory that corresponds to an active Vibe Kanban task worktree.
+只有当 VSCode 打开的目录对应于一个活跃的 Vibe Kanban 任务工作树时，扩展才能显示任务信息。
 </Warning>
 
-**Steps to resolve**:
-1. Verify you opened VSCode through the "Open in [IDE]" button from a Vibe Kanban task
-2. Check that you're in the correct directory/worktree
-3. If the issue persists, restart your IDE and try the workflow again
+**解决步骤**：
+1. 确认你是通过 Vibe Kanban 任务中的"Open in [IDE]"按钮打开的 VSCode
+2. 检查你是否在正确的目录/工作树中
+3. 如果问题仍然存在，重启 IDE 并重试工作流
 
-### Extension Not Loading
+### 扩展未加载
 
-**Problem**: The Vibe Kanban extension doesn't appear in your IDE.
+**问题**：Vibe Kanban 扩展未出现在你的 IDE 中。
 
-**Solutions**:
-- Verify the extension is installed by searching `@id:bloop.vibe-kanban` in Extensions
-- Restart your IDE after installation
-- Check that you're using a compatible IDE version
-- For Cursor/Windsurf users, ensure you installed from Open VSX Registry
+**解决方案**：
+- 在扩展中搜索 `@id:bloop.vibe-kanban` 以确认扩展已安装
+- 安装后重启 IDE
+- 检查你使用的是兼容的 IDE 版本
+- 对于 Cursor/Windsurf 用户，确保从 Open VSX Registry 安装
 
-## Best Practices
+## 最佳实践
 
 <Tip>
-**Workflow Optimization**: Always start tasks from the Vibe Kanban web interface before opening in your IDE to ensure proper context and worktree setup.
+**工作流优化**：始终先从 Vibe Kanban Web 界面启动任务，然后再在 IDE 中打开，以确保正确的上下文和工作树设置。
 </Tip>
 
 <Tip>
-**Performance**: Close unused IDE windows to reduce resource usage.
+**性能**：关闭不使用的 IDE 窗口以减少资源占用。
 </Tip>
 
-## Supported IDEs
+## 支持的 IDE
 
-| IDE | Status | Installation Method |
+| IDE | 状态 | 安装方式 |
 |-----|--------|-------------------|
-| **VSCode** | ✅ Fully Supported | VSCode Marketplace |
-| **Cursor** | ✅ Fully Supported | Open VSX Registry |  
-| **Windsurf** | ✅ Fully Supported | Open VSX Registry |
+| **VSCode** | ✅ 完全支持 | VSCode Marketplace |
+| **Cursor** | ✅ 完全支持 | Open VSX Registry |
+| **Windsurf** | ✅ 完全支持 | Open VSX Registry |
 
 <Info>
-The extension is designed to work with any VSCode-compatible editor. If you're using a different VSCode fork, try installing from Open VSX Registry using the extension ID `bloop.vibe-kanban`.
+此扩展设计用于任何兼容 VSCode 的编辑器。如果你使用的是其他 VSCode 分支版本，可以尝试使用扩展 ID `bloop.vibe-kanban` 从 Open VSX Registry 安装。
 </Info>

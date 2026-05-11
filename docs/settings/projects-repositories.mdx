@@ -1,58 +1,58 @@
 ---
-title: "Projects & Repositories"
-description: "Configure project-specific settings and repository scripts in the Settings dialog"
+title: "项目与仓库"
+description: "在设置对话框中配置项目级别的设置和仓库脚本"
 ---
 
-## Projects
+## 项目
 
 <Frame>
 <img src="/images/settings-projects.png" alt="Projects tab showing project selection and project-specific settings" />
 </Frame>
 
-The Projects tab allows you to configure settings specific to individual projects.
+项目标签页允许你配置特定项目的设置。
 
-### Accessing Project Settings
+### 访问项目设置
 
-1. Open **Settings** from the Workspaces navbar
-2. Select the **Projects** tab
-3. Choose a project from the dropdown to view and modify its settings
+1. 从工作区导航栏打开 **Settings**
+2. 选择 **Projects** 标签页
+3. 从下拉菜单中选择一个项目以查看和修改其设置
 
 <Tip>
-Project settings override global settings where applicable.
+在适用的情况下，项目设置会覆盖全局设置。
 </Tip>
 
-## Repositories
+## 仓库
 
 <Frame>
 <img src="/images/settings-repositories.png" alt="Repositories tab showing repository selection, general settings, and scripts configuration" />
 </Frame>
 
-The Repositories tab allows you to configure scripts that run when a repository is used in workspaces.
+仓库标签页允许你配置在工作区中使用仓库时运行的脚本。
 
-### Accessing Repository Settings
+### 访问仓库设置
 
-1. Open **Settings** from the Workspaces navbar
-2. Select the **Repositories** tab
-3. Choose a repository from the dropdown to view and modify its settings
+1. 从工作区导航栏打开 **Settings**
+2. 选择 **Repositories** 标签页
+3. 从下拉菜单中选择一个仓库以查看和修改其设置
 
-### General Settings
+### 通用设置
 
-Configure basic repository information:
+配置基本仓库信息：
 
-- **Display Name** - A friendly name for this repository
-- **Repository Path** - The local path to the repository
+- **显示名称** - 此仓库的友好名称
+- **仓库路径** - 仓库的本地路径
 
-## Scripts & Configuration
+## 脚本与配置
 
-Configure dev server, setup, and cleanup scripts for this repository. These scripts run whenever the repository is used in any workspace, ensuring a consistent development environment.
+为此仓库配置开发服务器、初始化和清理脚本。这些脚本在任何工作区中使用该仓库时都会运行，确保一致的开发环境。
 
-### Dev Server Script
+### 开发服务器脚本
 
-Command to start your development server. This enables the built-in preview browser in Workspaces, allowing you to see your application running as you make changes.
+启动开发服务器的命令。这将启用工作区中内置的预览浏览器，让你在更改代码时能看到应用程序的运行状态。
 
-**Common examples:**
+**常见示例：**
 
-| Framework | Command |
+| 框架 | 命令 |
 |-----------|---------|
 | Vite | `npm run dev` |
 | Next.js | `npm run dev` |
@@ -61,67 +61,67 @@ Command to start your development server. This enables the built-in preview brow
 | Rails | `rails server` |
 
 <Tip>
-The dev server must output its URL (e.g., `http://localhost:3000`) to stdout for Vibe Kanban to detect and display it in the preview panel.
+开发服务器必须将其 URL（如 `http://localhost:3000`）输出到 stdout，Vibe Kanban 才能检测并在预览面板中显示它。
 </Tip>
 
-<Card title="Browser Testing" icon="eye" href="/browser-testing">
-  Learn how to use the built-in preview browser with your dev server
+<Card title="浏览器测试" icon="eye" href="/browser-testing">
+  了解如何将内置预览浏览器与开发服务器配合使用
 </Card>
 
-### Setup Script
+### 初始化脚本
 
-Commands that run **before** the coding agent starts working. Use this to prepare the development environment.
+在编程 Agent **开始工作之前**运行的命令。用于准备开发环境。
 
-**Why use a setup script?**
+**为什么要使用初始化脚本？**
 
-- **Install dependencies** - Ensure all packages are installed before the agent modifies code
-- **Build prerequisites** - Compile shared libraries or generate files the agent needs
-- **Environment preparation** - Set up databases, pull Docker images, or configure services
+- **安装依赖** - 确保 Agent 修改代码之前所有包已安装
+- **构建前置条件** - 编译共享库或生成 Agent 需要的文件
+- **环境准备** - 设置数据库、拉取 Docker 镜像或配置服务
 
-**Examples:**
+**示例：**
 
 ```bash
-# Node.js project
+# Node.js 项目
 npm install
 
-# Python project
+# Python 项目
 pip install -r requirements.txt
 
-# Multiple commands
+# 多个命令
 npm install && npm run build:deps
 
-# Go project
+# Go 项目
 go mod download
 ```
 
 <Info>
-Setup scripts run in the repository's root directory. They execute once when the workspace starts, not on every agent message.
+初始化脚本在仓库根目录中运行。它们在工作区启动时执行一次，而不是每条 Agent 消息时执行。
 </Info>
 
-### Cleanup Script
+### 清理脚本
 
-Commands that run **when a workspace closes**. Use this to clean up resources and stop background processes.
+**当工作区关闭时**运行的命令。用于清理资源和停止后台进程。
 
-**Why use a cleanup script?**
+**为什么要使用清理脚本？**
 
-- **Stop services** - Terminate background processes that might conflict with other workspaces
-- **Free resources** - Release database connections, Docker containers, or other resources
-- **Clean temporary files** - Remove build artifacts or cache files
-- **Format code** - Run formatters to ensure consistent code style after agent changes
+- **停止服务** - 终止可能与其他工作区冲突的后台进程
+- **释放资源** - 释放数据库连接、Docker 容器或其他资源
+- **清理临时文件** - 移除构建产物或缓存文件
+- **格式化代码** - 在 Agent 更改后运行格式化工具确保代码风格一致
 
-**Examples:**
+**示例：**
 
-| Use Case | Command |
-|----------|---------|
-| Stop Docker containers | `docker compose down` |
-| Kill background processes | `pkill -f "node server.js"` |
-| Clean build artifacts | `rm -rf dist/ .cache/` |
-| Stop PostgreSQL | `pg_ctl stop -D /usr/local/var/postgres` |
-| Kill process on port | `lsof -ti:3000 \| xargs kill -9 2>/dev/null` |
+| 用例 | 命令 |
+|----------|------|
+| 停止 Docker 容器 | `docker compose down` |
+| 终止后台进程 | `pkill -f "node server.js"` |
+| 清理构建产物 | `rm -rf dist/ .cache/` |
+| 停止 PostgreSQL | `pg_ctl stop -D /usr/local/var/postgres` |
+| 终止端口上的进程 | `lsof -ti:3000 \| xargs kill -9 2>/dev/null` |
 
-**Code formatting examples:**
+**代码格式化示例：**
 
-| Language/Tool | Command |
+| 语言/工具 | 命令 |
 |---------------|---------|
 | JavaScript/TypeScript (Prettier) | `npx prettier --write .` |
 | JavaScript/TypeScript (ESLint) | `npx eslint --fix .` |
@@ -129,58 +129,58 @@ Commands that run **when a workspace closes**. Use this to clean up resources an
 | Python (Ruff) | `ruff check --fix .` |
 | Go | `go fmt ./...` |
 
-**Combining multiple commands:**
+**组合多个命令：**
 
 ```bash
-# Chain commands with &&
+# 使用 && 链接命令
 docker compose down && rm -rf tmp/
 
-# Format code after agent changes
+# Agent 更改后格式化代码
 npx prettier --write . && npx eslint --fix .
 
-# Go formatting and linting
+# Go 格式化和 lint
 gofmt -w . && go vet ./...
 
-# Use || true to ignore failures
+# 使用 || true 忽略失败
 pkill -f "node server.js" || true
 rm -rf .cache/ || true
 ```
 
 <Warning>
-Cleanup scripts should be idempotent—safe to run even if the resources don't exist. Use `|| true` to prevent failures when there's nothing to clean up.
+清理脚本应该是幂等的——即使资源不存在也能安全运行。使用 `|| true` 来防止在无需清理时出现失败。
 </Warning>
 
-## Best Practices
+## 最佳实践
 
 <AccordionGroup>
-<Accordion title="Keep scripts fast">
-Long-running setup scripts delay workspace startup. Install dependencies in setup, but avoid lengthy build processes unless necessary.
+<Accordion title="保持脚本快速">
+长时间运行的初始化脚本会延迟工作区启动。在初始化中安装依赖，但避免不必要的冗长构建过程。
 </Accordion>
 
-<Accordion title="Use relative paths">
-Scripts run from the repository root. Use relative paths or environment variables rather than hardcoded absolute paths.
+<Accordion title="使用相对路径">
+脚本从仓库根目录运行。使用相对路径或环境变量，而不是硬编码的绝对路径。
 </Accordion>
 
-<Accordion title="Handle errors gracefully">
-Add `|| true` to commands that might fail but shouldn't block the workspace:
+<Accordion title="优雅地处理错误">
+为可能失败但不应阻塞工作区的命令添加 `|| true`：
 ```bash
 npm install || true
 ```
 </Accordion>
 
-<Accordion title="Test scripts locally">
-Run your scripts manually in a terminal before configuring them in Vibe Kanban to ensure they work correctly.
+<Accordion title="在本地测试脚本">
+在 Vibe Kanban 中配置脚本之前，先在终端中手动运行以确保它们正常工作。
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
 <CardGroup cols={2}>
-<Card title="Browser Testing" icon="eye" href="/browser-testing">
-  Learn how the dev server integrates with the preview panel
+<Card title="浏览器测试" icon="eye" href="/browser-testing">
+  了解开发服务器如何与预览面板集成
 </Card>
 
-<Card title="Multi-Repository Sessions" icon="folder-tree" href="/workspaces/multi-repo-sessions">
-  Working with multiple repositories in a single workspace
+<Card title="多仓库会话" icon="folder-tree" href="/workspaces/multi-repo-sessions">
+  在单个工作区中使用多个仓库
 </Card>
 </CardGroup>

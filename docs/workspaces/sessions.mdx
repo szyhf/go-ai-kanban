@@ -1,188 +1,188 @@
 ---
-title: "Sessions"
-description: "Create and manage multiple conversation sessions within a workspace"
+title: "会话"
+description: "在工作空间中创建和管理多个对话会话"
 ---
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-sessions.png" alt="Session dropdown showing multiple sessions with New Session option" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-sessions.png" alt="会话下拉菜单显示多个会话和新建会话选项" />
 </Frame>
 
-Sessions are conversation threads with coding agents within a workspace. Each session maintains its own conversation history, allowing you to work on different aspects of a task or try alternative approaches.
+会话是工作空间中与编码 Agent 的对话线程。每个会话维护自己的对话历史，让你可以处理任务的不同方面或尝试不同的方法。
 
-## What is a Session?
+## 什么是会话？
 
-A **session** is a single conversation with a coding agent. Think of it like a chat thread:
+**会话**是与编码 Agent 的一次对话。把它想象成一个聊天线程：
 
-- **Each session has its own conversation history** - messages, code changes, and context
-- **Sessions share the same files** - changes from one session are visible to all sessions
-- **Sessions are independent processes** - one can be running while another is idle
+- **每个会话有自己的对话历史** - 消息、代码变更和上下文
+- **会话共享相同的文件** - 一个会话的变更对所有会话可见
+- **会话是独立的进程** - 一个在运行时另一个可以是空闲的
 
 <Info>
-**Key point:** Sessions share files but not conversation context. If Session 1 makes changes, Session 2 can see those file changes but doesn't know what instructions Session 1 received.
+**关键点：** 会话共享文件但不共享对话上下文。如果会话 1 做了变更，会话 2 可以看到那些文件变更但不知道会话 1 收到了什么指令。
 </Info>
 
-## Understanding Token Limits
+## 理解 Token 限制
 
-AI models have a **context window** - a limit on how much text they can "remember" in a conversation. When you hit this limit:
+AI 模型有一个**上下文窗口** - 它们在对话中能"记住"的文本量限制。当你达到这个限制时：
 
-- The agent may forget earlier parts of the conversation
-- Responses may become less accurate
-- You'll see the context gauge turn orange or red
+- Agent 可能忘记对话的早期部分
+- 回复可能变得不太准确
+- 你会看到上下文仪表变为橙色或红色
 
-**Solution:** Start a new session. The new session gets a fresh context window while still having access to all your files.
+**解决方案：** 启动新会话。新会话获得一个全新的上下文窗口，同时仍然可以访问你所有的文件。
 
 <Tip>
-Watch the **context gauge** in the chat interface. When it shows high usage (orange/red), consider starting a new session.
+关注聊天界面中的**上下文仪表**。当它显示高使用量（橙色/红色）时，考虑启动新会话。
 </Tip>
 
-## When to Create a New Session
+## 何时创建新会话
 
 <CardGroup cols={2}>
-<Card title="Token limits reached" icon="gauge-high">
-Context gauge shows high usage - start fresh to give the agent full context capacity.
+<Card title="达到 Token 限制" icon="gauge-high">
+上下文仪表显示高使用量 - 启动新会话给 Agent 完整的上下文容量。
 </Card>
 
-<Card title="Parallel work" icon="code-branch">
-Have agents work on independent parts simultaneously (backend API + frontend UI).
+<Card title="并行工作" icon="code-branch">
+让 Agent 同时处理独立的部分（后端 API + 前端 UI）。
 </Card>
 
-<Card title="Different approaches" icon="route">
-Try an alternative solution without losing your original conversation.
+<Card title="不同方法" icon="route">
+在不丢失原始对话的情况下尝试替代方案。
 </Card>
 
-<Card title="Different agents" icon="robot">
-Use Claude Code for one task, Gemini CLI for another.
+<Card title="不同 Agent" icon="robot">
+一个任务使用 Claude Code，另一个使用 Gemini CLI。
 </Card>
 </CardGroup>
 
-## When NOT to Create a New Session
+## 何时不应该创建新会话
 
-- **Continuing related work** - Keep using the same session if the agent needs context from earlier messages
-- **Providing feedback** - Use the same session to tell the agent what to fix
-- **Small follow-ups** - "Also add a loading spinner" belongs in the current session
+- **继续相关工作** - 如果 Agent 需要早期消息的上下文，继续使用同一个会话
+- **提供反馈** - 使用同一个会话告诉 Agent 要修复什么
+- **小的后续请求** - "再加一个加载动画"属于当前会话
 
 <Warning>
-New sessions don't inherit conversation history. The new agent won't know what happened in previous sessions unless you explain it again or it reads the file changes.
+新会话不会继承对话历史。新的 Agent 不会知道之前会话中发生了什么，除非你再次解释或它读取文件变更。
 </Warning>
 
 <Info>
-All sessions within a workspace share the same repositories and git state. Changes made by one session are visible to others.
+工作空间中的所有会话共享相同的仓库和 Git 状态。一个会话做出的变更对其他会话可见。
 </Info>
 
-## Creating a New Session
+## 创建新会话
 
 <Steps>
-<Step title="Open the Session Dropdown">
-  Click the session dropdown (showing "Latest" or the session name) in the chat toolbar.
+<Step title="打开会话下拉菜单">
+  点击聊天工具栏中的会话下拉菜单（显示"最新"或会话名称）。
 </Step>
 
-<Step title="Click New Session">
-  Select **+ New Session** from the dropdown menu.
+<Step title="点击新建会话">
+  从下拉菜单中选择 **+ 新建会话**。
 
   <Frame>
-  <img style={{maxHeight: "300px"}} src="/images/workspaces-create-new-session.png" alt="Session dropdown showing New Session option and list of existing sessions" />
+  <img style={{maxHeight: "300px"}} src="/images/workspaces-create-new-session.png" alt="会话下拉菜单显示新建会话选项和现有会话列表" />
   </Frame>
 </Step>
 
-<Step title="Start Your Conversation">
-  The new session opens with a fresh conversation. Describe what you want the agent to work on.
+<Step title="开始你的对话">
+  新会话以全新的对话打开。描述你希望 Agent 处理的内容。
 
   <Tip>
-  Give context about what's already been done in other sessions if relevant. The agent doesn't have access to conversations from other sessions.
+  如果相关，提供关于其他会话中已完成工作的上下文。Agent 无法访问其他会话的对话。
   </Tip>
 </Step>
 </Steps>
 
-## Switching Between Sessions
+## 在会话之间切换
 
-To switch to a different session:
+要切换到不同的会话：
 
-1. Click the session dropdown in the chat toolbar
-2. Select the session you want to switch to
+1. 点击聊天工具栏中的会话下拉菜单
+2. 选择你想要切换到的会话
 
-The dropdown shows:
-- **Session name** - Based on the initial task or auto-generated
-- **Latest** indicator - Shows which session was most recently active
+下拉菜单显示：
+- **会话名称** - 基于初始任务或自动生成
+- **最新**指示器 - 显示哪个会话最近活跃
 
 <Note>
-Switching sessions doesn't interrupt any running agent processes. Each session's agent continues working independently.
+切换会话不会中断任何正在运行的 Agent 进程。每个会话的 Agent 继续独立工作。
 </Note>
 
-## Session States
+## 会话状态
 
-Sessions can be in different states:
+会话可以处于不同的状态：
 
-| State | Description |
-|-------|-------------|
-| **Running** | Agent is actively processing and making changes |
-| **Idle** | Waiting for your input |
-| **Needs Attention** | Agent is waiting for approval or has a question |
+| 状态 | 描述 |
+|------|------|
+| **运行中** | Agent 正在活跃处理并进行变更 |
+| **空闲** | 等待你的输入 |
+| **需要关注** | Agent 正在等待审批或有疑问 |
 
-The workspace sidebar shows the overall workspace state based on its sessions.
+工作空间侧边栏根据其会话显示整体的工作空间状态。
 
-## Managing Sessions
+## 管理会话
 
-### Renaming Sessions
+### 重命名会话
 
-Sessions are automatically named based on the initial task description. Currently, session names cannot be manually changed.
+会话根据初始任务描述自动命名。目前，会话名称无法手动更改。
 
-### Viewing Session History
+### 查看会话历史
 
-Each session maintains its complete conversation history. Scroll up in the conversation panel to view earlier messages and agent actions.
+每个会话维护完整的对话历史。在对话面板中向上滚动查看早期消息和 Agent 操作。
 
-### Stopping an Agent
+### 停止 Agent
 
-If an agent is running in the current session:
+如果 Agent 在当前会话中运行：
 
-1. Click the **Stop** button in the navbar, or
-2. Use the keyboard shortcut to stop execution
+1. 点击导航栏中的**停止**按钮，或
+2. 使用键盘快捷键停止执行
 
 <Warning>
-Stopping an agent may leave changes in an incomplete state. Review the changes panel to see what was modified.
+停止 Agent 可能会使变更处于不完整状态。检查变更面板查看修改了什么。
 </Warning>
 
-## Multiple Agents in Sessions
+## 会话中使用多个 Agent
 
-Different sessions can use different agents:
+不同的会话可以使用不同的 Agent：
 
-1. Create a new session
-2. Select a different agent from the **Agent** dropdown before sending your message
-3. Each session remembers which agent it's using
+1. 创建新会话
+2. 在发送消息之前从 **Agent** 下拉菜单中选择不同的 Agent
+3. 每个会话记住它使用的 Agent
 
 <Tip>
-Use specialised agents for different tasks - for example, one agent for backend work and another for frontend changes.
+使用专业的 Agent 处理不同的任务 - 例如一个 Agent 处理后端工作，另一个处理前端变更。
 </Tip>
 
-## Session Best Practices
+## 会话最佳实践
 
-### When to Create New Sessions
+### 何时创建新会话
 
-- **Task complexity** - Break complex tasks into smaller sessions
-- **Token limits** - Start fresh when conversations get long
-- **Different approaches** - Try alternative solutions without losing progress
-- **Parallel work** - Have agents work on independent parts simultaneously
+- **任务复杂度** - 将复杂任务分解为更小的会话
+- **Token 限制** - 对话变得很长时启动新会话
+- **不同方法** - 在不丢失进度的情况下尝试替代方案
+- **并行工作** - 让 Agent 同时处理独立的部分
 
-### Keeping Sessions Organised
+### 保持会话有序
 
-- **One focus per session** - Keep each session focused on a specific goal
-- **Use workspace notes** - Document which session is for what purpose
-- **Review before switching** - Check the changes panel before switching sessions
+- **每个会话一个焦点** - 让每个会话专注于特定目标
+- **使用工作空间笔记** - 记录哪个会话做什么
+- **切换前审查** - 切换会话前检查变更面板
 
-## Resolving Conflicts Between Sessions
+## 解决会话之间的冲突
 
-When multiple sessions make changes to the same files:
+当多个会话对相同文件进行变更时：
 
-1. The changes panel shows all modifications across sessions
-2. Review changes carefully before committing
-3. Use the inline comment feature to mark areas needing attention
+1. 变更面板显示跨会话的所有修改
+2. 提交前仔细审查变更
+3. 使用行内注释功能标记需要注意的区域
 
 <Note>
-Git handles most conflicts automatically. For complex conflicts, see [Git Operations](/workspaces/git-operations).
+Git 自动处理大多数冲突。对于复杂的冲突，请参阅 [Git 操作](/workspaces/git-operations)。
 </Note>
 
-## Related Documentation
+## 相关文档
 
-- [Creating Workspaces](/workspaces/creating-workspaces) - Setting up new workspaces
-- [Interface Guide](/workspaces/interface) - Understanding the workspace layout
-- [Multi-Repo & Sessions](/workspaces/multi-repo-sessions) - Working with multiple repositories
-- [Command Bar](/workspaces/command-bar) - Quick actions and keyboard shortcuts
+- [创建工作空间](/workspaces/creating-workspaces) - 设置新工作空间
+- [界面指南](/workspaces/interface) - 了解工作空间布局
+- [多仓库与会话](/workspaces/multi-repo-sessions) - 使用多个仓库
+- [命令栏](/workspaces/command-bar) - 快速操作和键盘快捷键

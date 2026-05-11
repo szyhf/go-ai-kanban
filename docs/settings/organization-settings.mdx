@@ -1,173 +1,173 @@
 ---
-title: "Organisation Settings"
-description: "Manage your organisation, members, and invitations"
+title: "组织设置"
+description: "管理你的组织、成员和邀请"
 ---
 
-The Organisation Settings page lets you manage your Cloud organisations, invite team members, and configure organisation-level settings.
+组织设置页面让你管理 Cloud 组织、邀请团队成员以及配置组织级别的设置。
 
 <Frame>
   <img src="/images/cloud/organization-settings-page.png" alt="Organization Settings page showing members and settings" />
 </Frame>
 
-## Accessing Organisation Settings
+## 访问组织设置
 
-To open Organisation Settings:
+打开组织设置：
 
-1. Click your **profile icon** in the bottom of the left sidebar
-2. Click the **settings icon** (<Icon icon="gear" />) next to your organisation name
+1. 点击左侧边栏底部的**头像图标**
+2. 点击你的组织名称旁边的**设置图标** (<Icon icon="gear" />)
 
 <Frame>
   <img src="/images/cloud/user-menu-settings.png" alt="User menu showing settings icon next to organisation" />
 </Frame>
 
-## Organisation Selection
+## 组织选择
 
-At the top of the settings page, you can:
+在设置页面顶部，你可以：
 
-- **Switch organisations** - Use the dropdown to select a different organisation
+- **切换组织** - 使用下拉菜单选择不同的组织
 
 <Frame>
   <img src="/images/cloud/organization-switcher.png" alt="Organization switcher dropdown showing multiple organisations" />
 </Frame>
 
 <Info>
-If you're a member of multiple organisations, switching here changes which organisation's settings you're viewing and editing.
+如果你是多个组织的成员，在这里切换会改变你正在查看和编辑的组织设置。
 </Info>
 
-### Personal Organisations
+### 个人组织
 
-When you first sign up, a personal organisation is created for you with an **Initial Project**. Personal organisations have some restrictions:
+首次注册时，系统会为你创建一个个人组织，其中包含一个**初始项目**。个人组织有一些限制：
 
-- Cannot invite additional members
-- Cannot be deleted
-- Are only accessible by you
+- 无法邀请其他成员
+- 无法删除
+- 仅你自己可以访问
 
-## Pending Invitations
+## 待处理邀请
 
 <Note>
-This section is only visible to **Admins** and only for non-personal organisations.
+此部分仅对**管理员**可见，且仅适用于非个人组织。
 </Note>
 
-The Pending Invitations section shows all invitations that have been sent but not yet accepted:
+待处理邀请部分显示所有已发送但尚未接受的邀请：
 
-- **Email address** - Who was invited
-- **Status** - Pending acceptance
-- **Expiry** - Invitations expire after 7 days
-- **Revoke** - Cancel the invitation if needed
+- **邮箱地址** - 被邀请的人
+- **状态** - 等待接受
+- **过期时间** - 邀请在 7 天后过期
+- **撤销** - 如需要可取消邀请
 
-### Revoking an Invitation
+### 撤销邀请
 
-To revoke a pending invitation:
+撤销待处理邀请：
 
-1. Find the invitation in the list
-2. Click the **Revoke** button
-3. The invitation link will no longer work
+1. 在列表中找到该邀请
+2. 点击 **Revoke** 按钮
+3. 邀请链接将不再有效
 
-## Members
+## 成员
 
-The Members section shows everyone who has access to the organisation:
+成员部分显示所有有权访问组织的人员：
 
 <Frame>
   <img src="/images/cloud/members-section.png" alt="Members section showing member list with Invite Member button" />
 </Frame>
 
-| Column | Description |
+| 列 | 说明 |
 |--------|-------------|
-| **Name** | Member's display name and avatar |
-| **Role** | Admin or Member |
-| **Actions** | Role change, remove (Admin only) |
+| **名称** | 成员的显示名称和头像 |
+| **角色** | Admin 或 Member |
+| **操作** | 角色变更、移除（仅限 Admin） |
 
-### Member Roles
+### 成员角色
 
-| Role | Permissions |
+| 角色 | 权限 |
 |------|-------------|
-| **Admin** | Full access - manage members, invitations, settings, delete organisation |
-| **Member** | Access projects and issues, cannot manage organisation settings |
+| **Admin** | 完全访问权限 - 管理成员、邀请、设置，删除组织 |
+| **Member** | 访问项目和 Issue，无法管理组织设置 |
 
-### Changing a Member's Role
+### 更改成员角色
 
 <Note>
-Only Admins can change member roles.
+只有 Admin 可以更改成员角色。
 </Note>
 
-1. Find the member in the list
-2. Click the role dropdown next to their name
-3. Select the new role (Admin or Member)
-4. The change takes effect immediately
+1. 在列表中找到该成员
+2. 点击其名称旁边的角色下拉菜单
+3. 选择新角色（Admin 或 Member）
+4. 更改立即生效
 
-### Removing a Member
+### 移除成员
 
 <Warning>
-Removing a member revokes their access to all projects in the organisation immediately.
+移除成员会立即撤销他们对组织中所有项目的访问权限。
 </Warning>
 
-1. Find the member in the list
-2. Click the **Remove** button
-3. Confirm the removal when prompted
+1. 在列表中找到该成员
+2. 点击 **Remove** 按钮
+3. 在提示时确认移除
 
-### Inviting New Members
+### 邀请新成员
 
-To invite someone to your organisation:
+邀请他人加入你的组织：
 
-1. Click the **Invite Member** button
-2. Enter their email address
-3. Select their role (Admin or Member)
-4. Click **Send Invitation**
+1. 点击 **Invite Member** 按钮
+2. 输入其邮箱地址
+3. 选择其角色（Admin 或 Member）
+4. 点击 **Send Invitation**
 
 <Frame>
   <img src="/images/cloud/invite-member-dialog.png" alt="Invite Member dialog with email and role fields" />
 </Frame>
 
-They'll receive an email with a link to join. The invitation expires after 7 days.
+他们将收到一封包含加入链接的电子邮件。邀请在 7 天后过期。
 
-## Billing
+## 账单
 
 <Note>
-This section is only visible to **Admins** of non-personal organisations.
+此部分仅对非个人组织的**管理员**可见。
 </Note>
 
-The Billing section provides a link for existing customers to manage billing in the Vibe Kanban account portal.
+账单部分为现有客户提供了在 Vibe Kanban 账户门户中管理账单的链接。
 
-Click **Manage Billing** to open the billing portal in a new tab where you can:
-- View your current subscription
-- Update payment methods
-- View invoices and billing history
+点击 **Manage Billing** 在新标签页中打开账单门户，你可以：
+- 查看当前订阅
+- 更新付款方式
+- 查看发票和账单历史
 
-## Danger Zone
+## 危险操作区
 
 <Warning>
-Actions in the Danger Zone are destructive and cannot be undone.
+危险操作区中的操作具有破坏性且无法撤销。
 </Warning>
 
 <Frame>
   <img src="/images/cloud/danger-zone.png" alt="Danger Zone section with Delete Organization button" />
 </Frame>
 
-### Deleting an Organisation
+### 删除组织
 
 <Note>
-Only Admins can delete organisations. Personal organisations cannot be deleted.
+只有 Admin 可以删除组织。个人组织无法删除。
 </Note>
 
-To delete an organisation:
+删除组织：
 
-1. Scroll to the **Danger Zone** section
-2. Click **Delete**
-3. Confirm the deletion when prompted
-4. All projects, issues, and data will be permanently deleted
+1. 滚动到**危险操作区**部分
+2. 点击 **Delete**
+3. 在提示时确认删除
+4. 所有项目、Issue 和数据将被永久删除
 
 <Warning>
-Deleting an organisation removes:
-- All projects in the organisation
-- All issues and their history
-- All team member access
-- All pending invitations
+删除组织会移除：
+- 组织中的所有项目
+- 所有 Issue 及其历史记录
+- 所有团队成员的访问权限
+- 所有待处理的邀请
 
-This action cannot be undone.
+此操作无法撤销。
 </Warning>
 
-## Related Documentation
+## 相关文档
 
-- [Organisations](/cloud/organizations) - Creating and understanding organisations
-- [Team Members](/cloud/team-members) - Inviting and managing team members
-- [Projects](/cloud/projects) - Managing projects within organisations
+- [组织](/cloud/organizations) - 创建和了解组织
+- [团队成员](/cloud/team-members) - 邀请和管理团队成员
+- [项目](/cloud/projects) - 在组织中管理项目

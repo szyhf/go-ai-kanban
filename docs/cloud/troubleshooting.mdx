@@ -1,305 +1,305 @@
 ---
-title: "Troubleshooting"
-description: "Solutions for common issues with Vibe Kanban Cloud"
+title: "故障排除"
+description: "Vibe Kanban Cloud 常见问题的解决方案"
 ---
 
-This page covers common issues you might encounter with Vibe Kanban Cloud and how to resolve them.
+本页面涵盖你可能遇到的 Vibe Kanban Cloud 常见问题及其解决方法。
 
-## Sign-In Issues
+## 登录问题
 
 <AccordionGroup>
-<Accordion title="I can't sign in">
-**Possible causes:**
-- Pop-up blocker preventing the OAuth window
-- Network connectivity issues
-- Browser extensions interfering
+<Accordion title="无法登录">
+**可能的原因：**
+- 弹出窗口拦截器阻止了 OAuth 窗口
+- 网络连接问题
+- 浏览器扩展干扰
 
-**Solutions:**
-1. Disable pop-up blocker for localhost
-2. Check your internet connection
-3. Try disabling browser extensions temporarily
-4. Try a different browser
-5. Clear your browser cache and cookies
+**解决方案：**
+1. 为 localhost 禁用弹出窗口拦截器
+2. 检查网络连接
+3. 尝试暂时禁用浏览器扩展
+4. 尝试使用其他浏览器
+5. 清除浏览器缓存和 Cookie
 </Accordion>
 
-<Accordion title="OAuth window doesn't open">
-**Possible causes:**
-- Pop-up blocker is active
-- Browser security settings
+<Accordion title="OAuth 窗口无法打开">
+**可能的原因：**
+- 弹出窗口拦截器已启用
+- 浏览器安全设置
 
-**Solutions:**
-1. Look for a blocked pop-up notification in your browser's address bar
-2. Allow pop-ups for `localhost`
-3. Try right-clicking the sign-in button and selecting "Open in new tab"
+**解决方案：**
+1. 查看浏览器地址栏中是否有被拦截的弹出窗口通知
+2. 允许 `localhost` 的弹出窗口
+3. 尝试右键点击登录按钮并选择"在新标签页中打开"
 </Accordion>
 
-<Accordion title="'Access denied' error from GitHub/Google">
-**Possible causes:**
-- You clicked "Deny" instead of "Authorize"
-- Your organisation has app restrictions (GitHub)
+<Accordion title="GitHub/Google 返回'Access denied'错误">
+**可能的原因：**
+- 你点击了"Deny"而不是"Authorize"
+- 你的组织有应用限制（GitHub）
 
-**Solutions:**
-1. Try again and click **Authorize** or **Allow**
-2. If using a GitHub organisation account, ask your admin to approve the app
+**解决方案：**
+1. 重新尝试并点击 **Authorize** 或 **Allow**
+2. 如果使用 GitHub 组织账户，请联系管理员批准该应用
 </Accordion>
 
-<Accordion title="Signed in as the wrong account">
-**Possible causes:**
-- Your browser is logged into a different GitHub/Google account
+<Accordion title="登录到了错误的账户">
+**可能的原因：**
+- 你的浏览器登录了不同的 GitHub/Google 账户
 
-**Solutions:**
-1. Sign out of Vibe Kanban
-2. Go to [github.com](https://github.com) or [google.com](https://google.com) and sign out
-3. Sign in with the correct account
-4. Return to Vibe Kanban and sign in again
+**解决方案：**
+1. 退出 Vibe Kanban
+2. 前往 [github.com](https://github.com) 或 [google.com](https://google.com) 并退出登录
+3. 使用正确的账户登录
+4. 返回 Vibe Kanban 并重新登录
 </Accordion>
 
-<Accordion title="Session keeps expiring">
-**Possible causes:**
-- Network issues preventing token refresh
-- Browser blocking cookies
+<Accordion title="会话持续过期">
+**可能的原因：**
+- 网络问题阻止令牌刷新
+- 浏览器阻止 Cookie
 
-**Solutions:**
-1. Check your internet connection
-2. Ensure cookies are enabled for localhost
-3. Try signing out and back in
+**解决方案：**
+1. 检查网络连接
+2. 确保 localhost 已启用 Cookie
+3. 尝试退出后重新登录
 </Accordion>
 </AccordionGroup>
 
-## Organisation Issues
+## 组织问题
 
 <AccordionGroup>
-<Accordion title="I can't create an organisation">
-**Possible causes:**
-- Network connectivity issues
-- You're not signed in
+<Accordion title="无法创建组织">
+**可能的原因：**
+- 网络连接问题
+- 你尚未登录
 
-**Solutions:**
-1. Ensure you're signed in (check for your avatar in the corner)
-2. Check your internet connection
-3. Try refreshing the page
+**解决方案：**
+1. 确认你已登录（检查角落中的头像）
+2. 检查网络连接
+3. 尝试刷新页面
 </Accordion>
 
-<Accordion title="I can't see an organisation I was invited to">
-**Possible causes:**
-- You haven't accepted the invitation yet
-- You signed in with a different email
-- The invitation expired
+<Accordion title="看不到我被邀请的组织">
+**可能的原因：**
+- 你尚未接受邀请
+- 你使用了不同的邮箱登录
+- 邀请已过期
 
-**Solutions:**
-1. Check your email for an invitation link and click it
-2. Verify you're signed in with the email that was invited
-3. Ask the organisation admin to resend the invitation
+**解决方案：**
+1. 检查邮件中的邀请链接并点击
+2. 确认你使用的是被邀请时的邮箱登录
+3. 请组织管理员重新发送邀请
 </Accordion>
 
-<Accordion title="I can't leave an organisation">
-**Possible causes:**
-- You're the only admin
+<Accordion title="无法离开组织">
+**可能的原因：**
+- 你是唯一的管理员
 
-**Solutions:**
-1. Promote another member to admin first
-2. Then you can leave
-3. Or delete the organisation if no one else needs it
+**解决方案：**
+1. 先将另一个成员提升为管理员
+2. 然后你就可以离开
+3. 如果没有其他人需要，也可以删除组织
 </Accordion>
 </AccordionGroup>
 
-## Team Member Issues
+## 团队成员问题
 
 <AccordionGroup>
-<Accordion title="Invitation email not received">
-**Possible causes:**
-- Email went to spam/junk folder
-- Wrong email address entered
-- Email delivery delay
+<Accordion title="邀请邮件未收到">
+**可能的原因：**
+- 邮件被归入垃圾邮件/垃圾箱
+- 输入了错误的邮箱地址
+- 邮件发送延迟
 
-**Solutions:**
-1. Check spam/junk folder
-2. Verify the email address is correct in the pending invitations list
-3. Resend the invitation
-4. Try a different email address
+**解决方案：**
+1. 检查垃圾邮件/垃圾箱
+2. 在待处理邀请列表中确认邮箱地址正确
+3. 重新发送邀请
+4. 尝试使用不同的邮箱地址
 </Accordion>
 
-<Accordion title="Invitation link doesn't work">
-**Possible causes:**
-- Invitation expired (after 7 days)
-- Invitation was cancelled
-- Link was copied incorrectly
+<Accordion title="邀请链接不工作">
+**可能的原因：**
+- 邀请已过期（7 天后）
+- 邀请已被取消
+- 链接被复制不完整
 
-**Solutions:**
-1. Ask for a new invitation to be sent
-2. Make sure you're clicking the full link from the email
+**解决方案：**
+1. 请对方重新发送邀请
+2. 确保你点击的是邮件中的完整链接
 </Accordion>
 
-<Accordion title="New member can't see projects">
-**Possible causes:**
-- They signed in with a different email
-- Browser cache issue
+<Accordion title="新成员看不到项目">
+**可能的原因：**
+- 他们使用了不同的邮箱登录
+- 浏览器缓存问题
 
-**Solutions:**
-1. Verify they're signed in with the invited email (check their profile)
-2. Have them refresh the page
-3. Have them sign out and back in
+**解决方案：**
+1. 确认他们使用的是被邀请时的邮箱登录（检查个人资料）
+2. 让他们刷新页面
+3. 让他们退出后重新登录
 </Accordion>
 </AccordionGroup>
 
-## Project and Board Issues
+## 项目和看板问题
 
 <AccordionGroup>
-<Accordion title="Projects not loading">
-**Possible causes:**
-- Network connectivity issues
-- Sync delay
+<Accordion title="项目无法加载">
+**可能的原因：**
+- 网络连接问题
+- 同步延迟
 
-**Solutions:**
-1. Check your internet connection
-2. Refresh the page
-3. Sign out and back in
+**解决方案：**
+1. 检查网络连接
+2. 刷新页面
+3. 退出后重新登录
 </Accordion>
 
-<Accordion title="Changes not syncing">
-**Possible causes:**
-- Internet connection lost
-- Temporary sync issue
+<Accordion title="更改未同步">
+**可能的原因：**
+- 网络连接断开
+- 临时同步问题
 
-**Solutions:**
-1. Check your internet connection
-2. Refresh the page - your changes should still be there
-3. If changes were lost, you may need to re-enter them
+**解决方案：**
+1. 检查网络连接
+2. 刷新页面——你的更改应该还在
+3. 如果更改丢失，你可能需要重新输入
 </Accordion>
 
-<Accordion title="I can't delete a status column">
-**Possible causes:**
-- The column has issues in it
+<Accordion title="无法删除状态列">
+**可能的原因：**
+- 该列包含事项
 
-**Solutions:**
-1. Move all issues to another column first
-2. Check for issues in hidden views (use "All" status tab)
-3. Then delete the empty column
+**解决方案：**
+1. 先将所有事项移到其他列
+2. 检查隐藏视图中的事项（使用"All"状态标签页）
+3. 然后删除空列
 </Accordion>
 
-<Accordion title="Drag and drop not working">
-**Possible causes:**
-- Sort mode is not set to "Manual"
-- Browser issue
+<Accordion title="拖放不工作">
+**可能的原因：**
+- 排序模式未设为"Manual"
+- 浏览器问题
 
-**Solutions:**
-1. Check the sort dropdown - select "Manual" to enable drag and drop
-2. Try refreshing the page
-3. Try a different browser
+**解决方案：**
+1. 检查排序下拉菜单——选择"Manual"以启用拖放
+2. 尝试刷新页面
+3. 尝试使用其他浏览器
 </Accordion>
 </AccordionGroup>
 
-## Issue Problems
+## 事项问题
 
 <AccordionGroup>
-<Accordion title="Can't find an issue">
-**Possible causes:**
-- Active filters hiding the issue
-- Issue is in a hidden column
+<Accordion title="找不到某个事项">
+**可能的原因：**
+- 活跃的筛选器隐藏了该事项
+- 事项在隐藏列中
 
-**Solutions:**
-1. Click **Clear All** in the filter bar to reset filters
-2. Use the "All" status tab to see issues in hidden columns
-3. Try searching for the issue ID or title
+**解决方案：**
+1. 点击筛选栏中的 **Clear All** 重置筛选
+2. 使用"All"状态标签页查看隐藏列中的事项
+3. 尝试搜索事项 ID 或标题
 </Accordion>
 
-<Accordion title="Changes to an issue aren't saving">
-**Possible causes:**
-- Network issue
-- You closed the panel too quickly
+<Accordion title="事项更改未保存">
+**可能的原因：**
+- 网络问题
+- 你关闭面板太快
 
-**Solutions:**
-1. Wait a moment after editing before closing the panel (auto-save has a short delay)
-2. Check your internet connection
-3. Refresh and check if the change was saved
+**解决方案：**
+1. 编辑后稍等片刻再关闭面板（自动保存有短暂延迟）
+2. 检查网络连接
+3. 刷新并检查更改是否已保存
 </Accordion>
 
-<Accordion title="Can't assign someone to an issue">
-**Possible causes:**
-- They're not a member of the organisation
+<Accordion title="无法将某人分配到事项">
+**可能的原因：**
+- 他们不是组织成员
 
-**Solutions:**
-1. Invite them to the organisation first
-2. Once they accept, they'll appear in the assignee list
+**解决方案：**
+1. 先邀请他们加入组织
+2. 他们接受后，将出现在负责人列表中
 </Accordion>
 </AccordionGroup>
 
-## GitHub Integration Issues
+## GitHub 集成问题
 
 <AccordionGroup>
-<Accordion title="GitHub integration not working">
-**Possible causes:**
-- GitHub App not installed
-- Repository not connected
+<Accordion title="GitHub 集成不工作">
+**可能的原因：**
+- GitHub App 未安装
+- 仓库未连接
 
-**Solutions:**
-1. Go to Organisation Settings → GitHub Integration
-2. Install the GitHub App if not already installed
-3. Ensure the repository has access granted
+**解决方案：**
+1. 前往组织设置 → GitHub Integration
+2. 如果尚未安装 GitHub App，请安装
+3. 确保仓库已授予访问权限
 </Accordion>
 
-<Accordion title="Pull requests not linking to issues">
-**Possible causes:**
-- Branch name doesn't include issue ID
-- PR was created before integration was set up
+<Accordion title="Pull Request 未关联到事项">
+**可能的原因：**
+- 分支名称不包含事项 ID
+- PR 在集成设置之前创建
 
-**Solutions:**
-1. Include the issue ID in your branch name (e.g., `TASK-123-feature`)
-2. Or include the issue ID in the PR title
-3. New PRs should link automatically
+**解决方案：**
+1. 在分支名称中包含事项 ID（例如 `TASK-123-feature`）
+2. 或在 PR 标题中包含事项 ID
+3. 新的 PR 应该会自动关联
 </Accordion>
 
-<Accordion title="Code review not available">
-**Possible causes:**
-- Code review not enabled for the repository
+<Accordion title="代码审查不可用">
+**可能的原因：**
+- 该仓库未启用代码审查
 
-**Solutions:**
-1. Go to Organisation Settings → GitHub Integration
-2. Enable "Code Review" for the repository
+**解决方案：**
+1. 前往组织设置 → GitHub Integration
+2. 为该仓库启用"Code Review"
 </Accordion>
 </AccordionGroup>
 
-## General Issues
+## 通用问题
 
 <AccordionGroup>
-<Accordion title="Page won't load">
-**Solutions:**
-1. Refresh the page
-2. Clear browser cache
-3. Try a different browser
-4. Restart Vibe Kanban (`npx vibe-kanban`)
+<Accordion title="页面无法加载">
+**解决方案：**
+1. 刷新页面
+2. 清除浏览器缓存
+3. 尝试使用其他浏览器
+4. 重启 Vibe Kanban（`npx vibe-kanban`）
 </Accordion>
 
-<Accordion title="Everything is slow">
-**Possible causes:**
-- Network connectivity issues
-- Many browser tabs open
+<Accordion title="一切都很慢">
+**可能的原因：**
+- 网络连接问题
+- 打开了太多浏览器标签页
 
-**Solutions:**
-1. Check your internet connection
-2. Close unnecessary browser tabs
-3. Refresh the page
+**解决方案：**
+1. 检查网络连接
+2. 关闭不需要的浏览器标签页
+3. 刷新页面
 </Accordion>
 
-<Accordion title="Data seems out of date">
-**Solutions:**
-1. Refresh the page to force a sync
-2. Check your internet connection
-3. Sign out and back in
+<Accordion title="数据似乎过期">
+**解决方案：**
+1. 刷新页面以强制同步
+2. 检查网络连接
+3. 退出后重新登录
 </Accordion>
 </AccordionGroup>
 
-## Getting Help
+## 获取帮助
 
-If you can't resolve an issue:
+如果你无法解决问题：
 
-1. **Check existing issues:** [github.com/BloopAI/vibe-kanban/issues](https://github.com/BloopAI/vibe-kanban/issues)
+1. **查看已有问题：** [github.com/BloopAI/vibe-kanban/issues](https://github.com/BloopAI/vibe-kanban/issues)
 
-2. **Report a bug:** Create a new issue with:
-   - What you were trying to do
-   - What happened instead
-   - Your browser and operating system
+2. **报告 Bug：** 创建新问题时请包含：
+   - 你想做什么
+   - 实际发生了什么
+   - 你的浏览器和操作系统
 
-<Card title="Report an Issue" icon="github" href="https://github.com/BloopAI/vibe-kanban/issues/new">
-  Open a new issue on GitHub for bugs or feature requests
+<Card title="报告问题" icon="github" href="https://github.com/BloopAI/vibe-kanban/issues/new">
+  在 GitHub 上提交 Bug 或功能请求的新问题
 </Card>

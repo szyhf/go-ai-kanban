@@ -1,16 +1,16 @@
 ---
-title: "Vibe Kanban MCP Server"
-description: "Configure the Vibe Kanban MCP server"
+title: "Vibe Kanban MCP 服务器"
+description: "配置 Vibe Kanban MCP 服务器"
 ---
 
-Vibe Kanban exposes a local MCP (Model Context Protocol) server, allowing you to manage organisations, projects, issues, workspaces, and repositories from external MCP clients like Claude Desktop, Raycast, or even coding agents running within Vibe Kanban itself.
+Vibe Kanban 暴露了一个本地 MCP（模型上下文协议）服务器，允许你从外部 MCP 客户端（如 Claude Desktop、Raycast，甚至在 Vibe Kanban 内部运行的编程智能体）管理组织、项目、议题、工作区和仓库。
 
 <Note>
-This page covers connecting **external MCP clients** to Vibe Kanban's MCP server. For configuring MCP servers **within** Vibe Kanban for your coding agents, see the [MCP Server Configuration](/integrations/mcp-server-configuration) guide.
+本页面介绍如何将**外部 MCP 客户端**连接到 Vibe Kanban 的 MCP 服务器。如需在 Vibe Kanban **内部**为编程智能体配置 MCP 服务器，请参阅 [MCP 服务器配置](/integrations/mcp-server-configuration)指南。
 </Note>
 
 <Info>
-Vibe Kanban's MCP server is **local-only** - it runs on your computer and can only be accessed by applications installed locally. It cannot be accessed via publicly accessible URLs.
+Vibe Kanban 的 MCP 服务器**仅限本地访问**——它运行在你的计算机上，只能被本地安装的应用程序访问，无法通过公开可访问的 URL 进行访问。
 </Info>
 
 <video
@@ -19,25 +19,25 @@ Vibe Kanban's MCP server is **local-only** - it runs on your computer and can on
   src="https://vkcdn.britannio.dev/vk-mcp-server.mp4"
 ></video>
 
-## Setting Up MCP Integration
+## 设置 MCP 集成
 
-### Option 1: Using the Web Interface
+### 方式一：使用 Web 界面
 
-This works if you're adding the Vibe Kanban MCP server to any [supported coding agent](/supported-coding-agents) **within** Vibe Kanban.
+如果你要将 Vibe Kanban MCP 服务器添加到 Vibe Kanban **内部**的任何[支持的编程智能体](/supported-coding-agents)，可以使用此方式。
 
-1. In Vibe Kanban Settings, navigate to the "MCP Servers" page
-2. In the "Popular servers" section, click on the Vibe Kanban card
-3. Click the `Save Settings` button
+1. 在 Vibe Kanban 设置中，导航到"MCP Servers"页面
+2. 在"Popular servers"部分，点击 Vibe Kanban 卡片
+3. 点击 `Save Settings` 按钮
 
 <Frame>
-<img src="/images/vk-mcp-server-config.png" alt="MCP Servers configuration page showing how to add Vibe Kanban MCP server" />
+<img src="/images/vk-mcp-server-config.png" alt="MCP 服务器配置页面，展示如何添加 Vibe Kanban MCP 服务器" />
 </Frame>
 
-### Option 2: Manual Configuration
+### 方式二：手动配置
 
-You can manually add the MCP server to your coding agent's configuration. The exact syntax will depend on your coding agent or MCP client.
+你可以手动将 MCP 服务器添加到编程智能体的配置中。具体语法取决于你使用的编程智能体或 MCP 客户端。
 
-Add the following configuration to your agent's MCP servers configuration:
+将以下配置添加到你的智能体的 MCP 服务器配置中：
 
 ```json
 {
@@ -50,114 +50,114 @@ Add the following configuration to your agent's MCP servers configuration:
 }
 ```
 
-`--mcp` launches the local MCP stdio server. Any additional arguments after `--mcp` are passed through to the `vibe-kanban-mcp` binary.
+`--mcp` 启动本地 MCP stdio 服务器。`--mcp` 之后的任何额外参数将传递给 `vibe-kanban-mcp` 二进制文件。
 
-## Available MCP Tools
+## 可用的 MCP 工具
 
-The Vibe Kanban MCP server provides tools for managing organisations, projects, issues, workspaces, and task execution.
+Vibe Kanban MCP 服务器提供了用于管理组织、项目、议题、工作区和任务执行的工具。
 
 <Note>
-Many tools accept an optional `project_id` or `organization_id` parameter. When running inside a workspace linked to a remote project, these are inferred automatically from context and can be omitted. The exception is `list_projects`, which always requires an explicit `organization_id`.
+许多工具接受可选的 `project_id` 或 `organization_id` 参数。当在与远程项目关联的工作区内运行时，这些参数可以从上下文中自动推断，因此可以省略。例外是 `list_projects`，它始终需要显式的 `organization_id`。
 </Note>
 
-### Context
+### 上下文
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `get_context` | Get current workspace context (only available within an active workspace session) | None | None | Project, issue, and workspace metadata |
+| `get_context` | 获取当前工作区上下文（仅在活跃的工作区会话中可用） | 无 | 无 | 项目、议题和工作区元数据 |
 
-### Organisation Operations
+### 组织操作
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_organizations` | List all available organisations | None | None | List of organisations with IDs, names, and slugs |
-| `list_org_members` | List members of an organisation | None | `organization_id` | List of members with user IDs, roles, and profile info |
+| `list_organizations` | 列出所有可用的组织 | 无 | 无 | 包含 ID、名称和 slug 的组织列表 |
+| `list_org_members` | 列出组织的成员 | 无 | `organization_id` | 包含用户 ID、角色和个人资料的成员列表 |
 
-### Project Operations
+### 项目操作
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_projects` | List projects in an organisation | `organization_id` | None | List of projects with IDs and names |
+| `list_projects` | 列出组织中的项目 | `organization_id` | 无 | 包含 ID 和名称的项目列表 |
 
-### Issue Management
+### 议题管理
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_issues` | List issues in a project | None | `project_id`<br/>`status`<br/>`priority`<br/>`search`<br/>`simple_id`<br/>`parent_issue_id`<br/>`assignee_user_id`<br/>`tag_id`<br/>`tag_name`<br/>`limit`<br/>`offset` | Paginated list of issues with PR info |
-| `create_issue` | Create a new issue | `title` | `project_id`<br/>`description`<br/>`priority`<br/>`parent_issue_id` | Created issue ID |
-| `get_issue` | Get detailed issue information | `issue_id` | None | Full issue details with tags, relationships, sub-issues, and PRs |
-| `update_issue` | Update an existing issue | `issue_id` | `title`<br/>`description`<br/>`status`<br/>`priority`<br/>`parent_issue_id` | Updated issue details |
-| `delete_issue` | Delete an issue | `issue_id` | None | Deletion confirmation |
-| `list_issue_priorities` | List allowed priority values | None | None | List of priorities: urgent, high, medium, low |
+| `list_issues` | 列出项目中的议题 | 无 | `project_id`<br/>`status`<br/>`priority`<br/>`search`<br/>`simple_id`<br/>`parent_issue_id`<br/>`assignee_user_id`<br/>`tag_id`<br/>`tag_name`<br/>`limit`<br/>`offset` | 分页的议题列表，包含 PR 信息 |
+| `create_issue` | 创建新议题 | `title` | `project_id`<br/>`description`<br/>`priority`<br/>`parent_issue_id` | 创建的议题 ID |
+| `get_issue` | 获取议题详细信息 | `issue_id` | 无 | 完整的议题详情，包含标签、关系、子议题和 PR |
+| `update_issue` | 更新现有议题 | `issue_id` | `title`<br/>`description`<br/>`status`<br/>`priority`<br/>`parent_issue_id` | 更新后的议题详情 |
+| `delete_issue` | 删除议题 | `issue_id` | 无 | 删除确认 |
+| `list_issue_priorities` | 列出允许的优先级值 | 无 | 无 | 优先级列表：urgent、high、medium、low |
 
 <Tip>
-For `update_issue`, the `parent_issue_id` field supports three states: omit it entirely to leave the parent unchanged, pass `null` to un-nest the issue from its parent, or pass a UUID to set a new parent.
+对于 `update_issue`，`parent_issue_id` 字段支持三种状态：完全省略以保持父议题不变，传入 `null` 以取消议题与父议题的嵌套关系，或传入 UUID 以设置新的父议题。
 </Tip>
 
-### Issue Assignees
+### 议题分配
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_issue_assignees` | List assignees for an issue | `issue_id` | None | List of assignees with user IDs |
-| `assign_issue` | Assign a user to an issue | `issue_id`<br/>`user_id` | None | Issue assignee ID |
-| `unassign_issue` | Remove an assignee from an issue | `issue_assignee_id` | None | Unassignment confirmation |
+| `list_issue_assignees` | 列出议题的分配人 | `issue_id` | 无 | 包含用户 ID 的分配人列表 |
+| `assign_issue` | 将用户分配到议题 | `issue_id`<br/>`user_id` | 无 | 议题分配人 ID |
+| `unassign_issue` | 从议题中移除分配人 | `issue_assignee_id` | 无 | 取消分配确认 |
 
-### Issue Tags
+### 议题标签
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_tags` | List tags for a project | None | `project_id` | List of tags with IDs, names, and colours |
-| `list_issue_tags` | List tags attached to an issue | `issue_id` | None | List of issue-tag relations |
-| `add_issue_tag` | Attach a tag to an issue | `issue_id`<br/>`tag_id` | None | Issue-tag relation ID |
-| `remove_issue_tag` | Remove a tag from an issue | `issue_tag_id` | None | Removal confirmation |
+| `list_tags` | 列出项目的标签 | 无 | `project_id` | 包含 ID、名称和颜色的标签列表 |
+| `list_issue_tags` | 列出附加到议题的标签 | `issue_id` | 无 | 议题-标签关系列表 |
+| `add_issue_tag` | 将标签附加到议题 | `issue_id`<br/>`tag_id` | 无 | 议题-标签关系 ID |
+| `remove_issue_tag` | 从议题中移除标签 | `issue_tag_id` | 无 | 移除确认 |
 
-### Issue Relationships
+### 议题关系
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `create_issue_relationship` | Create a relationship between two issues | `issue_id`<br/>`related_issue_id`<br/>`relationship_type` | None | Relationship ID |
-| `delete_issue_relationship` | Delete a relationship between issues | `relationship_id` | None | Deletion confirmation |
+| `create_issue_relationship` | 创建两个议题之间的关系 | `issue_id`<br/>`related_issue_id`<br/>`relationship_type` | 无 | 关系 ID |
+| `delete_issue_relationship` | 删除议题之间的关系 | `relationship_id` | 无 | 删除确认 |
 
-Supported relationship types: `blocking`, `related`, `has_duplicate`.
+支持的关系类型：`blocking`、`related`、`has_duplicate`。
 
-### Repository Management
+### 仓库管理
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_repos` | List all repositories | None | None | List of repositories with IDs and names |
-| `get_repo` | Get repository details including scripts | `repo_id` | None | Repository info with setup, cleanup, and dev server scripts |
-| `update_setup_script` | Update a repository's setup script | `repo_id`<br/>`script` | None | Update confirmation |
-| `update_cleanup_script` | Update a repository's cleanup script | `repo_id`<br/>`script` | None | Update confirmation |
-| `update_dev_server_script` | Update a repository's dev server script | `repo_id`<br/>`script` | None | Update confirmation |
+| `list_repos` | 列出所有仓库 | 无 | 无 | 包含 ID 和名称的仓库列表 |
+| `get_repo` | 获取仓库详情，包括脚本 | `repo_id` | 无 | 仓库信息，包含设置、清理和开发服务器脚本 |
+| `update_setup_script` | 更新仓库的设置脚本 | `repo_id`<br/>`script` | 无 | 更新确认 |
+| `update_cleanup_script` | 更新仓库的清理脚本 | `repo_id`<br/>`script` | 无 | 更新确认 |
+| `update_dev_server_script` | 更新仓库的开发服务器脚本 | `repo_id`<br/>`script` | 无 | 更新确认 |
 
-### Workspace Management
+### 工作区管理
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `list_workspaces` | List local workspaces | None | `archived`<br/>`pinned`<br/>`branch`<br/>`name_search`<br/>`limit`<br/>`offset` | Paginated list of workspaces |
-| `update_workspace` | Update a workspace's properties | None | `workspace_id`<br/>`archived`<br/>`pinned`<br/>`name` | Updated workspace details |
-| `delete_workspace` | Delete a local workspace | None | `workspace_id`<br/>`delete_remote`<br/>`delete_branches` | Deletion confirmation |
-| `link_workspace_issue` | Link a workspace to a remote issue | `workspace_id`<br/>`issue_id` | None | Link confirmation |
+| `list_workspaces` | 列出本地工作区 | 无 | `archived`<br/>`pinned`<br/>`branch`<br/>`name_search`<br/>`limit`<br/>`offset` | 分页的工作区列表 |
+| `update_workspace` | 更新工作区属性 | 无 | `workspace_id`<br/>`archived`<br/>`pinned`<br/>`name` | 更新后的工作区详情 |
+| `delete_workspace` | 删除本地工作区 | 无 | `workspace_id`<br/>`delete_remote`<br/>`delete_branches` | 删除确认 |
+| `link_workspace_issue` | 将工作区关联到远程议题 | `workspace_id`<br/>`issue_id` | 无 | 关联确认 |
 
-### Workspace Sessions
+### 工作区会话
 
-| Tool | Purpose | Required Parameters | Optional Parameters | Returns |
+| 工具 | 用途 | 必需参数 | 可选参数 | 返回值 |
 |------|---------|-------------------|-------------------|---------|
-| `start_workspace` | Create a workspace and start its first coding-agent session | `name`<br/>`executor`<br/>`repositories` | `prompt`<br/>`variant`<br/>`issue_id` | Workspace ID |
-| `create_session` | Create a session in an existing workspace | None | `workspace_id`<br/>`executor` | Session summary |
-| `list_sessions` | List sessions for a workspace | None | `workspace_id` | Session list |
-| `run_session_prompt` | Run a coding-agent prompt inside an existing session | `session_id`<br/>`prompt` | None | Execution details |
-| `get_execution` | Inspect execution status and final message | `execution_id` | None | Execution details |
+| `start_workspace` | 创建工作区并启动其第一个编程智能体会话 | `name`<br/>`executor`<br/>`repositories` | `prompt`<br/>`variant`<br/>`issue_id` | 工作区 ID |
+| `create_session` | 在现有工作区中创建会话 | 无 | `workspace_id`<br/>`executor` | 会话摘要 |
+| `list_sessions` | 列出工作区的会话 | 无 | `workspace_id` | 会话列表 |
+| `run_session_prompt` | 在现有会话中运行编程智能体提示 | `session_id`<br/>`prompt` | 无 | 执行详情 |
+| `get_execution` | 检查执行状态和最终消息 | `execution_id` | 无 | 执行详情 |
 
-The `repositories` parameter is an array of objects with:
-- `repo_id`: The repository ID (UUID)
-- `branch`: The branch for this repository
+`repositories` 参数是一个对象数组，包含：
+- `repo_id`：仓库 ID（UUID）
+- `branch`：此仓库的分支
 
-When `issue_id` is provided, the workspace is automatically linked to the remote issue. If `prompt` is omitted, the linked issue's title and description are used as the workspace prompt.
+当提供 `issue_id` 时，工作区会自动关联到远程议题。如果省略 `prompt`，则使用关联议题的标题和描述作为工作区提示。
 
-### Supported Executors
+### 支持的执行器
 
-When using `start_workspace`, the following executors are supported (case-insensitive, accepts hyphens or underscores):
+使用 `start_workspace` 时，支持以下执行器（不区分大小写，接受连字符或下划线）：
 
 - `claude-code` / `CLAUDE_CODE`
 - `amp` / `AMP`
@@ -169,18 +169,18 @@ When using `start_workspace`, the following executors are supported (case-insens
 - `copilot` / `COPILOT`
 - `droid` / `DROID`
 
-## Using the MCP Server
+## 使用 MCP 服务器
 
-Once you have the MCP server configured, you can leverage it to streamline your project planning and execution workflow:
+配置好 MCP 服务器后，你可以利用它来简化项目规划和执行工作流：
 
-1. **Plan Your Work**: Describe a large feature or project to your MCP client
-2. **Request Issue Creation**: At the end of your description, simply add "then turn this plan into issues"
-3. **Automatic Issue Generation**: Your MCP client will use the Vibe Kanban MCP server to automatically create structured issues in your project
-4. **Start Workspaces**: Use `start_workspace` to programmatically begin work on issues with specific coding agents
+1. **规划工作**：向你的 MCP 客户端描述一个大型功能或项目
+2. **请求创建议题**：在描述的最后，添加"然后将此计划转为议题"
+3. **自动生成议题**：你的 MCP 客户端将使用 Vibe Kanban MCP 服务器自动在项目中创建结构化的议题
+4. **启动工作区**：使用 `start_workspace` 以编程方式开始使用特定编程智能体处理议题
 
-## Example Usage
+## 使用示例
 
-### Planning and Issue Creation
+### 规划和创建议题
 
 ```
 I need to build a user authentication system with the following features:
@@ -193,17 +193,17 @@ I need to build a user authentication system with the following features:
 Then turn this plan into issues.
 ```
 
-Your MCP client will use the `create_issue` tool to break this down into individual issues and add them to your Vibe Kanban project automatically.
+你的 MCP 客户端将使用 `create_issue` 工具将其分解为单独的议题，并自动添加到你的 Vibe Kanban 项目中。
 
-### Starting a Workspace Session
+### 启动工作区会话
 
-After issues are created, you can start work on them programmatically:
+创建议题后，你可以以编程方式开始处理它们：
 
 ```
 Start working on the user registration issue using Claude Code on the main branch.
 ```
 
-Your MCP client will use the `start_workspace` tool with parameters like:
+你的 MCP 客户端将使用 `start_workspace` 工具，参数如下：
 ```json
 {
   "name": "User registration with email validation",
@@ -218,9 +218,9 @@ Your MCP client will use the `start_workspace` tool with parameters like:
 }
 ```
 
-This creates a new workspace, links it to the issue, generates a feature branch, and starts the coding agent in an isolated environment.
+这将创建一个新的工作区，将其关联到议题，生成功能分支，并在隔离环境中启动编程智能体。
 
-### Complete Workflow Example
+### 完整工作流示例
 
 ```
 1. List organisations to find the organisation ID
@@ -231,45 +231,45 @@ This creates a new workspace, links it to the issue, generates a feature branch,
 6. Start a workspace session for the issue using Amp on the develop branch
 ```
 
-Each step uses the appropriate MCP tool (`list_organizations`, `list_projects`, `list_issues`, `create_issue`, `assign_issue`, `start_workspace`) to manage the complete workflow from planning to execution.
+每一步都使用相应的 MCP 工具（`list_organizations`、`list_projects`、`list_issues`、`create_issue`、`assign_issue`、`start_workspace`）来管理从规划到执行的完整工作流。
 
-### Internal Coding Agents (Within Vibe Kanban)
+### 内部编程智能体（在 Vibe Kanban 内）
 
-A powerful workflow involves using coding agents within Vibe Kanban that are also connected to the Vibe Kanban MCP server:
+一种强大的工作流是在 Vibe Kanban 内使用同时连接到 Vibe Kanban MCP 服务器的编程智能体：
 
-1. **Create a Planning Issue**: Create an issue with a custom agent profile configured with a planning prompt. See [Agent Configurations](/settings/agent-configurations) for details on creating custom profiles.
-2. **Explore and Plan**: The coding agent explores the codebase and develops a comprehensive plan
-3. **Generate Issues**: Ask the coding agent to "create a series of individual issues for this plan"
-4. **Automatic Population**: The agent uses the MCP server to populate individual issues directly in the Vibe Kanban interface
+1. **创建规划议题**：创建一个议题，并配置一个带有规划提示的自定义智能体配置文件。有关创建自定义配置文件的详情，请参阅[智能体配置](/settings/agent-configurations)。
+2. **探索和规划**：编程智能体探索代码库并制定全面的计划
+3. **生成议题**：要求编程智能体"为此计划创建一系列单独的议题"
+4. **自动填充**：智能体使用 MCP 服务器直接在 Vibe Kanban 界面中填充单独的议题
 
-This creates a seamless workflow where high-level planning automatically generates actionable issues in your project board.
+这创建了一个无缝的工作流，高级规划会自动在项目看板中生成可操作的议题。
 
-## Installation Instructions for MCP Clients
+## MCP 客户端安装说明
 
-### Raycast Example
+### Raycast 示例
 
-Raycast is a popular MCP client that can connect to Vibe Kanban's MCP server. Here's how to configure it:
+Raycast 是一个流行的 MCP 客户端，可以连接到 Vibe Kanban 的 MCP 服务器。以下是配置方法：
 
-For complete Raycast MCP configuration details, see the [official Raycast MCP documentation](https://manual.raycast.com/model-context-protocol).
+有关完整的 Raycast MCP 配置详情，请参阅 [Raycast MCP 官方文档](https://manual.raycast.com/model-context-protocol)。
 
 <Tabs>
-<Tab title="Step 1: Open MCP Server Installer">
+<Tab title="步骤 1：打开 MCP 服务器安装器">
 <Frame>
-<img src="/images/vk-raycast-mcp-part-1.png" alt="Raycast MCP configuration - adding Vibe Kanban server" />
+<img src="/images/vk-raycast-mcp-part-1.png" alt="Raycast MCP 配置 - 添加 Vibe Kanban 服务器" />
 </Frame>
 
-Configure the Vibe Kanban MCP server in Raycast by adding the server details.
+通过添加服务器详情，在 Raycast 中配置 Vibe Kanban MCP 服务器。
 </Tab>
 
-<Tab title="Step 2: Supply Command">
+<Tab title="步骤 2：提供命令">
 <Frame>
-<img src="/images/vk-raycast-mcp-part-2.png" alt="Raycast MCP configuration - server successfully added" />
+<img src="/images/vk-raycast-mcp-part-2.png" alt="Raycast MCP 配置 - 服务器添加成功" />
 </Frame>
 
-Once configured, you'll see the Vibe Kanban MCP server listed and ready to use in Raycast.
+配置完成后，你将看到 Vibe Kanban MCP 服务器已列出并可以在 Raycast 中使用。
 </Tab>
 </Tabs>
 
 <Note>
-Similar configuration steps apply to other MCP clients like Claude Desktop, VS Code with MCP extensions, or any custom MCP client implementations.
+其他 MCP 客户端（如 Claude Desktop、带有 MCP 扩展的 VS Code 或任何自定义 MCP 客户端实现）的配置步骤类似。
 </Note>

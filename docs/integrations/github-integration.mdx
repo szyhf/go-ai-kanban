@@ -1,40 +1,40 @@
 ---
-title: "GitHub Integration"
-description: "Connect to GitHub to create pull requests and manage your workflow directly from Vibe Kanban"
+title: "GitHub 集成"
+description: "连接 GitHub，直接从 Vibe Kanban 创建 Pull Request 并管理工作流"
 ---
 
-Vibe Kanban integrates with GitHub to let you create pull requests directly from your task attempts. This integration relies on the [GitHub CLI (`gh`)](https://cli.github.com/) being installed and authenticated on your system.
+Vibe Kanban 与 GitHub 集成，让你可以直接从任务尝试中创建 Pull Request。此集成依赖于系统上已安装并完成身份验证的 [GitHub CLI (`gh`)](https://cli.github.com/)。
 
-## Setup
+## 设置
 
-There is no need to configure GitHub in the Vibe Kanban settings manually. The integration is designed to work out-of-the-box if you have the GitHub CLI installed.
+无需在 Vibe Kanban 设置中手动配置 GitHub。只要你安装了 GitHub CLI，集成即可开箱即用。
 
-### Automatic Setup
-When you attempt to create your first Pull Request, Vibe Kanban will check if the GitHub CLI is available. If it's not found or not authenticated, you will be guided through the setup process:
+### 自动设置
+当你首次尝试创建 Pull Request 时，Vibe Kanban 会检查 GitHub CLI 是否可用。如果未找到或未完成身份验证，系统将引导你完成设置过程：
 
-1.  **On macOS**: You will see a dialog offering to install the GitHub CLI via Homebrew automatically.
-2.  **On Windows/Linux**: You will be provided with instructions to install the CLI manually.
+1.  **在 macOS 上**：你将看到一个对话框，提供通过 Homebrew 自动安装 GitHub CLI 的选项。
+2.  **在 Windows/Linux 上**：系统将提供手动安装 CLI 的说明。
 
-### Manual Setup
-You can also set up the integration manually in your terminal before using Vibe Kanban:
+### 手动设置
+你也可以在使用 Vibe Kanban 之前在终端中手动设置集成：
 
-1.  **Install GitHub CLI**: Follow the [official installation instructions](https://github.com/cli/cli#installation) for your operating system.
-2.  **Authenticate**: Run the following command in your terminal and follow the prompts:
+1.  **安装 GitHub CLI**：按照适用于你操作系统的[官方安装说明](https://github.com/cli/cli#installation)进行操作。
+2.  **身份验证**：在终端中运行以下命令并按照提示操作：
     ```bash
     gh auth login
     ```
-    Select **GitHub.com**, choose **HTTPS** or **SSH** as your preferred protocol, and complete the login via the web browser.
+    选择 **GitHub.com**，选择 **HTTPS** 或 **SSH** 作为首选协议，并通过网页浏览器完成登录。
 
-## Creating a Pull Request
+## 创建 Pull Request
 
-Once the GitHub CLI is ready, you can create pull requests directly from a task:
+GitHub CLI 准备就绪后，你可以直接从任务中创建 Pull Request：
 
-1.  Open a task that has changes you want to merge.
-2.  Click the **Create PR** button.
-3.  A dialog will appear pre-filled with:
-    *   **Title**: Derived from the task title.
-    *   **Description**: Derived from the task description.
-    *   **Base Branch**: The target branch for your changes (defaults to the repository's default branch or the one specified in the attempt).
-4.  Click **Create** to open the PR on GitHub.
+1.  打开一个包含你要合并更改的任务。
+2.  点击 **Create PR** 按钮。
+3.  将出现一个对话框，预填充以下内容：
+    *   **标题**：从任务标题派生。
+    *   **描述**：从任务描述派生。
+    *   **目标分支**：更改的目标分支（默认为仓库的默认分支或尝试中指定的分支）。
+4.  点击 **Create** 在 GitHub 上创建 PR。
 
-If the operation is successful, the task status will update, and a link to the new Pull Request will be available.
+如果操作成功，任务状态将更新，并提供新 Pull Request 的链接。

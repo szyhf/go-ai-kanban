@@ -1,85 +1,85 @@
 ---
-title: "Getting Started with Cloud"
-description: "Sign in and start collaborating with your team"
-sidebarTitle: "Getting Started"
+title: "Cloud 入门指南"
+description: "登录并开始与你的团队协作"
+sidebarTitle: "入门指南"
 ---
 
-Vibe Kanban Cloud lets you collaborate with your team in real-time. Your data syncs to the cloud, so everyone sees the same projects, issues, and updates.
+Vibe Kanban Cloud 让你与团队实时协作。你的数据同步到云端，每个人都能看到相同的项目、事项和更新。
 
 <Info>
-**Already using Vibe Kanban locally?** Cloud uses the same interface you're familiar with. The difference is your data syncs to the cloud and you can invite team members.
+**已经在使用本地版 Vibe Kanban？** Cloud 使用你熟悉的相同界面。区别在于你的数据会同步到云端，并且你可以邀请团队成员。
 </Info>
 
-## Step 1: Launch Vibe Kanban
+## 第 1 步：启动 Vibe Kanban
 
-If you haven't already, start Vibe Kanban:
+如果你还没有启动，运行以下命令：
 
 ```bash
 npx vibe-kanban
 ```
 
-The application opens in your browser at `http://localhost:...`.
+应用将在浏览器中打开，地址为 `http://localhost:...`。
 
-## Step 2: Sign In
+## 第 2 步：登录
 
-To access Cloud features, you need to sign in.
+要使用 Cloud 功能，你需要先登录。
 
 <Steps>
-<Step title="Click Login">
-  Click the **Login** button in the sidebar or when prompted.
+<Step title="点击登录">
+  点击侧边栏中的 **Login** 按钮或在出现提示时点击。
 </Step>
 
-<Step title="Choose a sign-in method">
-  Select how you want to sign in:
-  - **Sign in with GitHub** - Use your GitHub account
-  - **Sign in with Google** - Use your Google account
+<Step title="选择登录方式">
+  选择你想要的登录方式：
+  - **Sign in with GitHub** - 使用你的 GitHub 账户
+  - **Sign in with Google** - 使用你的 Google 账户
 
   <Frame>
     <img src="/images/cloud/sign-in-dialog.png" alt="Sign in dialog with GitHub and Google options" />
   </Frame>
 </Step>
 
-<Step title="Authorise the application">
-  You'll be redirected to GitHub or Google. Sign in if needed, then click **Authorize** or **Allow** to grant Vibe Kanban access.
+<Step title="授权应用">
+  你将被重定向到 GitHub 或 Google。如需请先登录，然后点击 **Authorize** 或 **Allow** 授予 Vibe Kanban 访问权限。
 
   <Info>
-  Vibe Kanban only requests access to your basic profile (name, email, avatar). It cannot access your private repositories or post on your behalf.
+  Vibe Kanban 仅请求访问你的基本资料（姓名、邮箱、头像）。它无法访问你的私有仓库或以你的名义发布内容。
   </Info>
 </Step>
 
-<Step title="Return to Vibe Kanban">
-  After authorising, you're automatically redirected back and signed in.
+<Step title="返回 Vibe Kanban">
+  授权完成后，你将自动跳转回 Vibe Kanban 并完成登录。
 </Step>
 </Steps>
 
-## Step 3: Your Personal Organisation
+## 第 3 步：你的个人组织
 
-When you sign in for the first time, a **personal organisation** is automatically created for you, along with an **Initial Project** to get you started. This is your private workspace.
+首次登录时，系统会自动为你创建一个**个人组织**，以及一个**初始项目**帮助你开始。这是你的私有工作空间。
 
 <Info>
-Personal organisations are just for you - you cannot invite other members. To collaborate with a team, create a new organisation (see Step 5).
+个人组织仅供你个人使用——你无法邀请其他成员。要与团队协作，请创建新组织（参见第 5 步）。
 </Info>
 
-## Step 4: Create Your First Project
+## 第 4 步：创建你的第一个项目
 
-Now create a project to organise your work.
+现在创建一个项目来组织你的工作。
 
 <Steps>
-<Step title="Click New Project">
-  Click the **+ New Project** button in the sidebar.
+<Step title="点击新建项目">
+  点击侧边栏中的 **+ New Project** 按钮。
 </Step>
 
-<Step title="Enter project details">
-  - **Name** - What you're working on (e.g., "Mobile App", "Website Redesign")
-  - **Colour** - Pick a colour to identify the project
+<Step title="输入项目详情">
+  - **Name** - 你的工作内容（例如"Mobile App"、"Website Redesign"）
+  - **Colour** - 选择一个颜色来标识项目
 
   <Frame>
     <img style={{maxHeight: "300px"}} src="/images/cloud/create-project-dialog.png" alt="Create Project dialog with name and colour fields" />
   </Frame>
 </Step>
 
-<Step title="Click Create">
-  Your project is created with a kanban board ready to use.
+<Step title="点击创建">
+  你的项目已创建，看板已准备就绪。
 
   <Frame>
     <img src="/images/cloud/project-kanban-board.png" alt="Project kanban board with default columns" />
@@ -87,17 +87,17 @@ Now create a project to organise your work.
 </Step>
 </Steps>
 
-## Step 5: Invite Team Members (Optional)
+## 第 5 步：邀请团队成员（可选）
 
-Create a team organisation to collaborate with others, then invite as many members as you need. Team organisations and member invites are free, but new paid subscriptions are closed.
+创建团队组织来与他人协作，然后邀请你需要的成员。团队组织和成员邀请免费，但新的付费订阅已关闭。
 
 <Steps>
-<Step title="Invite team members">
-  Open Organisation Settings (click the gear icon next to your org name), then:
-  - Click **Invite Member**
-  - Enter your teammate's email address
-  - Select their role (**Member** or **Admin**)
-  - Click **Send Invitation**
+<Step title="邀请团队成员">
+  打开组织设置（点击组织名称旁边的齿轮图标），然后：
+  - 点击 **Invite Member**
+  - 输入队友的邮箱地址
+  - 选择角色（**Member** 或 **Admin**）
+  - 点击 **Send Invitation**
 
   <Frame>
     <img style={{maxHeight: "300px"}} src="/images/cloud/invite-member-dialog.png" alt="Invite Member dialog" />
@@ -105,83 +105,83 @@ Create a team organisation to collaborate with others, then invite as many membe
 </Step>
 </Steps>
 
-They'll receive an email with a link to join your organisation.
+他们将收到包含加入链接的邮件。
 
-## You're Ready!
+## 准备就绪！
 
-You now have:
-- ✅ A Cloud account
-- ✅ An organisation for your team
-- ✅ A project with a kanban board
+你现在拥有：
+- ✅ 一个 Cloud 账户
+- ✅ 一个团队组织
+- ✅ 一个带有看板的项目
 
-**Next steps:**
-- [Create issues](/cloud/issues) to track your work
-- [Learn the kanban board](/cloud/kanban-board) to manage tasks
-- [Customise your board](/cloud/customisation) with columns and tags
-- [Invite more team members](/cloud/team-members) to collaborate
+**下一步：**
+- [创建事项](/cloud/issues)来跟踪你的工作
+- [了解看板](/cloud/kanban-board)来管理任务
+- [自定义看板](/cloud/customisation)配置列和标签
+- [邀请更多团队成员](/cloud/team-members)来协作
 
-## Signing Out
+## 退出登录
 
-To sign out:
-1. Click your **profile icon** in the bottom of the left sidebar
-2. Click **Sign out**
+退出登录的步骤：
+1. 点击左侧边栏底部的**头像图标**
+2. 点击 **Sign out**
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/user-menu.png" alt="User menu showing Sign out option" />
 </Frame>
 
-Your data remains safe in the cloud. Sign in again anytime to continue where you left off.
+你的数据安全地保存在云端。随时可以重新登录继续工作。
 
-## Switching Between Local and Cloud
+## 在本地和 Cloud 之间切换
 
-You can use both local projects and Cloud projects:
+你可以同时使用本地项目和 Cloud 项目：
 
-| Local Projects | Cloud Projects |
+| 本地项目 | Cloud 项目 |
 |----------------|----------------|
-| Data stored on your machine | Data synced to cloud |
-| Only you can access | Team members can collaborate |
-| No sign-in required | Requires sign-in |
-| Works offline | Requires internet connection |
+| 数据存储在你的电脑上 | 数据同步到云端 |
+| 仅你个人可访问 | 团队成员可协作 |
+| 无需登录 | 需要登录 |
+| 可离线使用 | 需要网络连接 |
 
-Both appear in the same Vibe Kanban interface. Local projects show in one section, Cloud projects in another.
+两者都在同一个 Vibe Kanban 界面中显示。本地项目显示在一个区域，Cloud 项目显示在另一个区域。
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="I can't sign in">
-**Possible causes:**
-- Pop-up blocker preventing the OAuth window
-- Network connectivity issues
+<Accordion title="无法登录">
+**可能的原因：**
+- 弹出窗口拦截器阻止了 OAuth 窗口
+- 网络连接问题
 
-**Solutions:**
-1. Disable pop-up blocker for localhost
-2. Check your internet connection
-3. Try a different browser
+**解决方案：**
+1. 为 localhost 禁用弹出窗口拦截器
+2. 检查网络连接
+3. 尝试使用其他浏览器
 </Accordion>
 
-<Accordion title="I don't see Cloud features">
-**Possible causes:**
-- You're not signed in
+<Accordion title="看不到 Cloud 功能">
+**可能的原因：**
+- 你尚未登录
 
-**Solutions:**
-1. Click **Login** in the sidebar
-2. Complete the sign-in process
+**解决方案：**
+1. 点击侧边栏中的 **Login**
+2. 完成登录流程
 </Accordion>
 
-<Accordion title="My teammate can't see our projects">
-**Possible causes:**
-- They haven't accepted the invitation
-- They signed in with a different email
+<Accordion title="我的队友看不到我们的项目">
+**可能的原因：**
+- 他们尚未接受邀请
+- 他们使用了不同的邮箱登录
 
-**Solutions:**
-1. Check if the invitation is still pending in your Members settings
-2. Resend the invitation
-3. Verify they're using the email address you invited
+**解决方案：**
+1. 在成员设置中检查邀请是否仍在待处理状态
+2. 重新发送邀请
+3. 确认他们使用的是你邀请的邮箱地址
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Authentication](/cloud/authentication) - More about signing in and sessions
-- [Organisations](/cloud/organizations) - Managing your organisation
-- [Team Members](/cloud/team-members) - Inviting and managing collaborators
+- [身份认证](/cloud/authentication) - 关于登录和会话的更多信息
+- [组织](/cloud/organizations) - 管理你的组织
+- [团队成员](/cloud/team-members) - 邀请和管理协作者

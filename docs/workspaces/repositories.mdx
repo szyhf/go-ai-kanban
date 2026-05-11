@@ -1,201 +1,201 @@
 ---
-title: "Repositories"
-description: "Add and manage repositories within your workspaces"
+title: "仓库"
+description: "在你的工作空间中添加和管理仓库"
 ---
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="Repository selection showing selected repo with branch dropdown and list of available repositories" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-add-repo.png" alt="仓库选择显示已选仓库和分支下拉菜单以及可用仓库列表" />
 </Frame>
 
-Repositories are the codebases you work with inside a workspace. Each workspace can include one or more repositories, and each repository maintains its own independent git state.
+仓库是你在工作空间中使用的代码库。每个工作空间可以包含一个或多个仓库，每个仓库维护自己独立的 Git 状态。
 
-## How Repositories Work in Workspaces
+## 工作空间中仓库的工作方式
 
-When you add a repository to a workspace, Vibe Kanban creates a **git worktree** - a separate working directory linked to your repository.
+当你向工作空间添加仓库时，Vibe Kanban 会创建一个 **Git worktree** - 一个与你的仓库关联的独立工作目录。
 
 <AccordionGroup>
-<Accordion title="What is a git worktree?">
-A **git worktree** is a git feature that lets you have multiple working directories for the same repository, each on a different branch.
+<Accordion title="什么是 Git worktree？">
+**Git worktree** 是 Git 的一项功能，允许你为同一个仓库拥有多个工作目录，每个目录在不同的分支上。
 
-**Why this matters for you:**
-- Your original repository folder stays exactly as it was
-- The workspace gets its own folder with its own branch
-- You can have multiple workspaces working on different features simultaneously
-- Switching between workspaces doesn't require stashing or committing
+**这对你有什么好处：**
+- 你的原始仓库文件夹保持原样不变
+- 工作空间获得自己的文件夹和自己的分支
+- 你可以在不同的工作空间中同时处理不同的功能
+- 在工作空间之间切换不需要暂存或提交变更
 
-**Where worktrees are stored:** In the `.vibe-kanban-workspaces` directory (configurable in Settings).
+**Worktree 存储位置：** 在 `.vibe-kanban-workspaces` 目录中（可在设置中配置）。
 </Accordion>
 
-<Accordion title="What is 'independent git state'?">
-Each repository in a workspace has its own:
+<Accordion title="什么是"独立的 Git 状态"？">
+工作空间中的每个仓库都有自己的：
 
-- **Working branch** - The branch where changes are made
-- **Target branch** - The branch you'll merge into
-- **Commit history** - Commits made in this workspace
-- **Staged/unstaged changes** - Independent of other workspaces
+- **工作分支** - 进行变更的分支
+- **目标分支** - 你要合并到的分支
+- **提交历史** - 在此工作空间中进行的提交
+- **已暂存/未暂存的变更** - 与其他工作空间独立
 
-This means you can have multiple workspaces modifying the same repository on different branches without conflicts.
+这意味着你可以在不同的分支上对同一仓库拥有多个工作空间而不会冲突。
 </Accordion>
 </AccordionGroup>
 
-## Adding Repositories
+## 添加仓库
 
-When creating or editing a workspace, you can add repositories from several sources:
+创建或编辑工作空间时，你可以从多个来源添加仓库：
 
-### Recent Repositories
-
-<Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-recent-repos.png" alt="Recent repositories list showing previously used repos" />
-</Frame>
-
-Your recently used repositories appear at the top of the list. Click any repository to add it to the workspace.
-
-### Browse Repos on Disk
+### 最近仓库
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-browse-repos.png" alt="Select Git Repository dialog with file browser and path input" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-recent-repos.png" alt="最近仓库列表显示之前使用过的仓库" />
 </Frame>
 
-Click **Browse repos on disk** to find repositories that aren't in your recent list. You can:
+你最近使用过的仓库会出现在列表顶部。点击任何仓库将其添加到工作空间。
 
-- **Enter path manually** - Type the full path and click **Go**
-- **Search current directory** - Filter folders by name
-- **Navigate folders** - Click folder names to browse, use home and up buttons
-- **Select Current** - Use the current directory as the repository
-
-Folders containing git repositories are marked with a **git repo** badge.
-
-### Create New Repo on Disk
+### 浏览磁盘上的仓库
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-create-repo.png" alt="Create New Repository dialog with name and location fields" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-browse-repos.png" alt="选择 Git 仓库对话框包含文件浏览器和路径输入" />
 </Frame>
 
-Click **Create new repo on disk** to initialise a new git repository:
+点击**浏览磁盘上的仓库**来查找不在最近列表中的仓库。你可以：
 
-1. Enter a **Name** for the repository
-2. Choose a **Location** on disk (click the folder icon to browse)
-3. Click **Create Repository**
+- **手动输入路径** - 输入完整路径并点击**前往**
+- **搜索当前目录** - 按名称筛选文件夹
+- **浏览文件夹** - 点击文件夹名称导航，使用主目录和上级按钮
+- **选择当前** - 使用当前目录作为仓库
 
-This creates a new folder with an initialised git repository, ready for use in your workspace.
+包含 Git 仓库的文件夹会标有 **git repo** 徽章。
 
-## Target Branches
+### 在磁盘上创建新仓库
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-target-branch.png" alt="Branch dropdown showing search and list of available branches" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-create-repo.png" alt="创建新仓库对话框包含名称和位置字段" />
 </Frame>
 
-Each repository in a workspace has a **target branch** - the branch your changes will eventually be merged into (typically `main`, `master`, or `develop`).
+点击**在磁盘上创建新仓库**来初始化一个新的 Git 仓库：
 
-### Setting the Target Branch
+1. 输入仓库的**名称**
+2. 在磁盘上选择**位置**（点击文件夹图标浏览）
+3. 点击**创建仓库**
 
-1. Click the branch dropdown next to the repository name
-2. Search or scroll to find the branch you want to target
-3. Select the branch - the workspace creates a working branch based on this target
+这会创建一个包含已初始化 Git 仓库的新文件夹，可以在你的工作空间中使用。
 
-The dropdown shows:
-- **Current** badge - indicates your current branch
-- **Local branches** - branches on your machine
-- **Remote branches** - branches from origin (e.g., `origin/main`)
+## 目标分支
+
+<Frame>
+<img style={{maxHeight: "350px"}} src="/images/workspaces-target-branch.png" alt="分支下拉菜单显示搜索和可用分支列表" />
+</Frame>
+
+工作空间中的每个仓库都有一个**目标分支** - 你的变更最终要合并到的分支（通常是 `main`、`master` 或 `develop`）。
+
+### 设置目标分支
+
+1. 点击仓库名称旁边的分支下拉菜单
+2. 搜索或滚动找到你想要作为目标的分支
+3. 选择分支 - 工作空间基于此目标创建工作分支
+
+下拉菜单显示：
+- **当前**徽章 - 表示你当前的分支
+- **本地分支** - 你机器上的分支
+- **远程分支** - 来自 origin 的分支（例如 `origin/main`）
 
 <Info>
-Changes you make won't affect the target branch until you create a pull request and merge.
+你做的变更在创建 Pull Request 并合并之前不会影响目标分支。
 </Info>
 
-### Changing the Target Branch
+### 更改目标分支
 
-To change the target branch after workspace creation:
+要在工作空间创建后更改目标分支：
 
-**From the Git panel:**
-1. Click the target branch dropdown (e.g., **main**) in the Git section of the right sidebar
-2. Select a new target branch
+**从 Git 面板：**
+1. 点击右侧边栏 Git 部分中的目标分支下拉菜单（例如 **main**）
+2. 选择新的目标分支
 
-**From the command bar:**
-1. Press `Cmd/Ctrl + K`
-2. Select **Change Target Branch**
-3. Choose the new target branch
+**从命令栏：**
+1. 按 `Cmd/Ctrl + K`
+2. 选择**更改目标分支**
+3. 选择新的目标分支
 
 <Warning>
-Changing the target branch may require rebasing your changes. See [Git Operations](/workspaces/git-operations) if conflicts occur.
+更改目标分支可能需要变基你的变更。如果发生冲突，请参阅 [Git 操作](/workspaces/git-operations)。
 </Warning>
 
-## Working Branch
+## 工作分支
 
-When you create a workspace, a **working branch** is automatically created for each repository. This is where your changes are made.
+创建工作空间时，会为每个仓库自动创建一个**工作分支**。这是你进行变更的地方。
 
-The working branch name is based on your task and branch prefix settings (configured in [General Settings](/settings/general)).
+工作分支名称基于你的任务和分支前缀设置（在[通用设置](/settings/general)中配置）。
 
-### Viewing the Working Branch
+### 查看工作分支
 
-The current working branch is displayed in the **Git** section of the details sidebar, under "Working Branch".
+当前工作分支显示在详情侧边栏的 **Git** 部分中，位于"工作分支"下。
 
-## Multi-Repository Workspaces
+## 多仓库工作空间
 
 <Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-multi-repo.png" alt="Workspace with multiple repositories showing independent git state for each" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-multi-repo.png" alt="包含多个仓库的工作空间显示每个仓库的独立 Git 状态" />
 </Frame>
 
-Workspaces can include multiple repositories for tasks that span several codebases.
+工作空间可以包含多个仓库，用于涉及多个代码库的任务。
 
-### When to Use Multiple Repositories
+### 何时使用多个仓库
 
-- **Monorepo alternatives** - Work across frontend and backend repos simultaneously
-- **Shared libraries** - Update a library and its consumers together
-- **Microservices** - Coordinate changes across multiple services
+- **单体仓库替代方案** - 同时跨前端和后端仓库工作
+- **共享库** - 同时更新库及其使用者
+- **微服务** - 协调跨多个服务的变更
 
-### Independent Git State
+### 独立的 Git 状态
 
-Each repository in a multi-repo workspace maintains independent git state:
+多仓库工作空间中的每个仓库维护独立的 Git 状态：
 
-- Separate working branches
-- Separate target branches
-- Individual commit histories
-- Independent pull requests
+- 独立的工作分支
+- 独立的目标分支
+- 各自的提交历史
+- 独立的 Pull Request
 
-### Cross-Repository Context
+### 跨仓库上下文
 
-When working with multiple repositories, the agent can:
+使用多个仓库时，Agent 可以：
 
-- Read code from all repositories
-- Make changes across repositories in a single session
-- Reference patterns from one repo while implementing in another
+- 从所有仓库读取代码
+- 在单个会话中跨仓库进行变更
+- 在一个仓库中引用模式的同时在另一个仓库中实现
 
 <Tip>
-Use clear task descriptions that specify which repositories should be modified to help the agent understand your intent.
+使用清晰的任务描述，明确指定应该修改哪些仓库，以帮助 Agent 理解你的意图。
 </Tip>
 
-## Repository Actions
+## 仓库操作
 
-Access repository-specific actions through the command bar:
+通过命令栏访问特定仓库的操作：
 
-| Action | Description |
-|--------|-------------|
-| **Copy Repo Path** | Copy the repository's local path to clipboard |
-| **Open Repo in IDE** | Open the repository in your configured editor |
-| **Repository Settings** | Configure repository-specific settings |
-| **Create PR** | Create a pull request for this repository |
-| **Merge** | Merge the target branch into your working branch |
-| **Rebase** | Rebase your working branch onto the target |
-| **Push** | Push commits to the remote repository |
+| 操作 | 描述 |
+|------|------|
+| **复制仓库路径** | 将仓库的本地路径复制到剪贴板 |
+| **在 IDE 中打开仓库** | 在配置的编辑器中打开仓库 |
+| **仓库设置** | 配置特定仓库的设置 |
+| **创建 PR** | 为此仓库创建 Pull Request |
+| **合并** | 将目标分支合并到你的工作分支 |
+| **变基** | 将你的工作分支变基到目标分支上 |
+| **推送** | 将提交推送到远程仓库 |
 
 <Note>
-For multi-repo workspaces, repository actions show which repo they apply to. Select the specific repository when prompted.
+对于多仓库工作空间，仓库操作会显示它们适用于哪个仓库。在提示时选择特定的仓库。
 </Note>
 
-## Removing Repositories
+## 移除仓库
 
 <Frame>
-<img style={{maxHeight: "250px"}} src="/images/workspaces-remove-repo.png" alt="Repository with X button to remove it from workspace" />
+<img style={{maxHeight: "250px"}} src="/images/workspaces-remove-repo.png" alt="仓库带有 X 按钮可将其从工作空间中移除" />
 </Frame>
 
-To remove a repository from a workspace, click the **X** button next to the repository name.
+要从工作空间中移除仓库，点击仓库名称旁边的 **X** 按钮。
 
 <Warning>
-Removing a repository doesn't delete any code or branches. It only removes the repository from the current workspace.
+移除仓库不会删除任何代码或分支。它只会从当前工作空间中移除该仓库。
 </Warning>
 
-## Related Documentation
+## 相关文档
 
-- [Creating Workspaces](/workspaces/creating-workspaces) - Setting up new workspaces with repositories
-- [Git Operations](/workspaces/git-operations) - Detailed guide to git commands
-- [Multi-Repo & Sessions](/workspaces/multi-repo-sessions) - Working across multiple repositories
+- [创建工作空间](/workspaces/creating-workspaces) - 使用仓库设置新工作空间
+- [Git 操作](/workspaces/git-operations) - Git 命令详细指南
+- [多仓库与会话](/workspaces/multi-repo-sessions) - 跨多个仓库工作

@@ -1,173 +1,173 @@
 ---
-title: "Projects"
-description: "Create and manage projects to organise your work"
+title: "项目"
+description: "创建和管理项目来组织你的工作"
 ---
 
-Projects are where your work lives. Each project contains a kanban board with issues, statuses, and tags that help you organise and track progress.
+项目是你工作所在的地方。每个项目包含一个带有事项、状态和标签的看板，帮助你组织和跟踪进度。
 
 <Frame>
   <img src="/images/cloud/project-kanban-board.png" alt="Project kanban board showing columns and issues" />
 </Frame>
 
-## What is a Project?
+## 什么是项目？
 
-A **project** is a container for related work within your organisation. Think of it as a dedicated space for a specific initiative, product, or team goal.
+一个**项目**是你组织内相关工作的容器。可以把它看作是针对特定计划、产品或团队目标的专属空间。
 
-Each project has:
-- **Issues** - Individual work items (bugs, features, tasks)
-- **Statuses** - Columns on your kanban board (To Do, In Progress, Done, etc.)
-- **Tags** - Labels for categorising issues
-- **Team access** - All organisation members can view and work on project issues
+每个项目包含：
+- **Issues** - 单项工作（Bug、功能、任务）
+- **Statuses** - 看板上的列（To Do、In Progress、Done 等）
+- **Tags** - 用于分类事项的标签
+- **团队访问** - 所有组织成员都可以查看和处理项目事项
 
-## Project Sidebar
+## 项目侧边栏
 
-The left sidebar provides quick access to your projects and workspaces.
+左侧边栏提供对项目和 workspace 的快速访问。
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/sidebar-workspaces.png" alt="Project sidebar showing Workspaces icon, project icons, and add button" />
 </Frame>
 
-### Sidebar Elements
+### 侧边栏元素
 
-| Element | Description |
+| 元素 | 说明 |
 |---------|-------------|
-| **Workspaces icon** | Top icon - opens the Workspaces view for coding agents |
-| **Project icons** | Square buttons showing project abbreviations (e.g., "VI" for vibe-kanban) |
-| **+ button** | Create a new project |
+| **Workspaces 图标** | 顶部图标 - 打开 Workspaces 视图，用于编码代理 |
+| **项目图标** | 显示项目缩写的方形按钮（例如"VI"代表 vibe-kanban） |
+| **+ 按钮** | 创建新项目 |
 
-### Project Icons
+### 项目图标
 
-Each project appears as a square button with a two-letter abbreviation of the project name. The currently selected project is highlighted.
+每个项目显示为带有项目名称两个字母缩写的方形按钮。当前选中的项目会高亮显示。
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/sidebar-project-tooltip.png" alt="Hovering over project icon shows full project name" />
 </Frame>
 
-Hover over any project icon to see the full project name in a tooltip.
+将鼠标悬停在任意项目图标上可以看到完整项目名称的提示框。
 
-## Creating a Project
+## 创建项目
 
 <Steps>
-<Step title="Open your organisation">
-  Sign in and select your organisation from the sidebar or organisation switcher.
+<Step title="打开你的组织">
+  登录并从侧边栏或组织切换器中选择你的组织。
 </Step>
 
-<Step title="Click Create Project">
-  Click the **+ New Project** button in the sidebar or on the projects page.
+<Step title="点击创建项目">
+  点击侧边栏或项目页面中的 **+ New Project** 按钮。
 
 </Step>
 
-<Step title="Enter project details">
-  Fill in the project information:
+<Step title="输入项目详情">
+  填写项目信息：
 
   <Frame>
     <img style={{maxHeight: "300px"}} src="/images/cloud/create-project-dialog.png" alt="Create Project dialog with name and colour fields" />
   </Frame>
 
-  | Field | Description |
+  | 字段 | 说明 |
   |-------|-------------|
-  | **Name** | A clear name for your project (e.g., "Mobile App", "Q1 Marketing") |
-  | **Colour** | Click the colour swatch to choose a colour for this project |
+  | **Name** | 项目的清晰名称（例如"Mobile App"、"Q1 Marketing"） |
+  | **Colour** | 点击色块为此项目选择颜色 |
 </Step>
 
-<Step title="Click Create">
-  Click **Create Project** to create your project. You'll be taken to your new project's kanban board.
+<Step title="点击创建">
+  点击 **Create Project** 创建项目。你将进入新项目的看板。
 </Step>
 </Steps>
 
-## Default Statuses
+## 默认状态
 
-New projects come with six default status columns:
+新项目附带六个默认状态列：
 
-| Status | Purpose | Visible by Default |
+| 状态 | 用途 | 默认可见 |
 |--------|---------|-------------------|
-| **Backlog** | Ideas and future work | Hidden |
-| **To do** | Issues ready to start | ✓ |
-| **In progress** | Issues currently being worked on | ✓ |
-| **In review** | Waiting for code review | ✓ |
-| **Done** | Completed issues | ✓ |
-| **Cancelled** | Issues that won't be done | Hidden |
+| **Backlog** | 想法和未来工作 | 隐藏 |
+| **To do** | 准备开始的事项 | ✓ |
+| **In progress** | 正在进行的事项 | ✓ |
+| **In review** | 等待代码审查 | ✓ |
+| **Done** | 已完成的事项 | ✓ |
+| **Cancelled** | 不会完成的事项 | 隐藏 |
 
 <Info>
-Hidden statuses don't appear as columns on the board, but you can still access issues in them via the status tabs (e.g., "Backlog" or "Cancelled" tabs).
+隐藏状态不会作为列显示在看板上，但你仍然可以通过状态标签页（例如"Backlog"或"Cancelled"标签）访问其中的事项。
 </Info>
 
 <Frame>
   <img src="/images/cloud/project-kanban-board.png" alt="Project kanban board showing columns and issues" />
 </Frame>
 
-You can customise these statuses - rename them, change colours, add new ones, or hide ones you don't use. See [Customising Your Board](/cloud/customisation) for details.
+你可以自定义这些状态——重命名、更改颜色、添加新状态或隐藏不用的。详见[自定义看板](/cloud/customisation)。
 
-## Project Settings
+## 项目设置
 
-Access project settings by clicking the gear icon (<Icon icon="gear" />) next to the project name.
+通过点击项目名称旁边的齿轮图标（<Icon icon="gear" />）访问项目设置。
 
 <Frame>
   <img style={{maxHeight: "250px"}} src="/images/cloud/project-settings-icon.png" alt="Project header showing settings gear icon" />
 </Frame>
 
-### Renaming a Project
+### 重命名项目
 
-1. Open project settings
-2. Edit the **Project name** field
-3. Click **Save**
+1. 打开项目设置
+2. 编辑 **Project name** 字段
+3. 点击 **Save**
 
-### Changing Project Colour
+### 更改项目颜色
 
-1. Open project settings
-2. Click the colour selector
-3. Choose a new colour
-4. Click **Save**
+1. 打开项目设置
+2. 点击颜色选择器
+3. 选择新颜色
+4. 点击 **Save**
 
 <Frame>
   <img style={{maxHeight: "200px"}} src="/images/cloud/edit-project-form.png" alt="Edit project form with name and colour picker" />
 </Frame>
 
-The colour appears in the sidebar and helps you quickly identify projects.
+颜色显示在侧边栏中，帮助你快速识别项目。
 
 <Tip>
-You can also manage projects from **Settings** → **Remote Projects**. See [Remote Projects Settings](/settings/remote-projects) for more details.
+你也可以从 **Settings** → **Remote Projects** 管理项目。详见[远程项目设置](/settings/remote-projects)。
 </Tip>
 
-## Switching Between Projects
+## 在项目之间切换
 
-You have several ways to switch projects:
+你有多种方式切换项目：
 
-**From the sidebar:**
-- Click any project name in the sidebar to open it
+**从侧边栏：**
+- 点击侧边栏中的任意项目名称打开它
 
-**From the project dropdown:**
-- Click the current project name in the header
-- Select a different project from the dropdown
+**从项目下拉菜单：**
+- 点击标题中的当前项目名称
+- 从下拉菜单中选择不同的项目
 
 
-## Deleting a Project
+## 删除项目
 
 <Warning>
-Deleting a project is permanent and cannot be undone. All issues, comments, and data within the project will be deleted.
+删除项目是永久性操作，无法撤销。项目内的所有事项、评论和数据都将被删除。
 </Warning>
 
-To delete a project, go to **Settings** → **Remote Projects**:
+要删除项目，前往 **Settings** → **Remote Projects**：
 
 <Steps>
-<Step title="Open Remote Projects settings">
-  Go to **Settings** and select **Remote Projects** from the sidebar.
+<Step title="打开远程项目设置">
+  前往 **Settings** 并从侧边栏选择 **Remote Projects**。
 </Step>
 
-<Step title="Find the project">
-  Select the organisation and locate the project you want to delete.
+<Step title="找到项目">
+  选择组织并找到你想要删除的项目。
 </Step>
 
-<Step title="Open the menu">
-  Hover over the project and click the **⋯** (three dots) menu.
+<Step title="打开菜单">
+  将鼠标悬停在项目上并点击 **...**（三个点）菜单。
 
   <Frame>
     <img style={{maxHeight: "150px"}} src="/images/cloud/project-menu-button.png" alt="Project row showing three-dots menu button" />
   </Frame>
 </Step>
 
-<Step title="Click Delete">
-  Select **Delete** from the menu and confirm when prompted.
+<Step title="点击删除">
+  从菜单中选择 **Delete** 并在提示时确认。
 
   <Frame>
     <img style={{maxHeight: "150px"}} src="/images/cloud/project-delete-menu.png" alt="Dropdown menu with Delete option" />
@@ -176,34 +176,34 @@ To delete a project, go to **Settings** → **Remote Projects**:
 </Steps>
 
 <Info>
-Before deleting, consider whether you might need any of the issues or their history. There's no way to recover a deleted project.
+删除前，请考虑你是否可能需要任何事项或其历史记录。已删除的项目无法恢复。
 </Info>
 
-For more details on managing projects, see [Remote Projects Settings](/settings/remote-projects).
+有关管理项目的更多详情，请参见[远程项目设置](/settings/remote-projects)。
 
-## Best Practices
+## 最佳实践
 
 <CardGroup cols={2}>
-<Card title="One project per initiative" icon="folder">
-  Create separate projects for distinct initiatives rather than putting everything in one project. This keeps your boards focused and manageable.
+<Card title="每个计划一个项目" icon="folder">
+  为不同的计划创建独立的项目，而不是把所有内容放在一个项目中。这使你的看板保持聚焦和可管理。
 </Card>
 
-<Card title="Use descriptive names" icon="tag">
-  Choose project names that clearly describe what the project is about. "Mobile App v2" is better than "Project A".
+<Card title="使用描述性名称" icon="tag">
+  选择能清晰描述项目内容的项目名称。"Mobile App v2"比"Project A"更好。
 </Card>
 
-<Card title="Consistent status columns" icon="columns">
-  Try to use similar status columns across projects so team members can switch between projects without confusion.
+<Card title="保持状态列一致" icon="columns">
+  尽量在不同项目中使用相似的状态列，这样团队成员在项目之间切换时不会感到困惑。
 </Card>
 
-<Card title="Archive completed work" icon="box-archive">
-  Once issues are done, you can hide the Done column or create an Archive status to keep your board clean.
+<Card title="归档已完成的工作" icon="box-archive">
+  事项完成后，你可以隐藏 Done 列或创建 Archive 状态以保持看板整洁。
 </Card>
 </CardGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Issues](/cloud/issues) - Creating and managing issues
-- [Kanban Board](/cloud/kanban-board) - Using the board interface
-- [Customising Your Board](/cloud/customisation) - Configuring columns and display settings
-- [Remote Projects Settings](/settings/remote-projects) - Managing projects from Settings
+- [事项](/cloud/issues) - 创建和管理事项
+- [看板视图](/cloud/kanban-board) - 使用看板界面
+- [自定义看板](/cloud/customisation) - 配置列和显示设置
+- [远程项目设置](/settings/remote-projects) - 从设置中管理项目

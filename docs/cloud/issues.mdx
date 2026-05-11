@@ -1,379 +1,379 @@
 ---
-title: "Issues"
-description: "Create, edit, and manage issues to track your work"
+title: "事项"
+description: "创建、编辑和管理事项来跟踪你的工作"
 ---
 
-Issues are the individual work items in your project - bugs to fix, features to build, tasks to complete. Each issue lives on your kanban board and can be assigned to team members, tagged, prioritised, and tracked through your workflow.
+事项是你项目中的单项工作——需要修复的 Bug、要开发的功能、要完成的任务。每个事项存在于你的看板上，可以分配给团队成员、打标签、设置优先级，并在工作流程中跟踪。
 
 <Frame>
   <img src="/images/cloud/issue-overview.png" alt="Kanban board with New Issue panel showing issue creation form" />
 </Frame>
 
-## What is an Issue?
+## 什么是事项？
 
-An **issue** represents a single piece of work. It has:
+一个**事项**代表一单项工作。它包含：
 
-- **Title** - A short description of what needs to be done
-- **Description** - Detailed information, requirements, or context
-- **Status** - Which column it's in (To Do, In Progress, Done, etc.)
-- **Priority** - How urgent it is (Urgent, High, Medium, Low)
-- **Assignees** - Who's responsible for the work
-- **Tags** - Labels for categorisation and filtering
-- **Simple ID** - A unique identifier like `TASK-123` for easy reference
+- **Title** - 对需要完成内容的简要描述
+- **Description** - 详细信息、需求或上下文
+- **Status** - 它所在的列（To Do、In Progress、Done 等）
+- **Priority** - 紧急程度（Urgent、High、Medium、Low）
+- **Assignees** - 负责这项工作的人员
+- **Tags** - 用于分类和筛选的标签
+- **Simple ID** - 类似 `TASK-123` 的唯一标识符，方便引用
 
 
-## Creating Issues
+## 创建事项
 
-### From a Column
+### 从列中创建
 
-To create an issue in a specific column:
+要在特定列中创建事项：
 
-1. Click the **+** button at the top of any status column
-2. The New Issue panel opens with that status pre-selected
-3. Fill in the issue details and click **Create Task**
+1. 点击任意状态列顶部的 **+** 按钮
+2. 新事项面板打开，该状态已预选
+3. 填写事项详情并点击 **Create Task**
 
 <Frame>
   <img src="/images/cloud/column-add-button.png" alt="Column header showing the + button to create a new issue" />
 </Frame>
 
-### From the Header
+### 从标题栏创建
 
-To create an issue using the header button:
+使用标题栏按钮创建事项：
 
 <Frame>
   <img src="/images/cloud/header-add-button.png" alt="Header showing the + button next to status tabs for creating a new issue" />
 </Frame>
 
 <Steps>
-<Step title="Open the create panel">
-  Click the **+** button in the header next to the status tabs.
+<Step title="打开创建面板">
+  点击状态标签旁边的 **+** 按钮。
 </Step>
 
-<Step title="Enter the title">
-  Type a clear, descriptive title. The title field is focused automatically.
+<Step title="输入标题">
+  输入一个清晰、描述性的标题。标题字段会自动获取焦点。
 </Step>
 
-<Step title="Set the status">
-  Choose which column the issue should start in.
+<Step title="设置状态">
+  选择事项应该开始的列。
 </Step>
 
-<Step title="Set priority (optional)">
-  Select a priority level (default is no priority):
+<Step title="设置优先级（可选）">
+  选择优先级（默认为无优先级）：
 
-  | Priority | When to Use |
+  | 优先级 | 使用场景 |
   |----------|-------------|
-  | **Urgent** | Needs immediate attention, blocking other work |
-  | **High** | Important, should be done soon |
-  | **Medium** | Normal priority |
-  | **Low** | Nice to have, can wait |
+  | **Urgent** | 需要立即关注，正在阻塞其他工作 |
+  | **High** | 重要，应尽快完成 |
+  | **Medium** | 普通优先级 |
+  | **Low** | 锦上添花，可以等待 |
 </Step>
 
-<Step title="Assign team members (optional)">
-  Click the assignee field and select one or more team members. You can assign multiple people to the same issue.
+<Step title="分配团队成员（可选）">
+  点击负责人字段并选择一个或多个团队成员。你可以为同一个事项分配多个人。
 </Step>
 
-<Step title="Add tags (optional)">
-  Select tags to categorise the issue. Tags help with filtering and organisation.
+<Step title="添加标签（可选）">
+  选择标签来分类事项。标签有助于筛选和组织。
 </Step>
 
-<Step title="Add description (optional)">
-  Write a detailed description using the rich text editor. You can format text, add lists, code blocks, and links.
+<Step title="添加描述（可选）">
+  使用富文本编辑器编写详细描述。你可以格式化文本、添加列表、代码块和链接。
 </Step>
 
-<Step title="Create the issue">
-  Click **Create Task** to save the issue. The issue will appear on the board in the selected status column.
+<Step title="创建事项">
+  点击 **Create Task** 保存事项。事项将出现在所选状态列的看板上。
 </Step>
 </Steps>
 
-### Create with Workspace
+### 创建时附带 Workspace
 
-If you want to immediately start working on an issue with AI assistance:
+如果你想立即在 AI 辅助下开始处理一个事项：
 
 <Frame>
   <img style={{maxHeight: "400px"}} src="/images/cloud/issue-create-form.png" alt="New Issue panel showing Create draft workspace immediately toggle" />
 </Frame>
 
-1. When creating an issue, enable **Create draft workspace immediately**
-2. The issue is created with a linked [workspace](/workspaces/index)
-3. You can start working with coding agents right away
+1. 创建事项时，启用 **Create draft workspace immediately**
+2. 事项创建时会关联一个 [workspace](/workspaces/index)
+3. 你可以立即开始使用编码代理工作
 
-See [Workspaces](/workspaces/index) to learn more about working with coding agents.
+查看 [Workspaces](/workspaces/index) 了解更多关于编码代理工作的信息。
 
-## Editing Issues
+## 编辑事项
 
-### Opening an Issue
+### 打开事项
 
-Click any issue card on the board to open the issue panel. The panel slides in from the right side.
+点击看板上的任意事项卡片打开事项面板。面板从右侧滑入。
 
 
-### Auto-Save
+### 自动保存
 
-Changes to the title and description **save automatically** as you type. You don't need to click a save button - just edit and your changes are saved.
+标题和描述的更改会**自动保存**。你无需点击保存按钮——只需编辑，更改即会保存。
 
 <Info>
-Auto-save has a small delay (about half a second) to avoid saving every keystroke. If you close the panel immediately after typing, wait a moment for the save to complete.
+自动保存有短暂延迟（约半秒），以避免保存每次按键。如果你在输入后立即关闭面板，请稍等片刻让保存完成。
 </Info>
 
-### Editing Properties
+### 编辑属性
 
-Properties like status, priority, assignees, and tags save **immediately** when you change them:
+状态、优先级、负责人和标签等属性的更改会**立即保存**：
 
-| Property | How to Edit |
+| 属性 | 编辑方式 |
 |----------|-------------|
-| **Status** | Click the status dropdown and select a new status, or drag the card to another column |
-| **Priority** | Click the priority dropdown and select a level |
-| **Assignees** | Click the assignees field, select/deselect team members |
-| **Tags** | Click the tags field, select/deselect tags |
+| **Status** | 点击状态下拉菜单选择新状态，或将卡片拖动到其他列 |
+| **Priority** | 点击优先级下拉菜单选择级别 |
+| **Assignees** | 点击负责人字段，选择/取消选择团队成员 |
+| **Tags** | 点击标签字段，选择/取消选择标签 |
 
-### Editing the Description
+### 编辑描述
 
-The description uses a rich text editor with formatting options:
+描述使用富文本编辑器，支持以下格式：
 
-- **Bold**, *italic*, ~~strikethrough~~
-- Bullet lists and numbered lists
-- Code blocks for technical content
-- Links to external resources
+- **粗体**、*斜体*、~~删除线~~
+- 项目列表和编号列表
+- 用于技术内容的代码块
+- 外部资源链接
 
 
-## Issue Sections
+## 事项分区
 
-The issue panel has collapsible sections for additional information:
+事项面板包含可折叠的分区以显示附加信息：
 
-### Workspaces Section
+### Workspace 分区
 
-Shows development workspaces linked to this issue. [Workspaces](/workspaces/index) are where coding agents do their work.
+显示与此事项关联的开发 workspace。[Workspace](/workspaces/index) 是编码代理工作的地方。
 
 <Frame>
   <img style={{maxHeight: "150px"}} src="/images/cloud/workspaces-section.png" alt="Workspaces section showing a linked active workspace" />
 </Frame>
 
-Each linked workspace shows:
-- **Status** - Active, idle, or completed
-- **Age** - How long ago it was created
-- **PR status** - Whether a pull request has been created
+每个关联的 workspace 显示：
+- **Status** - Active、idle 或 completed
+- **Age** - 创建距今的时间
+- **PR status** - 是否已创建 Pull Request
 
-**To link a workspace:**
+**关联 workspace：**
 
-Click the **+** button in the Workspaces section header to create a new workspace or link an existing one.
+点击 Workspace 分区标题中的 **+** 按钮创建新 workspace 或关联已有的。
 
 <Frame>
   <img style={{maxHeight: "300px"}} src="/images/cloud/link-workspace-dropdown.png" alt="Link workspace dropdown showing Create new workspace and existing workspaces" />
 </Frame>
 
-**To unlink a workspace:**
+**取消关联 workspace：**
 
-Click the **⋯** menu on the workspace and select **Unlink from issue**.
+点击 workspace 上的 **...** 菜单并选择 **Unlink from issue**。
 
 <Frame>
   <img style={{maxHeight: "200px"}} src="/images/cloud/workspace-menu-unlink.png" alt="Workspace menu showing Unlink from issue and Delete workspace options" />
 </Frame>
 
-### Sub-Issues Section
+### 子事项分区
 
-Issues can have child issues (subtasks) for breaking down work:
+事项可以有子事项（子任务）用于分解工作：
 
 <Frame>
   <img style={{maxHeight: "120px"}} src="/images/cloud/sub-issues-section.png" alt="Sub-issues section showing No sub-issues message with add button" />
 </Frame>
 
-- **Add Sub-Issue** - Create a new child issue
-- **Link Existing Issue** - Make an existing issue a subtask
-- **View Parent** - If this is a sub-issue, see its parent
+- **Add Sub-Issue** - 创建新的子事项
+- **Link Existing Issue** - 将已有事项设为子任务
+- **View Parent** - 如果这是子事项，查看其父事项
 
-### Comments Section
+### 评论分区
 
-Discussion thread for the issue:
+事项的讨论区：
 
 
-- **Add Comment** - Share updates, ask questions, or provide feedback
-- **React** - Add emoji reactions to comments
-- **Edit/Delete** - Modify or remove your own comments
+- **Add Comment** - 分享更新、提问或提供反馈
+- **React** - 对评论添加表情反应
+- **Edit/Delete** - 修改或删除你自己的评论
 
-## Sub-Issues (Subtasks)
+## 子事项（子任务）
 
-Break large issues into smaller, manageable pieces using sub-issues.
+使用子事项将大型事项拆分为更小、可管理的部分。
 
-### Creating a Sub-Issue
+### 创建子事项
 
 <Steps>
-<Step title="Open the parent issue">
-  Click the issue that will be the parent.
+<Step title="打开父事项">
+  点击将作为父事项的事项。
 </Step>
 
-<Step title="Expand the Sub-Issues section">
-  Click the **Sub-Issues** section header to expand it.
+<Step title="展开子事项分区">
+  点击 **Sub-Issues** 分区标题展开。
 </Step>
 
-<Step title="Click Add Sub-Issue">
-  Click the **+** button in the Sub-Issues section header. A dropdown appears with options to create a new issue or link an existing one.
+<Step title="点击添加子事项">
+  点击子事项分区标题中的 **+** 按钮。会出现一个下拉菜单，提供创建新事项或关联已有事项的选项。
 
   <Frame>
     <img style={{maxHeight: "250px"}} src="/images/cloud/add-sub-issue-dropdown.png" alt="Add Sub-issue dropdown showing Create new issue and existing issues to link" />
   </Frame>
 </Step>
 
-<Step title="Create or link">
-  - Click **Create new issue** to create a new sub-issue
-  - Or select an existing issue from the list to link it as a sub-issue
+<Step title="创建或关联">
+  - 点击 **Create new issue** 创建新的子事项
+  - 或从列表中选择已有事项将其关联为子事项
 </Step>
 </Steps>
 
-### Viewing the Parent Issue
+### 查看父事项
 
-When viewing a sub-issue, you'll see a **Parent** link below the issue properties. Click it to navigate to the parent issue.
+查看子事项时，你会在事项属性下方看到一个 **Parent** 链接。点击它导航到父事项。
 
 <Frame>
   <img style={{maxHeight: "250px"}} src="/images/cloud/sub-issue-parent-link.png" alt="Sub-issue showing Parent: ISS-1 link to navigate to parent issue" />
 </Frame>
 
-### Sub-Issue Behaviour
+### 子事项行为
 
-- Sub-issues appear on the board just like regular issues
-- They can have their own status, priority, and assignees
-- Completing all sub-issues doesn't automatically complete the parent
-- Sub-issues can't have their own sub-issues (only one level deep)
+- 子事项和普通事项一样显示在看板上
+- 它们可以有自己的状态、优先级和负责人
+- 完成所有子事项不会自动完成父事项
+- 子事项不能再有子事项（仅支持一级嵌套）
 
-## Issue Actions
+## 事项操作
 
-Issue Actions provide quick access to common operations on an issue. You can access them in two ways:
+事项操作提供对常用事项操作的快速访问。你可以通过两种方式访问：
 
-### From the Issue Panel
+### 从事项面板
 
-Click the **More** button (three dots) in the top-right corner of the issue panel.
+点击事项面板右上角的 **More** 按钮（三个点）。
 
 <Frame>
   <img style={{maxHeight: "150px"}} src="/images/cloud/issue-panel-more-button.png" alt="Issue panel header showing the three dots More button" />
 </Frame>
 
-### From the Command Bar
+### 从命令栏
 
-Open the command bar with `Cmd/Ctrl + K`, then select **Issue Actions**.
+使用 `Cmd/Ctrl + K` 打开命令栏，然后选择 **Issue Actions**。
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/command-panel-issue-actions.png" alt="Command panel showing Issue Actions option" />
 </Frame>
 
-### Available Actions
+### 可用操作
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/issue-actions-menu.png" alt="Issue Actions menu showing all available actions with keyboard shortcuts" />
 </Frame>
 
-| Action | Shortcut | Description |
+| 操作 | 快捷键 | 说明 |
 |--------|----------|-------------|
-| **Create Issue** | `I C` | Create a new issue |
-| **Change Status** | `I S` | Move issue to a different status |
-| **Change Priority** | `I P` | Set or change priority level |
-| **Change Assignees** | `I A` | Add or remove assignees |
-| **Make Sub-issue of** | `I M` | Make this issue a child of another |
-| **Add Sub-issue** | `I B` | Add a sub-issue to this issue |
-| **Link Workspace** | `I W` | Connect a workspace to this issue |
-| **Duplicate Issue** | `I D` | Create a copy of this issue |
-| **Delete Issue** | - | Permanently delete this issue |
+| **Create Issue** | `I C` | 创建新事项 |
+| **Change Status** | `I S` | 将事项移到其他状态 |
+| **Change Priority** | `I P` | 设置或更改优先级 |
+| **Change Assignees** | `I A` | 添加或移除负责人 |
+| **Make Sub-issue of** | `I M` | 将此事项设为另一个事项的子事项 |
+| **Add Sub-issue** | `I B` | 为此事项添加子事项 |
+| **Link Workspace** | `I W` | 将 workspace 关联到此事项 |
+| **Duplicate Issue** | `I D` | 创建此事项的副本 |
+| **Delete Issue** | - | 永久删除此事项 |
 
-## Copying Issue Links
+## 复制事项链接
 
-To share an issue with someone:
+要与某人分享事项：
 
-1. Open the issue panel
-2. Click the **Copy Link** button (<Icon icon="link" />) in the panel header
-3. The issue URL is copied to your clipboard
+1. 打开事项面板
+2. 点击面板标题中的 **Copy Link** 按钮（<Icon icon="link" />）
+3. 事项 URL 已复制到剪贴板
 
-Share this link with team members - they can click it to go directly to that issue.
+将此链接分享给团队成员——他们点击即可直接跳转到该事项。
 
-## Selecting Multiple Issues
+## 选择多个事项
 
-You can select multiple issues to perform bulk operations, similar to how you'd select files in a file manager.
+你可以选择多个事项来执行批量操作，类似于在文件管理器中选择文件。
 
-### Selection Methods
+### 选择方式
 
-| Method | Action |
+| 方式 | 操作 |
 |--------|--------|
-| **Checkbox** | Hover over the left edge of a list row to reveal its checkbox, then click |
-| **Cmd/Ctrl + Click** | Toggle an individual issue in or out of the selection |
-| **Shift + Click** | Select a range of issues between the last selected issue and the clicked issue |
-| **X** | Toggle the currently open issue in or out of the selection |
-| **Shift + J / Shift + ↓** | Extend the selection downward by one issue |
-| **Shift + K / Shift + ↑** | Extend the selection upward by one issue |
-| **Cmd/Ctrl + A** | Select all visible issues |
-| **Escape** | Clear the selection |
+| **复选框** | 将鼠标悬停在列表行的左边缘显示复选框，然后点击 |
+| **Cmd/Ctrl + Click** | 切换单个事项的选中状态 |
+| **Shift + Click** | 选择从上次选中事项到当前点击事项之间的范围 |
+| **X** | 切换当前打开事项的选中状态 |
+| **Shift + J / Shift + ↓** | 向下扩展选择一个事项 |
+| **Shift + K / Shift + ↑** | 向上扩展选择一个事项 |
+| **Cmd/Ctrl + A** | 选择所有可见事项 |
+| **Escape** | 清除选择 |
 
 <Info>
-Selection works in both the [kanban board](/cloud/kanban-board) and [list view](/cloud/list-view). In list view, checkboxes appear on hover for each row. In the kanban board, use modifier keys or keyboard shortcuts to select cards.
+选择功能在[看板视图](/cloud/kanban-board)和[列表视图](/cloud/list-view)中均可使用。在列表视图中，鼠标悬停时每行会出现复选框。在看板视图中，使用修饰键或键盘快捷键选择卡片。
 </Info>
 
-### Bulk Action Bar
+### 批量操作栏
 
-When two or more issues are selected, a floating action bar appears at the bottom of the screen. From this bar you can:
+当选择两个或更多事项时，屏幕底部会出现一个浮动操作栏。你可以：
 
-| Action | Description |
+| 操作 | 说明 |
 |--------|-------------|
-| **Status** | Change the status of all selected issues at once |
-| **Priority** | Set the same priority across all selected issues |
-| **Assignee** | Assign or change assignees for all selected issues |
-| **Delete** | Permanently delete all selected issues |
+| **Status** | 一次性更改所有选中事项的状态 |
+| **Priority** | 为所有选中事项设置相同的优先级 |
+| **Assignee** | 为所有选中事项分配或更改负责人 |
+| **Delete** | 永久删除所有选中事项 |
 
-Click the **X** button on the action bar or press **Escape** to clear the selection.
+点击操作栏上的 **X** 按钮或按 **Escape** 清除选择。
 
 <Warning>
-Bulk delete is permanent and cannot be undone. All selected issues, their comments, and their history will be removed.
+批量删除是永久性操作，无法撤销。所有选中事项及其评论和历史记录都将被删除。
 </Warning>
 
 <Tip>
-Use filters to narrow down your view before selecting issues. For example, filter by a specific status, then press **Cmd/Ctrl + A** to select all matching issues for a bulk status change.
+在选择事项之前先使用筛选器缩小范围。例如，按特定状态筛选，然后按 **Cmd/Ctrl + A** 选择所有匹配的事项进行批量状态更改。
 </Tip>
 
-## Deleting Issues
+## 删除事项
 
-To delete a single issue:
+删除单个事项：
 
-1. Open the issue panel
-2. Click the **More** button (three dots) to open Issue Actions
-3. Select **Delete Issue**
-4. Confirm the deletion
+1. 打开事项面板
+2. 点击 **More** 按钮（三个点）打开事项操作
+3. 选择 **Delete Issue**
+4. 确认删除
 
-To delete multiple issues, select them and click **Delete** in the bulk action bar.
+要删除多个事项，选中它们并点击批量操作栏中的 **Delete**。
 
 <Warning>
-Deleting an issue is permanent. The issue, its comments, and its history are removed. Sub-issues are not deleted - they become standalone issues.
+删除事项是永久性操作。事项、其评论和历史记录将被删除。子事项不会被删除——它们会变为独立事项。
 </Warning>
 
-## Issue Simple IDs
+## 事项 Simple ID
 
-Every issue has a **Simple ID** - a short, unique identifier like `TASK-123`. This makes it easy to reference issues in conversations, commits, and documentation.
+每个事项都有一个 **Simple ID**——类似 `TASK-123` 的简短唯一标识符。这方便在对话、提交和文档中引用事项。
 
-The Simple ID is shown:
-- On issue cards on the board
-- In the issue panel header
-- In the URL when viewing an issue
+Simple ID 显示在：
+- 看板上的事项卡片
+- 事项面板标题
+- 查看事项时的 URL
 
 <Tip>
-Use Simple IDs in commit messages (e.g., "Fix login bug TASK-123") to create a clear connection between code and issues.
+在提交消息中使用 Simple ID（例如"Fix login bug TASK-123"）来建立代码与事项之间的清晰关联。
 </Tip>
 
-## Best Practices
+## 最佳实践
 
 <CardGroup cols={2}>
-<Card title="Write clear titles" icon="heading">
-  Issue titles should describe what needs to be done, not the problem. "Add password reset flow" is better than "Users can't reset password".
+<Card title="编写清晰的标题" icon="heading">
+  事项标题应描述需要完成什么，而不是问题描述。"Add password reset flow"比"Users can't reset password"更好。
 </Card>
 
-<Card title="Use priority wisely" icon="flag">
-  Reserve "Urgent" for genuine emergencies. If everything is urgent, nothing is.
+<Card title="合理使用优先级" icon="flag">
+  将"Urgent"保留给真正的紧急情况。如果所有事项都是紧急的，那就等于没有紧急事项。
 </Card>
 
-<Card title="Assign deliberately" icon="user">
-  Assign issues to people who will actually work on them. Unassigned issues are fine for backlog items.
+<Card title="有目的地分配" icon="user">
+  将事项分配给真正会处理它们的人。待办事项不分配也没关系。
 </Card>
 
-<Card title="Keep descriptions updated" icon="file-lines">
-  As requirements change or you learn more, update the description. It's the source of truth for what needs to be done.
+<Card title="保持描述更新" icon="file-lines">
+  随着需求变化或了解更多信息，及时更新描述。它是需要完成什么内容的真实来源。
 </Card>
 </CardGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Kanban Board](/cloud/kanban-board) - Moving and organising issues on the board
-- [Filtering & Sorting](/cloud/filtering) - Finding issues quickly
-- [Customising Your Board](/cloud/customisation) - Configuring statuses and tags
-- [Workspaces](/workspaces/index) - Working with coding agents
+- [看板视图](/cloud/kanban-board) - 在看板上移动和组织事项
+- [筛选与排序](/cloud/filtering) - 快速查找事项
+- [自定义看板](/cloud/customisation) - 配置状态和标签
+- [Workspaces](/workspaces/index) - 使用编码代理工作

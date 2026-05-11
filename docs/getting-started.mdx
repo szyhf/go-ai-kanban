@@ -1,149 +1,148 @@
 ---
-title: "Get Started"
-description: "Launch Vibe Kanban, connect a coding agent, and go from zero to pull request"
-sidebarTitle: "Get Started"
+title: "快速入门"
+description: "启动 Vibe Kanban，连接编码代理，从零开始创建 Pull Request"
+sidebarTitle: "快速入门"
 ---
 
-Vibe Kanban keeps you organised while running multiple coding agents in parallel by streamlining how you plan and review their work.
+Vibe Kanban 通过简化规划和审查流程，帮助你在并行运行多个编码代理时保持井然有序。
 
-## 1. Launch Vibe Kanban
+## 1. 启动 Vibe Kanban
 
-Start the Vibe Kanban client and open the UI in your browser:
-
+启动 Vibe Kanban 客户端并在浏览器中打开界面：
 
 ```bash
 npx vibe-kanban
 ```
 
-## 2. Confirm your preferences
+## 2. 确认偏好设置
 
-The first time you run Vibe Kanban, you'll be asked to set your preferred:
+首次运行 Vibe Kanban 时，你需要设置以下偏好：
 
-- Coding agent
+- 编码代理
 - IDE
-- Notification preferences
+- 通知偏好
 
 <Info>
-These preferences can be changed at any time from the settings dialog
+这些偏好设置随时可以在设置对话框中修改
 </Info>
 
 <Frame>
   <img src="/images/onboarding-basic-setup.png" alt="Placeholder image for preferences setup: coding agent, IDE, and sound notifications." />
 </Frame>
 
-## 3. Sign-in to Vibe Kanban
+## 3. 登录 Vibe Kanban
 
-You can use a GitHub or Google account.
+你可以使用 GitHub 或 Google 账号登录。
 
 <Frame>
   <img src="/images/onboarding-sign-in.png" alt="Vibe Kanban onboarding screen showing Sign in to continue with GitHub and Google buttons" />
 </Frame>
 
 <Info>
-If you want to skip sign-in for now, click **More options** → **I understand, continue without signing in**. You'll still be able to create workspaces, but the kanban board, issues, and team features will be unavailable.
+如果你想暂时跳过登录，点击 **更多选项** → **我了解，继续不登录**。你仍然可以创建工作区，但看板、问题和团队功能将不可用。
 </Info>
 
-## 4. Navigate the kanban board
+## 4. 导看板页面
 
-After you sign in, we automatically create a personal organisation and an initial project for you, and take you straight there.
+登录后，我们会自动为你创建一个个人组织和初始项目，并直接导航到那里。
 
 <Frame>
   <img src="/images/onboarding-projects.png" alt="The projects page" />
 </Frame>
 
-**Navigating the kanban board:**
+**看板导航说明：**
 
-1. The app bar, used for navigating between projects, the workspaces page (we'll come onto this later) and user settings
-2. Issues appear as cards on the kanban board
-3. The 'new issue' button, for creating issues
-4. The right hand panel where details for the currently selected or draft issue is shown
+1. 应用栏，用于在项目之间导航、访问工作区页面（稍后会介绍）和用户设置
+2. 问题以卡片形式显示在看板上
+3. "新建问题"按钮，用于创建问题
+4. 右侧面板，显示当前选中或草稿问题的详细信息
 
-## 5. Create an issue
+## 5. 创建问题
 
-**Issues** are a core concept of Vibe Kanban, they represent a bug, feature or piece of work to be done. At a minimum, issues consist of a title and description, but you can also add priorities, tags and even connect issues together with parent/child relationships.
+**问题** 是 Vibe Kanban 的核心概念，代表一个 bug、功能或需要完成的工作。问题至少包含标题和描述，但你还可以添加优先级、标签，甚至通过父子关系将问题关联起来。
 
 <Frame>
   <img src="/images/onboarding-create-issue.png" alt="Create issue" />
 </Frame>
 
-When you've filled out the details press 'create issue'.
+填写详细信息后，点击"创建问题"。
 
-## 6. Create a workspace
+## 6. 创建工作区
 
-**Workspaces** are another core concept of Vibe Kanban, they represent a space to work on an issue with a coding agent. When you create a workspace, Vibe Kanban automatically creates git worktrees for your selected repositories, and launches your coding agent.
+**工作区** 是 Vibe Kanban 的另一个核心概念，代表编码代理处理问题的空间。创建工作区时，Vibe Kanban 会自动为你选择的仓库创建 git worktree，并启动编码代理。
 
 <Frame>
   <img src="/images/onboarding-create-workspace.png" alt="The create workspace button" />
 </Frame>
 
-To create a workspace, make sure the issue you created is selected and click the 'create' button in the workspaces window.
+要创建工作区，请确保你创建的问题处于选中状态，然后点击工作区窗口中的"创建"按钮。
 
 <Frame>
   <img src="/images/onboarding-workspaces-repo.png" alt="Workspaces repos" />
 </Frame>
 
-When you create a workspace, you'll need to specify repositories you'd like to work on, as well as the branches of those repositories to base the git worktrees on.
+创建工作区时，你需要指定要处理的仓库，以及这些仓库中作为 git worktree 基础的分支。
 
 <Frame>
   <img src="/images/onboarding-workspaces-prompt.png" alt="Workspaces prompt" />
 </Frame>
 
-You'll also need to specify your desired coding agent configuration (e.g. model, effort level, plan mode).
+你还需要指定所需的编码代理配置（例如模型、投入程度、计划模式）。
 
 <Frame>
   <img src="/images/onboarding-workspaces-logs.png" alt="Workspaces logs" />
 </Frame>
 
-Upon creation, the coding agent will immediately begin executing with the given prompt.
+创建完成后，编码代理会立即使用给定的提示词开始执行。
 
 <Info>
-  You can connect multiple workspaces to an issue, this is useful for working on larger features and allows you to run multiple coding agents in parallel.
+  你可以将多个工作区连接到一个问题，这在处理大型功能时非常有用，可以让你并行运行多个编码代理。
 
-  Workspaces don't *have* to be connected to an issue, which is useful for quick actions like asking questions about a codebase.
+  工作区不*必须*连接到问题，这对于快速操作（比如询问关于代码库的问题）非常有用。
 </Info>
 
-## 7. Reviewing a workspace
+## 7. 审查工作区
 
-So far we've been viewing the workspace side-by-side with our kanban board. However, if we want more room to review the code changes or test them in a browser, we can open the workspace in the **workspaces view**.
+到目前为止，我们一直在看板旁边查看工作区。但是，如果我们需要更多空间来审查代码更改或在浏览器中测试它们，可以在 **工作区视图** 中打开工作区。
 
 <Frame>
   <img src="/images/onboarding-workspaces-open.png" alt="Workspaces open" />
 </Frame>
 
-To access the workspaces view, click the **Open Workspace** button.
+要访问工作区视图，点击 **打开工作区** 按钮。
 
 <Frame>
   <img src="/images/onboarding-workspaces-page.png" alt="Workspaces page" />
 </Frame>
 
-Depending on what you'd like to do, you can view code changes or preview changes to websites in a browser using the floating navigation buttons (3).
+根据你的需求，你可以使用浮动导航按钮 (3) 查看代码更改或在浏览器中预览网站的更改。
 
-You can also navigate back to either your project (1) or the parent issue (2).
+你还可以导航回项目 (1) 或父问题 (2)。
 
-## 8. Merging a workspace
+## 8. 合并工作区
 
-When you're ready to merge the changes in a workspace, you can either open a GitHub pull request or merge the workspace branch locally.
+当你准备好合并工作区中的更改时，可以创建一个 GitHub Pull Request 或在本地合并工作区分支。
 
 <Frame>
   <img src="/images/onboarding-workspaces-merge.png" alt="Workspaces merge" />
 </Frame>
 
-## Next steps
+## 下一步
 
 <CardGroup cols={2}>
-  <Card title="Previewing changes" icon="browser" href="/workspaces/preview">
-    Set up a dev server, preview your app, and click-to-component to jump straight to source
+  <Card title="预览更改" icon="browser" href="/workspaces/preview">
+    配置开发服务器、预览应用，并通过点击组件直接跳转到源代码
   </Card>
 
-  <Card title="Setup and cleanup scripts" icon="terminal" href="/settings/projects-repositories">
-    Automate dependency installs, builds, and teardown so every workspace starts clean
+  <Card title="安装和清理脚本" icon="terminal" href="/settings/projects-repositories">
+    自动化依赖安装、构建和清理，确保每个工作区从干净状态开始
   </Card>
 
-  <Card title="Reviewing code changes" icon="code-compare" href="/workspaces/changes">
-    Review diffs, prompt the agent with feedback, and iterate before merging
+  <Card title="审查代码更改" icon="code-compare" href="/workspaces/changes">
+    审查差异、向代理发送反馈，并在合并前反复迭代
   </Card>
 
-  <Card title="Working with sub-issues" icon="diagram-subtask" href="/core-features/subtasks">
-    Break large features into smaller pieces and track progress across sub-issues
+  <Card title="使用子问题" icon="diagram-subtask" href="/core-features/subtasks">
+    将大型功能拆分为更小的部分，跨子问题跟踪进度
   </Card>
 </CardGroup>

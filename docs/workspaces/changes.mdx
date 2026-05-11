@@ -1,192 +1,192 @@
 ---
-title: "Changes Panel"
-description: "Review code modifications and provide feedback to agents"
+title: "变更面板"
+description: "审查代码修改并向 Agent 提供反馈"
 ---
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-changes-panel.png" alt="Changes panel showing file tree and side-by-side diff view with code changes" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-changes-panel.png" alt="变更面板显示文件树和并排 Diff 视图中的代码变更" />
 </Frame>
 
-The changes panel lets you review all code modifications in your workspace and provide feedback to agents.
+变更面板让你可以审查工作空间中的所有代码修改，并向 Agent 提供反馈。
 
-## Why Review Changes?
+## 为什么要审查变更？
 
-Before committing or creating a PR, you should always review what the agent changed:
+在提交或创建 PR 之前，你应该始终审查 Agent 所做的更改：
 
-- **Verify correctness** - Does the code do what you asked?
-- **Check for issues** - Are there bugs, security problems, or style violations?
-- **Understand the approach** - Learn what the agent did so you can explain it to reviewers
-- **Provide feedback** - Ask the agent to fix problems before committing
+- **验证正确性** - 代码是否按你的要求执行？
+- **检查问题** - 是否有 Bug、安全问题或风格违规？
+- **理解方法** - 了解 Agent 做了什么，以便向审查者解释
+- **提供反馈** - 在提交前让 Agent 修复问题
 
 <Warning>
-**Never blindly trust agent output.** Always review changes before merging. Agents can make mistakes, introduce bugs, or misunderstand requirements.
+**不要盲目信任 Agent 的输出。** 在合并前始终审查变更。Agent 可能会犯错、引入 Bug 或误解需求。
 </Warning>
 
-## Opening Changes
+## 打开变更面板
 
-- Click the **Changes** toggle (<Icon icon="code-compare" />) in the navbar
-- Click the changes icon in the context bar
-- Use the command bar: `Cmd/Ctrl + K` → "Toggle Changes Panel"
+- 点击导航栏中的**变更**切换按钮（<Icon icon="code-compare" />）
+- 点击上下文栏中的变更图标
+- 使用命令栏：`Cmd/Ctrl + K` → "切换变更面板"
 
-## File Tree
+## 文件树
 
-The changes panel displays a hierarchical file tree:
+变更面板显示层级文件树：
 
-- **Folders**: Expand/collapse to navigate
-- **Files**: Click to view the diff
-- **Search**: Filter files by name
-- **Expand/Collapse All**: Quick navigation buttons
+- **文件夹**：展开/折叠以导航
+- **文件**：点击查看 Diff
+- **搜索**：按名称筛选文件
+- **全部展开/折叠**：快速导航按钮
 
-## Diff Viewer
+## Diff 查看器
 
-View code changes with syntax highlighting:
+通过语法高亮查看代码变更：
 
-| Feature | Description |
-|---------|-------------|
-| **Additions** | Green highlighting for new lines |
-| **Deletions** | Red highlighting for removed lines |
-| **Context** | Surrounding unchanged lines for reference |
-| **Line numbers** | Original and new line numbers |
+| 功能 | 描述 |
+|------|------|
+| **新增** | 绿色高亮显示新增行 |
+| **删除** | 红色高亮显示删除行 |
+| **上下文** | 周围未更改的行作为参考 |
+| **行号** | 原始和新行号 |
 
-## Diff View Modes
+## Diff 视图模式
 
-Toggle between two display modes:
+在两种显示模式之间切换：
 
-| Mode | Description |
-|------|-------------|
-| **Unified** | Inline view with changes interleaved |
-| **Side-by-Side** | Original and modified shown in parallel columns |
+| 模式 | 描述 |
+|------|------|
+| **统一视图** | 内联视图，变更交错显示 |
+| **并排视图** | 原始和修改内容并排显示 |
 
-Switch modes using the diff view toggle in the navbar (when Changes panel is open) or via command bar: `Cmd/Ctrl + K` → "Toggle Diff View Mode".
+使用导航栏中的 Diff 视图切换按钮（变更面板打开时）或命令栏切换模式：`Cmd/Ctrl + K` → "切换 Diff 视图模式"。
 
-## Diff Options
+## Diff 选项
 
-Customise the diff display:
+自定义 Diff 显示：
 
-| Option | Description |
-|--------|-------------|
-| **Wrap Lines** | Enable/disable line wrapping for long lines |
-| **Ignore Whitespace** | Show/hide whitespace-only changes |
-| **Expand All** | Expand all collapsed diff sections |
-| **Collapse All** | Collapse all diff sections |
+| 选项 | 描述 |
+|------|------|
+| **自动换行** | 启用/禁用长行换行 |
+| **忽略空白** | 显示/隐藏仅空白字符的变更 |
+| **全部展开** | 展开所有折叠的 Diff 部分 |
+| **全部折叠** | 折叠所有 Diff 部分 |
 
-Access these via the command bar's Diff Options page.
+通过命令栏的 Diff 选项页面访问这些功能。
 
-## Giving Feedback with Comments
-
-<Frame>
-<img style={{maxHeight: "350px"}} src="/images/workspaces-inline-comments.png" alt="Changes panel showing inline comments on code with Add Review Comment button" />
-</Frame>
-
-Add comments directly on code changes to provide feedback to agents.
-
-### Adding Comments
-
-1. Hover over a line in the diff
-2. Click the comment icon that appears
-3. Write your feedback
-4. Submit the comment
-
-### Comment Uses
-
-- **Request changes**: Ask the agent to modify specific code
-- **Ask questions**: Get explanations about implementation choices
-- **Provide context**: Share additional requirements or constraints
-- **Approve sections**: Indicate code that looks good
-
-### Agent Response to Comments
+## 通过注释提供反馈
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-review-comments-response.png" alt="Chat showing agent responding to review comments by restoring a file" />
+<img style={{maxHeight: "350px"}} src="/images/workspaces-inline-comments.png" alt="变更面板显示代码上的行内注释和添加审查注释按钮" />
 </Frame>
 
-When you send a message with review comments, the agent sees your feedback and acts on it. In this example, the agent restores a file after the user requested the change be reverted.
+直接在代码变更上添加注释，向 Agent 提供反馈。
+
+### 添加注释
+
+1. 将鼠标悬停在 Diff 中的某一行上
+2. 点击出现的注释图标
+3. 编写你的反馈
+4. 提交注释
+
+### 注释用途
+
+- **请求修改**：让 Agent 修改特定代码
+- **提问**：获取关于实现选择的解释
+- **提供上下文**：分享额外的需求或约束
+- **认可代码**：标记看起来没问题的代码段
+
+### Agent 对注释的响应
+
+<Frame>
+<img style={{maxHeight: "300px"}} src="/images/workspaces-review-comments-response.png" alt="聊天显示 Agent 通过恢复文件来响应审查注释" />
+</Frame>
+
+当你发送带有审查注释的消息时，Agent 会看到你的反馈并据此行动。在此示例中，Agent 在用户请求撤销变更后恢复了文件。
 
 <Info>
-Comments are visible to the agent in subsequent messages, helping guide further development.
+注释在后续消息中对 Agent 可见，帮助指导进一步的开发。
 </Info>
 
-## GitHub Integration
+## GitHub 集成
 
-When your workspace is linked to a pull request:
+当你的工作空间关联到 Pull Request 时：
 
-### Viewing GitHub Comments
+### 查看 GitHub 注释
 
 <Frame>
-<img style={{maxHeight: "200px"}} src="/images/workspaces-show-github-comments.png" alt="Changes panel showing GitHub icon button with Show GitHub comments tooltip" />
+<img style={{maxHeight: "200px"}} src="/images/workspaces-show-github-comments.png" alt="变更面板显示 GitHub 图标按钮和显示 GitHub 注释的提示" />
 </Frame>
 
-- Click the **GitHub icon** in the changes panel toolbar to toggle GitHub comments
-- Comments from the PR appear inline with the diff
-- Badge shows comment count per file
+- 点击变更面板工具栏中的 **GitHub 图标**来切换 GitHub 注释
+- 来自 PR 的注释与 Diff 内联显示
+- 徽章显示每个文件的注释数量
 
 <Frame>
-<img style={{maxHeight: "300px"}} src="/images/workspaces-github-comments-inline.png" alt="GitHub review comment displayed inline in the diff view" />
+<img style={{maxHeight: "300px"}} src="/images/workspaces-github-comments-inline.png" alt="GitHub 审查注释在 Diff 视图中内联显示" />
 </Frame>
 
 <Note>
-Only submitted review comments are shown. Pending reviews (not yet submitted on GitHub) won't appear until you submit the review.
+仅显示已提交的审查注释。待处理的审查（尚未在 GitHub 上提交）在你提交审查之前不会显示。
 </Note>
 
-### Linking to a PR
+### 关联到 PR
 
-Workspaces automatically link when:
+工作空间在以下情况下自动关联：
 
-- You create a PR from the workspace
-- The workspace branch matches an existing PR
+- 你从工作空间创建 PR
+- 工作空间分支与现有 PR 匹配
 
 <Tip>
-Review GitHub comments alongside your changes to address PR feedback efficiently.
+将 GitHub 注释与你的变更一起查看，以高效处理 PR 反馈。
 </Tip>
 
-## Review Workflow
+## 审查工作流
 
-Follow this workflow to effectively review and refine agent changes:
+按照此工作流有效审查和优化 Agent 的变更：
 
 <Steps>
-<Step title="Wait for agent to finish">
-Let the agent complete its work. The status in the sidebar will change from "Running" to "Idle".
+<Step title="等待 Agent 完成">
+让 Agent 完成其工作。侧边栏中的状态将从"运行中"变为"空闲"。
 </Step>
 
-<Step title="Open the Changes panel">
-Click the Changes icon in the navbar or use `Cmd/Ctrl + K` → "Toggle Changes Panel".
+<Step title="打开变更面板">
+点击导航栏中的变更图标或使用 `Cmd/Ctrl + K` → "切换变更面板"。
 </Step>
 
-<Step title="Review each file">
-Click through each modified file in the file tree. Look for:
-- **Logic errors** - Does the code do what you intended?
-- **Missing pieces** - Are there unhandled edge cases?
-- **Code quality** - Is the code readable and maintainable?
-- **Security issues** - Any obvious vulnerabilities?
+<Step title="审查每个文件">
+在文件树中点击每个修改过的文件。注意查看：
+- **逻辑错误** - 代码是否按你的意图执行？
+- **遗漏部分** - 是否有未处理的边界情况？
+- **代码质量** - 代码是否可读且可维护？
+- **安全问题** - 是否有明显的漏洞？
 </Step>
 
-<Step title="Add comments on issues">
-For any problems you find, hover over the line and click the comment icon. Write specific feedback:
+<Step title="对问题添加注释">
+对于发现的任何问题，将鼠标悬停在该行上并点击注释图标。编写具体的反馈：
 
-**Good comment:** "This API endpoint should validate the user ID before querying the database to prevent unauthorized access."
+**好的注释：** "这个 API 端点应该在查询数据库之前验证用户 ID，以防止未授权访问。"
 
-**Bad comment:** "This is wrong, fix it."
+**不好的注释：** "这不对，修一下。"
 </Step>
 
-<Step title="Send feedback to agent">
-Type a message in the chat (e.g., "Please address the review comments") and send it. The agent will see your inline comments and make corrections.
+<Step title="向 Agent 发送反馈">
+在聊天中输入消息（例如"请处理审查注释"）并发送。Agent 会看到你的行内注释并进行修正。
 </Step>
 
-<Step title="Re-review and repeat">
-After the agent addresses feedback, review the new changes. Repeat until you're satisfied.
+<Step title="再次审查并重复">
+Agent 处理完反馈后，审查新的变更。重复直到你满意为止。
 </Step>
 
-<Step title="Create PR when ready">
-Once changes look good, create a pull request using the Git panel or command bar.
+<Step title="准备好后创建 PR">
+变更看起来没问题后，使用 Git 面板或命令栏创建 Pull Request。
 </Step>
 </Steps>
 
 <Tip>
-**Be specific in comments.** Instead of "this is wrong", explain what's wrong and ideally suggest a fix. The more context you give, the better the agent can correct the issue.
+**注释要具体。** 不要说"这不对"，而是解释哪里不对，最好提出修复建议。你提供的上下文越多，Agent 就能越好地修正问题。
 </Tip>
 
-## Related Documentation
+## 相关文档
 
-- [Browser Testing](/browser-testing) - Test your application with the built-in browser
-- [Interface Guide](/workspaces/interface) - Overview of workspace panels
-- [Git Operations](/workspaces/git-operations) - Create PRs and manage branches
+- [浏览器测试](/browser-testing) - 使用内置浏览器测试你的应用
+- [界面指南](/workspaces/interface) - 工作空间面板概览
+- [Git 操作](/workspaces/git-operations) - 创建 PR 和管理分支

@@ -1,324 +1,324 @@
 ---
-title: "Agent Profiles & Configuration"
-description: "Create reusable agent configurations with custom settings for planning mode, model selection, and permission levels that you can quickly switch between when creating task attempts"
+title: "Agent 配置文件与配置"
+description: "创建可复用的 Agent 配置，包含规划模式、模型选择和权限级别等自定义设置，可在创建任务尝试时快速切换"
 ---
 
 <Info>
-Agent profiles are configured using a form-based interface. Select an agent and create or edit configuration variants to customise behaviour.
+Agent 配置文件通过表单界面进行配置。选择一个 Agent，然后创建或编辑配置变体以自定义其行为。
 </Info>
 
 <Info>
-Agent profiles are used throughout Vibe Kanban wherever agents run: onboarding, default settings, attempt creation, and follow-ups. The default configuration appears pre-selected in the agent dropdown in the chat input.
+Agent 配置文件在 Vibe Kanban 中所有运行 Agent 的地方都会使用：初始化、默认设置、创建尝试和后续操作。默认配置会预选在聊天输入框的 Agent 下拉菜单中。
 </Info>
 
-## Common Use Cases
+## 常见用例
 
-| Use Case | Example Configuration |
+| 用例 | 示例配置 |
 |----------|----------------------|
-| **Fast iteration** | Disable planning mode, use faster model |
-| **Complex tasks** | Enable planning mode, use advanced model |
-| **Autonomous work** | Skip permission prompts (use with caution) |
-| **Code review** | Enable approvals for all changes |
-| **Multi-instance** | Enable Claude Code Router for parallel work |
+| **快速迭代** | 禁用规划模式，使用更快的模型 |
+| **复杂任务** | 启用规划模式，使用高级模型 |
+| **自主工作** | 跳过权限提示（请谨慎使用） |
+| **代码审查** | 对所有更改启用审批 |
+| **多实例** | 启用 Claude Code Router 进行并行工作 |
 
-## Key Concepts
+## 核心概念
 
-Understanding these concepts helps you configure agents effectively:
+理解以下概念有助于你有效配置 Agent：
 
 <AccordionGroup>
-<Accordion title="Planning Mode">
-When enabled, the agent first creates a detailed plan before writing code. This adds an extra step where you review and approve the approach before implementation begins. Useful for complex tasks where you want to validate the strategy, but adds overhead for simple changes.
+<Accordion title="Planning Mode（规划模式）">
+启用后，Agent 会在编写代码之前先创建详细的计划。这会增加一个额外的步骤，让你在实施开始之前审查和批准方案。适用于需要验证策略的复杂任务，但对于简单的更改会增加额外开销。
 </Accordion>
 
-<Accordion title="Permission Prompts">
-Agents request permission before performing potentially destructive actions like deleting files, running shell commands, or modifying system configurations. Skipping these prompts (`dangerously_skip_permissions`) allows fully autonomous operation but removes safety guardrails.
+<Accordion title="Permission Prompts（权限提示）">
+Agent 在执行潜在破坏性操作（如删除文件、运行 Shell 命令或修改系统配置）之前会请求权限。跳过这些提示（`dangerously_skip_permissions`）允许完全自主操作，但会移除安全保护。
 </Accordion>
 
-<Accordion title="Claude Code Router">
-Distributes requests across multiple Claude Code instances running in parallel. Useful when working on several tasks simultaneously or when you want to reduce wait times by load-balancing across instances.
+<Accordion title="Claude Code Router（路由器）">
+将请求分发到多个并行运行的 Claude Code 实例。适用于同时处理多个任务或希望通过负载均衡来减少等待时间的情况。
 </Accordion>
 
-<Accordion title="Sandbox Modes (Codex)">
-Controls what the agent can access:
-- **read-only** - Can read files but not modify anything
-- **workspace-write** - Can modify files within the project directory
-- **danger-full-access** - Unrestricted file system access
+<Accordion title="Sandbox Modes（沙箱模式，Codex）">
+控制 Agent 可以访问的内容：
+- **read-only** - 可以读取文件但不能修改任何内容
+- **workspace-write** - 可以修改项目目录中的文件
+- **danger-full-access** - 不受限制的文件系统访问
 </Accordion>
 
-<Accordion title="Approval Levels">
-Determines when the agent pauses for your confirmation:
-- **untrusted** - Asks before every action
-- **on-failure** - Only asks when something goes wrong
-- **on-request** - Only asks when explicitly requested
-- **never** - Fully autonomous (no confirmations)
+<Accordion title="Approval Levels（审批级别）">
+决定 Agent 何时暂停以等待你的确认：
+- **untrusted** - 每次操作前都会询问
+- **on-failure** - 仅在出现问题时询问
+- **on-request** - 仅在被明确要求时询问
+- **never** - 完全自主（无需确认）
 </Accordion>
 
-<Accordion title="Reasoning Effort">
-Controls how much computational effort the model spends "thinking" before responding. Higher reasoning produces more thorough analysis but takes longer and uses more tokens. Lower reasoning is faster but may miss nuances in complex problems.
+<Accordion title="Reasoning Effort（推理强度）">
+控制模型在响应之前花费多少计算"思考"能力。更高的推理会产生更全面的分析，但需要更长时间和更多 Token。较低的推理速度更快，但可能会忽略复杂问题中的细节。
 </Accordion>
 </AccordionGroup>
 
-## Configuration Access
+## 访问配置
 
-Access agent profiles via **Settings → Agents** in the Workspaces UI.
+通过工作区界面中的 **Settings → Agents** 访问 Agent 配置文件。
 
 <Frame>
 <img src="/images/settings-agents.png" alt="Agent configuration form editor interface with finder-style layout" />
 </Frame>
 
-The interface uses a finder-style two-column layout:
+界面采用 Finder 风格的双栏布局：
 
-- **Left column** - Lists all available agents
-- **Right column** - Lists configurations for the selected agent
+- **左栏** - 列出所有可用的 Agent
+- **右栏** - 列出所选 Agent 的配置
 
-## Managing Configurations
+## 管理配置
 
-### Creating a New Configuration
+### 创建新配置
 
-1. Click the **+** button in the Configurations column
+1. 点击 Configurations 列中的 **+** 按钮
 
 <Frame>
 <img src="/images/settings-agents-create-button.png" alt="Configuration column showing the + button with Create new tooltip" />
 </Frame>
 
-2. Enter a **Configuration Name** (e.g., PRODUCTION, DEVELOPMENT)
-3. Optionally select a configuration to **Clone from**, or start blank
-4. Click **Create Configuration**
+2. 输入**配置名称**（如 PRODUCTION、DEVELOPMENT）
+3. 可选择一个配置进行**克隆**，或从空白开始
+4. 点击 **Create Configuration**
 
 <Frame>
 <img src="/images/settings-agents-create-dialog.png" alt="Create New Configuration dialog with name field and clone option" />
 </Frame>
 
-### Editing a Configuration
+### 编辑配置
 
-1. Select an agent from the left column
-2. Select a configuration from the right column
-3. Edit the settings in the form below
-4. Click **Save** in the bottom bar
+1. 从左栏选择一个 Agent
+2. 从右栏选择一个配置
+3. 在下方的表单中编辑设置
+4. 点击底部栏中的 **Save**
 
-### Deleting a Configuration
+### 删除配置
 
-1. Select the configuration to delete
-2. Click the delete button
-3. Confirm deletion
+1. 选择要删除的配置
+2. 点击删除按钮
+3. 确认删除
 
 <Warning>
-You cannot delete the only configuration for an agent. Each agent must have at least one configuration.
+你不能删除 Agent 的唯一配置。每个 Agent 必须至少有一个配置。
 </Warning>
 
-### Setting a Default Configuration
+### 设置默认配置
 
-Click the **Default** badge next to a configuration to make it the default for that agent. The default configuration:
+点击配置旁边的 **Default** 徽章，将其设为该 Agent 的默认配置。默认配置：
 
-- Appears pre-selected in the agent dropdown when creating new attempts
-- Is used for follow-up messages in workspaces
-- Shows in the chat input toolbar as the current agent/variant
+- 在创建新尝试时预选在 Agent 下拉菜单中
+- 用于工作区中的后续消息
+- 在聊天输入工具栏中显示为当前的 Agent/变体
 
-## Agent Configuration Options
+## Agent 配置选项
 
 <Tabs>
 <Tab title="CLAUDE_CODE">
   <ParamField path="plan" type="boolean">
-  Enable planning mode for complex tasks
+  为复杂任务启用规划模式
   </ParamField>
 
   <ParamField path="claude_code_router" type="boolean">
-  Route requests across multiple Claude Code instances
+  将请求路由到多个 Claude Code 实例
   </ParamField>
 
   <ParamField path="dangerously_skip_permissions" type="boolean">
-  Skip permission prompts (use with caution)
+  跳过权限提示（请谨慎使用）
   </ParamField>
 
-  [View full CLI reference →](https://docs.anthropic.com/en/docs/claude-code/cli-reference#cli-flags)
+  [查看完整 CLI 参考 →](https://docs.anthropic.com/en/docs/claude-code/cli-reference#cli-flags)
 </Tab>
 
 <Tab title="GEMINI">
   <ParamField path="model" type="string">
-  Choose model variant: `"default"` or `"flash"`
+  选择模型变体：`"default"` 或 `"flash"`
   </ParamField>
 
   <ParamField path="yolo" type="boolean">
-  Run without confirmations
+  无需确认即可运行
   </ParamField>
 
-  [View full CLI reference →](https://google-gemini.github.io/gemini-cli/)
+  [查看完整 CLI 参考 →](https://google-gemini.github.io/gemini-cli/)
 </Tab>
 
 <Tab title="AMP">
   <ParamField path="dangerously_allow_all" type="boolean">
-  Allow all actions without restrictions (unsafe)
+  允许所有操作，无任何限制（不安全）
   </ParamField>
 
-  [View full documentation →](https://ampcode.com/manual#cli)
+  [查看完整文档 →](https://ampcode.com/manual#cli)
 </Tab>
 
 <Tab title="CODEX">
   <ParamField path="sandbox" type="string">
-  Execution environment: `"read-only"`, `"workspace-write"`, or `"danger-full-access"`
+  执行环境：`"read-only"`、`"workspace-write"` 或 `"danger-full-access"`
   </ParamField>
 
   <ParamField path="approval" type="string">
-  Approval level: `"untrusted"`, `"on-failure"`, `"on-request"`, or `"never"`
+  审批级别：`"untrusted"`、`"on-failure"`、`"on-request"` 或 `"never"`
   </ParamField>
 
   <ParamField path="model_reasoning_effort" type="string">
-  Reasoning depth: `"low"`, `"medium"`, or `"high"`
+  推理深度：`"low"`、`"medium"` 或 `"high"`
   </ParamField>
 
   <ParamField path="model_reasoning_summary" type="string">
-  Summary style: `"auto"`, `"concise"`, `"detailed"`, or `"none"`
+  摘要风格：`"auto"`、`"concise"`、`"detailed"` 或 `"none"`
   </ParamField>
 
-  [View full documentation →](https://github.com/openai/codex)
+  [查看完整文档 →](https://github.com/openai/codex)
 </Tab>
 
 <Tab title="CURSOR">
   <ParamField path="force" type="boolean">
-  Force execution without confirmation
+  无需确认即可强制执行
   </ParamField>
 
   <ParamField path="model" type="string">
-  Specify model to use
+  指定要使用的模型
   </ParamField>
 
-  [View full CLI reference →](https://docs.cursor.com/en/cli/reference/parameters)
+  [查看完整 CLI 参考 →](https://docs.cursor.com/en/cli/reference/parameters)
 </Tab>
 
 <Tab title="OPENCODE">
   <ParamField path="model" type="string">
-  Specify model to use
+  指定要使用的模型
   </ParamField>
 
   <ParamField path="agent" type="string">
-  Choose agent type
+  选择 Agent 类型
   </ParamField>
 
-  [View full documentation →](https://opencode.ai/docs/cli/#flags-1)
+  [查看完整文档 →](https://opencode.ai/docs/cli/#flags-1)
 </Tab>
 
 <Tab title="QWEN_CODE">
   <ParamField path="yolo" type="boolean">
-  Run without confirmations
+  无需确认即可运行
   </ParamField>
 
-  [View full documentation →](https://qwenlm.github.io/qwen-code-docs/en/cli/index)
+  [查看完整文档 →](https://qwenlm.github.io/qwen-code-docs/en/cli/index)
 </Tab>
 
 <Tab title="DROID">
   <ParamField path="autonomy" type="string">
-  Permission level: `"normal"`, `"low"`, `"medium"`, `"high"`, or `"skip-permissions-unsafe"`
+  权限级别：`"normal"`、`"low"`、`"medium"`、`"high"` 或 `"skip-permissions-unsafe"`
   </ParamField>
 
   <ParamField path="model" type="string">
-  Specify which model to use
+  指定要使用的模型
   </ParamField>
 
   <ParamField path="reasoning_effort" type="string">
-  Reasoning depth: `"off"`, `"low"`, `"medium"`, or `"high"`
+  推理深度：`"off"`、`"low"`、`"medium"` 或 `"high"`
   </ParamField>
 
-  [View full documentation →](https://docs.factory.ai/factory-cli/getting-started/overview)
+  [查看完整文档 →](https://docs.factory.ai/factory-cli/getting-started/overview)
 </Tab>
 </Tabs>
 
-### Universal Options
+### 通用选项
 
-These options work across multiple agent types:
+以下选项适用于多种 Agent 类型：
 
 <ParamField path="append_prompt" type="string | null">
-Text appended to the system prompt
+追加到系统提示的文本
 </ParamField>
 
 <Warning>
-Options prefixed with "dangerously_" bypass safety confirmations and can perform destructive actions. Use with extreme caution.
+带有 "dangerously_" 前缀的选项会绕过安全确认，可能执行破坏性操作。请极度谨慎使用。
 </Warning>
 
-## Environment Variables
+## 环境变量
 
-Each agent profile can define environment variables that are injected into the agent process at launch. This is useful for pointing an agent at a non-default API endpoint, supplying API keys, or running Claude Code against third-party providers.
+每个 Agent 配置文件可以定义环境变量，在启动时注入到 Agent 进程中。这对于将 Agent 指向非默认的 API 端点、提供 API 密钥或通过第三方提供商运行 Claude Code 非常有用。
 
-Set environment variables in the **Environment Variables** section of the agent configuration form.
+在 Agent 配置表单的**环境变量**部分设置环境变量。
 
 <Frame>
 <img src="/images/settings-agents-env-vars.png" alt="Agent configuration form showing the Environment Variables section with KEY and value inputs" />
 </Frame>
 
 <Info>
-Profile environment variables override any variables already set in your shell. This means you can keep your default Anthropic credentials for normal use and create separate profiles that point to different providers — each profile is fully isolated.
+配置文件的环境变量会覆盖 Shell 中已设置的变量。这意味着你可以保留默认的 Anthropic 凭证用于正常使用，并创建指向不同提供商的独立配置文件——每个配置文件完全隔离。
 </Info>
 
-### Using Third-Party Providers with Claude Code
+### 通过 Claude Code 使用第三方提供商
 
-Many providers expose an OpenAI-compatible or Anthropic-compatible API. You can use them with Claude Code by creating a dedicated profile with the right environment variables.
+许多提供商提供 OpenAI 兼容或 Anthropic 兼容的 API。你可以通过创建带有正确环境变量的专用配置文件来配合 Claude Code 使用它们。
 
 <Tabs>
 <Tab title="Z.ai (GLM)">
-Create a profile named **GLM** (or any name) and set:
+创建一个名为 **GLM**（或任何名称）的配置文件并设置：
 
-| Variable | Value |
+| 变量 | 值 |
 |----------|-------|
 | `ANTHROPIC_BASE_URL` | `https://api.z.ai/api/anthropic` |
-| `ANTHROPIC_AUTH_TOKEN` | Your Z.ai API key |
+| `ANTHROPIC_AUTH_TOKEN` | 你的 Z.ai API 密钥 |
 
-Z.ai automatically maps Claude models to GLM equivalents, so no model override is needed.
+Z.ai 会自动将 Claude 模型映射为 GLM 等效模型，因此无需覆盖模型。
 
-See the [Z.ai manual setup guide](https://docs.z.ai/devpack/tool/claude#manual-configuration) for details.
+详情请参阅 [Z.ai 手动配置指南](https://docs.z.ai/devpack/tool/claude#manual-configuration)。
 </Tab>
 
 <Tab title="OpenRouter">
-Create a profile named **OPENROUTER** and set:
+创建一个名为 **OPENROUTER** 的配置文件并设置：
 
-| Variable | Value |
+| 变量 | 值 |
 |----------|-------|
 | `ANTHROPIC_BASE_URL` | `https://openrouter.ai/api` |
-| `ANTHROPIC_AUTH_TOKEN` | Your OpenRouter API key |
-| `ANTHROPIC_API_KEY` | `""` (empty string) |
+| `ANTHROPIC_AUTH_TOKEN` | 你的 OpenRouter API 密钥 |
+| `ANTHROPIC_API_KEY` | `""`（空字符串） |
 
-Setting `ANTHROPIC_API_KEY` to an empty string prevents Claude Code from falling back to Anthropic's servers.
+将 `ANTHROPIC_API_KEY` 设置为空字符串可防止 Claude Code 回退到 Anthropic 的服务器。
 
-See the [OpenRouter Claude Code integration guide](https://openrouter.ai/docs/guides/guides/claude-code-integration) for details.
+详情请参阅 [OpenRouter Claude Code 集成指南](https://openrouter.ai/docs/guides/guides/claude-code-integration)。
 </Tab>
 
-<Tab title="Custom / Self-Hosted">
-For any Anthropic-compatible endpoint, refer to your provider's documentation for the required environment variables. Common variables include:
+<Tab title="自定义 / 自托管">
+对于任何 Anthropic 兼容的端点，请参考你的提供商文档以获取所需的环境变量。常见变量包括：
 
-| Variable | Purpose |
+| 变量 | 用途 |
 |----------|---------|
-| `ANTHROPIC_BASE_URL` | Provider's API endpoint |
-| `ANTHROPIC_AUTH_TOKEN` | Authentication token |
-| `ANTHROPIC_API_KEY` | API key (set to `""` if using `AUTH_TOKEN` instead) |
+| `ANTHROPIC_BASE_URL` | 提供商的 API 端点 |
+| `ANTHROPIC_AUTH_TOKEN` | 认证令牌 |
+| `ANTHROPIC_API_KEY` | API 密钥（如果使用 `AUTH_TOKEN`，请设置为 `""`） |
 </Tab>
 </Tabs>
 
 <Tip>
-Your original Anthropic configuration remains untouched. Select the **GLM**, **OPENROUTER**, or custom profile from the agent dropdown when creating a workspace to use the third-party provider, and switch back to the **DEFAULT** profile for normal Anthropic usage.
+你的原始 Anthropic 配置保持不变。创建工作区时从 Agent 下拉菜单中选择 **GLM**、**OPENROUTER** 或自定义配置文件来使用第三方提供商，切换回 **DEFAULT** 配置文件即可恢复正常的 Anthropic 使用。
 </Tip>
 
-## Using Agent Configurations
+## 使用 Agent 配置
 
-Once configured, your agent variants appear in the chat input toolbar, allowing quick switching between configurations.
+配置完成后，你的 Agent 变体会出现在聊天输入工具栏中，可以快速切换配置。
 
 <Frame>
 <img src="/images/workspaces-agent-selection.png" alt="Chat input showing agent variant dropdown with Default, Approvals, Opus, and Plan options" />
 </Frame>
 
 <CardGroup cols={2}>
-<Card title="Default Configuration" icon="gear">
-  Set your default agent and variant in **Settings → General → Default Coding Agent** for consistent behaviour across all attempts.
+<Card title="默认配置" icon="gear">
+  在 **Settings → General → Default Coding Agent** 中设置你的默认 Agent 和变体，确保所有尝试的行为一致。
 </Card>
 
-<Card title="Per-Attempt Selection" icon="rocket">
-  Override defaults when creating attempts by selecting different agent/variant combinations in the attempt dialogue.
+<Card title="按尝试选择" icon="rocket">
+  创建尝试时，通过在尝试对话框中选择不同的 Agent/变体组合来覆盖默认设置。
 </Card>
 </CardGroup>
 
-## Related Configuration
+## 相关配置
 
 <Note>
-MCP (Model Context Protocol) servers are configured separately under **Settings → MCP Servers** but work alongside agent profiles to extend functionality.
+MCP（Model Context Protocol）服务器在 **Settings → MCP Servers** 中单独配置，但与 Agent 配置文件配合使用以扩展功能。
 </Note>
 
-<Card title="Connecting MCP Servers" icon="server" href="/settings/mcp-servers">
-  Configure MCP servers within Vibe Kanban for your coding agents
+<Card title="连接 MCP 服务器" icon="server" href="/settings/mcp-servers">
+  在 Vibe Kanban 中为你的编程 Agent 配置 MCP 服务器
 </Card>

@@ -1,130 +1,130 @@
 ---
-title: "Global Settings"
-description: "Configure application-wide settings including themes, agents, and more"
-sidebarTitle: "Settings"
+title: "全局设置"
+description: "配置应用程序范围的全局设置，包括主题、Agent 等"
+sidebarTitle: "设置"
 ---
 
-You can configure application-wide settings via the **Settings** page. To access it, click the ⚙️ icon in the sidebar or select "Settings" from the top-right menu.
+你可以通过 **Settings** 页面配置应用程序范围的全局设置。要访问该页面，请点击侧边栏中的 ⚙️ 图标或从右上角菜单中选择 "Settings"。
 
 <Frame>
-<img src="/images/vk-settings.png" alt="Vibe Kanban global settings page showing theme options, agent configuration, and settings" />
+<img src="/images/vk-settings.png" alt="Vibe Kanban 全局设置页面，显示主题选项、Agent 配置和其他设置" />
 </Frame>
 
-## Themes
+## 主题
 
-Switch between light and dark themes to suit your preference.
+在浅色和深色主题之间切换，以符合你的偏好。
 
-## Default Agent Configuration
+## 默认 Agent 配置
 
-Choose the default agent and variant for new task attempts. This profile is pre-selected when creating new task attempts and follow-ups.
+为新的任务尝试选择默认的 Agent 和变体。在创建新的任务尝试和后续跟进时，会预选此配置。
 
-1. **Select an agent** (e.g., Claude Code, Gemini CLI, Codex)
-2. **Choose a variant** if available (e.g., Default, Plan, Router)
+1. **选择 Agent**（例如 Claude Code、Gemini CLI、Codex）
+2. **选择变体**（如果可用，例如 Default、Plan、Router）
 
 <Tip>
-You can override the default agent configuration per attempt in the create attempt dialog.
+你可以在创建尝试对话框中为每次尝试覆盖默认的 Agent 配置。
 </Tip>
 
-## Editor Integration
+## 编辑器集成
 
-Configure integration with your preferred code editor for a seamless development workflow.
+配置与你常用代码编辑器的集成，实现无缝的开发工作流。
 
-### Selecting Your Editor
+### 选择编辑器
 
-Choose from various supported editors:
-- **VS Code** - Microsoft's popular code editor
-- **Cursor** - VSCode fork with AI-native features
-- **Windsurf** - VSCode fork optimised for collaborative development
-- **Antigravity** - Google's AI-native code editor
-- **Neovim**, **Emacs**, **Sublime Text** - Other popular editors
-- **Custom** - Use a custom shell command
+从多种受支持的编辑器中选择：
+- **VS Code** - 微软广受欢迎的代码编辑器
+- **Cursor** - 具有原生 AI 功能的 VSCode 分支
+- **Windsurf** - 专为协作开发优化的 VSCode 分支
+- **Antigravity** - 谷歌的原生 AI 代码编辑器
+- **Neovim**、**Emacs**、**Sublime Text** - 其他流行的编辑器
+- **Custom** - 使用自定义 Shell 命令
 
-### Remote SSH Configuration
+### 远程 SSH 配置
 
 <Frame>
-<img src="/images/vk-editor-ssh.png" alt="Vibe Kanban settings editor section showing ssh configuration options." />
+<img src="/images/vk-editor-ssh.png" alt="Vibe Kanban 设置编辑器部分，显示 SSH 配置选项" />
 </Frame>
 
-When running Vibe Kanban on a remote server (e.g., accessed via Cloudflare tunnel, ngrok, or as a systemctl service), you can configure VSCode-based editors to open projects via SSH instead of assuming localhost.
+当 Vibe Kanban 运行在远程服务器上时（例如通过 Cloudflare 隧道、ngrok 访问，或作为 systemctl 服务运行），你可以配置基于 VSCode 的编辑器通过 SSH 打开项目，而不是假设使用 localhost。
 
-This feature is available for **VS Code**, **Cursor**, and **Windsurf** editors.
+此功能适用于 **VS Code**、**Cursor** 和 **Windsurf** 编辑器。
 
-#### When to Use Remote SSH
+#### 何时使用远程 SSH
 
-Enable remote SSH configuration when:
-- Vibe Kanban runs on a remote server (VPS, cloud instance, etc.)
-- You access the web UI through a tunnel or reverse proxy
-- Your code files are on a different machine than your browser
-- You want your local editor to connect to the remote server via SSH
+在以下情况下启用远程 SSH 配置：
+- Vibe Kanban 运行在远程服务器上（VPS、云实例等）
+- 你通过隧道或反向代理访问 Web UI
+- 你的代码文件位于与浏览器不同的机器上
+- 你希望本地编辑器通过 SSH 连接到远程服务器
 
-#### Configuration Fields
+#### 配置字段
 
-1. **Remote SSH Host** (Optional)
-   - The hostname or IP address of your remote server
-   - Examples: `example.com`, `192.168.1.100`, `my-server`
-   - Must be accessible via SSH from your local machine
+1. **Remote SSH Host**（可选）
+   - 远程服务器的主机名或 IP 地址
+   - 示例：`example.com`、`192.168.1.100`、`my-server`
+   - 必须可以从本地机器通过 SSH 访问
 
-2. **Remote SSH User** (Optional)
-   - The SSH username for connecting to the remote server
-   - If not specified, SSH will use your default user or SSH config
+2. **Remote SSH User**（可选）
+   - 连接到远程服务器的 SSH 用户名
+   - 如果未指定，SSH 将使用默认用户或 SSH 配置
 
-#### How It Works
+#### 工作原理
 
-When remote SSH is configured, clicking "Open in VSCode" (or Cursor/Windsurf):
-1. Generates a special protocol URL like: `vscode://vscode-remote/ssh-remote+user@host/path/to/project`
-2. Opens in your default browser, which launches your local editor
-3. Your editor connects to the remote server via SSH
-4. The project or task worktree opens in the remote context
+当配置了远程 SSH 后，点击 "Open in VSCode"（或 Cursor/Windsurf）时：
+1. 生成特殊的协议 URL，如：`vscode://vscode-remote/ssh-remote+user@host/path/to/project`
+2. 在默认浏览器中打开，从而启动本地编辑器
+3. 你的编辑器通过 SSH 连接到远程服务器
+4. 项目或任务工作树在远程上下文中打开
 
-This works for both project-level and task worktree opening.
+这对项目级别和任务工作树的打开都适用。
 
-#### Prerequisites
+#### 前提条件
 
-- SSH access configured between your local machine and remote server
-- SSH keys or credentials set up (no password prompts)
-- VSCode Remote-SSH extension installed (or equivalent for Cursor/Windsurf)
-- The remote server path must be accessible via SSH
+- 本地机器和远程服务器之间已配置 SSH 访问
+- 已设置 SSH 密钥或凭据（无需密码提示）
+- 已安装 VSCode Remote-SSH 扩展（或 Cursor/Windsurf 的等效扩展）
+- 远程服务器路径必须可通过 SSH 访问
 
 <Tip>
-Test your SSH connection first with `ssh user@host` to ensure it works without prompting for passwords.
+请先使用 `ssh user@host` 测试你的 SSH 连接，确保无需输入密码即可正常工作。
 </Tip>
 
-## Git Configuration
+## Git 配置
 
-Configure git branch naming preferences.
+配置 Git 分支命名偏好。
 
-### Branch Prefix
+### 分支前缀
 
-Set a prefix for auto-generated branch names (e.g., `vk` results in `vk/task-name`). Leave empty for no prefix.
+为自动生成的分支名称设置前缀（例如 `vk` 会生成 `vk/task-name`）。留空表示不使用前缀。
 
-## Notifications
+## 通知
 
-Toggle sound effects and push notifications to stay informed about task status changes.
+切换音效和推送通知，以便及时了解任务状态变更。
 
-## Telemetry
+## 遥测
 
-Enable or disable telemetry data collection to help improve Vibe Kanban.
+启用或禁用遥测数据收集，帮助改进 Vibe Kanban。
 
-## Task Tags
+## 任务标签
 
-Manage global task tags to accelerate task creation across all projects. Task tags allow you to define reusable text snippets that can be inserted into task descriptions using @mentions.
+管理全局任务标签，以加速所有项目的任务创建。任务标签允许你定义可复用的文本片段，通过 @提及 插入到任务描述中。
 
-<Card title="Learn more about task tags" icon="tag" href="/configuration-customisation/creating-task-tags">
-  Complete guide to creating and managing task tags
+<Card title="了解更多关于任务标签" icon="tag" href="/configuration-customisation/creating-task-tags">
+  创建和管理任务标签的完整指南
 </Card>
 
-## Agent Settings (Profiles & Variants)
+## Agent 设置（配置文件与变体）
 
-Define and customise agent variants under **Settings → Agents**. Variants let you maintain multiple configurations for the same agent (for example, a Claude Code "PLAN" variant).
+在 **Settings → Agents** 中定义和自定义 Agent 变体。变体允许你为同一个 Agent 维护多套配置（例如 Claude Code 的 "PLAN" 变体）。
 
-<Card title="Agent Profiles & Variants" icon="robot" href="/configuration-customisation/agent-configurations">
-  Detailed guide with examples for configuring agent variants
+<Card title="Agent 配置文件与变体" icon="robot" href="/configuration-customisation/agent-configurations">
+  配置 Agent 变体的详细指南和示例
 </Card>
 
-## Safety & Disclaimers
+## 安全与免责声明
 
-Manage acknowledgments and reset options for onboarding, safety disclaimers, and telemetry notices.
+管理引导流程、安全免责声明和遥测通知的确认和重置选项。
 
-- **Onboarding**: Reset the onboarding process to rerun the initial setup.
-- **Safety Disclaimer**: Reset or review the safety disclaimer prompt.
-- **Telemetry Notice**: Reset or review the telemetry data collection acknowledgment.
+- **Onboarding**：重置引导流程以重新运行初始设置。
+- **Safety Disclaimer**：重置或查看安全免责声明提示。
+- **Telemetry Notice**：重置或查看遥测数据收集确认。

@@ -1,74 +1,74 @@
 ---
-title: "Creating Tasks"
-description: "Learn how to create and manage tasks on your kanban board, including using templates, starting coding agents, and understanding task states"
+title: "创建任务"
+description: "了解如何在看板上创建和管理任务，包括使用模板、启动编程代理和理解任务状态"
 ---
 
 <Frame>
-<img src="/images/vk-task-dialog.png" alt="Task creation interface showing Add Task button and form fields" />
+<img src="/images/vk-task-dialog.png" alt="任务创建界面，显示添加任务按钮和表单字段" />
 </Frame>
 
-After creating a project, add tasks by clicking the **plus (+) icon** in the top right of your project kanban page, or by using the keyboard shortcut **`c`**.
+创建项目后，点击项目看板页面右上角的**加号 (+) 图标**，或使用键盘快捷键 **`c`** 来添加任务。
 
-You have two options when creating a task:
+创建任务时有两个选项：
 
-- **Create Task**: Adds the task to your kanban board without starting a coding agent
-- **Create & Start**: Creates the task and immediately starts it with your default coding agent and current branch
+- **Create Task**：将任务添加到看板，但不启动编程代理
+- **Create & Start**：创建任务并立即使用默认编程代理和当前分支启动
 
-## Using Task Tags
+## 使用任务标签
 
 <Frame>
-<img src="/images/screenshot-task-tag-autocomplete.png" alt="Task tag autocomplete dropdown showing available tags after typing @ symbol" />
+<img src="/images/screenshot-task-tag-autocomplete.png" alt="任务标签自动补全下拉菜单，显示输入 @ 符号后可用的标签" />
 </Frame>
 
-When adding a task, you can insert reusable text snippets using task tags:
+添加任务时，你可以使用任务标签插入可复用的文本片段：
 
-1. Type `@` in the task description or follow-up message
-2. Start typing the tag name to filter available tags
-3. Select a tag from the dropdown to insert its content
+1. 在任务描述或后续消息中输入 `@`
+2. 开始输入标签名称来筛选可用的标签
+3. 从下拉菜单中选择一个标签来插入其内容
 
 <Note>
-Task tags save time by providing reusable text snippets for common task structures. Learn more in the [Task Tags](/configuration-customisation/creating-task-tags) guide.
+任务标签通过提供常见任务结构的可复用文本片段来节省时间。在[任务标签](/configuration-customisation/creating-task-tags)指南中了解更多。
 </Note>
 
-## Starting an Existing Task
+## 启动已有任务
 
 <Frame>
-<img src="/images/vk-new-task-attempt.png" alt="Task attempt creation dialog showing agent profile and variant selection options" />
+<img src="/images/vk-new-task-attempt.png" alt="任务尝试创建对话框，显示代理配置和变体选择选项" />
 </Frame>
 
-When you open a task that hasn't been attempted yet, you'll see the task title, description, and a list of attempts showing "no attempts yet". Click the **plus (+) button** to create a task attempt and configure:
+当你打开一个尚未尝试过的任务时，你会看到任务标题、描述和一个显示"no attempts yet"的尝试列表。点击**加号 (+) 按钮**来创建任务尝试并配置：
 
-- **Agent profile**: Choose from available agents (e.g., CLAUDE_CODE, GEMINI, CODEX). Your default configuration from Settings is pre-selected.
-- **Variant**: If your selected agent has variants, pick the appropriate one (e.g., DEFAULT, PLAN).
-- **Base branch**: Specify which branch the agent should work from. Your current branch is selected by default.
+- **Agent profile**：从可用代理中选择（如 CLAUDE_CODE、GEMINI、CODEX）。你在设置中的默认配置会被预先选中。
+- **Variant**：如果你选择的代理有变体，请选择合适的变体（如 DEFAULT、PLAN）。
+- **Base branch**：指定代理应该从哪个分支开始工作。默认选中你当前的分支。
 
 <Tip>
-Use **Create & Start** to add the task and immediately create a task attempt with your default settings in one action.
+使用 **Create & Start** 可以一步完成添加任务并立即用默认设置创建任务尝试。
 </Tip>
 
 <Note>
-To monitor your task as it executes, see [Monitoring Task Execution](/core-features/monitoring-task-execution). To understand when you might need multiple attempts, see [New Task Attempts](/core-features/new-task-attempts).
+要监控任务的执行过程，请参阅[监控任务执行](/core-features/monitoring-task-execution)。要了解何时可能需要多次尝试，请参阅[新任务尝试](/core-features/new-task-attempts)。
 </Note>
 
-## Creating Tasks via MCP Clients
+## 通过 MCP 客户端创建任务
 
 <Warning>
-This is not the typical method for creating tasks but can be valuable for bulk task creation, migrating from other systems, using an AI assistant with extra project context, or for coding agents that want to create new tasks.
+这不是创建任务的常规方法，但对于批量创建任务、从其他系统迁移、使用具有额外项目上下文的 AI 助手，或让编程代理创建新任务等场景非常有用。
 </Warning>
 
-Tasks can also be created programmatically using coding agents or MCP (Model Context Protocol) clients such as Claude Desktop or Raycast. This approach is particularly useful for:
+任务也可以通过编程方式使用编程代理或 MCP（Model Context Protocol）客户端（如 Claude Desktop 或 Raycast）来创建。此方法特别适用于：
 
-- **Bulk task creation** based on existing data or project specifications
-- **Migration from other systems** like Linear, GitHub Issues, or Jira
-- **Automated task generation** from project plans or requirements documents
+- 基于现有数据或项目规格**批量创建任务**
+- 从 Linear、GitHub Issues 或 Jira 等**其他系统迁移**
+- 从项目计划或需求文档**自动生成任务**
 
 <Tip>
-For detailed setup instructions and examples, see the [Vibe Kanban MCP Server](/integrations/vibe-kanban-mcp-server) documentation.
+有关详细的设置说明和示例，请参阅 [Vibe Kanban MCP Server](/integrations/vibe-kanban-mcp-server) 文档。
 </Tip>
 
-### Example MCP Task Creation
+### MCP 任务创建示例
 
-Once configured with an MCP client, you can create multiple tasks from a project description:
+配置好 MCP 客户端后，你可以根据项目描述创建多个任务：
 
 ```
 I need to implement user authentication with:
@@ -81,20 +81,20 @@ I need to implement user authentication with:
 Please create individual tasks for each component.
 ```
 
-The MCP client will automatically generate structured tasks in your Vibe Kanban project based on this description.
+MCP 客户端将根据此描述自动在你的 Vibe Kanban 项目中生成结构化任务。
 
-## Understanding Task Columns
+## 理解任务列
 
-Tasks begin in the "To do" column and move automatically based on their progress:
+任务从"To do"列开始，并根据进度自动移动：
 
-| Action | Column |
-|--------|---------|
-| Task created | To do |
-| Task attempt started | In Progress |
-| Task attempt completed (success or failure) | In Review |
-| Task attempt merged | Done |
-| PR merged on GitHub | Done |
+| 操作 | 列 |
+|------|------|
+| 任务创建 | To do |
+| 任务尝试启动 | In Progress |
+| 任务尝试完成（成功或失败） | In Review |
+| 任务尝试已合并 | Done |
+| PR 在 GitHub 上已合并 | Done |
 
 <Info>
-You can manually drag tasks between columns, but this won't trigger any functionality. Task movement is primarily driven by coding agent actions and GitHub integration (which polls every 60 seconds).
+你可以手动拖拽任务到不同的列，但这不会触发任何功能。任务移动主要由编程代理的操作和 GitHub 集成（每 60 秒轮询一次）驱动。
 </Info>

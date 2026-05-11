@@ -1,101 +1,101 @@
 ---
-title: "Settings Overview"
-description: "Configure application-wide settings including themes, editor, agents, and more"
-sidebarTitle: "Overview"
+title: "设置概览"
+description: "配置应用程序的全局设置，包括主题、编辑器、Agent 等"
+sidebarTitle: "概览"
 ---
 
-The Settings dialog provides a streamlined, tabbed interface for configuring Vibe Kanban.
+设置对话框提供了一个简洁的标签式界面，用于配置 Vibe Kanban。
 
-## Accessing Settings
+## 访问设置
 
 <Frame>
 <img src="/images/settings-accessing.png" alt="Workspaces navbar showing the Settings gear icon with tooltip" />
 </Frame>
 
-- Click the **Settings** icon (<Icon icon="gear" />) in the Workspaces navbar
-- Press `Cmd/Ctrl + K` and select **Settings**
+- 点击工作区导航栏中的 **Settings** 图标 (<Icon icon="gear" />)
+- 按 `Cmd/Ctrl + K` 并选择 **Settings**
 
-## Settings Tabs
+## 设置标签页
 
 <Frame>
 <img src="/images/settings-general.png" alt="Settings dialog showing the tabbed interface with General, Projects, Repositories, Organization Settings, Agents, and MCP Servers tabs" />
 </Frame>
 
-The settings dialog is organised into the following tabs:
+设置对话框分为以下几个标签页：
 
-| Tab | Description |
+| 标签页 | 说明 |
 |-----|-------------|
-| **General** | Appearance, default agent, editor, git, and notifications |
-| **Projects** | Project-specific settings |
-| **Repositories** | Repository scripts (dev server, setup, cleanup) |
-| **Organization Settings** | Organisation members, invitations, and settings |
-| **Remote Projects** | Cloud-synced projects across organisations |
-| **Agents** | Agent profiles and variants |
-| **MCP Servers** | Model Context Protocol server configuration |
+| **General（通用）** | 外观、默认 Agent、编辑器、Git 和通知 |
+| **Projects（项目）** | 项目级别的设置 |
+| **Repositories（仓库）** | 仓库脚本（开发服务器、初始化、清理） |
+| **Organization Settings（组织设置）** | 组织成员、邀请和组织设置 |
+| **Remote Projects（远程项目）** | 跨组织的云端同步项目 |
+| **Agents（智能体）** | Agent 配置文件和变体 |
+| **MCP Servers（MCP 服务器）** | Model Context Protocol 服务器配置 |
 
-## General
+## 通用
 
-Configure appearance, default agent, editor, git preferences, notifications, and tags.
+配置外观、默认 Agent、编辑器、Git 偏好、通知和标签。
 
-<Card title="General Settings" icon="gear" href="/settings/general">
-  Complete guide to general settings including appearance, editor configuration, and more
+<Card title="通用设置" icon="gear" href="/settings/general">
+  通用设置的完整指南，包括外观、编辑器配置等
 </Card>
 
-## Projects & Repositories
+## 项目与仓库
 
-Configure project-specific settings and repository scripts including dev server, setup, and cleanup commands.
+配置项目级别的设置和仓库脚本，包括开发服务器、初始化和清理命令。
 
-<Card title="Projects & Repositories" icon="folder-tree" href="/settings/projects-repositories">
-  Configure project settings and repository scripts
+<Card title="项目与仓库" icon="folder-tree" href="/settings/projects-repositories">
+  配置项目设置和仓库脚本
 </Card>
 
-## Organization Settings
+## 组织设置
 
-Manage your Cloud organisations, invite team members, and configure organisation-level settings.
+管理你的 Cloud 组织、邀请团队成员，以及配置组织级别的设置。
 
-<Card title="Organisation Settings" icon="buildings" href="/settings/organization-settings">
-  Manage members, invitations, and organisation settings
+<Card title="组织设置" icon="buildings" href="/settings/organization-settings">
+  管理成员、邀请和组织设置
 </Card>
 
-## Remote Projects
+## 远程项目
 
-View and manage all your Cloud-synced projects across organisations. Create, edit, and delete projects from a centralised interface.
+查看和管理所有组织的云端同步项目。通过集中式界面创建、编辑和删除项目。
 
-<Card title="Remote Projects" icon="cloud" href="/settings/remote-projects">
-  Manage Cloud projects across all your organisations
+<Card title="远程项目" icon="cloud" href="/settings/remote-projects">
+  管理所有组织的 Cloud 项目
 </Card>
 
-## Agents
+## Agents（智能体）
 
 <Frame>
 <img src="/images/settings-agents.png" alt="Agents tab showing agent list, configuration variants, and settings options" />
 </Frame>
 
-Define and customise agent variants using a form-based interface. The Agents tab uses a finder-style two-column layout:
+通过表单界面定义和自定义 Agent 变体。Agents 标签页采用 Finder 风格的双栏布局：
 
-- **Left column (Agents)** - Available coding agents (Claude Code, Codex, Opencode, Cursor Agent, etc.)
-- **Right column (Configurations)** - Different variants for the selected agent (Default, Opus, Approvals, Plan, etc.)
+- **左栏（Agents）** - 可用的编程 Agent（Claude Code、Codex、Opencode、Cursor Agent 等）
+- **右栏（Configurations）** - 所选 Agent 的不同配置变体（Default、Opus、Approvals、Plan 等）
 
-<Card title="Agent Profiles & Variants" icon="robot" href="/settings/agent-configurations">
-  Detailed guide with examples for configuring agent variants
+<Card title="Agent 配置文件与变体" icon="robot" href="/settings/agent-configurations">
+  配置 Agent 变体的详细指南和示例
 </Card>
 
-## MCP Servers
+## MCP Servers（MCP 服务器）
 
 <Frame>
 <img src="/images/settings-mcp.png" alt="MCP Servers tab showing agent selection, JSON configuration, and popular servers" />
 </Frame>
 
-Configure Model Context Protocol servers to extend coding agent capabilities with custom tools and resources.
+配置 Model Context Protocol 服务器，通过自定义工具和资源扩展编程 Agent 的能力。
 
-- **Agent** - Choose which agent to configure MCP servers for (e.g., Claude Code)
-- **Server Configuration (JSON)** - Edit the MCP server configuration directly in JSON format
-- **Popular servers** - Click a card to insert a pre-configured MCP server into the JSON
+- **Agent** - 选择要配置 MCP 服务器的 Agent（如 Claude Code）
+- **Server Configuration (JSON)** - 以 JSON 格式直接编辑 MCP 服务器配置
+- **Popular servers** - 点击卡片将预配置的 MCP 服务器插入到 JSON 中
 
-<Card title="Connecting MCP Servers" icon="server" href="/settings/mcp-servers">
-  Configure MCP servers within Vibe Kanban for your coding agents
+<Card title="连接 MCP 服务器" icon="server" href="/settings/mcp-servers">
+  在 Vibe Kanban 中为你的编程 Agent 配置 MCP 服务器
 </Card>
 
-## Related Documentation
+## 相关文档
 
-- [Workspaces](/workspaces/index) - The Workspaces UI where settings are accessed
+- [工作区](/workspaces/index) - 访问设置的工作区界面

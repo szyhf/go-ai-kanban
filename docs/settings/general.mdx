@@ -1,61 +1,61 @@
 ---
-title: "Overview"
-description: "Configure appearance, default agent, editor, git, and notification preferences"
+title: "通用设置"
+description: "配置外观、默认 Agent、编辑器、Git 和通知偏好"
 ---
 
-The General tab contains application-wide settings for appearance, default agent, editor configuration, git preferences, and notifications.
+通用标签页包含应用程序全局设置，涵盖外观、默认 Agent、编辑器配置、Git 偏好和通知。
 
 <Frame>
 <img src="/images/settings-general.png" alt="General settings tab showing appearance, default agent, and editor options" />
 </Frame>
 
-## Appearance
+## 外观
 
-Customise how the application looks and feels:
+自定义应用程序的外观和风格：
 
-- **Theme** - Choose between Light and Dark colour schemes
-- **Language** - Select your preferred language (Browser Default follows your system language)
+- **主题** - 在浅色和深色配色方案之间选择
+- **语言** - 选择你的首选语言（Browser Default 会跟随系统语言）
 
-## Default Coding Agent
+## 默认编程 Agent
 
 <Frame>
 <img src="/images/settings-default-coding-agent.png" alt="Default Coding Agent section showing agent and variant dropdowns" />
 </Frame>
 
-Set the coding agent that will be used by default when creating new task attempts or follow-ups.
+设置创建新任务尝试或后续操作时默认使用的编程 Agent。
 
-- **Agent** - Select your preferred coding agent (e.g., Claude Code, Gemini CLI, Codex). This determines which AI assistant handles your coding tasks.
-- **Variant** - Choose a configuration variant for the selected agent (e.g., Default, Opus, Approvals). Variants contain different settings like planning mode, model selection, or permission levels.
+- **Agent** - 选择你的首选编程 Agent（如 Claude Code、Gemini CLI、Codex）。这决定了哪个 AI 助手来处理你的编程任务。
+- **变体** - 为所选 Agent 选择一个配置变体（如 Default、Opus、Approvals）。变体包含不同的设置，如规划模式、模型选择或权限级别。
 
-The selected agent and variant appear pre-selected in the attempt creation dialog, saving you time when starting new tasks.
+所选的 Agent 和变体会预选在创建尝试对话框中，为你启动新任务时节省时间。
 
 <Tip>
-You can override the default agent configuration per attempt in the create attempt dialog. The default is just a convenience for your most common workflow.
+你可以在创建尝试对话框中按尝试覆盖默认 Agent 配置。默认设置只是为你最常见的工作流提供便利。
 </Tip>
 
-## Editor
+## 编辑器
 
 <Frame>
 <img src="/images/settings-editor.png" alt="Editor settings showing Editor Type dropdown and Remote SSH Host input" />
 </Frame>
 
-Configure your code editing experience.
+配置你的代码编辑体验。
 
-### Selecting Your Editor
+### 选择编辑器
 
-Choose from various supported editors:
+从多种支持的编辑器中选择：
 
-- **VS Code** - Microsoft's popular code editor
-- **Cursor** - VSCode fork with AI-native features
-- **Windsurf** - VSCode fork optimised for collaborative development
-- **Zed** - High-performance code editor
-- **Antigravity** - Google's AI-native code editor
-- **Neovim**, **Emacs**, **Sublime Text** - Other popular editors
-- **Custom** - Use a custom shell command
+- **VS Code** - 微软广受欢迎的代码编辑器
+- **Cursor** - 以 AI 为原生的 VSCode 分支
+- **Windsurf** - 优化协作开发的 VSCode 分支
+- **Zed** - 高性能代码编辑器
+- **Antigravity** - Google 的 AI 原生代码编辑器
+- **Neovim**、**Emacs**、**Sublime Text** - 其他常用编辑器
+- **Custom** - 使用自定义 Shell 命令
 
-### Custom Editor Example
+### 自定义编辑器示例
 
-When selecting **Custom**, you can specify any shell command to open files. The command receives the file or directory path as an argument.
+选择 **Custom** 时，你可以指定任何 Shell 命令来打开文件。该命令接收文件或目录路径作为参数。
 
 ```bash
 # Example: Open with IntelliJ IDEA
@@ -68,58 +68,58 @@ idea
 ~/scripts/open-editor.sh
 ```
 
-### Opening Your Editor
+### 打开编辑器
 
 <Frame>
 <img src="/images/settings-open-in-ide.png" alt="Open in IDE option in the context bar" />
 </Frame>
 
-Once configured, you can open your editor from several places:
+配置完成后，你可以从多个位置打开编辑器：
 
-- **Context bar** - Click your IDE logo icon in the floating context bar to open the workspace
-- **Command bar** - Press `Cmd/Ctrl + K` and select "Open in IDE"
+- **上下文栏** - 点击浮动上下文栏中的 IDE 图标来打开工作区
+- **命令栏** - 按 `Cmd/Ctrl + K` 并选择 "Open in IDE"
 
 <Tip>
-The context bar shows your configured IDE's logo. For more details, see the [Workspaces Interface Guide](/workspaces/interface).
+上下文栏显示你已配置的 IDE 图标。更多详情请参阅[工作区界面指南](/workspaces/interface)。
 </Tip>
 
-## Remote SSH Configuration
+## 远程 SSH 配置
 
-When running Vibe Kanban on a remote server (e.g., accessed via Cloudflare tunnel, ngrok, or as a systemctl service), you can configure VSCode-based editors to open projects via SSH instead of assuming localhost.
+当 Vibe Kanban 运行在远程服务器上（例如通过 Cloudflare tunnel、ngrok 访问或作为 systemctl 服务运行）时，你可以配置基于 VSCode 的编辑器通过 SSH 打开项目，而不是假定使用 localhost。
 
-This feature is available for **VS Code**, **Cursor**, and **Windsurf** editors.
+此功能适用于 **VS Code**、**Cursor** 和 **Windsurf** 编辑器。
 
-### When to Use Remote SSH
+### 何时使用远程 SSH
 
-Enable remote SSH configuration when:
-- Vibe Kanban runs on a remote server (VPS, cloud instance, etc.)
-- You access the web UI through a tunnel or reverse proxy
-- Your code files are on a different machine than your browser
-- You want your local editor to connect to the remote server via SSH
+在以下情况下启用远程 SSH 配置：
+- Vibe Kanban 运行在远程服务器上（VPS、云实例等）
+- 你通过隧道或反向代理访问 Web UI
+- 你的代码文件位于与浏览器不同的机器上
+- 你希望本地编辑器通过 SSH 连接到远程服务器
 
-### Configuration Fields
+### 配置字段
 
-- **Remote SSH Host** (Optional) - The hostname or IP address of your remote server (e.g., `example.com`, `192.168.1.100`, `my-server`). Must be accessible via SSH from your local machine.
+- **Remote SSH Host**（可选） - 远程服务器的主机名或 IP 地址（如 `example.com`、`192.168.1.100`、`my-server`）。必须能从本地机器通过 SSH 访问。
 
-### How It Works
+### 工作原理
 
-When remote SSH is configured, clicking "Open in Editor" (or Cursor/Windsurf):
-1. Generates a special protocol URL like: `vscode://vscode-remote/ssh-remote+user@host/path/to/project`
-2. Opens in your default browser, which launches your local editor
-3. Your editor connects to the remote server via SSH
-4. The project or task worktree opens in the remote context
+配置远程 SSH 后，点击 "Open in Editor"（或 Cursor/Windsurf）：
+1. 生成一个特殊的协议 URL，如：`vscode://vscode-remote/ssh-remote+user@host/path/to/project`
+2. 在默认浏览器中打开，启动本地编辑器
+3. 你的编辑器通过 SSH 连接到远程服务器
+4. 在远程上下文中打开项目或任务工作树
 
-This works for both project-level and task worktree opening.
+这同时适用于项目级别和任务工作树的打开。
 
-### Prerequisites
+### 前提条件
 
-- SSH access configured between your local machine and remote server
-- SSH keys or credentials set up (no password prompts)
-- VSCode Remote-SSH extension installed (or equivalent for Cursor/Windsurf)
-- The remote server path must be accessible via SSH
+- 本地机器与远程服务器之间已配置 SSH 访问
+- 已设置 SSH 密钥或凭据（无需密码提示）
+- 已安装 VSCode Remote-SSH 扩展（或 Cursor/Windsurf 的等效扩展）
+- 远程服务器路径必须可通过 SSH 访问
 
 <Tip>
-Test your SSH connection first with `ssh user@host` to ensure it works without prompting for passwords.
+先用 `ssh user@host` 测试 SSH 连接，确保无需输入密码即可正常工作。
 </Tip>
 
 ## Git
@@ -128,70 +128,69 @@ Test your SSH connection first with `ssh user@host` to ensure it works without p
 <img src="/images/settings-git.png" alt="Git settings showing Branch Prefix and Workspace Directory fields" />
 </Frame>
 
-Configure git branch naming and workspace storage preferences.
+配置 Git 分支命名和工作区存储偏好。
 
-### Branch Prefix
+### 分支前缀
 
-Set a prefix for auto-generated branch names. When you create a new workspace or task, Vibe Kanban automatically creates a git branch for your changes.
+为自动生成的分支名称设置前缀。创建新工作区或任务时，Vibe Kanban 会自动为你的更改创建 Git 分支。
 
-| Prefix Setting | Example Branch Name |
+| 前缀设置 | 示例分支名称 |
 |----------------|---------------------|
 | `vk` | `vk/1a2b-implement-auth` |
 | `feature` | `feature/1a2b-implement-auth` |
-| *(empty)* | `1a2b-implement-auth` |
+| *（空）* | `1a2b-implement-auth` |
 
 <Tip>
-Use a prefix that matches your team's branching conventions (e.g., `feature`, `fix`, or your initials).
+使用与团队分支规范匹配的前缀（如 `feature`、`fix` 或你的姓名首字母）。
 </Tip>
 
-### Workspace Directory
+### 工作区目录
 
-Specify where Vibe Kanban stores workspace data. Workspaces are created in a `.vibe-kanban-workspaces` subdirectory within this path.
+指定 Vibe Kanban 存储工作区数据的位置。工作区在此路径下的 `.vibe-kanban-workspaces` 子目录中创建。
 
-- **Default location** - Leave empty to use the system default (typically your home directory)
-- **Custom location** - Set a specific path if you prefer workspaces on a different drive or directory
+- **默认位置** - 留空使用系统默认（通常为你的主目录）
+- **自定义位置** - 如果你希望工作区位于不同的驱动器或目录，请设置特定路径
 
 <Warning>
-Changes to Workspace Directory require an app restart. Existing workspaces remain in their original location.
+更改工作区目录需要重启应用程序。现有工作区将保留在其原始位置。
 </Warning>
 
-## Notifications
+## 通知
 
 <Frame>
 <img src="/images/settings-notifications.png" alt="Notifications settings showing sound effects and push notifications toggles" />
 </Frame>
 
-Configure how Vibe Kanban alerts you about task progress and status changes.
+配置 Vibe Kanban 如何提醒你关于任务进度和状态变化。
 
-- **Sound Effects** - Play audio notifications when tasks complete, need attention, or encounter errors. Useful when working with multiple tasks or when Vibe Kanban runs in a background tab.
-- **Push Notifications** - Receive browser notifications even when Vibe Kanban isn't in focus. Requires browser permission when first enabled.
+- **音效** - 在任务完成、需要关注或遇到错误时播放音频通知。适用于同时处理多个任务或 Vibe Kanban 在后台标签页运行时。
+- **推送通知** - 即使 Vibe Kanban 不在前台也能接收浏览器通知。首次启用时需要浏览器权限。
 
 <Tip>
-Enable notifications if you frequently run long-running tasks and want to be alerted when they complete or need your attention.
+如果你经常运行长时间任务并希望在任务完成或需要你关注时收到提醒，请启用通知。
 </Tip>
 
-## Telemetry
+## 遥测
 
-Enable or disable telemetry data collection to help improve Vibe Kanban.
+启用或禁用遥测数据收集以帮助改进 Vibe Kanban。
 
-## Message Input
+## 消息输入
 
-Choose the keyboard shortcut to send messages in the chat input (`Enter` or `⌘/Ctrl + Enter`).
+选择在聊天输入框中发送消息的键盘快捷键（`Enter` 或 `⌘/Ctrl + Enter`）。
 
-## Tags
+## 标签
 
 <Frame>
 <img src="/images/settings-tags.png" alt="Tags section showing task tags table with tag names, content, and actions" />
 </Frame>
 
-Create reusable text snippets that can be inserted into workspace prompts using `@tag_name`.
+创建可复用的文本片段，可通过 `@tag_name` 插入到工作区提示中。
 
-- **Add Tag +** - Create a new tag
-- **Tag Name** - The @mention name for the tag
-- **Content** - The text that will be inserted
-- **Actions** - Edit or delete existing tags
+- **Add Tag +** - 创建新标签
+- **标签名称** - 标签的 @提及名称
+- **内容** - 将要插入的文本
+- **操作** - 编辑或删除现有标签
 
-<Card title="Learn more about tags" icon="tag" href="/settings/creating-task-tags">
-  Complete guide to creating and managing tags
+<Card title="了解更多关于标签的信息" icon="tag" href="/settings/creating-task-tags">
+  创建和管理标签的完整指南
 </Card>
-

@@ -1,68 +1,68 @@
 ---
-title: "Completing a Task"
-description: "Learn how to complete tasks by rebasing, merging, and managing pull requests directly from Vibe Kanban"
-sidebarTitle: "Completing a Task"
+title: "完成任务"
+description: "了解如何通过 rebase、合并和直接管理 pull request 来完成任务"
+sidebarTitle: "完成任务"
 ---
 
-When your task is finished, Vibe Kanban provides integrated git operations to keep your branch up-to-date and merge your work back into the base branch.
+当你的任务完成后，Vibe Kanban 提供集成的 Git 操作来保持你的分支最新，并将你的工作合并回基础分支。
 
-## Git Operations Header
+## Git 操作栏
 
-At the top of the diff view, you'll see important branch information and actions:
+在 diff 视图的顶部，你会看到重要的分支信息和操作按钮：
 
 <Frame>
-<img src="/images/vk-diff-header.png" alt="Diff header showing branch information and action buttons" />
+<img src="/images/vk-diff-header.png" alt="显示分支信息和操作按钮的 diff 头部" />
 </Frame>
 
-**Branch Information:**
-- **Task branch**: The branch your task is working on
-- **Target branch**: The branch you'll merge into (with cog button to change it)
-- **Commits ahead**: Number of commits your branch has that aren't in the target
-- **Commits behind**: Number of commits in the target that you don't have (enables rebase button when >0)
+**分支信息：**
+- **任务分支**：你的任务正在工作的分支
+- **目标分支**：你将要合并到的分支（点击齿轮按钮可以更改）
+- **领先提交数**：你的分支中目标分支没有的提交数量
+- **落后提交数**：目标分支中你还没有的提交数量（当大于 0 时会启用 rebase 按钮）
 
-**Actions:**
-- **Merge**: Merge your changes into the target branch
-- **Create PR**: Create a pull request on GitHub
-- **Rebase**: Update your branch with the latest changes from the target branch
+**操作：**
+- **Merge**：将你的更改合并到目标分支
+- **Create PR**：在 GitHub 上创建 pull request
+- **Rebase**：使用目标分支的最新更改更新你的分支
 
 ## Rebase
 
-Click **Rebase** to update your branch with the latest changes from the target branch. This keeps your branch up-to-date and maintains a clean history.
+点击 **Rebase** 可以使用目标分支的最新更改来更新你的分支。这可以保持你的分支最新并维护清晰的历史记录。
 
-If conflicts occur, see [Resolving Rebase Conflicts](/core-features/resolving-rebase-conflicts).
+如果发生冲突，请参阅[解决 Rebase 冲突](/core-features/resolving-rebase-conflicts)。
 
 ## Merge
 
-Click **Merge** to integrate your completed work into the target branch. Your task will automatically move to the **Done** column. The branch remains until you manually delete it.
+点击 **Merge** 可以将你完成的工作合并到目标分支。你的任务将自动移动到 **Done** 列。分支在你手动删除之前会一直保留。
 
 <Tip>
-If you're working with GitHub, consider creating a pull request instead of merging directly. This allows for team review and CI checks.
+如果你正在使用 GitHub，建议创建 pull request 而不是直接合并。这样可以进行团队代码审查和 CI 检查。
 </Tip>
 
-## Pull Request Management
+## Pull Request 管理
 
-### Creating a Pull Request
+### 创建 Pull Request
 
-Click **Create PR** to create a pull request on GitHub. The title and description are auto-populated from your task details.
-
-<Frame>
-<img src="/images/vk-pr-open.png" alt="Header showing disabled Push button after pull request creation" />
-</Frame>
-
-After creating the PR, the button changes to **Push** (initially disabled until you make more changes).
-
-### Updating a Pull Request
-
-When you continue working after creating a PR, the **Push** button becomes enabled. Click it to push your latest changes to the pull request.
+点击 **Create PR** 可以在 GitHub 上创建 pull request。标题和描述会从你的任务详情中自动填充。
 
 <Frame>
-<img src="/images/vk-pr-with-push.png" alt="Header showing enabled Push button with new changes ready" />
+<img src="/images/vk-pr-open.png" alt="创建 pull request 后显示禁用的 Push 按钮的头部" />
 </Frame>
 
-When your PR is merged on GitHub, your task automatically moves to **Done**.
+创建 PR 后，按钮会变为 **Push**（在你做出更多更改之前会处于禁用状态）。
 
-## Related Documentation
+### 更新 Pull Request
 
-- [Resolving Rebase Conflicts](/core-features/resolving-rebase-conflicts) - Handle conflicts during rebasing
-- [GitHub Integration](/integrations/github-integration) - Set up GitHub CLI integration
-- [Creating Projects](/core-features/creating-projects) - Configure base branches and project settings
+当你在创建 PR 后继续工作时，**Push** 按钮会变为可用状态。点击它可以将最新的更改推送到 pull request。
+
+<Frame>
+<img src="/images/vk-pr-with-push.png" alt="显示启用状态的 Push 按钮以及准备推送的新更改的头部" />
+</Frame>
+
+当你的 PR 在 GitHub 上被合并后，你的任务会自动移动到 **Done**。
+
+## 相关文档
+
+- [解决 Rebase 冲突](/core-features/resolving-rebase-conflicts) - 处理 rebase 期间的冲突
+- [GitHub 集成](/integrations/github-integration) - 设置 GitHub CLI 集成
+- [创建项目](/core-features/creating-projects) - 配置基础分支和项目设置

@@ -1,9 +1,9 @@
 ---
-title: "Reviewing Code Changes"
-description: "Learn how to review and provide feedback on code changes made by coding agents"
+title: "审查代码更改"
+description: "了解如何审查编程代理所做的代码更改并提供反馈"
 ---
 
-When a coding agent completes a task, it automatically moves to the **In Review** column. This is where you can examine the changes, provide feedback, and ensure the implementation meets your requirements.
+当编程代理完成任务后，它会自动移动到 **In Review** 列。在这里你可以检查更改、提供反馈，并确保实现符合你的要求。
 
 <video
   controls
@@ -11,68 +11,66 @@ When a coding agent completes a task, it automatically moves to the **In Review*
   src="https://vkcdn.britannio.dev/showcase/flat-task-panel/vk-onb-code-review-3.mp4"
 ></video>
 
-## Opening the Code Review Interface
+## 打开代码审查界面
 
 <Steps>
-<Step title="Access the task">
-  Click on any task in the **In Review** column to open it.
+<Step title="访问任务">
+  点击 **In Review** 列中的任何任务来打开它。
 </Step>
 
-<Step title="View the diffs">
-  Click the **Diff icon** to view all the code changes made by the agent.
+<Step title="查看 diff">
+  点击 **Diff 图标** 查看代理所做的所有代码更改。
 </Step>
 </Steps>
 
-## Adding Review Comments
+## 添加审查评论
 
-### Line-Specific Comments
+### 针对特定行的评论
 
-To provide feedback on specific lines of code:
+要对特定代码行提供反馈：
 
 <Steps>
-<Step title="Locate the line">
-  Find the line you want to comment on in the diffs view.
+<Step title="定位代码行">
+  在 diff 视图中找到你想要评论的代码行。
 </Step>
 
-<Step title="Add a comment">
-  Click the **plus icon** (+) at the beginning of the line to create a review comment.
+<Step title="添加评论">
+  点击代码行开头的**加号图标** (+) 来创建审查评论。
 
   <Frame>
-  <img src="/images/add-line-comment.png" alt="Plus icon for adding line comments" />
+  <img src="/images/add-line-comment.png" alt="用于添加行评论的加号图标" />
   </Frame>
 </Step>
 
-<Step title="Write your feedback">
-  Enter your comment in the text field that appears. You can provide suggestions, ask questions, or request changes.
+<Step title="撰写你的反馈">
+  在出现的文本框中输入你的评论。你可以提供建议、提出问题或请求修改。
 </Step>
 </Steps>
 
-### Multiple Comments Across Files
+### 跨文件的多条评论
 
-You can create several review comments across different files in the same review:
+你可以在同一次审查中跨不同文件创建多条评论：
 
-- Add comments to multiple lines within a single file
-- Switch between different changed files and add comments to each
-- All comments will be collected and submitted together as part of your review
+- 在单个文件中添加对多行的评论
+- 切换到不同的已更改文件并为每个文件添加评论
+- 所有评论将被收集并作为完整审查一起提交
 
 <Note>
-Review comments are not submitted individually. They are collected and sent as a complete review when you submit your feedback.
+审查评论不会单独提交。它们会被收集起来，在你提交反馈时作为完整的审查一起发送。
 </Note>
 
-## Submitting Your Review
+## 提交你的审查
 
 <Steps>
-<Step title="Submit the review">
-  Click the **Send** button to send all your feedback to the coding agent.
+<Step title="提交审查">
+  点击 **Send** 按钮将你的所有反馈发送给编程代理。
 
   <Info>
-  All comments are combined into a single message for the coding agent to address.
+  所有评论会合并为一条消息供编程代理处理。
   </Info>
 </Step>
 
-<Step title="Task moves back to In Progress">
-  Once submitted, the task returns to the **In Progress** column where the agent will address your feedback and implement the requested changes.
+<Step title="任务返回到 In Progress">
+  提交后，任务会返回到 **In Progress** 列，代理将处理你的反馈并实现所请求的更改。
 </Step>
 </Steps>
-
-

@@ -1,223 +1,223 @@
 ---
-title: "Organisations"
-description: "Manage organisations that group your team and projects"
+title: "组织"
+description: "管理将团队和项目组织在一起的组织"
 ---
 
-Organisations are the top-level container in Vibe Kanban Cloud. They group your team members and projects together.
+组织是 Vibe Kanban Cloud 中的顶级容器。它们将你的团队成员和项目组织在一起。
 
-## What is an Organisation?
+## 什么是组织？
 
-An **organisation** represents your team, company, or group. It contains:
+一个**组织**代表你的团队、公司或小组。它包含：
 
-- **Projects** - Your kanban boards for managing tasks
-- **Members** - People who can access the organisation
-- **Settings** - Configuration that applies to all projects
+- **Projects** - 你用于管理任务的看板
+- **Members** - 可以访问组织的人员
+- **Settings** - 适用于所有项目的配置
 
 
-### Organisation Structure
+### 组织结构
 
-An organisation acts as a container that holds two main things:
+组织作为一个容器，包含两个主要内容：
 
-**Members** are the people who belong to your organisation. Each member has a role:
-- **Admins** have full control - they can invite/remove members, change settings, and delete the organisation
-- **Members** can work on all projects but cannot manage organisation settings
+**Members** 是属于你组织的人员。每个成员有一个角色：
+- **Admin** 拥有完全控制权——可以邀请/移除成员、更改设置和删除组织
+- **Member** 可以处理所有项目，但无法管理组织设置
 
-**Projects** are your kanban boards. Each project contains tasks, statuses, and tags. All members of an organisation can see and work on all projects within it.
+**Projects** 是你的看板。每个项目包含任务、状态和标签。组织的所有成员都可以查看和处理其中的所有项目。
 
 <Tip>
-Think of an organisation like a company: the company has employees (members) and departments or initiatives (projects). Everyone in the company can see what each department is working on.
+把组织想象成一家公司：公司有员工（成员）和部门或项目（项目）。公司里的每个人都可以看到每个部门在做什么。
 </Tip>
 
-## Personal Organisation
+## 个人组织
 
-When you sign in for the first time, a **personal organisation** is automatically created for you, along with an **Initial Project**. This is your private workspace.
+首次登录时，系统会自动为你创建一个**个人组织**，以及一个**初始项目**帮助你开始。这是你的私有工作空间。
 
-Personal organisations:
-- Are created automatically on first sign-in
-- Come with an "Initial Project" ready to use
-- Cannot have additional members invited
-- Cannot be deleted
-- Are only accessible by you
+个人组织：
+- 在首次登录时自动创建
+- 附带一个"Initial Project"可直接使用
+- 无法邀请其他成员
+- 无法被删除
+- 仅你个人可访问
 
 <Info>
-Team organisations can be created without payment, and members can be invited without seat limits.
+团队组织可以免费创建，成员邀请没有席位限制。
 </Info>
 
-## Organisation Settings
+## 组织设置
 
-Access organisation settings by clicking the **settings icon** (<Icon icon="gear" />) next to your organisation name in the user menu.
+通过点击用户菜单中组织名称旁边的**设置图标**（<Icon icon="gear" />）访问组织设置。
 
 <Frame>
   <img src="/images/cloud/user-menu-settings.png" alt="User menu showing settings icon next to organisation" />
 </Frame>
 
-For detailed information about all organisation settings, see the [Organisation Settings](/settings/organization-settings) page.
+有关所有组织设置的详细信息，请参见[组织设置](/settings/organization-settings)页面。
 
-From Organisation Settings you can:
-- **Select organisation** - Switch between organisations you belong to
-- **Manage members** - View, invite, and remove members (Admin only)
-- **Manage invitations** - View and revoke pending invitations (Admin only)
-- **Delete organisation** - Permanently delete the organisation (Admin only)
+在组织设置中你可以：
+- **选择组织** - 在你所属的组织之间切换
+- **管理成员** - 查看、邀请和移除成员（仅 Admin）
+- **管理邀请** - 查看和撤销待处理的邀请（仅 Admin）
+- **删除组织** - 永久删除组织（仅 Admin）
 
-## Switching Organisations
+## 切换组织
 
-If you're a member of multiple organisations:
+如果你是多个组织的成员：
 
 <Steps>
-<Step title="Open the user menu">
-  Click your **profile icon** in the bottom of the left sidebar.
+<Step title="打开用户菜单">
+  点击左侧边栏底部的**头像图标**。
 </Step>
 
-<Step title="Select the organisation">
-  Click on the organisation you want to switch to from the list.
+<Step title="选择组织">
+  从列表中点击你想要切换到的组织。
 </Step>
 </Steps>
 
-The page will refresh to show the selected organisation's projects and data.
+页面将刷新以显示所选组织的项目和数据。
 
-## Leaving an Organisation
+## 离开组织
 
-If you want to leave an organisation you're a member of:
+如果你想离开你作为成员的组织：
 
 <Steps>
-<Step title="Go to Settings">
-  Open the organisation settings.
+<Step title="前往设置">
+  打开组织设置。
 </Step>
 
-<Step title="Find Leave Organisation">
-  Scroll down to the **Danger Zone** section.
+<Step title="找到离开组织选项">
+  滚动到 **Danger Zone** 分区。
 </Step>
 
-<Step title="Click Leave">
-  Click **Leave Organisation** and confirm.
+<Step title="点击离开">
+  点击 **Leave Organisation** 并确认。
 </Step>
 </Steps>
 
 <Warning>
-**You cannot leave if you're the only admin.** Transfer ownership to another member first, or delete the organisation.
+**如果你是唯一的管理员，则无法离开。** 请先将所有权转移给其他成员，或删除组织。
 </Warning>
 
-## Deleting an Organisation
+## 删除组织
 
 <Warning>
-**This action is permanent and cannot be undone.** All projects, tasks, and data will be deleted.
+**此操作是永久性的，无法撤销。** 所有项目、任务和数据将被删除。
 </Warning>
 
-Only organisation admins can delete an organisation. Personal organisations cannot be deleted.
+只有组织管理员可以删除组织。个人组织无法被删除。
 
 <Frame>
   <img src="/images/cloud/danger-zone.png" alt="Danger Zone section with Delete Organization button" />
 </Frame>
 
 <Steps>
-<Step title="Go to Settings">
-  Open the organisation settings.
+<Step title="前往设置">
+  打开组织设置。
 </Step>
 
-<Step title="Find Danger Zone">
-  Scroll down to the **Danger Zone** section.
+<Step title="找到 Danger Zone">
+  滚动到 **Danger Zone** 分区。
 </Step>
 
-<Step title="Confirm deletion">
-  Click **Delete** and confirm when prompted.
+<Step title="确认删除">
+  点击 **Delete** 并在提示时确认。
 </Step>
 </Steps>
 
 <Info>
-Before deleting, consider:
-- Exporting any data you need
-- Removing all members (they'll lose access immediately upon deletion)
-- This cannot be recovered
+删除前，请考虑：
+- 导出你需要的任何数据
+- 移除所有成员（删除后他们将立即失去访问权限）
+- 此操作无法恢复
 </Info>
 
-## Organisation Roles
+## 组织角色
 
-Members can have one of two roles:
+成员可以拥有两种角色之一：
 
-| Role | Capabilities |
+| 角色 | 权限 |
 |------|--------------|
-| **Admin** | Full access - manage members, settings, and can delete the organisation |
-| **Member** | Can view and work on projects, but cannot manage organisation settings or members |
+| **Admin** | 完全访问权限——管理成员、设置，可以删除组织 |
+| **Member** | 可以查看和处理项目，但无法管理组织设置或成员 |
 
-### Role Permissions
+### 角色权限
 
-| Action | Admin | Member |
+| 操作 | Admin | Member |
 |--------|-------|--------|
-| View projects | ✅ | ✅ |
-| Create projects | ✅ | ✅ |
-| Edit project settings | ✅ | ✅ |
-| Create/edit tasks | ✅ | ✅ |
-| Invite members | ✅ | ❌ |
-| Remove members | ✅ | ❌ |
-| Change member roles | ✅ | ❌ |
-| Edit organisation settings | ✅ | ❌ |
-| Delete organisation | ✅ | ❌ |
+| 查看项目 | ✅ | ✅ |
+| 创建项目 | ✅ | ✅ |
+| 编辑项目设置 | ✅ | ✅ |
+| 创建/编辑任务 | ✅ | ✅ |
+| 邀请成员 | ✅ | ❌ |
+| 移除成员 | ✅ | ❌ |
+| 更改成员角色 | ✅ | ❌ |
+| 编辑组织设置 | ✅ | ❌ |
+| 删除组织 | ✅ | ❌ |
 
 <Info>
-The person who creates an organisation is automatically an Admin. There must always be at least one Admin.
+创建组织的人自动成为 Admin。组织中必须始终至少有一个 Admin。
 </Info>
 
-## Best Practices
+## 最佳实践
 
 <CardGroup cols={2}>
-<Card title="One org per team/company" icon="building">
-  Create one organisation for your team or company. Don't create separate orgs for each project.
+<Card title="每个团队/公司一个组织" icon="building">
+  为你的团队或公司创建一个组织。不要为每个项目创建单独的组织。
 </Card>
 
-<Card title="Use descriptive names" icon="tag">
-  Choose organisation names that clearly identify the team. "Engineering" is better than "Org 1".
+<Card title="使用描述性名称" icon="tag">
+  选择能清晰标识团队的组织名称。"Engineering"比"Org 1"更好。
 </Card>
 
-<Card title="Have multiple admins" icon="users">
-  Ensure at least two people are admins in case one leaves or is unavailable.
+<Card title="设置多个管理员" icon="users">
+  确保至少有两个人是管理员，以防其中一人离开或不可用。
 </Card>
 
-<Card title="Regular member audits" icon="clipboard-check">
-  Periodically review who has access and remove members who no longer need it.
+<Card title="定期审查成员" icon="clipboard-check">
+  定期检查谁有访问权限，移除不再需要的成员。
 </Card>
 </CardGroup>
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="Can't create an organisation">
-**Problem:** The create organisation button doesn't appear or doesn't work.
+<Accordion title="无法创建组织">
+**问题：** 创建组织按钮不显示或不起作用。
 
-**Possible causes:**
-- You're already in the organisation creation flow
-- Network connectivity issues
+**可能的原因：**
+- 你已在组织创建流程中
+- 网络连接问题
 
-**Solution:**
-Refresh the page and try again. If the issue persists, check your browser's console for errors.
+**解决方案：**
+刷新页面并重试。如果问题持续，检查浏览器控制台中的错误。
 </Accordion>
 
-<Accordion title="Can't see an organisation I should have access to">
-**Problem:** An organisation you were invited to doesn't appear in your list.
+<Accordion title="看不到我应该有权限访问的组织">
+**问题：** 你被邀请的组织没有出现在列表中。
 
-**Possible causes:**
-- The invitation is still pending (check your email)
-- You signed in with a different account
-- You were removed from the organisation
+**可能的原因：**
+- 邀请仍在待处理（检查你的邮件）
+- 你使用了不同的账户登录
+- 你已从组织中被移除
 
-**Solution:**
-1. Check your email for an invitation link
-2. Verify you're signed in with the correct account
-3. Ask an admin of the organisation to check your membership
+**解决方案：**
+1. 检查邮件中的邀请链接
+2. 确认你使用的是正确的账户登录
+3. 请组织管理员检查你的成员资格
 </Accordion>
 
-<Accordion title="Can't leave the organisation">
-**Problem:** The "Leave Organisation" button is disabled.
+<Accordion title="无法离开组织">
+**问题：** "Leave Organisation"按钮不可用。
 
-**Cause:** You're the only admin.
+**原因：** 你是唯一的管理员。
 
-**Solution:**
-1. Promote another member to admin first
-2. Then you can leave
-3. Or delete the organisation if no one else needs it
+**解决方案：**
+1. 先将另一个成员提升为管理员
+2. 然后你就可以离开
+3. 如果没有其他人需要，也可以删除组织
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Team Members](/cloud/team-members) - Inviting and managing organisation members
-- [Getting Started](/cloud/getting-started) - Initial setup of Vibe Kanban Cloud
+- [团队成员](/cloud/team-members) - 邀请和管理组织成员
+- [入门指南](/cloud/getting-started) - Vibe Kanban Cloud 的初始设置

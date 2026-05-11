@@ -1,87 +1,86 @@
 ---
-title: "Authentication"
-description: "Sign in with GitHub or Google and manage your sessions"
+title: "身份认证"
+description: "使用 GitHub 或 Google 登录并管理你的会话"
 ---
 
-Vibe Kanban Cloud uses OAuth authentication, allowing you to sign in with your existing GitHub or Google account instead of creating a new password.
+Vibe Kanban Cloud 使用 OAuth 身份认证，允许你使用现有的 GitHub 或 Google 账户登录，而无需创建新密码。
 
-## How Authentication Works
+## 身份认证工作原理
 
 <Info>
-**What is OAuth?**
+**什么是 OAuth？**
 
-OAuth is a secure way to sign in to applications using accounts you already have. When you click "Sign in with GitHub", you're redirected to GitHub to confirm you want to allow Vibe Kanban access. GitHub then tells Vibe Kanban who you are, without Vibe Kanban ever seeing your GitHub password.
+OAuth 是一种安全的应用登录方式，使用你已有的账户来验证身份。当你点击"Sign in with GitHub"时，你会被重定向到 GitHub 确认是否允许 Vibe Kanban 访问。GitHub 随后告知 Vibe Kanban 你的身份信息，而 Vibe Kanban 不会看到你的 GitHub 密码。
 </Info>
 
-### The Sign-In Flow
+### 登录流程
 
 <Steps>
-<Step title="Click Sign In">
-  On the login page, click **Sign in with GitHub** or **Sign in with Google**.
+<Step title="点击登录">
+  在登录页面，点击 **Sign in with GitHub** 或 **Sign in with Google**。
 
   <Frame>
     <img src="/images/cloud/sign-in-dialog.png" alt="Sign in dialog with GitHub and Google options" />
   </Frame>
 </Step>
 
-<Step title="Authorise on Provider">
-  You'll be redirected to GitHub or Google. If you're not already logged in there, you'll need to log in first.
+<Step title="在提供商页面授权">
+  你将被重定向到 GitHub 或 Google。如果尚未登录，需要先登录。
 
-
-  Click **Authorize** (GitHub) or **Allow** (Google) to grant Vibe Kanban access.
+  点击 **Authorize**（GitHub）或 **Allow**（Google）以授予 Vibe Kanban 访问权限。
 </Step>
 
-<Step title="Redirected Back">
-  After authorising, you're automatically redirected back to Vibe Kanban and signed in.
+<Step title="自动跳转回来">
+  授权完成后，你将自动跳转回 Vibe Kanban 并完成登录。
 </Step>
 </Steps>
 
-### What Vibe Kanban Can Access
+### Vibe Kanban 可以访问什么
 
-When you authorise Vibe Kanban, it only requests minimal permissions:
+当你授权 Vibe Kanban 时，它仅请求最小权限：
 
-| Provider | Access Granted |
+| 提供商 | 授权范围 |
 |----------|----------------|
-| **GitHub** | Your public profile (name, email, avatar) |
-| **Google** | Your basic profile (name, email, avatar) |
+| **GitHub** | 你的公开资料（姓名、邮箱、头像） |
+| **Google** | 你的基本资料（姓名、邮箱、头像） |
 
 <Info>
-Vibe Kanban **cannot**:
-- Access your private repositories (unless you grant additional permissions later)
-- Post on your behalf
-- Change your account settings
-- See your password
+Vibe Kanban **不会**：
+- 访问你的私有仓库（除非你之后额外授权）
+- 以你的名义发布内容
+- 修改你的账户设置
+- 查看你的密码
 </Info>
 
-## Signing In
+## 登录
 
-### First-Time Sign In
+### 首次登录
 
-The first time you sign in:
+首次登录时：
 
-1. Click a sign-in button (GitHub or Google)
-2. Authorise the application on the provider's website
-3. A personal organisation is automatically created for you
+1. 点击登录按钮（GitHub 或 Google）
+2. 在提供商网站上授权应用
+3. 系统会自动为你创建一个个人组织
 
 
-### Returning Sign In
+### 再次登录
 
-For subsequent sign-ins:
+后续登录时：
 
-1. Click the same sign-in button you used before
-2. If you're already logged into the provider, you'll be signed in automatically
-3. You'll land on your organisation's dashboard
+1. 点击之前使用过的登录按钮
+2. 如果你已在提供商处登录，将自动完成登录
+3. 你将进入组织的仪表板
 
 <Tip>
-**Tip:** If you're already signed into GitHub or Google in your browser, clicking the sign-in button will log you in almost instantly without any prompts.
+**提示：** 如果你已在浏览器中登录了 GitHub 或 Google，点击登录按钮即可几乎瞬间完成登录，无需任何提示。
 </Tip>
 
-## Signing Out
+## 退出登录
 
-To sign out:
+退出登录的步骤：
 
-1. Click your **profile icon** in the bottom of the left sidebar
-2. Click **Sign out**
+1. 点击左侧边栏底部的**头像图标**
+2. 点击 **Sign out**
 
 <Frame>
   <img src="/images/cloud/user-menu.png" alt="User menu showing Sign out option" />
@@ -89,120 +88,120 @@ To sign out:
 
 
 <Warning>
-Signing out only affects the current browser. If you're signed in on multiple devices, you'll remain signed in on those devices.
+退出登录仅影响当前浏览器。如果你在多个设备上登录，其他设备上的登录状态不受影响。
 </Warning>
 
-### Signing Out of All Devices
+### 在所有设备上退出
 
-Currently, there's no way to sign out of all devices at once. If you need to revoke all sessions (e.g., if you suspect unauthorised access):
+目前不支持一次性在所有设备上退出。如果你需要撤销所有会话（例如怀疑账户被未授权访问）：
 
-1. Go to your OAuth provider's settings:
+1. 前往你的 OAuth 提供商设置页面：
    - **GitHub:** [github.com/settings/applications](https://github.com/settings/applications)
    - **Google:** [myaccount.google.com/permissions](https://myaccount.google.com/permissions)
-2. Find "Vibe Kanban Cloud" and revoke access
-3. All sessions will be invalidated
+2. 找到"Vibe Kanban Cloud"并撤销访问权限
+3. 所有会话将立即失效
 
-## Multiple Accounts
+## 多个账户
 
-### Using Different Providers
+### 使用不同的提供商
 
-You can sign in with either GitHub or Google - they're treated as separate accounts. If you sign in with GitHub, then later sign in with Google, you'll have two separate accounts.
+你可以使用 GitHub 或 Google 登录——它们被视为独立的账户。如果你先用 GitHub 登录，后来又用 Google 登录，你将拥有两个独立的账户。
 
 <Warning>
-**Account linking is not currently supported.** If you want to use both GitHub and Google, pick one and stick with it to avoid having duplicate accounts.
+**目前不支持账户关联。** 如果你同时想使用 GitHub 和 Google，请选择其中一个并坚持使用，以避免出现重复账户。
 </Warning>
 
-### Switching Accounts
+### 切换账户
 
-To switch to a different account:
+切换到不同账户的步骤：
 
-1. Sign out of your current account
-2. Sign in with the different provider or account
+1. 退出当前账户
+2. 使用其他提供商或账户登录
 
-If you need to sign in with a different GitHub/Google account than the one your browser remembers:
+如果你需要使用与浏览器记忆中不同的 GitHub/Google 账户登录：
 
-1. Sign out of Vibe Kanban
-2. Go to the provider's website (github.com or google.com)
-3. Sign out there
-4. Return to Vibe Kanban and sign in - you'll be prompted to log in to the provider
+1. 退出 Vibe Kanban
+2. 前往提供商网站（github.com 或 google.com）
+3. 在那里退出登录
+4. 返回 Vibe Kanban 登录——系统会提示你登录提供商账户
 
-## Security Best Practices
+## 安全最佳实践
 
 <CardGroup cols={2}>
-<Card title="Use a strong provider password" icon="lock">
-  Your Vibe Kanban security depends on your GitHub/Google account security. Use a strong, unique password.
+<Card title="使用强密码保护提供商账户" icon="lock">
+  Vibe Kanban 的安全性取决于你的 GitHub/Google 账户安全。请使用强度高且唯一的密码。
 </Card>
 
-<Card title="Enable 2FA on your provider" icon="shield-check">
-  Enable two-factor authentication on GitHub or Google for extra security.
+<Card title="在提供商处启用两步验证" icon="shield-check">
+  在 GitHub 或 Google 上启用两步验证（2FA）以获得额外安全保障。
 </Card>
 
-<Card title="Sign out on shared computers" icon="right-from-bracket">
-  Always sign out when using a shared or public computer.
+<Card title="在公共电脑上退出登录" icon="right-from-bracket">
+  在使用公共或共享电脑时，务必退出登录。
 </Card>
 
-<Card title="Review authorised apps periodically" icon="clipboard-check">
-  Periodically check what apps have access to your GitHub/Google account and revoke any you don't recognise.
+<Card title="定期审查已授权的应用" icon="clipboard-check">
+  定期检查哪些应用有权限访问你的 GitHub/Google 账户，撤销你不认识的应用。
 </Card>
 </CardGroup>
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="'Invalid redirect URI' error">
-**Problem:** After clicking sign in, you see an error about invalid redirect URI.
+<Accordion title="'Invalid redirect URI' 错误">
+**问题：** 点击登录后，出现关于无效重定向 URI 的错误。
 
-**Cause:** The callback URL in your OAuth app doesn't match.
+**原因：** OAuth 应用中的回调 URL 不匹配。
 
-**Solution:**
-1. Check your OAuth app settings
-2. Ensure the callback URL is exactly:
+**解决方案：**
+1. 检查你的 OAuth 应用设置
+2. 确保回调 URL 完全正确：
    - GitHub: `https://<your-public-base-url>/v1/oauth/github/callback`
    - Google: `https://<your-public-base-url>/v1/oauth/google/callback`
-3. No trailing slashes, exact capitalisation
+3. 不要有末尾斜杠，大小写必须完全一致
 </Accordion>
 
-<Accordion title="'Access denied' error">
-**Problem:** The provider shows "access denied" or similar.
+<Accordion title="'Access denied' 错误">
+**问题：** 提供商显示"access denied"或类似信息。
 
-**Cause:** You clicked "Deny" instead of "Authorize", or your organisation has OAuth app restrictions.
+**原因：** 你点击了"Deny"而不是"Authorize"，或者你的组织有 OAuth 应用限制。
 
-**Solution:**
-1. Try again and click "Authorize" or "Allow"
-2. If you're part of a GitHub organisation with app restrictions, ask your admin to approve Vibe Kanban
+**解决方案：**
+1. 重新尝试并点击"Authorize"或"Allow"
+2. 如果你所在的 GitHub 组织有应用限制，请联系管理员批准 Vibe Kanban
 </Accordion>
 
-<Accordion title="Signed in as wrong account">
-**Problem:** You're signed in with the wrong GitHub/Google account.
+<Accordion title="登录到了错误的账户">
+**问题：** 你使用了错误的 GitHub/Google 账户登录。
 
-**Solution:**
-1. Sign out of Vibe Kanban
-2. Go to github.com or google.com and sign out there
-3. Sign in to the correct account on the provider
-4. Return to Vibe Kanban and sign in
+**解决方案：**
+1. 退出 Vibe Kanban
+2. 前往 github.com 或 google.com 并在那里退出登录
+3. 在提供商处登录正确的账户
+4. 返回 Vibe Kanban 并登录
 </Accordion>
 
-<Accordion title="Session expired unexpectedly">
-**Problem:** You keep getting signed out.
+<Accordion title="会话意外过期">
+**问题：** 你反复被退出登录。
 
-**Possible causes:**
-- Server was restarted (invalidates all sessions)
-- JWT secret was changed
-- You've been inactive for more than 7 days
+**可能的原因：**
+- 服务器重启（会使所有会话失效）
+- JWT 密钥被更改
+- 你已超过 7 天未活动
 
-**Solution:**
-Simply sign in again. If it keeps happening, check if the server is restarting frequently.
+**解决方案：**
+重新登录即可。如果问题持续出现，检查服务器是否频繁重启。
 </Accordion>
 
-<Accordion title="Can't sign in after revoking access">
-**Problem:** You revoked Vibe Kanban's access on GitHub/Google and now can't sign in.
+<Accordion title="撤销访问后无法登录">
+**问题：** 你在 GitHub/Google 上撤销了 Vibe Kanban 的访问权限，现在无法登录。
 
-**Solution:**
-Just sign in again - you'll be prompted to re-authorise the application.
+**解决方案：**
+直接重新登录——系统会提示你重新授权应用。
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Getting Started](/cloud/getting-started) - Initial setup including OAuth app creation
-- [Team Members](/cloud/team-members) - Managing user access within your organisation
+- [入门指南](/cloud/getting-started) - 包括 OAuth 应用创建在内的初始设置
+- [团队成员](/cloud/team-members) - 管理组织内的用户访问权限

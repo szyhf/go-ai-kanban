@@ -1,128 +1,127 @@
 ---
-title: "Workspaces Overview"
-description: "A redesigned task execution experience with multi-repo support, multiple agent sessions, and an integrated preview browser"
-sidebarTitle: "Overview"
+title: "工作空间概览"
+description: "重新设计的任务执行体验，支持多仓库、多个 Agent 会话和内置预览浏览器"
+sidebarTitle: "概览"
 ---
 
 <Frame>
-<img style={{maxHeight: "400px"}} src="/images/workspaces-overview.png" alt="Workspaces UI showing the four-panel layout with workspace sidebar, conversation, changes panel, and details sidebar" />
+<img style={{maxHeight: "400px"}} src="/images/workspaces-overview.png" alt="工作空间界面展示四面板布局：工作空间侧边栏、对话面板、变更面板和详情侧边栏" />
 </Frame>
 
-The Workspaces UI is a complete redesign of the task execution experience, providing an IDE-like interface optimised for AI-assisted development workflows.
+工作空间界面是对任务执行体验的全新设计，提供了一个专为 AI 辅助开发工作流优化的类 IDE 界面。
 
-## What is a Workspace?
+## 什么是工作空间？
 
-A **workspace** is an isolated environment for completing a coding task. Think of it as a dedicated "project room" where you:
+**工作空间**是一个用于完成编码任务的隔离环境。可以把它想象成一个专属的"项目工作室"，你在这里：
 
-1. **Work on a specific task** - Each workspace focuses on one goal (e.g., "Add user authentication")
-2. **Chat with coding agents** - AI assistants that write and modify code for you
-3. **Review changes** - See exactly what code was added, modified, or deleted
-4. **Test your application** - Built-in preview browser to see changes in action
-5. **Create pull requests** - Submit your changes for review when ready
+1. **专注于特定任务** - 每个工作空间聚焦一个目标（例如"添加用户认证"）
+2. **与编码 Agent 对话** - AI 助手为你编写和修改代码
+3. **审查变更** - 查看具体添加、修改或删除了哪些代码
+4. **测试应用** - 内置预览浏览器，实时查看变更效果
+5. **创建 Pull Request** - 准备就绪后提交变更供审查
 
 <Info>
-**Why use Workspaces instead of coding manually?**
+**为什么要使用工作空间而不是手动编码？**
 
-Workspaces let you describe what you want in plain English, and AI coding agents do the implementation. You review the changes, provide feedback, and iterate until the task is complete. It's like having a junior developer who works instantly and never gets tired.
+工作空间让你用自然语言描述想要什么，AI 编码 Agent 负责实现。你审查变更、提供反馈、反复迭代，直到任务完成。这就像拥有一个瞬间完成工作且永不疲倦的开发伙伴。
 </Info>
 
-## Key Concepts
+## 核心概念
 
-| Concept | Description | Example |
-|---------|-------------|---------|
-| **Workspace** | A task execution environment where you work with agents | "Add user authentication" |
-| **Repository** | A git repository included in a workspace | `frontend`, `backend` |
-| **Session** | A conversation thread with a coding agent | Claude Code session for implementing a feature |
+| 概念 | 描述 | 示例 |
+|------|------|------|
+| **工作空间** | 你与 Agent 协作的任务执行环境 | "添加用户认证" |
+| **仓库** | 工作空间中包含的 Git 仓库 | `frontend`、`backend` |
+| **会话** | 与编码 Agent 的对话线程 | 用于实现功能的 Claude Code 会话 |
 
-**How they relate:**
-- A **workspace** is your working environment for a specific task
-- A workspace can contain one or more **repositories** (each with independent git state)
-- Within a workspace, you can have multiple **sessions** to chat with different agents or start fresh conversations
+**它们的关系：**
+- **工作空间**是你针对特定任务的工作环境
+- 一个工作空间可以包含一个或多个**仓库**（每个仓库有独立的 Git 状态）
+- 在工作空间中，你可以有多个**会话**来与不同的 Agent 对话或开始新的对话
 
-For example, you create a workspace for "Add authentication" that includes both `frontend` and `backend` repositories. Within that workspace, you might have one session for implementing the backend API and another session for the frontend UI.
+例如，你可以创建一个"添加认证"的工作空间，同时包含 `frontend` 和 `backend` 仓库。在该工作空间中，你可能有一个会话用于实现后端 API，另一个会话用于前端 UI。
 
-## Key Features
+## 主要功能
 
 <CardGroup cols={2}>
-<Card title="Multi-Repository Support" icon="folder-tree" href="/workspaces/multi-repo-sessions">
-  Work across multiple repositories within a single workspace. Reference code from one repo while implementing changes in another.
+<Card title="多仓库支持" icon="folder-tree" href="/workspaces/multi-repo-sessions">
+  在单个工作空间中跨多个仓库工作。在一个仓库中引用代码的同时，在另一个仓库中实现变更。
 </Card>
 
-<Card title="Multiple Sessions" icon="messages" href="/workspaces/multi-repo-sessions">
-  Run multiple agent conversations simultaneously. Work around token limits by starting fresh sessions while keeping context.
+<Card title="多个会话" icon="messages" href="/workspaces/multi-repo-sessions">
+  同时运行多个 Agent 对话。通过启动新会话来绕过 Token 限制，同时保留上下文。
 </Card>
 
-<Card title="Browser Testing" icon="browser" href="/browser-testing">
-  Built-in browser preview without leaving the workspace. Test across desktop, mobile, and custom viewport sizes.
+<Card title="浏览器测试" icon="browser" href="/browser-testing">
+  无需离开工作空间即可进行内置浏览器预览。支持桌面、移动和自定义视口尺寸测试。
 </Card>
 
-<Card title="Changes Panel" icon="code-compare" href="/workspaces/changes">
-  Review code modifications with syntax-highlighted diffs. Add inline comments to provide feedback to agents.
+<Card title="变更面板" icon="code-compare" href="/workspaces/changes">
+  通过语法高亮的 Diff 视图审查代码修改。添加行内注释向 Agent 提供反馈。
 </Card>
 
-<Card title="Integrated Terminal" icon="rectangle-terminal" href="/workspaces/interface#terminal-section">
-  Built-in terminal for running commands directly in your workspace. New to the Workspaces UI.
+<Card title="内置终端" icon="rectangle-terminal" href="/workspaces/interface#terminal-section">
+  在工作空间中直接运行命令的内置终端。工作空间界面的新功能。
 </Card>
 
-<Card title="Workspace Notes" icon="note-sticky" href="/workspaces/interface#notes-section">
-  Notes for each workspace to document important information. New to the Workspaces UI.
+<Card title="工作空间笔记" icon="note-sticky" href="/workspaces/interface#notes-section">
+  每个工作空间的笔记功能，用于记录重要信息。工作空间界面的新功能。
 </Card>
 
-<Card title="Command Bar" icon="command" href="/workspaces/command-bar">
-  Central navigation hub for quick actions. Access every workspace action with keyboard shortcuts.
+<Card title="命令栏" icon="command" href="/workspaces/command-bar">
+  快速操作的中心导航枢纽。使用键盘快捷键访问所有工作空间操作。
 </Card>
 </CardGroup>
 
-## Common Questions
+## 常见问题
 
 <AccordionGroup>
-<Accordion title="What happens to my code when I create a workspace?">
-When you create a workspace, Vibe Kanban:
+<Accordion title="创建工作空间时我的代码会发生什么？">
+创建工作空间时，Vibe Kanban 会：
 
-1. Creates a **git worktree** - a separate working directory linked to a new branch
-2. Your original repository stays untouched
-3. All changes happen in the worktree on a new branch
-4. Nothing is pushed to remote until you explicitly create a PR
+1. 创建一个 **Git worktree** - 一个关联到新分支的独立工作目录
+2. 你的原始仓库保持不变
+3. 所有变更都在新分支上的 worktree 中进行
+4. 在你明确创建 PR 之前，不会推送到远程仓库
 
-**Your main branch is safe.** The workspace isolates all changes until you're ready to merge.
+**你的主分支是安全的。** 工作空间会隔离所有变更，直到你准备好合并。
 </Accordion>
 
-<Accordion title="Can I work on multiple tasks at once?">
-Yes. Each workspace is completely independent:
+<Accordion title="我可以同时处理多个任务吗？">
+可以。每个工作空间完全独立：
 
-- Create as many workspaces as you need
-- Each has its own branch, changes, and sessions
-- Switch between workspaces using the sidebar
-- Agents in different workspaces don't interfere with each other
+- 创建任意数量的工作空间
+- 每个工作空间有自己的分支、变更和会话
+- 使用侧边栏在工作空间之间切换
+- 不同工作空间中的 Agent 互不干扰
 </Accordion>
 
-<Accordion title="What if the agent makes a mistake?">
-You have full control:
+<Accordion title="如果 Agent 犯了错误怎么办？">
+你拥有完全控制权：
 
-- **Review changes** in the Changes panel before committing
-- **Add comments** on specific lines to request fixes
-- **Edit messages** to retry with different instructions
-- **Start a new session** if the conversation goes off track
-- **Delete the workspace** if you want to start completely fresh
+- **审查变更** - 在提交前在变更面板中查看
+- **添加注释** - 在特定行上请求修复
+- **编辑消息** - 用不同的指令重试
+- **启动新会话** - 如果对话偏离方向
+- **删除工作空间** - 如果你想完全重新开始
 
-The agent only modifies files in your workspace - it cannot push code or merge without your explicit action.
+Agent 只修改工作空间中的文件 - 未经你的明确操作，它无法推送代码或合并。
 </Accordion>
 
-<Accordion title="How do I know when the agent is done?">
-Watch for these indicators:
+<Accordion title="我怎么知道 Agent 完成了？">
+注意以下指标：
 
-- **Status in sidebar** changes from "Running" to "Idle"
-- **Chat shows completion** message or asks for next steps
-- **Changes panel** shows all modifications made
+- **侧边栏状态**从"运行中"变为"空闲"
+- **聊天显示完成**消息或询问下一步
+- **变更面板**显示所有已做的修改
 
-If the agent needs your input (approval, clarification), you'll see a "Needs Attention" indicator with a raised hand icon.
+如果 Agent 需要你的输入（审批、澄清），你会看到"需要关注"指示器和举手图标。
 </Accordion>
 
-<Accordion title="What's the difference between a Project and a Workspace?">
-- **Project** = A container that groups related repositories (configured once in Settings)
-- **Workspace** = A task execution environment for a specific coding task
+<Accordion title="项目和工作空间有什么区别？">
+- **项目** = 将相关仓库分组的容器（在设置中一次性配置）
+- **工作空间** = 针对特定编码任务的任务执行环境
 
-Think of it this way: A Project is like a team folder that contains your repos. A Workspace is a task you're working on using those repos.
+可以这样理解：项目就像一个包含你仓库的团队文件夹。工作空间是使用这些仓库进行的一项任务。
 </Accordion>
 </AccordionGroup>
-

@@ -1,149 +1,149 @@
 ---
 title: "Vibe Kanban Cloud"
-description: "Collaborate with your team in real-time with Cloud features"
-sidebarTitle: "Overview"
+description: "通过 Cloud 功能与你的团队实时协作"
+sidebarTitle: "概述"
 ---
 
-## What is Vibe Kanban Cloud?
+## 什么是 Vibe Kanban Cloud？
 
-**Vibe Kanban Cloud** adds team collaboration to Vibe Kanban. Your projects, issues, and progress sync to the cloud so your entire team stays in sync.
+**Vibe Kanban Cloud** 为 Vibe Kanban 增加了团队协作功能。你的项目、事项和进度同步到云端，让整个团队保持同步。
 
-### Key Benefits
+### 核心优势
 
 <CardGroup cols={2}>
-<Card title="Team Collaboration" icon="users">
-  Invite team members and work together on the same projects. Everyone sees updates in real-time.
+<Card title="团队协作" icon="users">
+  邀请团队成员，在相同的项目上协同工作。每个人都能实时看到更新。
 </Card>
 
-<Card title="Work From Anywhere" icon="globe">
-  Your data syncs to the cloud. Access your projects from any computer by signing in.
+<Card title="随时随地工作" icon="globe">
+  你的数据同步到云端。通过登录即可从任何电脑访问你的项目。
 </Card>
 
-<Card title="Real-Time Sync" icon="bolt">
-  Changes appear instantly for all team members. No need to refresh or manually sync.
+<Card title="实时同步" icon="bolt">
+  更改对所有团队成员即时可见。无需刷新或手动同步。
 </Card>
 
-<Card title="Same Interface" icon="desktop">
-  Cloud uses the same Vibe Kanban interface you already know. No new tools to learn.
+<Card title="相同界面" icon="desktop">
+  Cloud 使用你已熟悉的 Vibe Kanban 界面。无需学习新工具。
 </Card>
 </CardGroup>
 
-### Cloud vs Local
+### Cloud 与本地版对比
 
-| Feature | Local | Cloud |
+| 功能 | 本地版 | Cloud |
 |---------|-------|-------|
-| **Data storage** | On your computer | Synced to cloud |
-| **Team access** | Only you | Invite team members |
-| **Sign-in required** | No | Yes (GitHub or Google) |
-| **Real-time collaboration** | No | Yes |
-| **Works offline** | Yes | Requires internet |
+| **数据存储** | 在你的电脑上 | 同步到云端 |
+| **团队访问** | 仅你个人 | 可邀请团队成员 |
+| **是否需要登录** | 否 | 是（GitHub 或 Google） |
+| **实时协作** | 否 | 是 |
+| **离线使用** | 是 | 需要网络 |
 
 <Info>
-You can use both Local and Cloud projects in the same Vibe Kanban installation. They appear in separate sections of the sidebar.
+你可以在同一个 Vibe Kanban 安装中同时使用本地项目和 Cloud 项目。它们显示在侧边栏的不同区域。
 </Info>
 
-## How It Works
+## 工作原理
 
-1. **Run Vibe Kanban** as usual with `npx vibe-kanban`
-2. **Sign in** with your GitHub or Google account (a personal organisation is created automatically)
-3. **Create projects** in your personal workspace
-4. **Create a team organisation** if you want to collaborate (optional)
-5. **Invite team members** via email and collaborate in real-time
+1. 像往常一样**运行 Vibe Kanban**：`npx vibe-kanban`
+2. 使用 GitHub 或 Google 账户**登录**（会自动创建个人组织）
+3. 在个人工作空间中**创建项目**
+4. 如果需要协作，**创建团队组织**（可选）
+5. 通过邮件**邀请团队成员**并实时协作
 
-Your local projects remain untouched. Cloud projects are stored separately and sync automatically.
+你的本地项目保持不变。Cloud 项目独立存储并自动同步。
 
-## Key Concepts
+## 核心概念
 
-### Organisations
+### 组织
 
-An **organisation** is your team's shared space. It contains:
-- Team members with different roles (Admin, Member)
-- Projects that everyone can access
-- Shared settings
+一个**组织**是你团队的共享空间。它包含：
+- 拥有不同角色的团队成员（Admin、Member）
+- 所有人都可以访问的项目
+- 共享设置
 
-Think of it as your company or team in Vibe Kanban.
+可以把它看作是你在 Vibe Kanban 中的公司或团队。
 
-### Projects
+### 项目
 
-A **project** is a kanban board for a specific initiative. Each project has:
-- Customisable status columns
-- Issues to track work
-- Tags for categorisation
+一个**项目**是针对特定工作目标的看板。每个项目包含：
+- 可自定义的状态列
+- 用于跟踪工作的事项
+- 用于分类的标签
 
-### Issues
+### 事项
 
-An **issue** is a single piece of work. Unlike local tasks, Cloud issues have:
-- Simple IDs (like `TASK-123`) for easy reference
-- Multiple assignees
-- Priority levels
-- Comments for discussion
-- Sub-issues for breaking down work
+一个**事项**是一单项工作。与本地任务不同，Cloud 事项拥有：
+- Simple ID（如 `TASK-123`）方便引用
+- 多个负责人
+- 优先级
+- 用于讨论的评论
+- 用于分解工作的子事项
 
-## Features
+## 功能特性
 
-### Team Collaboration
-- Invite members via email
-- Role-based permissions (Admin and Member)
-- See who's assigned to what
+### 团队协作
+- 通过邮件邀请成员
+- 基于角色的权限（Admin 和 Member）
+- 查看谁负责什么
 
-### Real-Time Sync
-- Changes appear instantly for everyone
-- No conflicts or manual merging
-- Always up to date
+### 实时同步
+- 更改对所有人即时可见
+- 无冲突或手动合并
+- 始终保持最新状态
 
-### Advanced Kanban
-- Drag-and-drop issues between columns
-- Custom status columns with colours
-- Filter by priority, assignee, or tags
-- Multiple sort options
+### 高级看板
+- 在列之间拖放事项
+- 带颜色的自定义状态列
+- 按优先级、负责人或标签筛选
+- 多种排序选项
 
-### GitHub Integration
-- Link pull requests to issues
-- Review code directly in Vibe Kanban
-- Track PR status
+### GitHub 集成
+- 将 Pull Request 关联到事项
+- 直接在 Vibe Kanban 中审查代码
+- 跟踪 PR 状态
 
-## Getting Started
+## 开始使用
 
 <Steps>
-<Step title="Run Vibe Kanban">
+<Step title="运行 Vibe Kanban">
   ```bash
   npx vibe-kanban
   ```
 </Step>
 
-<Step title="Sign in">
-  Click **Login** and sign in with GitHub or Google. A personal organisation is created automatically.
+<Step title="登录">
+  点击 **Login** 并使用 GitHub 或 Google 登录。系统会自动创建个人组织。
 </Step>
 
-<Step title="Create a project">
-  Click **+ New Project** and start adding issues.
+<Step title="创建项目">
+  点击 **+ New Project** 开始添加事项。
 </Step>
 
-<Step title="Create team organisation (optional)">
-  To collaborate, create a new organisation from the user menu and invite members by email.
+<Step title="创建团队组织（可选）">
+  如需协作，从用户菜单创建新组织并通过邮件邀请成员。
 </Step>
 </Steps>
 
-<Card title="Full Getting Started Guide" icon="rocket" href="/cloud/getting-started">
-  Step-by-step instructions for setting up Cloud
+<Card title="完整入门指南" icon="rocket" href="/cloud/getting-started">
+  设置 Cloud 的分步说明
 </Card>
 
-## Learn More
+## 了解更多
 
 <CardGroup cols={2}>
-<Card title="Issues" icon="circle-dot" href="/cloud/issues">
-  Create and manage issues to track your work
+<Card title="事项" icon="circle-dot" href="/cloud/issues">
+  创建和管理事项来跟踪你的工作
 </Card>
 
-<Card title="Kanban Board" icon="columns" href="/cloud/kanban-board">
-  Use the board to visualise and manage progress
+<Card title="看板视图" icon="columns" href="/cloud/kanban-board">
+  使用看板可视化管理进度
 </Card>
 
-<Card title="Team Members" icon="user-plus" href="/cloud/team-members">
-  Invite colleagues and manage permissions
+<Card title="团队成员" icon="user-plus" href="/cloud/team-members">
+  邀请同事并管理权限
 </Card>
 
-<Card title="Customisation" icon="palette" href="/cloud/customisation">
-  Configure columns, colours, and tags
+<Card title="自定义" icon="palette" href="/cloud/customisation">
+  配置列、颜色和标签
 </Card>
 </CardGroup>

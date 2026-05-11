@@ -1,104 +1,104 @@
 ---
-title: "List View"
-description: "View and manage all your issues in a tabular format"
+title: "列表视图"
+description: "以表格形式查看和管理你的所有事项"
 ---
 
-The list view provides a tabular way to see all your issues, including those in hidden statuses. It's ideal for reviewing many issues at once and getting a complete overview of your project.
+列表视图提供了以表格方式查看所有事项的功能，包括处于隐藏状态的事项。它适合一次性审查大量事项并获取项目的完整概览。
 
 <Frame>
   <img src="/images/cloud/list-view.png" alt="List view showing issues grouped by status" />
 </Frame>
 
-## Accessing List View
+## 访问列表视图
 
-To switch to list view, click the **All** tab in the header above the board.
+要切换到列表视图，点击看板上方标题中的 **All** 标签。
 
 <Frame>
   <img src="/images/cloud/status-tabs.png" alt="Status tabs showing Active, All, Backlog, and Cancelled" />
 </Frame>
 
-| Tab | What it shows |
+| 标签 | 显示内容 |
 |-----|---------------|
-| **All** | All issues across all statuses (including hidden) |
-| **Backlog**, **Cancelled**, etc. | Issues in that specific hidden status only |
+| **All** | 所有状态的事项（包括隐藏） |
+| **Backlog**、**Cancelled** 等 | 仅显示特定隐藏状态中的事项 |
 
-To return to the kanban view, click the **Active** tab.
+要返回看板视图，点击 **Active** 标签。
 
-## List Layout
+## 列表布局
 
-Issues in the list view are grouped by status. Each status section shows:
+列表视图中的事项按状态分组。每个状态分区显示：
 
-- **Status name** with colour indicator
-- **Issue count** for that status
-- **Collapsible sections** - click to expand or collapse
+- 带颜色指示器的**状态名称**
+- 该状态的**事项数量**
+- **可折叠分区** - 点击展开或折叠
 
 <Frame>
   <img src="/images/cloud/list-layout.png" alt="List view showing status sections with issues grouped by status" />
 </Frame>
 
-### Issue Row Details
+### 事项行详情
 
-Each row in the list shows:
+列表中的每行显示：
 
-- **Simple ID** - The issue identifier (e.g., ISS-1)
-- **Title** - The issue title
-- **Workspace indicator** - Shows if the issue has linked workspaces
-- **Age** - How long ago the issue was created (e.g., "12d" for 12 days)
+- **Simple ID** - 事项标识符（例如 ISS-1）
+- **Title** - 事项标题
+- **Workspace 指示器** - 显示事项是否有关联的 workspace
+- **创建时间** - 事项创建距今的时间（例如"12d"表示 12 天）
 
-Click any row to open the full [issue panel](/cloud/issues).
+点击任意行打开完整的[事项面板](/cloud/issues)。
 
-## Multi-Select in List View
+## 列表视图中的多选
 
-List view supports multi-select for bulk operations. Each row has a checkbox that appears when you hover over its left edge.
+列表视图支持多选以进行批量操作。每行在鼠标悬停到其左边缘时会出现复选框。
 
-### Selection Methods
+### 选择方式
 
-- **Checkbox** - Hover over the left edge of a row to reveal the checkbox, then click to select
-- **Cmd/Ctrl + Click** a row to toggle it in or out of the selection
-- **Shift + Click** a row to select a range from the last selected row
-- **X** to toggle the currently open issue
-- **Shift + J / ↓** or **Shift + K / ↑** to extend the selection by one row
-- **Cmd/Ctrl + A** to select all visible issues
-- **Escape** to clear the selection
+- **复选框** - 将鼠标悬停在行的左边缘显示复选框，然后点击选择
+- **Cmd/Ctrl + Click** 行以切换其选中状态
+- **Shift + Click** 行以选择从上次选中行到当前行的范围
+- **X** 切换当前打开事项的选中状态
+- **Shift + J / ↓** 或 **Shift + K / ↑** 向下或向上扩展选择一行
+- **Cmd/Ctrl + A** 选择所有可见事项
+- **Escape** 清除选择
 
-Selected rows are highlighted. When two or more issues are selected, the **bulk action bar** appears at the bottom of the screen with options to change status, priority, assignees, or delete. See [Selecting Multiple Issues](/cloud/issues#selecting-multiple-issues) for full details.
+被选中的行会高亮显示。当选择两个或更多事项时，屏幕底部会出现**批量操作栏**，提供更改状态、优先级、负责人或删除的选项。完整详情请参见[选择多个事项](/cloud/issues#selecting-multiple-issues)。
 
-## When to Use List View
+## 何时使用列表视图
 
-List view is best for:
+列表视图最适合：
 
 <CardGroup cols={2}>
-<Card title="Reviewing all issues" icon="list">
-  See every issue in your project at once, including hidden statuses like Backlog and Cancelled.
+<Card title="审查所有事项" icon="list">
+  一览项目中的每个事项，包括 Backlog 和 Cancelled 等隐藏状态。
 </Card>
 
-<Card title="Finding specific issues" icon="magnifying-glass">
-  Combined with search and filters, quickly locate issues across all statuses.
+<Card title="查找特定事项" icon="magnifying-glass">
+  结合搜索和筛选器，快速在所有状态中定位事项。
 </Card>
 
-<Card title="Bulk operations" icon="clipboard-list">
-  Select multiple issues with checkboxes to change status, priority, or assignees in bulk.
+<Card title="批量操作" icon="clipboard-list">
+  使用复选框选择多个事项，批量更改状态、优先级或负责人。
 </Card>
 
-<Card title="Accessing hidden statuses" icon="eye">
-  View and manage issues in Backlog, Cancelled, or other hidden statuses.
+<Card title="访问隐藏状态" icon="eye">
+  查看和管理 Backlog、Cancelled 或其他隐藏状态中的事项。
 </Card>
 </CardGroup>
 
-## Filtering and Sorting
+## 筛选和排序
 
-The filter bar works the same in list view as in kanban view:
+筛选栏在列表视图和看板视图中工作方式相同：
 
-- **Search** - Find issues by title
-- **Priority** - Filter by priority level
-- **Assignee** - Filter by team member
-- **Tags** - Filter by tags
-- **Sort** - Change the order of issues
+- **Search** - 按标题查找事项
+- **Priority** - 按优先级筛选
+- **Assignee** - 按团队成员筛选
+- **Tags** - 按标签筛选
+- **Sort** - 更改事项排列顺序
 
-See [Filtering & Sorting](/cloud/filtering) for more details.
+详见[筛选与排序](/cloud/filtering)。
 
-## Related Documentation
+## 相关文档
 
-- [Kanban View](/cloud/kanban-board) - The default board view with columns
-- [Issues](/cloud/issues) - Creating and editing issues
-- [Filtering & Sorting](/cloud/filtering) - Finding issues quickly
+- [看板视图](/cloud/kanban-board) - 带列的默认看板视图
+- [事项](/cloud/issues) - 创建和编辑事项
+- [筛选与排序](/cloud/filtering) - 快速查找事项

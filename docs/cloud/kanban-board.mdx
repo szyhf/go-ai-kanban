@@ -1,216 +1,216 @@
 ---
-title: "Kanban View"
-description: "Visualise and manage your work with the kanban board"
+title: "看板视图"
+description: "使用看板可视化和管理工作"
 ---
 
-The kanban board is your primary view for managing work. Issues are organised into columns representing different stages of your workflow, and you can drag and drop them as work progresses.
+看板是你管理工作的主视图。事项被组织到代表工作流不同阶段的列中，你可以随着工作进展拖放它们。
 
 <Frame>
   <img src="/images/cloud/project-kanban-board.png" alt="Kanban board showing columns with issue cards" />
 </Frame>
 
-## Board Layout
+## 看板布局
 
-The kanban board consists of:
+看板由以下部分组成：
 
-- **Filter Bar** - Search, filter, and sort your issues (top)
-- **Status Columns** - Vertical columns representing workflow stages
-- **Issue Cards** - Individual work items within columns
-- **Column Headers** - Show status name with colour indicator
+- **筛选栏** - 搜索、筛选和排序事项（顶部）
+- **状态列** - 代表工作流阶段的垂直列
+- **事项卡片** - 列中的单项工作
+- **列标题** - 显示带颜色指示器的状态名称
 
-### Status Columns
+### 状态列
 
-Each column represents a status in your workflow. By default, projects have six statuses:
+每列代表工作流中的一个状态。默认情况下，项目有六个状态：
 
-| Column | Purpose |
+| 列 | 用途 |
 |--------|---------|
-| **To do** | Ready to start |
-| **In progress** | Currently being worked on |
-| **In review** | Waiting for code review |
-| **Done** | Completed |
+| **To do** | 准备开始 |
+| **In progress** | 正在进行 |
+| **In review** | 等待代码审查 |
+| **Done** | 已完成 |
 
-Two additional statuses are hidden by default: **Backlog** (for ideas and future work) and **Cancelled** (for issues that won't be done). You can access them via the status tabs above the board.
+另外两个状态默认隐藏：**Backlog**（用于想法和未来工作）和 **Cancelled**（用于不会完成的事项）。你可以通过看板上方的状态标签页访问它们。
 
-You can [customise these columns](/cloud/customisation) - add new ones, rename them, change colours, or hide/show ones you need.
+你可以[自定义这些列](/cloud/customisation)——添加新的、重命名、更改颜色，或隐藏/显示你需要的列。
 
-### Issue Cards
+### 事项卡片
 
-Each card shows key information at a glance:
+每张卡片一览显示关键信息：
 
-- **Simple ID** - The issue identifier (e.g., ISS-1)
-- **Title** - What needs to be done
-- **Priority** - Colour-coded indicator (if set)
-- **Assignees** - Avatar(s) of assigned team members
-- **Tags** - Coloured labels (if any)
+- **Simple ID** - 事项标识符（例如 ISS-1）
+- **Title** - 需要完成什么
+- **Priority** - 颜色编码的指示器（如果已设置）
+- **Assignees** - 已分配团队成员的头像
+- **Tags** - 彩色标签（如果有）
 
-Click any card to open the full [issue panel](/cloud/issues).
+点击任意卡片打开完整的[事项面板](/cloud/issues)。
 
-## Drag and Drop
+## 拖放
 
-Move issues between columns and reorder them within columns using drag and drop.
+使用拖放在列之间移动事项以及在列内重新排序。
 
 <Frame>
   <img src="/images/cloud/drag-drop.png" alt="Dragging an issue card between columns" />
 </Frame>
 
-### Moving Between Columns
+### 在列之间移动
 
-To change an issue's status:
+要更改事项的状态：
 
-1. Click and hold an issue card
-2. Drag it to the target column
-3. Release to drop it
+1. 点击并按住事项卡片
+2. 将其拖到目标列
+3. 松开鼠标放下
 
 
-The issue's status updates immediately, and all team members see the change in real-time.
+事项的状态会立即更新，所有团队成员都能实时看到更改。
 
-### Reordering Within a Column
+### 在列内重新排序
 
-To change the order of issues within a column:
+要更改列内事项的顺序：
 
-1. Make sure you're in **Manual** sort mode (check the sort dropdown in the filter bar)
-2. Click and hold an issue card
-3. Drag it up or down within the same column
-4. Release to drop it in the new position
+1. 确保你处于 **Manual** 排序模式（检查筛选栏中的排序下拉菜单）
+2. 点击并按住事项卡片
+3. 在同一列内向上或向下拖动
+4. 松开鼠标放到新位置
 
 <Info>
-Reordering only works when sort mode is set to **Manual**. If you're sorting by Priority, Created, or another field, the order is determined automatically and you can't drag to reorder.
+重新排序仅在排序模式为 **Manual** 时有效。如果你按 Priority、Created 或其他字段排序，顺序是自动确定的，你无法拖动重新排序。
 </Info>
 
-### Drag Indicators
+### 拖动指示器
 
-While dragging, you'll see visual feedback:
+拖动时，你会看到视觉反馈：
 
-- **Cursor changes** - Shows you're in drag mode
-- **Drop target** - Highlights where the card will land
-- **Card shadow** - Shows the card being moved
+- **光标变化** - 显示你处于拖动模式
+- **放置目标** - 高亮显示卡片将放置的位置
+- **卡片阴影** - 显示正在移动的卡片
 
-## Status Tabs
+## 状态标签页
 
-Above the board, tabs let you switch between views:
+看板上方，标签页让你在不同视图之间切换：
 
 <Frame>
   <img src="/images/cloud/status-tabs.png" alt="Status tabs showing Active, All, Backlog, and Cancelled" />
 </Frame>
 
-| Tab | View | Shows |
+| 标签 | 视图 | 显示内容 |
 |-----|------|-------|
-| **Active** | Kanban | Kanban columns for visible statuses |
-| **All** | [List View](/cloud/list-view) | All issues including hidden statuses |
-| **Backlog**, **Cancelled**, etc. | [List View](/cloud/list-view) | Issues in that specific hidden status |
+| **Active** | 看板 | 可见状态的看板列 |
+| **All** | [列表视图](/cloud/list-view) | 包括隐藏状态在内的所有事项 |
+| **Backlog**、**Cancelled** 等 | [列表视图](/cloud/list-view) | 特定隐藏状态中的事项 |
 
 <Info>
-Hidden status tabs (like Backlog or Cancelled) only appear if you've hidden those statuses in [Display Settings](/cloud/customisation). This is useful for keeping your board clean while still having quick access to archived or backlogged items.
+隐藏状态标签页（如 Backlog 或 Cancelled）仅在你于[显示设置](/cloud/customisation)中隐藏了这些状态时才会出现。这对于保持看板整洁同时仍能快速访问已归档或待办事项非常有用。
 </Info>
 
-## Multi-Select
+## 多选
 
-Select multiple issue cards to perform bulk actions directly from the board.
+选择多个事项卡片以直接在看板上执行批量操作。
 
-### How to Select
+### 如何选择
 
-- **Cmd/Ctrl + Click** a card to toggle it in or out of the selection
-- **Shift + Click** a card to select a range from the last selected card
-- **X** to toggle the currently open issue
-- **Shift + J / ↓** or **Shift + K / ↑** to extend the selection by one issue
-- **Cmd/Ctrl + A** to select all visible issues
-- **Escape** to clear the selection
+- **Cmd/Ctrl + Click** 卡片以切换其选中状态
+- **Shift + Click** 卡片以选择从上次选中卡片到当前卡片之间的范围
+- **X** 切换当前打开事项的选中状态
+- **Shift + J / ↓** 或 **Shift + K / ↑** 向下或向上扩展选择一个事项
+- **Cmd/Ctrl + A** 选择所有可见事项
+- **Escape** 清除选择
 
-Selected cards are highlighted with an accent ring. While issues are selected, drag and drop is disabled to prevent accidental moves.
+被选中的卡片会用强调色环高亮显示。选择事项时，拖放功能会被禁用以防止误操作。
 
-When two or more issues are selected, a **bulk action bar** appears at the bottom of the screen. You can change the status, priority, or assignees of all selected issues at once, or delete them. See [Selecting Multiple Issues](/cloud/issues#selecting-multiple-issues) for full details.
+当选择两个或更多事项时，屏幕底部会出现一个**批量操作栏**。你可以一次性更改所有选中事项的状态、优先级或负责人，或删除它们。完整详情请参见[选择多个事项](/cloud/issues#selecting-multiple-issues)。
 
-## Working with the Board
+## 使用看板
 
-### Opening an Issue
+### 打开事项
 
-Click any issue card to open the issue panel on the right side of the screen. The panel shows full details and lets you edit the issue.
+点击任意事项卡片在屏幕右侧打开事项面板。面板显示完整详情并允许你编辑事项。
 
-### Quick Status Change
+### 快速更改状态
 
-Instead of opening an issue, you can change its status by dragging it to another column. This is the fastest way to update many issues.
+无需打开事项，你可以通过将其拖到其他列来更改状态。这是批量更新事项的最快方式。
 
-### Keyboard Shortcuts
+### 键盘快捷键
 
-| Shortcut | Action |
+| 快捷键 | 操作 |
 |----------|--------|
-| `X` | Toggle current issue selection |
-| `Shift + J / ↓` | Extend selection down |
-| `Shift + K / ↑` | Extend selection up |
-| `Cmd/Ctrl + A` | Select all issues |
-| `Escape` | Clear selection / close the issue panel |
-| `Cmd/Ctrl + K` | Open the command bar for quick actions |
+| `X` | 切换当前事项选中状态 |
+| `Shift + J / ↓` | 向下扩展选择 |
+| `Shift + K / ↑` | 向上扩展选择 |
+| `Cmd/Ctrl + A` | 选择所有事项 |
+| `Escape` | 清除选择 / 关闭事项面板 |
+| `Cmd/Ctrl + K` | 打开命令栏执行快捷操作 |
 
-## Real-Time Collaboration
+## 实时协作
 
-The board updates in real-time as team members make changes:
+看板会随着团队成员的更改而实时更新：
 
-- **Issue moved** - Cards animate to their new position
-- **Issue created** - New cards appear automatically
-- **Issue updated** - Changes to titles, priorities, etc. appear instantly
-- **Issue deleted** - Cards disappear from the board
+- **事项移动** - 卡片动画移动到新位置
+- **事项创建** - 新卡片自动出现
+- **事项更新** - 标题、优先级等更改即时显示
+- **事项删除** - 卡片从看板消失
 
-You don't need to refresh the page - everything syncs automatically.
+你无需刷新页面——一切自动同步。
 
 <Info>
-If you and a teammate move the same issue at the same time, the last action wins. The board will show the final position after both actions complete.
+如果你和队友同时移动同一个事项，以最后的操作为准。看板会在两个操作完成后显示最终位置。
 </Info>
 
-## Empty Columns
+## 空列
 
-Columns with no issues show an empty state. You can:
+没有事项的列显示空状态。你可以：
 
-- Drag issues into empty columns
-- Use the **+** button to create a new issue in that column
-- [Hide the status](/cloud/customisation) in Display Settings if you don't need it on the board
+- 将事项拖入空列
+- 使用 **+** 按钮在该列中创建新事项
+- 如果你不需要该列显示在看板上，在[显示设置](/cloud/customisation)中[隐藏该状态](/cloud/customisation)
 
 <Frame>
   <img style={{maxHeight: "300px"}} src="/images/cloud/empty-column.png" alt="Empty column showing the + button to create a new issue" />
 </Frame>
 
-## Best Practices
+## 最佳实践
 
 <CardGroup cols={2}>
-<Card title="Limit work in progress" icon="gauge-high">
-  Don't have too many issues in "In Progress". It's better to finish work than to start new work. Consider adding WIP limits to your process.
+<Card title="限制在制品数量" icon="gauge-high">
+  不要让太多事项处于"In Progress"状态。完成工作比开始新工作更好。考虑在你的流程中加入 WIP 限制。
 </Card>
 
-<Card title="Review regularly" icon="calendar-check">
-  Use the board in daily standups to review what's in progress and identify blockers. The visual layout makes status updates quick.
+<Card title="定期审查" icon="calendar-check">
+  在每日站会中使用看板审查进行中的工作并识别阻碍。可视化布局让状态更新更加快捷。
 </Card>
 
-<Card title="Keep columns meaningful" icon="columns">
-  Each column should represent a real stage in your workflow. If issues skip a column, you probably don't need it.
+<Card title="保持列有意义" icon="columns">
+  每列应代表工作流中的真实阶段。如果事项经常跳过某列，你可能不需要它。
 </Card>
 
-<Card title="Use filters for focus" icon="filter">
-  When the board gets busy, use filters to focus on what matters - your assigned issues, high priority items, or specific tags.
+<Card title="使用筛选器聚焦" icon="filter">
+  当看板变得繁忙时，使用筛选器聚焦重要内容——你被分配的事项、高优先级事项或特定标签。
 </Card>
 </CardGroup>
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="I can't reorder issues within a column">
-Make sure you're in **Manual** sort mode. Click the sort dropdown in the filter bar and select "Manual". If you're sorting by Priority, Created, or another field, the order is fixed.
+<Accordion title="无法在列内重新排序事项">
+确保你处于 **Manual** 排序模式。点击筛选栏中的排序下拉菜单并选择"Manual"。如果你按 Priority、Created 或其他字段排序，顺序是固定的。
 </Accordion>
 
-<Accordion title="Issues aren't appearing">
-Check your filters - you might have active filters hiding some issues. Click **Clear All** in the filter bar to reset filters and see all issues.
+<Accordion title="事项不显示">
+检查你的筛选器——可能存在活跃的筛选器隐藏了一些事项。点击筛选栏中的 **Clear All** 重置筛选并查看所有事项。
 </Accordion>
 
-<Accordion title="A column is missing">
-The column might be hidden. Go to [Display Settings](/cloud/customisation) and check if the status is set to hidden. Toggle it back to visible.
+<Accordion title="某列不见了">
+该列可能被隐藏了。前往[显示设置](/cloud/customisation)检查该状态是否设为隐藏。将其切换回可见。
 </Accordion>
 
-<Accordion title="Changes aren't saving">
-Check your internet connection. The board requires an active connection to sync changes. If you're offline, changes won't be saved until you reconnect.
+<Accordion title="更改未保存">
+检查你的网络连接。看板需要活跃的连接来同步更改。如果你离线，更改在重新连接之前不会保存。
 </Accordion>
 </AccordionGroup>
 
-## Related Documentation
+## 相关文档
 
-- [List View](/cloud/list-view) - Alternative tabular view for issues
-- [Issues](/cloud/issues) - Creating and editing issues
-- [Filtering & Sorting](/cloud/filtering) - Finding issues quickly
-- [Customising Your Board](/cloud/customisation) - Configuring columns and display
+- [列表视图](/cloud/list-view) - 替代的事项表格视图
+- [事项](/cloud/issues) - 创建和编辑事项
+- [筛选与排序](/cloud/filtering) - 快速查找事项
+- [自定义看板](/cloud/customisation) - 配置列和显示

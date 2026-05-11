@@ -1,232 +1,232 @@
 ---
-title: "Filtering & Sorting"
-description: "Find issues quickly with search, filters, and sorting"
+title: "筛选与排序"
+description: "使用搜索、筛选和排序快速查找事项"
 ---
 
-As your project grows, you'll need ways to find specific issues quickly. The filter bar provides powerful search, filtering, and sorting capabilities to help you focus on what matters.
+随着项目增长，你需要快速查找特定事项的方法。筛选栏提供强大的搜索、筛选和排序功能，帮助你专注于重要内容。
 
 
-## The Filter Bar
+## 筛选栏
 
-The filter bar sits above your kanban board and contains:
+筛选栏位于看板上方，包含：
 
-- **Search field** - Find issues by text
-- **Filter dropdowns** - Filter by priority, assignee, tags
-- **Sort dropdown** - Change how issues are ordered
-- **Clear All button** - Reset all filters
+- **搜索字段** - 按文本查找事项
+- **筛选下拉菜单** - 按优先级、负责人、标签筛选
+- **排序下拉菜单** - 更改事项排列顺序
+- **Clear All 按钮** - 重置所有筛选
 
-## Searching
+## 搜索
 
-Type in the search field to find issues by title.
+在搜索字段中输入文字以按标题查找事项。
 
 
-### How Search Works
+### 搜索工作原理
 
-- Search matches against issue **titles only**
-- Search is **case-insensitive** ("Login" matches "login")
-- Search finds **partial matches** ("log" matches "Login flow")
-- Results update as you type
+- 搜索仅匹配事项**标题**
+- 搜索**不区分大小写**（"Login"匹配"login"）
+- 搜索支持**部分匹配**（"log"匹配"Login flow"）
+- 输入时即时更新结果
 
-### Tips for Effective Search
+### 高效搜索技巧
 
-- Search for keywords in titles
-- Use the Simple ID to find a specific issue (e.g., "TASK-123")
-- Combine search with filters for precise results
+- 搜索标题中的关键词
+- 使用 Simple ID 查找特定事项（例如"TASK-123"）
+- 将搜索与筛选器结合使用以获得精确结果
 
 <Tip>
-If you can't find an issue, check that your filters aren't hiding it. Click **Clear All** to reset filters and search again.
+如果找不到某个事项，请检查筛选器是否将其隐藏。点击 **Clear All** 重置筛选器后重新搜索。
 </Tip>
 
-## Filtering
+## 筛选
 
-Filters let you show only issues that match certain criteria.
+筛选器让你只显示符合特定条件的事项。
 
-### Priority Filter
+### 优先级筛选
 
-Filter issues by priority level:
+按优先级筛选事项：
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/filter-priority.png" alt="Priority filter dropdown showing Urgent, High, Medium, and Low options" />
 </Frame>
 
-| Priority | Colour | Description |
+| 优先级 | 颜色 | 说明 |
 |----------|--------|-------------|
-| **Urgent** | Red | Needs immediate attention |
-| **High** | Orange | Important, do soon |
-| **Medium** | Yellow | Normal priority |
-| **Low** | Grey | Can wait |
+| **Urgent** | 红色 | 需要立即关注 |
+| **High** | 橙色 | 重要，尽快处理 |
+| **Medium** | 黄色 | 普通优先级 |
+| **Low** | 灰色 | 可以等待 |
 
-**To filter by priority:**
-1. Click the **Priority** dropdown
-2. Select one or more priority levels
-3. Only matching issues are shown
+**按优先级筛选：**
+1. 点击 **Priority** 下拉菜单
+2. 选择一个或多个优先级
+3. 只显示匹配的事项
 
-### Assignee Filter
+### 负责人筛选
 
-Filter issues by who's assigned:
+按负责人筛选事项：
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/filter-assignee.png" alt="Assignee filter dropdown showing team members" />
 </Frame>
 
-**Options:**
-- **Specific team members** - Show issues assigned to selected people
-- **Unassigned** - Show issues with no assignee
+**选项：**
+- **指定团队成员** - 显示分配给所选人员的事项
+- **Unassigned** - 显示未分配的事项
 
-**To filter by assignee:**
-1. Click the **Assignee** dropdown
-2. Select one or more team members, or "Unassigned"
-3. Only matching issues are shown
+**按负责人筛选：**
+1. 点击 **Assignee** 下拉菜单
+2. 选择一个或多个团队成员，或选择"Unassigned"
+3. 只显示匹配的事项
 
 <Info>
-If you select multiple assignees, issues assigned to **any** of them will show (OR logic). An issue assigned to both Alice and Bob shows when filtering for either.
+如果你选择了多个负责人，分配给其中**任意一人**的事项都会显示（OR 逻辑）。分配给 Alice 和 Bob 的事项在筛选其中任一人时都会显示。
 </Info>
 
-### Tags Filter
+### 标签筛选
 
-Filter issues by tags:
+按标签筛选事项：
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/filter-tags.png" alt="Tags filter dropdown showing available tags" />
 </Frame>
 
-**To filter by tags:**
-1. Click the **Tags** dropdown
-2. Select one or more tags
-3. Only issues with at least one selected tag are shown
+**按标签筛选：**
+1. 点击 **Tags** 下拉菜单
+2. 选择一个或多个标签
+3. 只显示包含至少一个所选标签的事项
 
-### Combining Filters
+### 组合筛选
 
-You can use multiple filters at once. When you do:
+你可以同时使用多个筛选器：
 
-- Filters within the same category use **OR** logic
-  - Priority: Urgent OR High → shows both
-- Filters across categories use **AND** logic
-  - Priority: Urgent AND Assignee: Alice → shows urgent issues assigned to Alice
+- 同一类别的筛选器使用 **OR** 逻辑
+  - 优先级：Urgent OR High → 同时显示两者
+- 不同类别的筛选器使用 **AND** 逻辑
+  - 优先级：Urgent AND 负责人：Alice → 显示分配给 Alice 的紧急事项
 
-**Example:** To find high-priority bugs assigned to you:
-1. Set Priority to "High" and "Urgent"
-2. Set Assignee to yourself
-3. Set Tags to "Bug"
+**示例：** 查找分配给你的高优先级 Bug：
+1. 将 Priority 设为"High"和"Urgent"
+2. 将 Assignee 设为你自己
+3. 将 Tags 设为"Bug"
 
-## Sorting
+## 排序
 
-Control the order of issues within each column.
+控制每列中事项的排列顺序。
 
 <Frame>
   <img style={{maxHeight: "350px"}} src="/images/cloud/sort-dropdown.png" alt="Sort dropdown showing Manual, Priority, Created, Updated, and Title options" />
 </Frame>
 
-### Sort Options
+### 排序选项
 
-| Sort By | Description |
+| 排序方式 | 说明 |
 |---------|-------------|
-| **Manual** | Your custom order (drag to reorder) |
-| **Priority** | Urgent first, then High, Medium, Low |
-| **Created** | Newest or oldest first |
-| **Updated** | Recently changed first |
-| **Title** | Alphabetical order |
+| **Manual** | 你的自定义顺序（拖动重新排序） |
+| **Priority** | Urgent 优先，然后是 High、Medium、Low |
+| **Created** | 最新或最旧优先 |
+| **Updated** | 最近更改的优先 |
+| **Title** | 字母顺序 |
 
-### Sort Direction
+### 排序方向
 
-Click the sort direction button to toggle between:
-- **Ascending** (↑) - A→Z, oldest first, low→urgent
-- **Descending** (↓) - Z→A, newest first, urgent→low
+点击排序方向按钮切换：
+- **升序**（↑） - A→Z、最旧优先、低→紧急
+- **降序**（↓） - Z→A、最新优先、紧急→低
 
-### Manual Sort Mode
+### 手动排序模式
 
-When sort is set to **Manual**:
-- You can drag issues to reorder them within columns
-- Your custom order is saved and shared with the team
-- This is the default mode for most workflows
+当排序设置为 **Manual** 时：
+- 你可以拖动事项在列内重新排序
+- 你的自定义顺序会被保存并与团队共享
+- 这是大多数工作流的默认模式
 
 <Warning>
-If you switch away from Manual sort, you **cannot** drag to reorder issues. The order is determined by the selected sort field.
+如果你从 Manual 排序切换到其他方式，你**无法**拖动重新排序事项。顺序由所选排序字段决定。
 </Warning>
 
-## Clearing Filters
+## 清除筛选
 
-### Clear All
+### 全部清除
 
-Click the **Clear All** button to reset all filters and search at once. This shows all issues in the project.
+点击 **Clear All** 按钮一次性重置所有筛选和搜索。这将显示项目中的所有事项。
 
 
-### Clear Individual Filters
+### 清除单个筛选
 
-To clear a single filter:
-1. Click the filter dropdown
-2. Deselect all options
+清除单个筛选器：
+1. 点击筛选下拉菜单
+2. 取消选择所有选项
 
-To clear the search field, click the **×** button inside the search box.
+要清除搜索字段，点击搜索框内的 **x** 按钮。
 
-## Filter Persistence
+## 筛选持久性
 
-Your filter and sort settings are saved for your session:
-- Filters persist when you navigate away and return
-- Filters reset when you switch projects
-- Filters reset when you sign out
+你的筛选和排序设置在当前会话中会保存：
+- 导航离开后返回时筛选保持不变
+- 切换项目时筛选重置
+- 退出登录时筛选重置
 
 <Info>
-Filters are personal - they don't affect what other team members see. Everyone can have their own filter settings.
+筛选是个人设置——不会影响其他团队成员看到的内容。每个人都可以有自己的筛选设置。
 </Info>
 
-## Common Filter Scenarios
+## 常见筛选场景
 
 <AccordionGroup>
-<Accordion title="Show only my assigned issues">
-1. Click the **Assignee** dropdown
-2. Select your name
-3. Only your issues are shown across all columns
+<Accordion title="只显示分配给我的事项">
+1. 点击 **Assignee** 下拉菜单
+2. 选择你的名字
+3. 所有列中只显示你的事项
 </Accordion>
 
-<Accordion title="Find urgent issues that need attention">
-1. Click the **Priority** dropdown
-2. Select "Urgent"
-3. Optionally, also select "High" to include high-priority items
+<Accordion title="查找需要关注的紧急事项">
+1. 点击 **Priority** 下拉菜单
+2. 选择"Urgent"
+3. 可选：也选择"High"以包含高优先级事项
 </Accordion>
 
-<Accordion title="Review all bugs">
-1. Click the **Tags** dropdown
-2. Select the "Bug" tag (or your equivalent)
-3. All bug issues are shown
+<Accordion title="查看所有 Bug">
+1. 点击 **Tags** 下拉菜单
+2. 选择"Bug"标签（或你的等效标签）
+3. 显示所有 Bug 事项
 </Accordion>
 
-<Accordion title="Find unassigned work to pick up">
-1. Click the **Assignee** dropdown
-2. Select "Unassigned"
-3. Browse available issues and assign yourself to one
+<Accordion title="查找未分配的工作">
+1. 点击 **Assignee** 下拉菜单
+2. 选择"Unassigned"
+3. 浏览可用事项并为自己分配一个
 </Accordion>
 
-<Accordion title="See recently updated issues">
-1. Click the **Sort** dropdown
-2. Select "Updated"
-3. Set direction to descending (newest first)
-4. Recently changed issues appear at the top of each column
+<Accordion title="查看最近更新的事项">
+1. 点击 **Sort** 下拉菜单
+2. 选择"Updated"
+3. 将方向设为降序（最新优先）
+4. 最近更改的事项显示在每列的顶部
 </Accordion>
 </AccordionGroup>
 
-## Tips for Efficient Filtering
+## 高效筛选技巧
 
 <CardGroup cols={2}>
-<Card title="Use search for known issues" icon="magnifying-glass">
-  If you know the issue ID or a word in the title, search is the fastest way to find it.
+<Card title="搜索已知事项" icon="magnifying-glass">
+  如果你知道事项 ID 或标题中的某个词，搜索是最快的查找方式。
 </Card>
 
-<Card title="Filter by assignee in standups" icon="users">
-  During team standups, each person can filter to their assignments to give quick updates.
+<Card title="在站会中按负责人筛选" icon="users">
+  在团队站会中，每个人可以筛选自己的任务以快速汇报进展。
 </Card>
 
-<Card title="Combine filters for precision" icon="filter">
-  Use multiple filters together to narrow down exactly what you're looking for.
+<Card title="组合筛选精确定位" icon="filter">
+  同时使用多个筛选器来精确缩小查找范围。
 </Card>
 
-<Card title="Reset filters when stuck" icon="rotate-left">
-  If you can't find something, click Clear All. You might have forgotten about an active filter.
+<Card title="卡住时重置筛选" icon="rotate-left">
+  如果找不到内容，点击 Clear All。你可能是忘记了某个活跃的筛选器。
 </Card>
 </CardGroup>
 
-## Related Documentation
+## 相关文档
 
-- [Kanban Board](/cloud/kanban-board) - Using the board interface
-- [Issues](/cloud/issues) - Understanding issue properties
-- [Customising Your Board](/cloud/customisation) - Setting up tags and statuses
+- [看板视图](/cloud/kanban-board) - 使用看板界面
+- [事项](/cloud/issues) - 了解事项属性
+- [自定义看板](/cloud/customisation) - 设置标签和状态

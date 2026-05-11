@@ -1,52 +1,52 @@
 ---
-title: "Reviewing Code"
-description: "Review diffs, add inline comments, and send feedback to your coding agent"
+title: "代码审查"
+description: "审查差异、添加行内评论，并向编码代理发送反馈"
 ---
 
-After a coding agent finishes work, you review its changes, leave inline comments, and send the agent back to address them. This review-feedback-fix loop repeats until you are satisfied.
+编码代理完成工作后，你审查其更改、留下行内评论，然后将代理送回去处理这些问题。这个审查-反馈-修复的循环会一直重复，直到你满意为止。
 
-## 1. Open the changes panel
+## 1. 打开更改面板
 
-There are three ways to open the changes panel:
+有三种方式打开更改面板：
 
-- Click the **Toggle Changes Panel** button in the navbar
-- Click the changes icon in the **app bar**
-- Open the [command bar](/workspaces/command-bar) from its icon in the navbar or with `Cmd/Ctrl + K`, then search for "Show Changes Panel"
+- 点击导航栏中的 **切换更改面板** 按钮
+- 点击 **应用栏** 中的更改图标
+- 从导航栏中的图标或使用 `Cmd/Ctrl + K` 打开 [命令栏](/workspaces/command-bar)，然后搜索"Show Changes Panel"
 
 <Frame>
   <img src="/images/reviewing-code-agent-idle.png" alt="Workspace showing the Toggle Changes Panel button in the navbar" />
 </Frame>
 
-The changes panel shows the diff viewer in the centre and the file tree on the right.
+更改面板在中间显示差异查看器，右侧显示文件树。
 
 <Frame>
   <img src="/images/reviewing-code-changes-panel.png" alt="Changes panel showing the file tree on the left and diff viewer on the right" />
 </Frame>
 
-## 2. Navigate the file tree
+## 2. 导航文件树
 
-The file tree shows all files that were added, modified, or deleted. Click any file to load its diff in the viewer.
+文件树显示所有被添加、修改或删除的文件。点击任何文件可以在查看器中加载其差异。
 
 <Frame>
   <img src="/images/reviewing-code-file-tree.png" alt="File tree with folders expanded and search box visible" />
 </Frame>
 
-Use the search box at the top to filter files by name. The toggle button in the search bar lets you expand or collapse all folders at once.
+使用顶部的搜索框按名称筛选文件。搜索栏中的切换按钮可以一次性展开或折叠所有文件夹。
 
 <Tip>
-Start with the files you care most about — the main feature file or the entry point — rather than reviewing alphabetically. This gives you context for the rest of the changes.
+从你最关心的文件开始审查 —— 主要功能文件或入口点 —— 而不是按字母顺序审查。这能为你理解其余的更改提供上下文。
 </Tip>
 
-## 3. Read diffs
+## 3. 阅读差异
 
-The diff viewer uses colour coding to show what changed: green for additions, red for deletions, and grey for unchanged context lines.
+差异查看器使用颜色编码来显示更改：绿色表示新增，红色表示删除，灰色表示未更改的上下文行。
 
-You can switch between two view modes:
+你可以在两种视图模式之间切换：
 
-| Mode | Best for | How to switch |
-|------|----------|---------------|
-| **Unified** | Quick scanning, small changes | Diff view toggle in the navbar |
-| **Side-by-Side** | Large refactors, comparing old vs new | Same toggle, or `Cmd/Ctrl + K` → "Switch to Side-by-Side View" |
+| 模式 | 适用场景 | 切换方式 |
+|------|----------|----------|
+| **统一视图** | 快速浏览、小改动 | 导航栏中的差异视图切换按钮 |
+| **并排视图** | 大型重构、对比新旧代码 | 同一切换按钮，或 `Cmd/Ctrl + K` → "Switch to Side-by-Side View" |
 
 <Frame>
   <img src="/images/reviewing-code-unified.png" alt="Unified diff view showing interleaved additions and deletions" />
@@ -56,72 +56,72 @@ You can switch between two view modes:
   <img src="/images/reviewing-code-side-by-side.png" alt="Side-by-side diff view showing additions in green and deletions in red" />
 </Frame>
 
-You can also switch views from the [command bar](/workspaces/command-bar) (`Cmd/Ctrl + K` → "Switch to Side-by-Side View").
+你也可以从 [命令栏](/workspaces/command-bar) 切换视图（`Cmd/Ctrl + K` → "Switch to Side-by-Side View"）。
 
-## 4. Add inline comments
+## 4. 添加行内评论
 
-To leave feedback on a specific line, hover over it in the diff and click the comment icon that appears. Write your comment and submit it.
+要对特定行留下反馈，在差异中悬停该行并点击出现的评论图标。编写你的评论并提交。
 
 <Frame>
   <img style={{maxHeight: "300px"}} src="/images/reviewing-code-inline-comment.png" alt="Inline comment being written on a diff line with the Add Review Comment button" />
 </Frame>
 
-Good comments are specific and actionable. Here are some examples:
+好的评论应该是具体且可操作的。以下是一些示例：
 
-| Comment type | Example |
-|-------------|---------|
-| **Request a change** | "This endpoint should validate the user ID before querying the database." |
-| **Ask a question** | "Why did you choose a Map here instead of a plain object?" |
-| **Provide context** | "This function is called from the auth middleware — it needs to handle expired tokens." |
+| 评论类型 | 示例 |
+|----------|------|
+| **请求更改** | "这个 API 端点在查询数据库之前应该验证用户 ID。" |
+| **提出问题** | "你为什么在这里选择 Map 而不是普通对象？" |
+| **提供上下文** | "这个函数是从 auth 中间件调用的 —— 它需要处理过期令牌的情况。" |
 
 <Warning>
-Comments are not sent individually. They are collected and submitted together when you send a message in the chat.
+评论不会单独发送。它们会在你发送聊天消息时被收集并一起提交。
 </Warning>
 
-## 5. Send feedback to the agent
+## 5. 向代理发送反馈
 
-After adding your comments, send them to the agent. You can include an optional message for extra context, or just send the comments on their own. A badge shows how many review comments will be included.
+添加评论后，将它们发送给代理。你可以包含一条可选的附加消息以提供更多上下文，或者直接发送评论。徽章会显示将包含多少条审查评论。
 
 <Frame>
   <img src="/images/reviewing-code-agent-response.png" alt="Chat showing review comments being sent to the agent" />
 </Frame>
 
-The agent sees all inline comments as context and works through them.
+代理会将所有行内评论作为上下文，并逐一处理它们。
 
-## Troubleshooting
+## 故障排除
 
 <AccordionGroup>
-<Accordion title="The changes panel is empty">
-- The agent may not have made any changes yet — check the workspace status
-- If all changes were committed and pushed, the panel resets. Check the Git section for the latest commit.
+<Accordion title="更改面板为空">
+- 代理可能还没有进行任何更改 —— 检查工作区状态
+- 如果所有更改已提交并推送，面板会重置。在 Git 部分查看最新提交。
 </Accordion>
 
-<Accordion title="I can't see my inline comments after sending">
-Comments are consumed when you send a message. They become part of the chat history. Add new comments for the next review round.
+<Accordion title="发送后看不到行内评论">
+评论在你发送消息时会被消耗。它们会成为聊天历史的一部分。为下一轮审查添加新评论。
 </Accordion>
 
-<Accordion title="The agent didn't address my comment">
-Be more specific. Instead of "this is wrong", explain what is wrong and suggest a fix. Reference exact line numbers or variable names so the agent knows exactly where to look.
+<Accordion title="代理没有处理我的评论">
+要更加具体。与其说"这不对"，不如解释哪里不对并建议修复方案。引用确切的行号或变量名，让代理准确知道在哪里查看。
 </Accordion>
 
 </AccordionGroup>
 
-## Next steps
+## 下一步
 
 <CardGroup cols={2}>
-  <Card title="Issue Management" icon="list-check" href="/issue-management">
-    Create and organise issues on the kanban board
+  <Card title="问题管理" icon="list-check" href="/issue-management">
+    在看板上创建和组织问题
   </Card>
 
-  <Card title="Browser Testing" icon="browser" href="/browser-testing">
-    Preview your app in the built-in browser
+  <Card title="浏览器测试" icon="browser" href="/browser-testing">
+    在内置浏览器中预览你的应用
   </Card>
 
-  <Card title="Changes Panel" icon="code-compare" href="/workspaces/changes">
-    Full reference for diff viewer and comment features
+  <Card title="更改面板" icon="code-compare" href="/workspaces/changes">
+    差异查看器和评论功能的完整参考
   </Card>
 
-  <Card title="Git Operations" icon="code-branch" href="/workspaces/git-operations">
-    Create pull requests, rebase, merge, and manage branches
+  <Card title="Git 操作" icon="code-branch" href="/workspaces/git-operations">
+    创建 Pull Request、rebase、合并和管理分支
   </Card>
 </CardGroup>

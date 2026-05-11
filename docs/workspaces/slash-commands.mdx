@@ -1,92 +1,92 @@
 ---
-title: "Slash Commands"
-description: "Use slash commands to run agent commands directly from the chat input"
+title: "斜杠命令"
+description: "使用斜杠命令从聊天输入直接运行 Agent 命令"
 ---
 
 <Frame>
-<img src="/images/workspaces-slash-commands.png" alt="Slash command typeahead showing available commands when typing a forward slash" />
+<img src="/images/workspaces-slash-commands.png" alt="斜杠命令自动补全在输入正斜杠时显示可用命令" />
 </Frame>
 
-Slash commands are shortcuts for common actions within your coding agent. Type `/` followed by a command name to run operations like compacting conversation history, initializing project documentation, or reviewing code changes.
+斜杠命令是编码 Agent 中常用操作的快捷方式。输入 `/` 后跟命令名称来运行操作，如压缩对话历史、初始化项目文档或审查代码变更。
 
-## Using Slash Commands
+## 使用斜杠命令
 
-To use a slash command:
+使用斜杠命令：
 
-1. Type `/` at the beginning of a new line in the chat input
-2. A typeahead menu appears showing available commands
-3. Continue typing to filter the list, or use arrow keys to navigate
-4. Press **Enter** or click to select a command
-5. Add any arguments after the command name (some commands accept optional parameters)
-6. Send the message as normal
+1. 在聊天输入的新行开头输入 `/`
+2. 出现自动补全菜单显示可用命令
+3. 继续输入以筛选列表，或使用方向键导航
+4. 按 **Enter** 或点击选择命令
+5. 在命令名称后添加任何参数（某些命令接受可选参数）
+6. 像平常一样发送消息
 
 <Tip>
-Some commands accept optional arguments. For example, with Claude Code or Codex, `/compact focus on the authentication changes` will compact the conversation while emphasising the authentication work in the summary.
+某些命令接受可选参数。例如，使用 Claude Code 或 Codex 时，`/compact focus on the authentication changes` 会在压缩对话的同时在摘要中强调认证相关的工作。
 </Tip>
 
-## Available Commands by Agent
+## 按 Agent 分类的可用命令
 
-The available slash commands depend on which coding agent you're using. Vibe Kanban discovers and exposes the same commands you'd have in the agent's native CLI, so the experience matches what you're used to.
+可用的斜杠命令取决于你使用的编码 Agent。Vibe Kanban 会发现并暴露与 Agent 原生 CLI 中相同的命令，因此体验与你习惯的一致。
 
 <Note>
-Some built-in commands that require TUI interaction (such as `/model` or `/theme`) are not currently supported in Vibe Kanban. Only non-interactive commands are available.
+某些需要 TUI 交互的内置命令（如 `/model` 或 `/theme`）目前在 Vibe Kanban 中不受支持。只有非交互式命令可用。
 </Note>
 
 ### Claude Code
 
-Claude Code provides built-in commands, user-defined commands, and skills. For full details, see the [built-in commands](https://code.claude.com/docs/en/interactive-mode#built-in-commands) and [skills](https://code.claude.com/docs/en/skills) documentation.
+Claude Code 提供内置命令、用户定义命令和技能。完整详情请参阅[内置命令](https://code.claude.com/docs/en/interactive-mode#built-in-commands)和[技能](https://code.claude.com/docs/en/skills)文档。
 
-| Command | Description |
-|---------|-------------|
-| `/compact` | Clear conversation history but keep a summary in context |
-| `/review` | Review a pull request |
-| `/security-review` | Complete a security review of pending changes |
-| `/init` | Initialize a new CLAUDE.md file with codebase documentation |
-| `/pr-comments` | Get comments from a GitHub pull request |
-| `/context` | Visualize current context usage |
-| `/cost` | Show the total cost and duration of the current session |
-| `/release-notes` | View release notes |
+| 命令 | 描述 |
+|------|------|
+| `/compact` | 清除对话历史但保留摘要到上下文中 |
+| `/review` | 审查一个 Pull Request |
+| `/security-review` | 对待处理的变更进行完整的安全审查 |
+| `/init` | 初始化一个新的 CLAUDE.md 文件及代码库文档 |
+| `/pr-comments` | 获取 GitHub Pull Request 的注释 |
+| `/context` | 可视化当前上下文使用量 |
+| `/cost` | 显示当前会话的总成本和持续时间 |
+| `/release-notes` | 查看发布说明 |
 
-Any custom commands or skills you've installed will also appear in the typeahead.
+你安装的任何自定义命令或技能也会出现在自动补全中。
 
 ### OpenAI Codex
 
-Vibe Kanban surfaces a curated subset of Codex built-in commands. For the full upstream list, see the [Codex slash commands documentation](https://developers.openai.com/codex/cli/slash-commands/).
+Vibe Kanban 提供了 Codex 内置命令的精选子集。完整上游列表请参阅 [Codex 斜杠命令文档](https://developers.openai.com/codex/cli/slash-commands/)。
 
-| Command | Description |
-|---------|-------------|
-| `/compact` | Summarize the conversation to free tokens |
-| `/init` | Generate an AGENTS.md scaffold in the current directory |
-| `/status` | Display session configuration and token usage |
-| `/mcp` | List configured MCP tools |
-| `/model` | View or switch the active model |
-| `/fast` | Toggle or inspect fast mode |
+| 命令 | 描述 |
+|------|------|
+| `/compact` | 总结对话以释放 Token |
+| `/init` | 在当前目录中生成 AGENTS.md 脚手架 |
+| `/status` | 显示会话配置和 Token 使用量 |
+| `/mcp` | 列出已配置的 MCP 工具 |
+| `/model` | 查看或切换活跃模型 |
+| `/fast` | 切换或检查快速模式 |
 
 ### OpenCode
 
-OpenCode provides built-in commands and custom commands. For full details, see the [built-in commands](https://opencode.ai/docs/tui/#commands) and [custom commands](https://opencode.ai/docs/commands) documentation.
+OpenCode 提供内置命令和自定义命令。完整详情请参阅[内置命令](https://opencode.ai/docs/tui/#commands)和[自定义命令](https://opencode.ai/docs/commands)文档。
 
-| Command | Description |
-|---------|-------------|
-| `/compact` | Compact the session |
-| `/commands` | Show all available commands |
-| `/models` | List available models |
-| `/agents` | List available agents |
-| `/status` | Show status information |
-| `/mcp` | Show MCP server status |
+| 命令 | 描述 |
+|------|------|
+| `/compact` | 压缩会话 |
+| `/commands` | 显示所有可用命令 |
+| `/models` | 列出可用模型 |
+| `/agents` | 列出可用 Agent |
+| `/status` | 显示状态信息 |
+| `/mcp` | 显示 MCP 服务器状态 |
 
-## Command Discovery
+## 命令发现
 
-When you select an agent, Vibe Kanban automatically discovers the available slash commands. You'll see "Discovering commands..." in the typeahead while this happens.
+当你选择 Agent 时，Vibe Kanban 会自动发现可用的斜杠命令。在此过程中，你会在自动补全中看到"正在发现命令..."。
 
-Commands are cached per workspace and agent, so subsequent uses are instant.
+命令按工作空间和 Agent 缓存，因此后续使用是即时的。
 
 <Info>
-If you add new custom commands to your agent's configuration, switch to a different agent and back, or create a new session to refresh the command list.
+如果你在 Agent 配置中添加了新的自定义命令，切换到不同的 Agent 再切回来，或创建新会话来刷新命令列表。
 </Info>
 
-## Related Documentation
+## 相关文档
 
-- [Chat Interface](/workspaces/chat-interface) - Complete guide to the conversation panel
-- [Sessions](/workspaces/sessions) - Managing conversation sessions
-- [Supported Coding Agents](/supported-coding-agents) - Agent setup and configuration
+- [聊天界面](/workspaces/chat-interface) - 对话面板完整指南
+- [会话](/workspaces/sessions) - 管理对话会话
+- [支持的编码 Agent](/supported-coding-agents) - Agent 设置和配置

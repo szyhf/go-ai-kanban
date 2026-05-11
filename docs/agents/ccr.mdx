@@ -1,103 +1,103 @@
 ---
 title: "CCR (Claude Code Router)"
-description: "Set up CCR to orchestrate multiple Claude Code models"
+description: "设置 CCR 以编排多个 Claude Code 模型"
 icon: https://www.vibekanban.com/images/logos/claude.svg#"
 ---
 
-CCR (Claude Code Router) lets you route coding prompts across different LLM providers and models, and select specialised models for specific tasks like long context, background work, or image understanding.
+CCR (Claude Code Router) 可以将编码提示路由到不同的 LLM 提供商和模型，并为特定任务选择专用模型，例如长上下文、后台任务或图像理解。
 
 <Warning>
-CCR is not affiliated with, endorsed by, or connected to Claude Code or Anthropic. It is a third-party tool.
+CCR 与 Claude Code 或 Anthropic 没有任何关联、背书或连接。它是一个第三方工具。
 </Warning>
 
-## Installation
-CCR is available via `npx` – no separate installation required.
+## 安装
+CCR 可通过 `npx` 使用——无需单独安装。
 
 ```bash
 npx -y @musistudio/claude-code-router ui
 ```
 
-This launches the CCR local UI where you configure providers and models.
+这将启动 CCR 本地 UI，你可以在其中配置提供商和模型。
 
-## Authentication
-Authenticate and configure CCR outside of Vibe Kanban. Follow the instructions on the CCR GitHub repo:
+## 身份验证
+在 Vibe Kanban 之外完成 CCR 的身份验证和配置。请按照 CCR GitHub 仓库中的说明操作：
 
 - GitHub: https://github.com/musistudio/claude-code-router
 
-You'll add providers, set API keys, and register model names in the CCR UI or via CCR's JSON configuration (see the CCR repo for the schema and file location).
+你需要在 CCR UI 中添加提供商、设置 API 密钥并注册模型名称，或者通过 CCR 的 JSON 配置完成（有关 schema 和文件位置请参阅 CCR 仓库）。
 
-## Configure CCR (Providers and Models)
+## 配置 CCR（提供商和模型）
 
-Configure CCR either via the UI or JSON config.
+可以通过 UI 或 JSON 配置来配置 CCR。
 
-In the CCR UI (`npx -y @musistudio/claude-code-router ui`):
+在 CCR UI 中（`npx -y @musistudio/claude-code-router ui`）：
 
-1) Add providers
-- Choose a provider (e.g., `openrouter`, `deepseek`, etc.).
-- Enter the required API key(s) and settings for that provider.
+1) 添加提供商
+- 选择一个提供商（例如 `openrouter`、`deepseek` 等）。
+- 输入该提供商所需的 API 密钥和设置。
 
-2) Add models
-- For each provider, register the model identifier (e.g., `moonshotai/kimi-k2-0905`, `deepseek-chat`).
-- CCR supports configuring different models for specific cases:
-  - `default`: general coding
-  - `background`: lightweight/background operations
-  - `think`: models that support "thinking" modes
-  - `longContext`: very long inputs/files
-  - `webSearch`: models that support web/tool use
-  - `image`: models with vision capabilities
+2) 添加模型
+- 为每个提供商注册模型标识符（例如 `moonshotai/kimi-k2-0905`、`deepseek-chat`）。
+- CCR 支持为特定场景配置不同的模型：
+  - `default`：通用编码
+  - `background`：轻量级/后台操作
+  - `think`：支持"思考"模式的模型
+  - `longContext`：超长输入/文件
+  - `webSearch`：支持网络/工具使用的模型
+  - `image`：具备视觉能力的模型
 
-Note: not all models support web search, thinking, or images. Choose models accordingly in the CCR UI.
+注意：并非所有模型都支持网络搜索、思考或图像功能。请在 CCR UI 中选择相应的模型。
 
-### Configure via JSON (optional)
-CCR can also be configured via its JSON configuration file. Refer to the CCR GitHub documentation for the exact schema, keys, and file location. Define providers (with API keys) and map the model cases (`default`, `background`, `think`, `longContext`, `webSearch`, `image`) to specific provider/model pairs.
+### 通过 JSON 配置（可选）
+CCR 也可以通过其 JSON 配置文件进行配置。有关确切的 schema、键名和文件位置，请参阅 CCR GitHub 文档。定义提供商（包含 API 密钥）并将模型场景（`default`、`background`、`think`、`longContext`、`webSearch`、`image`）映射到特定的提供商/模型对。
 
-### Example: OpenRouter provider configured in CCR UI
+### 示例：在 CCR UI 中配置 OpenRouter 提供商
 
 <Frame>
 <img src="/images/ccr-openrouter-ui.png" alt="OpenRouter configured in CCR UI" />
 </Frame>
 
-### Example: CCR model mapping (default/background/think/etc.)
+### 示例：CCR 模型映射（default/background/think 等）
 
 <Frame>
 <img src="/images/ccr-config-example.png" alt="CCR models configuration example" />
 </Frame>
 
-## Configure Vibe Kanban
+## 配置 Vibe Kanban
 
-Vibe Kanban does not ship a default configuration for CCR. Add configurations to the existing Claude Code agent:
+Vibe Kanban 不附带 CCR 的默认配置。你需要在现有的 Claude Code agent 上添加配置：
 
-1) Open the "Coding Agent Configurations" page.
-2) Add a new configuration for the Claude Code agent (or edit an existing one).
-3) Enable the `claude_code_router` checkbox.
-4) Optionally set a model string to target a specific CCR provider/model.
+1) 打开"编程 Agent 配置"页面。
+2) 为 Claude Code agent 添加新配置（或编辑现有配置）。
+3) 启用 `claude_code_router` 复选框。
+4) 可选择设置模型字符串以指定特定的 CCR 提供商/模型。
 
-See the [Agent Profiles & Variants](/settings/agent-configurations) guide for managing agent configurations.
+有关管理 agent 配置的更多信息，请参阅 [Agent 配置与变体](/settings/agent-configurations) 指南。
 
-Model string format: `<provider>,<model-name>`
+模型字符串格式：`<provider>,<model-name>`
 
-Examples:
+示例：
 ```text
 openrouter,moonshotai/kimi-k2-0905
 deepseek,deepseek-chat
 ```
 
-Tips:
-- Create multiple configurations if you want easy switching between different models.
-- Leave the model string empty if you want CCR to use its own routing based on your CCR UI configuration (e.g., its `default`/`longContext`/etc. mappings).
+提示：
+- 如果你想在不同模型之间方便地切换，可以创建多个配置。
+- 如果希望 CCR 根据你的 CCR UI 配置（例如 `default`/`longContext` 等映射）自行路由，请将模型字符串留空。
 
-### Example: Claude Code agent configuration in Vibe Kanban
+### 示例：Vibe Kanban 中的 Claude Code agent 配置
 
 <Frame>
 <img src="/images/vk-ccr-agent-config.png" alt="Claude Code agent configuration in Vibe Kanban" />
 </Frame>
 
-## Using CCR in Vibe Kanban
+## 在 Vibe Kanban 中使用 CCR
 
-When creating a Task Attempt, select the coding agent and configuration: choose the Claude Code agent, then pick one of your CCR-enabled configurations.
+创建任务尝试时，选择编码 agent 和配置：选择 Claude Code agent，然后选择一个已启用 CCR 的配置。
 
-## Troubleshooting
+## 故障排除
 
-- Authentication errors: verify your API keys/provider settings in CCR (via UI or JSON config).
-- Model not found: confirm the model identifier is correct for the chosen provider.
-- Missing features (webSearch/think/image): switch to a model that supports the capability and update your CCR mapping (via UI or JSON config).
+- 身份验证错误：在 CCR 中验证你的 API 密钥/提供商设置（通过 UI 或 JSON 配置）。
+- 找不到模型：确认所选提供商的模型标识符是否正确。
+- 功能缺失（webSearch/think/image）：切换到支持该功能的模型并更新 CCR 映射（通过 UI 或 JSON 配置）。

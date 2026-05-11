@@ -1,76 +1,76 @@
 ---
-title: "Creating Subtasks"
-description: "Learn how to create and manage subtasks to break down complex work into smaller, manageable pieces"
+title: "创建子任务"
+description: "了解如何创建和管理子任务，将复杂工作拆分为更小的可管理部分"
 ---
 
-Subtasks allow you to break down complex tasks into smaller, more manageable pieces. Each subtask is linked to a specific task attempt and inherits the same project and branch context.
+子任务允许你将复杂任务拆分为更小、更易管理的部分。每个子任务都关联到特定的任务尝试，并继承相同的项目和分支上下文。
 
-## Creating Subtasks
+## 创建子任务
 
 <Frame>
-<img src="/images/vk-create-subtask-button.png" alt="Current attempt toolbar showing the Create Subtask button with GitFork icon" />
+<img src="/images/vk-create-subtask-button.png" alt="当前尝试工具栏，显示带有 GitFork 图标的创建子任务按钮" />
 </Frame>
 
-To create a subtask from an existing task attempt:
+要从现有任务尝试创建子任务：
 
 <Steps>
-<Step title="Navigate to the task attempt">
-  Open the task you want to create subtasks for.
+<Step title="导航到任务尝试">
+  打开你想要创建子任务的任务。
 </Step>
 
-<Step title="Click Create Subtask">
-  Click the triple dot icon in the top right of the task, then select **Create Subtask**.
+<Step title="点击 Create Subtask">
+  点击任务右上角的三点图标，然后选择 **Create Subtask**。
 </Step>
 
-<Step title="Fill in subtask details">
-  The task creation dialog opens with the parent task attempt and base branch automatically set. Add your subtask title and description.
+<Step title="填写子任务详情">
+  任务创建对话框会打开，父任务尝试和基础分支会自动设置。添加你的子任务标题和描述。
 </Step>
 
-<Step title="Save the subtask">
-  Click **Save** to create the subtask. It will appear as a new task on your kanban board.
+<Step title="保存子任务">
+  点击 **Save** 创建子任务。它将作为新任务出现在你的看板上。
 </Step>
 </Steps>
 
 <Note>
-When you create a subtask, it automatically inherits the base branch from its parent task attempt, ensuring consistency in your development workflow.
+创建子任务时，它会自动继承父任务尝试的基础分支，确保开发工作流的一致性。
 </Note>
 
-## Viewing Tasks with Subtasks
+## 查看带有子任务的任务
 
 <Frame>
-<img src="/images/screenshot-task-with-subtasks.png" alt="Task view showing a parent task with its associated subtasks listed in the Task Relationships panel" />
+<img src="/images/screenshot-task-with-subtasks.png" alt="任务视图，显示父任务及其关联的子任务列在任务关系面板中" />
 </Frame>
 
-When viewing a parent task, you can see its subtasks in the **Task Relationships** panel. This collapsible section shows:
+查看父任务时，你可以在 **Task Relationships** 面板中看到其子任务。这个可折叠的部分显示：
 
-- **Child Tasks** with a count (e.g., "CHILD TASKS (1)")
-- Individual subtask titles with links to view them
-- Easy navigation between parent and child tasks
+- **Child Tasks** 及其数量（如"CHILD TASKS (1)"）
+- 各个子任务的标题及查看链接
+- 在父任务和子任务之间方便的导航
 
-This helps you track progress across all related work items and understand the task hierarchy at a glance.
+这有助于你跟踪所有相关工作项的进度，并一目了然地了解任务层级结构。
 
-## Viewing Subtask Details
+## 查看子任务详情
 
 <Frame>
-<img src="/images/screenshot-subtask-parent-info.png" alt="Subtask detail view showing parent task information in the Task Relationships panel" />
+<img src="/images/screenshot-subtask-parent-info.png" alt="子任务详情视图，在任务关系面板中显示父任务信息" />
 </Frame>
 
-When viewing a subtask, the **Task Relationships** panel displays:
+查看子任务时，**Task Relationships** 面板显示：
 
-- **Parent Task** section showing the parent task title
-- Direct link to navigate to the parent task
-- Clear visual indication that this is a child task
-- Context about the parent-child relationship
+- **Parent Task** 部分显示父任务标题
+- 导航到父任务的直接链接
+- 明确的视觉标识表明这是一个子任务
+- 关于父子关系的上下文信息
 
-The subtask also shows its own **Create Subtask** button, allowing you to create nested subtasks if needed.
+子任务也有自己的 **Create Subtask** 按钮，允许你在需要时创建嵌套的子任务。
 
-## How Subtasks Work
+## 子任务的工作原理
 
-Subtasks in Vibe Kanban follow these key principles:
+Vibe Kanban 中的子任务遵循以下关键原则：
 
-### Git Branching Workflow
+### Git 分支工作流
 
-Subtasks create their own feature branches that can work independently while maintaining connection to the parent task:
+子任务创建自己的功能分支，可以独立工作，同时保持与父任务的连接：
 
 ```mermaid
 gitGraph
@@ -109,20 +109,20 @@ gitGraph
     merge feature/parent-task
 ```
 
-### Parent-Child Relationships
+### 父子关系
 
-- Subtasks are linked to specific **task attempts**, not just tasks
-- Each subtask knows which attempt created it
-- Multiple subtasks can be created from the same parent attempt
+- 子任务关联到特定的**任务尝试**，而不仅仅是任务
+- 每个子任务知道是哪个尝试创建了它
+- 可以从同一个父尝试创建多个子任务
 
-### Branch Inheritance
+### 分支继承
 
-- Subtasks automatically inherit the base branch from their parent attempt
-- This ensures subtasks work within the same development context
-- You can modify the branch when creating the subtask if needed
+- 子任务自动从父尝试继承基础分支
+- 这确保子任务在相同的开发上下文中工作
+- 如果需要，你可以在创建子任务时修改分支
 
-### Independent Task Lifecycle
+### 独立的任务生命周期
 
-- Subtasks appear as regular tasks on your kanban board
-- Each subtask has its own lifecycle (To do → In Progress → In Review → Done)
-- Subtasks can have their own task attempts and coding agents
+- 子任务在看板上显示为常规任务
+- 每个子任务有自己的生命周期（To do → In Progress → In Review → Done）
+- 子任务可以有自己的任务尝试和编程代理
